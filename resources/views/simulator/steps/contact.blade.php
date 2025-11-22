@@ -70,24 +70,6 @@
                 </div>
             </div>
         @endif
-        
-        <!-- Debug Info - TOUJOURS VISIBLE -->
-        <div class="bg-yellow-100 border-2 border-yellow-600 p-6 mb-6 rounded-xl">
-            <p class="font-bold text-yellow-900 text-lg mb-3">
-                <i class="fas fa-info-circle mr-2"></i>
-                Debug Info - Données en Session :
-            </p>
-            <div class="bg-white p-4 rounded-lg text-sm font-mono">
-                <p class="mb-2"><strong>work_types:</strong> {{ isset($data['work_types']) ? json_encode($data['work_types']) : '❌ MANQUANT' }}</p>
-                <p class="mb-2"><strong>urgency:</strong> {{ $data['urgency'] ?? '❌ MANQUANT' }}</p>
-                <p class="mb-2"><strong>property_type:</strong> {{ $data['property_type'] ?? '❌ MANQUANT' }}</p>
-                <p class="mb-2"><strong>description:</strong> {{ isset($data['description']) ? '✅ Présent' : '⚠️ Vide' }}</p>
-                <p class="mb-2"><strong>photo_paths:</strong> {{ isset($data['photo_paths']) ? count($data['photo_paths']) . ' photo(s)' : '⚠️ Aucune' }}</p>
-            </div>
-            <p class="text-yellow-800 mt-3 font-semibold">
-                Si des données sont MANQUANTES ci-dessus, recommencez le simulateur depuis le début.
-            </p>
-        </div>
 
         <!-- Form -->
         <form method="POST" action="{{ route('simulator.submit', 'contact') }}" id="contact-form">

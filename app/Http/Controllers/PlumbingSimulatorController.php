@@ -351,65 +351,45 @@ class PlumbingSimulatorController extends Controller
                 // Ne pas bloquer si la création du client échoue
             }
 
-            // Envoyer l'email à l'entreprise (notification admin)
+            // Envoyer l'email à l'admin/entreprise
             try {
                 $companyEmail = Setting::get('company_email');
-                $adminEmail = Setting::get('admin_email', $companyEmail); // Email admin si configuré
+                $adminNotificationEmail = Setting::get('admin_notification_email'); // Email de notification admin
                 
-                Log::info('Email configuration check', [
-                    'company_email' => $companyEmail,
-                    'admin_email' => $adminEmail,
-                    'config_mail_from' => config('mail.from.address'),
-                ]);
+                // Déterminer les destinataires
+                $recipients = [];
                 
-                if (!empty($companyEmail)) {
-                    // Envoyer au company email
-                    Log::info('Sending notification to company', ['to' => $companyEmail]);
+                if (!empty($adminNotificationEmail)) {
+                    $recipients[] = $adminNotificationEmail;
+                    Log::info('Admin notification email configured', ['admin_email' => $adminNotificationEmail]);
+                } elseif (!empty($companyEmail)) {
+                    $recipients[] = $companyEmail;
+                    Log::info('Using company email for notification', ['company_email' => $companyEmail]);
+                } else {
+                    Log::warning('⚠️ No email configured for notifications');
+                }
+                
+                // Envoyer à tous les destinataires
+                foreach ($recipients as $email) {
+                    Log::info('Sending admin notification', ['to' => $email]);
                     
                     try {
                         Mail::send('emails.simulator-admin-notification', [
                             'submission' => $submission,
                             'data' => $data,
                             'workTypes' => $workTypes,
-                        ], function ($mail) use ($companyEmail, $submission) {
-                            $mail->to($companyEmail)
+                        ], function ($mail) use ($email, $submission) {
+                            $mail->to($email)
                                  ->subject('🔔 Nouvelle demande de devis - Simulateur #' . str_pad($submission->id, 4, '0', STR_PAD_LEFT));
                         });
                         
-                        Log::info('✅ Notification email sent to company: ' . $companyEmail);
+                        Log::info('✅ Admin notification sent successfully to: ' . $email);
                     } catch (\Exception $mailError) {
-                        Log::error('Failed to send notification to company', [
+                        Log::error('Failed to send admin notification', [
                             'error' => $mailError->getMessage(),
-                            'to' => $companyEmail,
+                            'to' => $email,
                         ]);
                     }
-                }
-                
-                // Si admin_email est différent, envoyer aussi à l'admin
-                if (!empty($adminEmail) && $adminEmail !== $companyEmail) {
-                    Log::info('Sending notification to admin', ['to' => $adminEmail]);
-                    
-                    try {
-                        Mail::send('emails.simulator-admin-notification', [
-                            'submission' => $submission,
-                            'data' => $data,
-                            'workTypes' => $workTypes,
-                        ], function ($mail) use ($adminEmail, $submission) {
-                            $mail->to($adminEmail)
-                                 ->subject('🔔 Nouvelle demande de devis - Simulateur #' . str_pad($submission->id, 4, '0', STR_PAD_LEFT));
-                        });
-                        
-                        Log::info('✅ Notification email sent to admin: ' . $adminEmail);
-                    } catch (\Exception $mailError) {
-                        Log::error('Failed to send notification to admin', [
-                            'error' => $mailError->getMessage(),
-                            'to' => $adminEmail,
-                        ]);
-                    }
-                }
-                
-                if (empty($companyEmail) && empty($adminEmail)) {
-                    Log::warning('⚠️ No email configured - Skipping notifications');
                 }
                 
                 // Envoyer un email de confirmation au client
