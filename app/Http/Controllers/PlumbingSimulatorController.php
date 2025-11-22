@@ -307,8 +307,9 @@ class PlumbingSimulatorController extends Controller
             $submission->email = $data['email'];
             $submission->postal_code = $data['postal_code'] ?? '';
             $submission->city = $data['city'] ?? '';
-            $submission->status = 'IN_PROGRESS'; // Valeur ENUM valide
+            $submission->status = 'COMPLETED'; // Formulaire terminé avec succès
             $submission->current_step = 'email'; // Dernière étape
+            $submission->completed_at = now(); // Date de complétion
             $submission->ip_address = request()->ip();
             $submission->user_agent = request()->userAgent();
             
