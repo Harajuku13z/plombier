@@ -54,7 +54,7 @@ class EmergencyController extends Controller
                 'address' => $validated['address'],
                 'message' => $validated['description'],
                 'is_emergency' => true,
-                'status' => 'pending',
+                'status' => 'IN_PROGRESS',
                 'urgency_level' => 'urgent', // Très urgent
             ]);
 
@@ -84,7 +84,7 @@ class EmergencyController extends Controller
                 Log::error('Erreur envoi email urgence: ' . $e->getMessage());
             }
 
-            return redirect()->route('emergency.success')->with('success', 'Votre demande d\'urgence a été envoyée. Nous vous contactons dans les plus brefs délais !');
+            return redirect()->route('urgence.success')->with('success', 'Votre demande d\'urgence a été envoyée. Nous vous contactons dans les plus brefs délais !');
 
         } catch (\Exception $e) {
             Log::error('Erreur soumission urgence', [
