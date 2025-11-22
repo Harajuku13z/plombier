@@ -252,26 +252,31 @@ class PlumbingSimulatorController extends Controller
 
             $message .= "Adresse : {$data['address']}, {$data['postal_code']} {$data['city']}\n";
 
-            // Créer la soumission
-            $submission = Submission::create([
-                'name' => $data['name'],
-                'email' => $data['email'],
-                'phone' => $data['phone'],
-                'work_type' => implode(', ', $selectedWorkTypes),
-                'property_type' => $data['property_type'],
-                'urgency_level' => $data['urgency'],
-                'address' => $data['address'],
-                'city' => $data['city'],
-                'postal_code' => $data['postal_code'],
-                'message' => $message,
-                'source' => 'simulator',
-                'status' => 'pending',
-            ]);
+            // Créer la soumission avec les champs du modèle
+            $submission = new Submission();
+            $submission->session_id = session()->getId();
+            $submission->property_type = $data['property_type'] ?? 'house';
+            $submission->work_types = $selectedWorkTypes; // Array - sera casté automatiquement
+            $submission->phone = $data['phone'];
+            $submission->email = $data['email'];
+            $submission->postal_code = $data['postal_code'] ?? '';
+            $submission->city = $data['city'] ?? '';
+            $submission->status = 'pending';
+            $submission->current_step = 'completed';
+            $submission->ip_address = request()->ip();
+            $submission->user_agent = request()->userAgent();
             
-            // Gérer les photos si présentes
-            if (!empty($data['photo_paths'])) {
-                $submission->update(['photos' => json_encode($data['photo_paths'])]);
-            }
+            // Stocker toutes les données dans form_data
+            $submission->form_data = [
+                'name' => $data['name'],
+                'address' => $data['address'],
+                'urgency' => $data['urgency'],
+                'description' => $data['description'] ?? '',
+                'work_types_names' => $workTypeNames,
+                'photo_paths' => $data['photo_paths'] ?? [],
+            ];
+            
+            $submission->save();
 
             // Envoyer l'email
             try {

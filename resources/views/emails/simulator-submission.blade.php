@@ -47,7 +47,7 @@
                             <table width="100%" cellpadding="8" cellspacing="0" style="margin-bottom: 25px;">
                                 <tr>
                                     <td style="color: #6b7280; width: 30%;"><strong>Nom :</strong></td>
-                                    <td style="color: #1f2937; font-weight: 600;">{{ $submission->name }}</td>
+                                    <td style="color: #1f2937; font-weight: 600;">{{ $submission->form_data['name'] ?? 'N/A' }}</td>
                                 </tr>
                                 <tr>
                                     <td style="color: #6b7280;"><strong>Email :</strong></td>
@@ -67,7 +67,7 @@
                                 </tr>
                                 <tr>
                                     <td style="color: #6b7280;"><strong>Adresse :</strong></td>
-                                    <td style="color: #1f2937;">{{ $submission->address }}, {{ $submission->postal_code }} {{ $submission->city }}</td>
+                                    <td style="color: #1f2937;">{{ $submission->form_data['address'] ?? '' }}, {{ $submission->postal_code }} {{ $submission->city }}</td>
                                 </tr>
                             </table>
 
@@ -79,15 +79,22 @@
                                 <tr>
                                     <td style="color: #6b7280; width: 30%;"><strong>Type de travaux :</strong></td>
                                     <td style="color: #1f2937; font-weight: 600;">
-                                        {{ $workTypes[$data['work_type']]['name'] ?? $data['work_type'] }}
+                                        @if(is_array($submission->work_types))
+                                            {{ implode(', ', array_map(function($type) use ($workTypes) {
+                                                return $workTypes[$type]['name'] ?? $type;
+                                            }, $submission->work_types)) }}
+                                        @else
+                                            {{ $submission->work_types }}
+                                        @endif
                                     </td>
                                 </tr>
                                 <tr>
                                     <td style="color: #6b7280;"><strong>Urgence :</strong></td>
                                     <td style="color: #1f2937;">
-                                        @if($submission->urgency_level == 'emergency')
+                                        @php $urgency = $submission->form_data['urgency'] ?? 'normal'; @endphp
+                                        @if($urgency == 'emergency')
                                             <span style="background-color: #dc2626; color: white; padding: 4px 12px; border-radius: 20px; font-weight: bold;">🚨 URGENCE (48h)</span>
-                                        @elseif($submission->urgency_level == 'urgent')
+                                        @elseif($urgency == 'urgent')
                                             <span style="background-color: #f97316; color: white; padding: 4px 12px; border-radius: 20px; font-weight: bold;">⚡ Urgent (1 semaine)</span>
                                         @else
                                             <span style="background-color: #10b981; color: white; padding: 4px 12px; border-radius: 20px; font-weight: bold;">✓ Normal (2-4 semaines)</span>
@@ -98,12 +105,12 @@
                                     <td style="color: #6b7280;"><strong>Type de bien :</strong></td>
                                     <td style="color: #1f2937;">{{ ucfirst($submission->property_type) }}</td>
                                 </tr>
-                                @if(!empty($data['description']))
+                                @if(!empty($submission->form_data['description']))
                                 <tr>
                                     <td colspan="2" style="color: #6b7280; padding-top: 15px;">
                                         <strong>Description :</strong>
                                         <div style="background-color: #f9fafb; padding: 15px; border-radius: 8px; margin-top: 8px; color: #1f2937;">
-                                            {{ $data['description'] }}
+                                            {{ $submission->form_data['description'] }}
                                         </div>
                                     </td>
                                 </tr>
