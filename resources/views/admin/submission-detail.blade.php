@@ -125,8 +125,16 @@
                             <div class="mt-2 grid grid-cols-2 md:grid-cols-3 gap-4">
                                 @foreach($submission->photos as $photoPath)
                                 <div class="relative group">
-                                    <a href="{{ route('storage.serve', ['path' => $photoPath]) }}" target="_blank" class="block">
-                                        <img src="{{ route('storage.serve', ['path' => $photoPath]) }}" 
+                                    @php
+                                        // Extraire l'ID et le nom du fichier depuis le chemin
+                                        // Format: submissions/{id}/{filename}
+                                        $pathParts = explode('/', $photoPath);
+                                        $fileId = $pathParts[1] ?? $submission->id;
+                                        $fileName = end($pathParts);
+                                        $photoUrl = asset('storage/' . $photoPath);
+                                    @endphp
+                                    <a href="{{ $photoUrl }}" target="_blank" class="block">
+                                        <img src="{{ $photoUrl }}" 
                                              alt="Photo urgence" 
                                              class="w-full h-32 object-cover rounded-lg border-2 border-red-200 hover:border-red-400 transition cursor-pointer shadow-md" />
                                         <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition rounded-lg flex items-center justify-center">

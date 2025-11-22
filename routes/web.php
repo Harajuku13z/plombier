@@ -248,7 +248,7 @@ Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 Route::post('/contact', [ContactController::class, 'send'])->name('contact.send');
 
 // ===== URGENCE SOS =====
-Route::prefix('urgence')->name('urgence.')->group(function () {
+Route::prefix('urgence')->name('urgence.')->middleware(['block.non.france.bots'])->group(function () {
     Route::get('/', [EmergencyController::class, 'index'])->name('index');
     Route::post('/submit', [EmergencyController::class, 'submit'])->name('submit');
     Route::get('/success', [EmergencyController::class, 'success'])->name('success');
