@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Submission;
 use App\Models\Setting;
+use App\Models\Client;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Log;
 
@@ -338,6 +339,16 @@ class PlumbingSimulatorController extends Controller
                 ]);
                 throw $saveError;
             }
+            
+            // Créer ou mettre à jour le client (lead)
+            try {
+                $this->createOrUpdateClient($submission, $data);
+            } catch (\Exception $clientError) {
+                Log::error('Error creating/updating client', [
+                    'error' => $clientError->getMessage(),
+                ]);
+                // Ne pas bloquer si la création du client échoue
+            }
 
             // Envoyer l'email
             try {
@@ -387,6 +398,72 @@ class PlumbingSimulatorController extends Controller
 
             return back()->withInput()->with('error', 'ERREUR : ' . $e->getMessage() . ' (Ligne: ' . $e->getLine() . ')');
         }
+    }
+
+    /**
+     * Créer ou mettre à jour un client (lead) depuis une soumission
+     */
+    private function createOrUpdateClient($submission, $data)
+    {
+        Log::info('Creating or updating client from submission', [
+            'submission_id' => $submission->id,
+            'email' => $submission->email,
+        ]);
+        
+        // Extraire nom et prénom du champ "name"
+        $fullName = $data['name'] ?? '';
+        $nameParts = explode(' ', trim($fullName), 2);
+        $prenom = $nameParts[0] ?? '';
+        $nom = $nameParts[1] ?? $nameParts[0] ?? '';
+        
+        // Vérifier si un client existe déjà avec cet email
+        $client = Client::where('email', $submission->email)->first();
+        
+        if ($client) {
+            // Mettre à jour le client existant
+            Log::info('Client existant trouvé, mise à jour', ['client_id' => $client->id]);
+            
+            $client->update([
+                'nom' => $nom ?: $client->nom,
+                'prenom' => $prenom ?: $client->prenom,
+                'telephone' => $submission->phone,
+                'code_postal' => $submission->postal_code,
+                'ville' => $submission->city,
+                'adresse' => $data['address'] ?? $client->adresse,
+                'notes' => ($client->notes ? $client->notes . "\n\n" : '') . 
+                           "Demande simulateur le " . now()->format('d/m/Y H:i') . 
+                           "\nTypes de travaux: " . implode(', ', $data['work_types'] ?? []) .
+                           "\nUrgence: " . ($data['urgency'] ?? 'normal'),
+            ]);
+            
+            Log::info('Client mis à jour', ['client_id' => $client->id]);
+        } else {
+            // Créer un nouveau client (lead)
+            Log::info('Création d\'un nouveau client');
+            
+            $client = Client::create([
+                'nom' => $nom,
+                'prenom' => $prenom,
+                'email' => $submission->email,
+                'telephone' => $submission->phone,
+                'adresse' => $data['address'] ?? '',
+                'code_postal' => $submission->postal_code,
+                'ville' => $submission->city,
+                'pays' => 'France',
+                'notes' => "Lead créé depuis le simulateur le " . now()->format('d/m/Y H:i') . 
+                           "\nTypes de travaux: " . implode(', ', $data['work_types'] ?? []) .
+                           "\nUrgence: " . ($data['urgency'] ?? 'normal') .
+                           "\nDescription: " . ($data['description'] ?? 'Aucune') .
+                           "\nSoumission #" . $submission->id,
+            ]);
+            
+            Log::info('Nouveau client créé', [
+                'client_id' => $client->id,
+                'email' => $client->email,
+            ]);
+        }
+        
+        return $client;
     }
 
     /**
