@@ -351,34 +351,69 @@ class PlumbingSimulatorController extends Controller
                 // Ne pas bloquer si la création du client échoue
             }
 
-            // Envoyer l'email
+            // Envoyer l'email à l'entreprise
             try {
                 $companyEmail = Setting::get('company_email');
                 
-                Log::info('Preparing to send email', [
+                Log::info('Email configuration check', [
                     'company_email' => $companyEmail,
-                    'submission_id' => $submission->id,
+                    'config_mail_from' => config('mail.from.address'),
+                    'mail_configured' => !empty($companyEmail),
                 ]);
                 
-                if ($companyEmail) {
-                    Log::info('Sending email', ['to' => $companyEmail]);
+                if (!empty($companyEmail)) {
+                    Log::info('Sending email to company', ['to' => $companyEmail]);
                     
-                    Mail::send('emails.simulator-submission', [
-                        'submission' => $submission,
-                        'data' => $data,
-                        'workTypes' => $workTypes,
-                    ], function ($mail) use ($companyEmail, $submission) {
-                        $mail->to($companyEmail)
-                             ->subject('🔧 Nouvelle demande de devis - Simulateur #' . $submission->id)
-                             ->from(config('mail.from.address', $companyEmail), config('mail.from.name', 'Plombier Versailles'));
-                    });
-                    
-                    Log::info('Email sent successfully to ' . $companyEmail);
+                    try {
+                        Mail::send('emails.simulator-submission', [
+                            'submission' => $submission,
+                            'data' => $data,
+                            'workTypes' => $workTypes,
+                        ], function ($mail) use ($companyEmail, $submission) {
+                            $mail->to($companyEmail)
+                                 ->subject('🔧 Nouvelle demande de devis - Simulateur #' . $submission->id);
+                        });
+                        
+                        Log::info('✅ Email sent successfully to ' . $companyEmail);
+                    } catch (\Exception $mailError) {
+                        Log::error('Mail send failed', [
+                            'error' => $mailError->getMessage(),
+                            'to' => $companyEmail,
+                        ]);
+                    }
                 } else {
-                    Log::warning('No company email configured - email not sent');
+                    Log::warning('⚠️ No company email configured - Skipping email');
                 }
+                
+                // Envoyer un email de confirmation au client
+                try {
+                    if (!empty($submission->email)) {
+                        Log::info('Sending confirmation email to client', ['to' => $submission->email]);
+                        
+                        Mail::send('emails.simulator-confirmation', [
+                            'submission' => $submission,
+                            'data' => $data,
+                            'workTypes' => $workTypes,
+                            'companySettings' => [
+                                'name' => Setting::get('company_name', 'Plombier Versailles'),
+                                'phone' => Setting::get('company_phone', '07 86 48 65 39'),
+                                'email' => $companyEmail,
+                            ],
+                        ], function ($mail) use ($submission) {
+                            $mail->to($submission->email)
+                                 ->subject('✅ Votre demande de devis a été reçue - Référence #' . $submission->id);
+                        });
+                        
+                        Log::info('✅ Confirmation email sent to client');
+                    }
+                } catch (\Exception $confirmError) {
+                    Log::error('Failed to send confirmation email to client', [
+                        'error' => $confirmError->getMessage(),
+                    ]);
+                }
+                
             } catch (\Exception $e) {
-                Log::error('Erreur envoi email simulateur', [
+                Log::error('Erreur générale email simulateur', [
                     'error' => $e->getMessage(),
                     'trace' => $e->getTraceAsString(),
                 ]);
@@ -386,9 +421,17 @@ class PlumbingSimulatorController extends Controller
             }
 
             // Rediriger vers la page de succès
-            Log::info('Redirecting to success page', ['submission_id' => $submission->id]);
+            Log::info('Redirecting to success page', [
+                'submission_id' => $submission->id,
+                'email_sent_to_company' => !empty(Setting::get('company_email')),
+                'email_sent_to_client' => !empty($submission->email),
+            ]);
+            
             session()->forget('simulator_data');
-            return redirect()->route('simulator.success')->with('submission_id', $submission->id);
+            session()->flash('submission_id', $submission->id);
+            session()->flash('client_email', $submission->email);
+            
+            return redirect()->route('simulator.success');
 
         } catch (\Exception $e) {
             Log::error('Erreur création soumission simulateur', [
