@@ -37,23 +37,35 @@
             </p>
         </div>
 
-        <!-- Errors Display -->
+        <!-- Errors Display - TRÈS VISIBLE -->
         @if($errors->any())
-            <div class="bg-red-100 border-2 border-red-500 p-6 mb-8 rounded-xl shadow-lg">
+            <div class="bg-red-600 text-white p-8 mb-8 rounded-2xl shadow-2xl border-4 border-red-800 animate-pulse">
                 <div class="flex items-start gap-4">
-                    <i class="fas fa-exclamation-triangle text-red-600 text-4xl flex-shrink-0"></i>
+                    <i class="fas fa-exclamation-triangle text-6xl flex-shrink-0"></i>
                     <div class="flex-1">
-                        <p class="text-red-800 font-bold text-xl mb-3">
-                            Veuillez corriger les erreurs suivantes :
+                        <p class="font-black text-3xl mb-4">
+                            ⚠️ ERREUR - FORMULAIRE INCOMPLET
                         </p>
-                        <ul class="space-y-2">
+                        <ul class="space-y-3 text-xl">
                             @foreach($errors->all() as $error)
-                                <li class="flex items-start gap-2">
-                                    <i class="fas fa-times-circle text-red-600 mt-1"></i>
-                                    <span class="text-red-700 font-medium text-lg">{{ $error }}</span>
+                                <li class="flex items-start gap-3">
+                                    <i class="fas fa-times-circle text-2xl mt-1"></i>
+                                    <span class="font-bold">{{ $error }}</span>
                                 </li>
                             @endforeach
                         </ul>
+                    </div>
+                </div>
+            </div>
+        @endif
+        
+        @if(session('error'))
+            <div class="bg-red-600 text-white p-8 mb-8 rounded-2xl shadow-2xl border-4 border-red-800">
+                <div class="flex items-start gap-4">
+                    <i class="fas fa-exclamation-circle text-6xl flex-shrink-0"></i>
+                    <div class="flex-1">
+                        <p class="font-black text-3xl mb-2">ERREUR</p>
+                        <p class="text-xl">{{ session('error') }}</p>
                     </div>
                 </div>
             </div>

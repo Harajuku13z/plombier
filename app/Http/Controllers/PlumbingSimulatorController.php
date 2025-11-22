@@ -169,35 +169,33 @@ class PlumbingSimulatorController extends Controller
                 break;
 
             case 'contact':
-                try {
-                    $validated = $request->validate([
-                        'name' => 'required|string|min:2|max:255',
-                        'email' => 'required|email|max:255',
-                        'phone' => 'required|string|min:10|max:20',
-                        'address' => 'required|string|min:5|max:500',
-                        'city' => 'required|string|min:2|max:100',
-                        'postal_code' => 'required|string|min:4|max:10',
-                    ], [
-                        'name.required' => 'Le nom est obligatoire',
-                        'name.min' => 'Le nom doit contenir au moins 2 caractères',
-                        'email.required' => 'L\'email est obligatoire',
-                        'email.email' => 'L\'email doit être valide',
-                        'phone.required' => 'Le téléphone est obligatoire',
-                        'phone.min' => 'Le téléphone doit contenir au moins 10 caractères',
-                        'address.required' => 'L\'adresse est obligatoire',
-                        'address.min' => 'L\'adresse doit contenir au moins 5 caractères',
-                        'city.required' => 'La ville est obligatoire',
-                        'city.min' => 'La ville doit contenir au moins 2 caractères',
-                        'postal_code.required' => 'Le code postal est obligatoire',
-                        'postal_code.min' => 'Le code postal doit contenir au moins 4 caractères',
-                    ]);
-                } catch (\Illuminate\Validation\ValidationException $e) {
-                    Log::error('Validation failed at contact step', [
-                        'errors' => $e->errors(),
-                        'input' => $request->all(),
-                    ]);
-                    throw $e;
-                }
+                // Validation simplifiée
+                $validated = $request->validate([
+                    'name' => 'required|string|min:2',
+                    'email' => 'required|email',
+                    'phone' => 'required|string|min:10',
+                    'address' => 'required|string|min:5',
+                    'city' => 'required|string|min:2',
+                    'postal_code' => 'required|string|min:4',
+                ], [
+                    'name.required' => '❌ Le NOM est obligatoire',
+                    'name.min' => '❌ Le NOM est trop court (minimum 2 caractères)',
+                    'email.required' => '❌ L\'EMAIL est obligatoire',
+                    'email.email' => '❌ L\'EMAIL n\'est pas valide (doit contenir @)',
+                    'phone.required' => '❌ Le TÉLÉPHONE est obligatoire',
+                    'phone.min' => '❌ Le TÉLÉPHONE est trop court (minimum 10 caractères)',
+                    'address.required' => '❌ L\'ADRESSE est obligatoire',
+                    'address.min' => '❌ L\'ADRESSE est trop courte (minimum 5 caractères)',
+                    'city.required' => '❌ La VILLE est obligatoire',
+                    'city.min' => '❌ La VILLE est trop courte (minimum 2 caractères)',
+                    'postal_code.required' => '❌ Le CODE POSTAL est obligatoire',
+                    'postal_code.min' => '❌ Le CODE POSTAL est trop court (minimum 4 caractères)',
+                ]);
+                
+                Log::info('Contact validation passed', [
+                    'name' => $validated['name'],
+                    'email' => $validated['email'],
+                ]);
                 break;
 
             default:
