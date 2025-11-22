@@ -102,34 +102,17 @@
 
                             @if($submission->photos && count($submission->photos) > 0)
                             <!-- Photos -->
-                            <h2 style="color: #1f2937; font-size: 20px; font-weight: bold; margin: 25px 0 15px 0; border-bottom: 2px solid #e5e7eb; padding-bottom: 10px;">
-                                📷 Photos de l'Urgence ({{ count($submission->photos) }})
-                            </h2>
-                            <div style="margin-bottom: 25px;">
-                                <table width="100%" cellpadding="0" cellspacing="0">
-                                    <tr>
-                                        <td>
-                                            @foreach($submission->photos as $index => $photoPath)
-                                            @php
-                                                // Générer l'URL de manière sûre dans la vue
-                                                $photoUrl = url('/storage/' . $photoPath);
-                                                $photoUrl = str_replace('http://', 'https://', $photoUrl);
-                                            @endphp
-                                            <div style="display: inline-block; width: 48%; margin: 1%; vertical-align: top;">
-                                                <a href="{{ $photoUrl }}" target="_blank" style="display: block; border: 2px solid #dc2626; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
-                                                    <img src="{{ $photoUrl }}" 
-                                                         alt="Photo urgence {{ $index + 1 }}" 
-                                                         style="width: 100%; height: auto; display: block; max-height: 200px; object-fit: cover;" />
-                                                    <div style="background-color: #fef2f2; padding: 8px; text-align: center; font-size: 12px; color: #991b1b; font-weight: bold;">
-                                                        Photo {{ $index + 1 }}
-                                                    </div>
-                                                </a>
-                                            </div>
-                                            @endforeach
-                                        </td>
-                                    </tr>
-                                </table>
-                            </div>
+                            <table width="100%" cellpadding="8" cellspacing="0" style="margin-bottom: 25px;">
+                                <tr>
+                                    <td style="color: #6b7280; font-weight: bold;">Photos :</td>
+                                    <td style="color: #1f2937;">
+                                        📸 <strong>{{ count($submission->photos) }} photo(s)</strong> uploadée(s)
+                                        <div style="font-size: 12px; color: #64748b; margin-top: 5px;">
+                                            Accédez aux photos via l'administration
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
                             @endif
 
                             <!-- CTA -->
