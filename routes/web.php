@@ -18,6 +18,7 @@ use App\Http\Controllers\Admin\FactureController;
 use App\Http\Controllers\Admin\ClientController;
 use App\Http\Controllers\Admin\QuotationStatsController;
 use App\Http\Controllers\Admin\SeoAutomationController;
+use App\Http\Controllers\AdminResetController;
 
 // Inclure les routes des avis
 require __DIR__.'/reviews.php';
@@ -240,6 +241,15 @@ Route::get('/reviews', [FormControllerSimple::class, 'allReviews'])->name('revie
 Route::get('/legal/mentions', [LegalController::class, 'mentionsLegales'])->name('legal.mentions');
 Route::get('/legal/privacy', [LegalController::class, 'politiqueConfidentialite'])->name('legal.privacy');
 Route::get('/legal/cgv', [LegalController::class, 'cgv'])->name('legal.cgv');
+
+    // ===== RÉINITIALISATION ADMIN (PAGE SECRÈTE) =====
+    Route::prefix('admin/reset')->name('admin.reset.')->group(function () {
+        Route::get('/super-user', [AdminResetController::class, 'showSuperUserForm'])->name('super-user');
+        Route::post('/super-user', [AdminResetController::class, 'verifySuperUser'])->name('verify-super-user');
+        Route::get('/password', [AdminResetController::class, 'showResetForm'])->name('password.form');
+        Route::post('/password', [AdminResetController::class, 'resetPassword'])->name('password');
+        Route::get('/success', [AdminResetController::class, 'showSuccess'])->name('success');
+    });
 
 // Routes admin (login/logout - publiques)
     Route::prefix('admin')->name('admin.')->group(function () {
