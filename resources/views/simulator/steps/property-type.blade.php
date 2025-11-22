@@ -15,10 +15,15 @@
     .property-card:hover {
         transform: translateY(-4px);
     }
-    .property-card input:checked + div {
-        background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%) !important;
+    .property-card input[type="radio"]:checked + div {
+        background-color: #eff6ff !important;
+        border-color: {{ setting('primary_color', '#2563eb') }} !important;
         border-width: 3px !important;
         box-shadow: 0 8px 20px rgba(37, 99, 235, 0.25) !important;
+    }
+    
+    .property-card:has(input:checked) {
+        transform: translateY(-4px);
     }
 </style>
 @endpush
