@@ -126,17 +126,14 @@
                                 @foreach($submission->photos as $photoPath)
                                 <div class="relative group">
                                     @php
-                                        // Extraire l'ID et le nom du fichier depuis le chemin
-                                        // Format: submissions/{id}/{filename}
-                                        $pathParts = explode('/', $photoPath);
-                                        $fileId = $pathParts[1] ?? $submission->id;
-                                        $fileName = end($pathParts);
-                                        $photoUrl = asset('storage/' . $photoPath);
+                                        // Utiliser la route storage.serve pour servir les fichiers sans lien symbolique
+                                        $photoUrl = route('storage.serve', ['path' => $photoPath]);
                                     @endphp
                                     <a href="{{ $photoUrl }}" target="_blank" class="block">
                                         <img src="{{ $photoUrl }}" 
                                              alt="Photo urgence" 
-                                             class="w-full h-32 object-cover rounded-lg border-2 border-red-200 hover:border-red-400 transition cursor-pointer shadow-md" />
+                                             class="w-full h-32 object-cover rounded-lg border-2 border-red-200 hover:border-red-400 transition cursor-pointer shadow-md"
+                                             onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'100\' height=\'100\'%3E%3Crect fill=\'%23f3f4f6\' width=\'100\' height=\'100\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' text-anchor=\'middle\' dy=\'.3em\' fill=\'%239ca3af\' font-size=\'12\'%3EImage%3C/text%3E%3C/svg%3E';" />
                                         <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition rounded-lg flex items-center justify-center">
                                             <i class="fas fa-expand text-white opacity-0 group-hover:opacity-100 transition"></i>
                                         </div>
