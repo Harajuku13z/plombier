@@ -126,11 +126,16 @@
     @php
         // Décoder les entités HTML pour éviter le double encodage
         $decodedTitle = html_entity_decode($finalTitle, ENT_QUOTES | ENT_HTML5, 'UTF-8');
-        // Encoder une seule fois pour l'affichage
-        $safeTitle = htmlspecialchars($decodedTitle, ENT_QUOTES | ENT_HTML5, 'UTF-8', false);
+        // Encoder une seule fois pour l'affichage (sans encoder les apostrophes simples)
+        $safeTitle = htmlspecialchars($decodedTitle, ENT_COMPAT | ENT_HTML5, 'UTF-8', false);
     @endphp
     <title>{{ $safeTitle }}</title>
-    <meta name="description" content="{{ e($finalDescription) }}">
+    @php
+        // Décoder puis encoder correctement pour la description
+        $decodedDescription = html_entity_decode($finalDescription, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+        $safeDescription = htmlspecialchars($decodedDescription, ENT_COMPAT | ENT_HTML5, 'UTF-8', false);
+    @endphp
+    <meta name="description" content="{{ $safeDescription }}">
     @php
         try {
             $keywordsValue = $finalKeywords ?? '';
@@ -155,8 +160,15 @@
     <link rel="canonical" href="{{ request()->url() }}">
     
     <!-- Open Graph Meta Tags (améliorés pour Google) -->
-    <meta property="og:title" content="{{ e($finalOgTitle) }}">
-    <meta property="og:description" content="{{ e($finalOgDescription) }}">
+    @php
+        // Décoder puis encoder correctement pour éviter le double encodage
+        $decodedOgTitle = html_entity_decode($finalOgTitle, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+        $safeOgTitle = htmlspecialchars($decodedOgTitle, ENT_COMPAT | ENT_HTML5, 'UTF-8', false);
+        $decodedOgDescription = html_entity_decode($finalOgDescription, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+        $safeOgDescription = htmlspecialchars($decodedOgDescription, ENT_COMPAT | ENT_HTML5, 'UTF-8', false);
+    @endphp
+    <meta property="og:title" content="{{ $safeOgTitle }}">
+    <meta property="og:description" content="{{ $safeOgDescription }}">
     <meta property="og:image" content="{{ e($finalImage) }}">
     <meta property="og:image:secure_url" content="{{ e($finalImage) }}">
     <meta property="og:image:type" content="image/png">
@@ -174,8 +186,15 @@
     
     <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="{{ e($finalTwitterTitle) }}">
-    <meta name="twitter:description" content="{{ e($finalTwitterDescription) }}">
+    @php
+        // Décoder puis encoder correctement pour Twitter
+        $decodedTwitterTitle = html_entity_decode($finalTwitterTitle, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+        $safeTwitterTitle = htmlspecialchars($decodedTwitterTitle, ENT_COMPAT | ENT_HTML5, 'UTF-8', false);
+        $decodedTwitterDescription = html_entity_decode($finalTwitterDescription, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+        $safeTwitterDescription = htmlspecialchars($decodedTwitterDescription, ENT_COMPAT | ENT_HTML5, 'UTF-8', false);
+    @endphp
+    <meta name="twitter:title" content="{{ $safeTwitterTitle }}">
+    <meta name="twitter:description" content="{{ $safeTwitterDescription }}">
     <meta name="twitter:image" content="{{ e($finalImage) }}">
     @if(@setting('twitter_site'))
     <meta name="twitter:site" content="{{ e(@setting('twitter_site')) }}">
