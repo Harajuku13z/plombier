@@ -66,7 +66,7 @@ class EmergencyController extends Controller
                     $path = $photo->storeAs('submissions/' . $submission->id, $filename, 'public');
                     $photoPaths[] = $path;
                 }
-                $submission->update(['photos' => json_encode($photoPaths)]);
+                $submission->update(['photos' => $photoPaths]); // Le modèle cast déjà en array
             }
 
             // Vérifier si l'email est activé
@@ -122,13 +122,26 @@ class EmergencyController extends Controller
                     if (!empty($adminEmail) && filter_var($adminEmail, FILTER_VALIDATE_EMAIL)) {
                         Log::info('Sending emergency notification email to admin', ['to' => $adminEmail]);
                         
-                        Mail::send('emails.emergency-submission', [
-                            'submission' => $submission,
-                            'emergency_type' => $validated['emergency_type'],
-                        ], function ($message) use ($adminEmail, $submission) {
-                            $message->to($adminEmail)
-                                    ->subject('🚨 URGENCE PLOMBERIE - ' . $submission->name);
-                        });
+                    Mail::send('emails.emergency-submission', [
+                        'submission' => $submission,
+                        'emergency_type' => $validated['emergency_type'],
+                    ], function ($message) use ($adminEmail, $submission) {
+                        $message->to($adminEmail)
+                                ->subject('🚨 URGENCE PLOMBERIE - ' . $submission->name);
+                        
+                        // Attacher les photos si elles existent
+                        if ($submission->photos && count($submission->photos) > 0) {
+                            foreach ($submission->photos as $photoPath) {
+                                $fullPath = storage_path('app/public/' . $photoPath);
+                                if (file_exists($fullPath)) {
+                                    $message->attach($fullPath, [
+                                        'as' => basename($photoPath),
+                                        'mime' => mime_content_type($fullPath),
+                                    ]);
+                                }
+                            }
+                        }
+                    });
                         
                         Log::info('✅ Emergency notification email sent to admin', ['to' => $adminEmail]);
                     } else {

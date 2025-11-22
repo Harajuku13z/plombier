@@ -119,6 +119,25 @@
                             <p class="mt-1 text-lg font-medium text-red-900">{{ $submission->work_type }}</p>
                         </div>
                         @endif
+                        @if($submission->photos && count($submission->photos) > 0)
+                        <div class="md:col-span-2 mt-4">
+                            <label class="text-sm font-medium text-red-700">Photos de l'urgence</label>
+                            <div class="mt-2 grid grid-cols-2 md:grid-cols-3 gap-4">
+                                @foreach($submission->photos as $photoPath)
+                                <div class="relative group">
+                                    <a href="{{ asset('storage/' . $photoPath) }}" target="_blank" class="block">
+                                        <img src="{{ asset('storage/' . $photoPath) }}" 
+                                             alt="Photo urgence" 
+                                             class="w-full h-32 object-cover rounded-lg border-2 border-red-200 hover:border-red-400 transition cursor-pointer shadow-md" />
+                                        <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition rounded-lg flex items-center justify-center">
+                                            <i class="fas fa-expand text-white opacity-0 group-hover:opacity-100 transition"></i>
+                                        </div>
+                                    </a>
+                                </div>
+                                @endforeach
+                            </div>
+                        </div>
+                        @endif
                     </div>
                 </div>
             </div>

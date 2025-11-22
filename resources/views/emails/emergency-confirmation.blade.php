@@ -83,6 +83,23 @@
                                 </tr>
                             </table>
 
+                            @if($submission->photos && count($submission->photos) > 0)
+                            <!-- Photos -->
+                            <h2 style="color: #1f2937; font-size: 20px; font-weight: bold; margin: 25px 0 15px 0; border-bottom: 2px solid #e5e7eb; padding-bottom: 10px;">
+                                📷 Photos envoyées
+                            </h2>
+                            <div style="margin-bottom: 25px;">
+                                @foreach($submission->photos as $index => $photoPath)
+                                <div style="margin-bottom: 15px; text-align: center;">
+                                    <p style="margin: 0 0 5px 0; color: #6b7280; font-size: 12px;">Photo {{ $index + 1 }}</p>
+                                    <img src="{{ url('storage/' . $photoPath) }}" 
+                                         alt="Photo urgence {{ $index + 1 }}" 
+                                         style="max-width: 100%; max-height: 400px; height: auto; border-radius: 8px; border: 2px solid #dc2626; box-shadow: 0 4px 8px rgba(0,0,0,0.1);" />
+                                </div>
+                                @endforeach
+                            </div>
+                            @endif
+
                             <!-- Contact Info -->
                             <div style="background-color: #fef3c7; padding: 20px; border-radius: 12px; margin: 25px 0; text-align: center;">
                                 <p style="margin: 0 0 10px 0; color: #991b1b; font-size: 14px; font-weight: bold;">
