@@ -342,20 +342,34 @@ class PlumbingSimulatorController extends Controller
             // Envoyer l'email
             try {
                 $companyEmail = Setting::get('company_email');
+                
+                Log::info('Preparing to send email', [
+                    'company_email' => $companyEmail,
+                    'submission_id' => $submission->id,
+                ]);
+                
                 if ($companyEmail) {
                     Log::info('Sending email', ['to' => $companyEmail]);
+                    
                     Mail::send('emails.simulator-submission', [
                         'submission' => $submission,
                         'data' => $data,
                         'workTypes' => $workTypes,
-                    ], function ($mail) use ($companyEmail, $data) {
+                    ], function ($mail) use ($companyEmail, $submission) {
                         $mail->to($companyEmail)
-                             ->subject('Nouvelle demande de devis - Simulateur');
+                             ->subject('🔧 Nouvelle demande de devis - Simulateur #' . $submission->id)
+                             ->from(config('mail.from.address', $companyEmail), config('mail.from.name', 'Plombier Versailles'));
                     });
-                    Log::info('Email sent successfully');
+                    
+                    Log::info('Email sent successfully to ' . $companyEmail);
+                } else {
+                    Log::warning('No company email configured - email not sent');
                 }
             } catch (\Exception $e) {
-                Log::error('Erreur envoi email simulateur: ' . $e->getMessage());
+                Log::error('Erreur envoi email simulateur', [
+                    'error' => $e->getMessage(),
+                    'trace' => $e->getTraceAsString(),
+                ]);
                 // Ne pas bloquer même si l'email échoue
             }
 
