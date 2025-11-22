@@ -120,20 +120,29 @@ class ArticleAiController extends Controller
                 $keyword = $this->extractKeywordFromTitle($title);
                 
                 // Récupérer les données SERP (requêtes associées et concurrents)
-                $relatedQueries = $serpService->getRelatedQueries($keyword, 6);
+                // EXACTEMENT comme l'automatisation SEO
+                $related = $serpService->getRelatedQueries($keyword, 6);
                 $searchQuery = $keyword . ' ' . $defaultCity->name;
                 $competitors = $serpService->getTopSERP($searchQuery, 10);
                 
+                // Préparer les données des concurrents avec titres et snippets (comme l'automatisation)
+                $competitorsData = [];
+                foreach ($competitors as $competitor) {
+                    $competitorsData[] = [
+                        'title' => $competitor['title'] ?? 'N/A',
+                        'link' => $competitor['link'] ?? null,
+                        'snippet' => $competitor['snippet'] ?? null
+                    ];
+                }
+                
                 // Générer l'article avec le même système que l'automatisation SEO
-                // Note: $serpResults attend un tableau de résultats SERP (title, snippet)
-                // $keywordImages attend un tableau d'images (peut être vide)
-                // Suivant le pattern de SeoAutomationManager, on passe $competitors comme $serpResults
-                // et un tableau vide pour $keywordImages (pas d'images pour l'instant)
+                // Paramètres dans le même ordre que SeoAutomationManager::runForCity()
                 $gptData = $gptGenerator->generateSeoArticle(
                     $keyword,
                     $defaultCity->name,
-                    $competitors, // Résultats SERP avec title/snippet
-                    [] // Pas d'images pour l'instant
+                    $related,        // Requêtes associées (3ème paramètre)
+                    $competitorsData, // Résultats SERP avec title/snippet (4ème paramètre)
+                    null             // Pas de callback de progression (5ème paramètre)
                 );
                 
                 if (!$gptData || empty($gptData['titre']) || empty($gptData['contenu_html'])) {

@@ -121,7 +121,7 @@
                                 </span>
                             @endif
                         @else
-                            {{ $submission->first_name }} {{ $submission->last_name }}
+                        {{ $submission->first_name }} {{ $submission->last_name }}
                         @endif
                     </h3>
                 </div>
@@ -233,7 +233,7 @@
                                     </span>
                                 @endif
                             @else
-                                {{ $submission->first_name }} {{ $submission->last_name }}
+                            {{ $submission->first_name }} {{ $submission->last_name }}
                             @endif
                         </div>
                         <div class="text-sm text-gray-500">
