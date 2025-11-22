@@ -238,14 +238,43 @@
 
         <!-- Sidebar -->
         <div class="space-y-6">
-            @php $photos = $submission->tracking_data['photos'] ?? []; @endphp
-            @if(!empty($photos))
+            @php 
+                $simulatorPhotos = $submission->tracking_data['photos'] ?? [];
+            @endphp
+            @if(!empty($simulatorPhotos))
             <div class="bg-white rounded-lg shadow p-6">
-                <h3 class="text-lg font-semibold text-gray-800 mb-4"><i class="fas fa-images mr-2 text-indigo-500"></i>Photos du projet</h3>
+                <h3 class="text-lg font-semibold text-gray-800 mb-4">
+                    <i class="fas fa-images mr-2 text-indigo-500"></i>Photos du projet ({{ count($simulatorPhotos) }})
+                </h3>
                 <div class="grid grid-cols-2 gap-3">
-                    @foreach($photos as $photo)
-                        <a href="{{ asset($photo) }}" target="_blank" class="block border rounded overflow-hidden">
-                            <img src="{{ asset($photo) }}" alt="Photo" class="w-full h-28 object-cover">
+                    @foreach($simulatorPhotos as $photo)
+                        @php
+                            // Les photos du simulateur sont stockées comme 'storage/uploads/submissions/{id}/{filename}'
+                            // ou 'storage/submissions/{id}/{filename}'
+                            // Extraire l'ID et le nom du fichier
+                            $photoPath = str_replace('storage/', '', $photo);
+                            $pathParts = explode('/', $photoPath);
+                            
+                            // Chercher l'ID de soumission dans le chemin
+                            $fileId = $submission->id; // Par défaut utiliser l'ID de la soumission
+                            $fileName = end($pathParts);
+                            
+                            // Si le chemin contient 'submissions/{id}/', extraire l'ID
+                            if (preg_match('/submissions\/(\d+)\//', $photoPath, $matches)) {
+                                $fileId = $matches[1];
+                            }
+                            
+                            // Utiliser la route media.submission.photo qui fonctionne
+                            $photoUrl = route('media.submission.photo', ['id' => $fileId, 'file' => $fileName]);
+                        @endphp
+                        <a href="{{ $photoUrl }}" target="_blank" class="block border rounded overflow-hidden group relative">
+                            <img src="{{ $photoUrl }}" 
+                                 alt="Photo projet" 
+                                 class="w-full h-28 object-cover transition-transform group-hover:scale-105"
+                                 onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'100\' height=\'100\'%3E%3Crect fill=\'%23f3f4f6\' width=\'100\' height=\'100\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' text-anchor=\'middle\' dy=\'.3em\' fill=\'%239ca3af\' font-size=\'12\'%3EImage%3C/text%3E%3C/svg%3E';" />
+                            <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-10 transition rounded flex items-center justify-center">
+                                <i class="fas fa-expand text-white opacity-0 group-hover:opacity-100 transition text-sm"></i>
+                            </div>
                         </a>
                     @endforeach
                 </div>
