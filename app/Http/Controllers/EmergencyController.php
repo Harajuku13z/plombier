@@ -103,26 +103,46 @@ class EmergencyController extends Controller
             // Envoyer l'email d'urgence à l'admin
             if ($emailEnabled) {
                 try {
-                    $companyEmail = setting('company_email', config('company.email'));
+                    // Essayer d'abord admin_notification_email, puis company_email, puis config
+                    $adminEmail = setting('admin_notification_email');
+                    if (empty($adminEmail)) {
+                        $adminEmail = setting('company_email');
+                    }
+                    if (empty($adminEmail)) {
+                        $adminEmail = config('company.email');
+                    }
                     
-                    if ($companyEmail) {
-                        Log::info('Sending emergency notification email to admin', ['to' => $companyEmail]);
+                    Log::info('Checking admin email configuration', [
+                        'admin_notification_email' => setting('admin_notification_email'),
+                        'company_email' => setting('company_email'),
+                        'config_company_email' => config('company.email'),
+                        'final_admin_email' => $adminEmail,
+                    ]);
+                    
+                    if (!empty($adminEmail) && filter_var($adminEmail, FILTER_VALIDATE_EMAIL)) {
+                        Log::info('Sending emergency notification email to admin', ['to' => $adminEmail]);
                         
                         Mail::send('emails.emergency-submission', [
                             'submission' => $submission,
                             'emergency_type' => $validated['emergency_type'],
-                        ], function ($message) use ($companyEmail, $submission) {
-                            $message->to($companyEmail)
+                        ], function ($message) use ($adminEmail, $submission) {
+                            $message->to($adminEmail)
                                     ->subject('🚨 URGENCE PLOMBERIE - ' . $submission->name);
                         });
                         
-                        Log::info('✅ Emergency notification email sent to admin');
+                        Log::info('✅ Emergency notification email sent to admin', ['to' => $adminEmail]);
                     } else {
-                        Log::warning('No company email configured, admin notification not sent');
+                        Log::error('No valid admin email configured', [
+                            'admin_notification_email' => setting('admin_notification_email'),
+                            'company_email' => setting('company_email'),
+                            'config_company_email' => config('company.email'),
+                        ]);
                     }
                 } catch (\Exception $e) {
                     Log::error('Erreur envoi email urgence admin', [
                         'error' => $e->getMessage(),
+                        'file' => $e->getFile(),
+                        'line' => $e->getLine(),
                         'trace' => $e->getTraceAsString(),
                     ]);
                 }
