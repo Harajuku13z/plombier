@@ -125,8 +125,8 @@
                             <div class="mt-2 grid grid-cols-2 md:grid-cols-3 gap-4">
                                 @foreach($submission->photos as $photoPath)
                                 <div class="relative group">
-                                    <a href="{{ asset('storage/' . $photoPath) }}" target="_blank" class="block">
-                                        <img src="{{ asset('storage/' . $photoPath) }}" 
+                                    <a href="{{ route('storage.serve', ['path' => $photoPath]) }}" target="_blank" class="block">
+                                        <img src="{{ route('storage.serve', ['path' => $photoPath]) }}" 
                                              alt="Photo urgence" 
                                              class="w-full h-32 object-cover rounded-lg border-2 border-red-200 hover:border-red-400 transition cursor-pointer shadow-md" />
                                         <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition rounded-lg flex items-center justify-center">

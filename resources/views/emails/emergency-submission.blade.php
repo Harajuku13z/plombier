@@ -109,7 +109,7 @@
                                 @foreach($submission->photos as $index => $photoPath)
                                 <div style="margin-bottom: 15px; text-align: center;">
                                     <p style="margin: 0 0 5px 0; color: #6b7280; font-size: 12px;">Photo {{ $index + 1 }}</p>
-                                    <img src="{{ url('storage/' . $photoPath) }}" 
+                                    <img src="{{ route('storage.serve', ['path' => $photoPath]) }}" 
                                          alt="Photo urgence {{ $index + 1 }}" 
                                          style="max-width: 100%; max-height: 400px; height: auto; border-radius: 8px; border: 2px solid #dc2626; box-shadow: 0 4px 8px rgba(0,0,0,0.1);" />
                                 </div>

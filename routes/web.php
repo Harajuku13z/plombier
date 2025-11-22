@@ -230,6 +230,11 @@ Route::get('/media/submissions/{id}/{file}', [PublicMediaController::class, 'sub
     ->where(['id' => '[0-9]+', 'file' => '[A-Za-z0-9._-]+'])
     ->name('media.submission.photo');
 
+// Route générique pour servir les fichiers du storage public (pour les photos d'urgence, etc.)
+Route::get('/storage/{path}', [PublicMediaController::class, 'serveFile'])
+    ->where('path', '.*')
+    ->name('storage.serve');
+
 // Routes publiques pour le portfolio
 Route::get('/portfolio', [PortfolioController::class, 'index'])->name('portfolio.index');
 Route::get('/portfolio/{slug}', [PortfolioController::class, 'show'])->name('portfolio.show');
