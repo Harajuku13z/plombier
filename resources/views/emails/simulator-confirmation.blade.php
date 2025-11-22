@@ -3,139 +3,231 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Demande de Devis Reçue</title>
+    <title>Votre demande de devis</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f4;
+        }
+        .email-container {
+            max-width: 600px;
+            margin: 40px auto;
+            background-color: #ffffff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            background: linear-gradient(135deg, {{ setting('primary_color', '#3b82f6') }} 0%, {{ setting('secondary_color', '#1e40af') }} 100%);
+            color: #ffffff;
+            padding: 40px 30px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 28px;
+            font-weight: 600;
+        }
+        .header p {
+            margin: 10px 0 0;
+            font-size: 16px;
+            opacity: 0.9;
+        }
+        .logo-wrapper {
+            background-color: #ffffff;
+            padding: 15px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        .content {
+            padding: 40px 30px;
+        }
+        .greeting {
+            font-size: 18px;
+            color: #333333;
+            margin-bottom: 20px;
+        }
+        .message {
+            color: #666666;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+        .info-box {
+            background-color: #f0f9ff;
+            border-left: 4px solid {{ setting('primary_color', '#3b82f6') }};
+            padding: 20px;
+            margin: 30px 0;
+            border-radius: 5px;
+        }
+        .info-box h3 {
+            margin: 0 0 15px;
+            color: #1e3a8a;
+            font-size: 18px;
+        }
+        .info-item {
+            padding: 8px 0;
+            color: #1e293b;
+        }
+        .step-box {
+            background-color: #f8fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+        .step-number {
+            background-color: {{ setting('primary_color', '#3b82f6') }};
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 15px;
+        }
+        .contact-box {
+            background-color: #f0fdfa;
+            border: 2px solid #14b8a6;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 25px 0;
+            text-align: center;
+        }
+        .contact-box a {
+            color: #0f766e;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        .footer {
+            background-color: #f8fafc;
+            padding: 25px;
+            text-align: center;
+            border-top: 1px solid #e2e8f0;
+        }
+        .footer p {
+            margin: 5px 0;
+            color: #64748b;
+            font-size: 13px;
+        }
+    </style>
 </head>
-<body style="margin: 0; padding: 0; font-family: 'Arial', sans-serif; background-color: #f0f9ff;">
-    <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #f0f9ff; padding: 20px;">
-        <tr>
-            <td align="center">
-                <table width="600" cellpadding="0" cellspacing="0" style="background-color: #ffffff; border-radius: 16px; overflow: hidden; box-shadow: 0 10px 30px rgba(37, 99, 235, 0.15);">
-                    
-                    <!-- Header -->
-                    <tr>
-                        <td style="background: linear-gradient(135deg, #2563eb 0%, #0284c7 100%); padding: 40px 30px; text-align: center;">
-                            <div style="background-color: #ffffff; width: 80px; height: 80px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 20px;">
-                                <span style="font-size: 48px;">✅</span>
-                            </div>
-                            <h1 style="margin: 0; color: #ffffff; font-size: 28px; font-weight: bold;">
-                                Demande de Devis Bien Reçue !
-                            </h1>
-                            <p style="margin: 10px 0 0 0; color: #bfdbfe; font-size: 16px;">
-                                Nous vous recontactons très rapidement
-                            </p>
-                        </td>
-                    </tr>
+<body>
+    <div class="email-container">
+        <!-- Header -->
+        <div class="header">
+            <div class="logo-wrapper">
+                <span style="font-size: 48px;">✅</span>
+            </div>
+            <h1>Demande de Devis Bien Reçue !</h1>
+            <p>Nous vous recontactons très rapidement</p>
+        </div>
 
-                    <!-- Content -->
-                    <tr>
-                        <td style="padding: 40px 30px;">
-                            
-                            <p style="margin: 0 0 20px 0; color: #1f2937; font-size: 16px; line-height: 1.6;">
-                                Bonjour <strong>{{ $data['name'] ?? 'Client' }}</strong>,
-                            </p>
-                            
-                            <p style="margin: 0 0 25px 0; color: #1f2937; font-size: 16px; line-height: 1.6;">
-                                Nous avons bien reçu votre demande de devis via notre simulateur en ligne. Votre demande est notre priorité !
-                            </p>
-                            
-                            <!-- Reference Box -->
-                            <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #eff6ff; border-left: 4px solid #2563eb; border-radius: 8px; margin-bottom: 25px;">
-                                <tr>
-                                    <td style="padding: 20px;">
-                                        <p style="margin: 0; color: #1e3a8a; font-size: 14px;">
-                                            <strong>📋 Numéro de référence :</strong> <span style="font-size: 18px; font-weight: bold;">#{{ str_pad($submission->id, 4, '0', STR_PAD_LEFT) }}</span>
-                                        </p>
-                                    </td>
-                                </tr>
-                            </table>
+        <!-- Content -->
+        <div class="content">
+            <div class="greeting">
+                Bonjour <strong>{{ $data['name'] ?? 'Client' }}</strong>,
+            </div>
 
-                            <!-- What happens next -->
-                            <h2 style="color: #1f2937; font-size: 20px; font-weight: bold; margin: 0 0 20px 0;">
-                                📅 Prochaines Étapes
-                            </h2>
-                            
-                            <table width="100%" cellpadding="12" cellspacing="0" style="margin-bottom: 25px;">
-                                <tr>
-                                    <td style="vertical-align: top; width: 60px;">
-                                        <div style="background-color: #2563eb; color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 18px;">1</div>
-                                    </td>
-                                    <td style="vertical-align: top;">
-                                        <h3 style="margin: 0 0 5px 0; color: #1f2937; font-size: 16px; font-weight: bold;">Analyse de votre demande</h3>
-                                        <p style="margin: 0; color: #6b7280; font-size: 14px;">Un plombier professionnel étudie votre projet en détail</p>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="vertical-align: top;">
-                                        <div style="background-color: #2563eb; color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 18px;">2</div>
-                                    </td>
-                                    <td style="vertical-align: top;">
-                                        <h3 style="margin: 0 0 5px 0; color: #1f2937; font-size: 16px; font-weight: bold;">Contact sous 2 heures</h3>
-                                        <p style="margin: 0; color: #6b7280; font-size: 14px;">Nous vous appelons pour discuter de votre projet (jours ouvrés)</p>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="vertical-align: top;">
-                                        <div style="background-color: #2563eb; color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 18px;">3</div>
-                                    </td>
-                                    <td style="vertical-align: top;">
-                                        <h3 style="margin: 0 0 5px 0; color: #1f2937; font-size: 16px; font-weight: bold;">Devis personnalisé gratuit</h3>
-                                        <p style="margin: 0; color: #6b7280; font-size: 14px;">Vous recevez un devis détaillé adapté à vos besoins</p>
-                                    </td>
-                                </tr>
-                            </table>
+            <div class="message">
+                <p style="margin: 0 0 15px;">
+                    Merci d'avoir utilisé notre <strong>simulateur de devis en ligne</strong>. Nous avons bien reçu votre demande et notre équipe de plombiers professionnels l'analyse dès maintenant.
+                </p>
+            </div>
 
-                            <!-- Urgence Box -->
-                            @if(($data['urgency'] ?? '') === 'emergency')
-                            <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #fef2f2; border-left: 4px solid #dc2626; border-radius: 8px; margin-bottom: 25px;">
-                                <tr>
-                                    <td style="padding: 15px;">
-                                        <p style="margin: 0; color: #991b1b; font-size: 15px; font-weight: bold;">
-                                            🚨 URGENCE DÉTECTÉE
-                                        </p>
-                                        <p style="margin: 5px 0 0 0; color: #991b1b; font-size: 14px;">
-                                            Votre demande est prioritaire. Nous vous contactons dans les plus brefs délais.
-                                        </p>
-                                    </td>
-                                </tr>
-                            </table>
-                            @endif
+            <!-- Reference -->
+            <div class="info-box">
+                <h3>📋 Votre Référence</h3>
+                <p style="margin: 0; font-size: 24px; font-weight: bold; color: #1e3a8a;">
+                    #{{ str_pad($submission->id, 4, '0', STR_PAD_LEFT) }}
+                </p>
+                <p style="margin: 10px 0 0; color: #64748b; font-size: 14px;">
+                    Conservez ce numéro pour toute correspondance
+                </p>
+            </div>
 
-                            <!-- Contact Info -->
-                            <p style="margin: 25px 0 15px 0; color: #1f2937; font-size: 16px; line-height: 1.6;">
-                                <strong>Besoin de nous contacter ?</strong>
-                            </p>
-                            <table width="100%" cellpadding="12" cellspacing="0" style="background-color: #f9fafb; border-radius: 8px; margin-bottom: 25px;">
-                                <tr>
-                                    <td>
-                                        <p style="margin: 0 0 8px 0; color: #1f2937; font-size: 15px;">
-                                            📞 <strong>Téléphone :</strong> <a href="tel:{{ $companySettings['phone'] }}" style="color: #2563eb; text-decoration: none; font-weight: bold;">{{ $companySettings['phone'] }}</a>
-                                        </p>
-                                        <p style="margin: 0; color: #1f2937; font-size: 15px;">
-                                            📧 <strong>Email :</strong> <a href="mailto:{{ $companySettings['email'] }}" style="color: #2563eb; text-decoration: none;">{{ $companySettings['email'] }}</a>
-                                        </p>
-                                    </td>
-                                </tr>
-                            </table>
+            <!-- Urgence Alert -->
+            @if(($data['urgency'] ?? '') === 'emergency')
+            <div style="background-color: #fef2f2; border-left: 4px solid #dc2626; padding: 20px; border-radius: 5px; margin: 20px 0;">
+                <p style="margin: 0; color: #991b1b; font-weight: bold; font-size: 16px;">
+                    🚨 URGENCE DÉTECTÉE
+                </p>
+                <p style="margin: 10px 0 0; color: #991b1b;">
+                    Votre demande est <strong>prioritaire</strong>. Nous vous contactons dans les plus brefs délais.
+                </p>
+            </div>
+            @endif
 
-                            <p style="margin: 0; color: #6b7280; font-size: 14px; line-height: 1.6;">
-                                Merci de votre confiance,<br>
-                                <strong style="color: #1f2937;">L'équipe {{ $companySettings['name'] }}</strong>
-                            </p>
-                        </td>
-                    </tr>
+            <!-- Next Steps -->
+            <h3 style="color: #1e293b; font-size: 20px; margin: 30px 0 20px;">
+                📅 Prochaines Étapes
+            </h3>
 
-                    <!-- Footer -->
-                    <tr>
-                        <td style="background-color: #f9fafb; padding: 20px 30px; text-align: center; border-top: 1px solid #e5e7eb;">
-                            <p style="margin: 0; color: #6b7280; font-size: 12px;">
-                                Cet email a été envoyé automatiquement suite à votre demande sur notre site web.
-                            </p>
-                        </td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
-    </table>
+            <div class="step-box">
+                <div style="display: flex; align-items: flex-start;">
+                    <div class="step-number">1</div>
+                    <div>
+                        <h4 style="margin: 0 0 8px; color: #1e293b; font-size: 16px;">Analyse de votre demande</h4>
+                        <p style="margin: 0; color: #64748b; font-size: 14px;">Un plombier professionnel étudie votre projet en détail</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step-box">
+                <div style="display: flex; align-items: flex-start;">
+                    <div class="step-number">2</div>
+                    <div>
+                        <h4 style="margin: 0 0 8px; color: #1e293b; font-size: 16px;">Contact sous 2 heures ⏱️</h4>
+                        <p style="margin: 0; color: #64748b; font-size: 14px;">Nous vous appelons pour discuter de votre projet (jours ouvrés)</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step-box">
+                <div style="display: flex; align-items: flex-start;">
+                    <div class="step-number">3</div>
+                    <div>
+                        <h4 style="margin: 0 0 8px; color: #1e293b; font-size: 16px;">Devis gratuit personnalisé 💼</h4>
+                        <p style="margin: 0; color: #64748b; font-size: 14px;">Vous recevez un devis détaillé adapté à vos besoins, sans engagement</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact -->
+            <div class="contact-box">
+                <p style="margin: 0 0 15px; color: #0f766e; font-size: 16px; font-weight: bold;">
+                    Besoin de nous contacter ?
+                </p>
+                <p style="margin: 0;">
+                    📞 <a href="tel:{{ $companySettings['phone'] }}">{{ $companySettings['phone'] }}</a>
+                </p>
+                <p style="margin: 10px 0 0;">
+                    📧 <a href="mailto:{{ $companySettings['email'] }}">{{ $companySettings['email'] }}</a>
+                </p>
+            </div>
+
+            <div style="color: #64748b; font-size: 14px; line-height: 1.6; margin-top: 30px;">
+                <p>Merci de votre confiance,</p>
+                <p style="font-weight: bold; color: #1e293b; font-size: 16px;">
+                    L'équipe {{ $companySettings['name'] }}
+                </p>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p><strong>{{ $companySettings['name'] }}</strong></p>
+            <p>{{ $companySettings['phone'] }} • {{ $companySettings['email'] }}</p>
+            <p style="margin-top: 15px; font-size: 12px;">
+                Cet email a été envoyé suite à votre demande sur notre site web.
+            </p>
+        </div>
+    </div>
 </body>
 </html>
 

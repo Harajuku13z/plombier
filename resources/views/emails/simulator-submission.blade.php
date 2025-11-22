@@ -4,145 +4,287 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nouvelle demande - Simulateur</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f4;
+        }
+        .email-container {
+            max-width: 700px;
+            margin: 40px auto;
+            background-color: #ffffff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            background: linear-gradient(135deg, {{ setting('primary_color', '#1e40af') }} 0%, {{ setting('secondary_color', '#1e3a8a') }} 100%);
+            color: #ffffff;
+            padding: 30px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 26px;
+            font-weight: 600;
+        }
+        .header .badge {
+            display: inline-block;
+            background-color: #fbbf24;
+            color: #1e3a8a;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: bold;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        .content {
+            padding: 30px;
+        }
+        .alert-box {
+            background-color: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 20px;
+            margin-bottom: 30px;
+            border-radius: 5px;
+        }
+        .alert-box p {
+            margin: 0;
+            color: #92400e;
+            font-weight: 600;
+        }
+        .client-info {
+            background-color: #f8fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 25px;
+            margin: 20px 0;
+        }
+        .client-info h2 {
+            margin: 0 0 20px;
+            color: #1e293b;
+            font-size: 20px;
+            border-bottom: 2px solid #cbd5e1;
+            padding-bottom: 10px;
+        }
+        .info-row {
+            display: flex;
+            padding: 12px 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .info-row:last-child {
+            border-bottom: none;
+        }
+        .info-label {
+            font-weight: 600;
+            color: #475569;
+            width: 150px;
+            flex-shrink: 0;
+        }
+        .info-value {
+            color: #1e293b;
+            font-weight: 500;
+        }
+        .phone-highlight {
+            background-color: #dbeafe;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            margin: 20px 0;
+        }
+        .phone-highlight a {
+            color: #1e40af;
+            text-decoration: none;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .urgency-badge {
+            display: inline-block;
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        .urgency-emergency {
+            background-color: #dc2626;
+            color: white;
+        }
+        .urgency-urgent {
+            background-color: #f97316;
+            color: white;
+        }
+        .urgency-normal {
+            background-color: #10b981;
+            color: white;
+        }
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, {{ setting('primary_color', '#1e40af') }} 0%, {{ setting('secondary_color', '#1e3a8a') }} 100%);
+            color: #ffffff;
+            text-decoration: none;
+            padding: 15px 35px;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 16px;
+            margin: 20px 0;
+        }
+        .footer {
+            background-color: #f8fafc;
+            padding: 25px;
+            text-align: center;
+            border-top: 1px solid #e2e8f0;
+        }
+        .footer p {
+            margin: 5px 0;
+            color: #64748b;
+            font-size: 13px;
+        }
+        .timestamp {
+            background-color: #e0e7ff;
+            color: #3730a3;
+            padding: 10px 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+            text-align: center;
+            font-size: 14px;
+        }
+    </style>
 </head>
-<body style="margin: 0; padding: 0; font-family: 'Arial', sans-serif; background-color: #f3f4f6;">
-    <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #f3f4f6; padding: 20px;">
-        <tr>
-            <td align="center">
-                <table width="600" cellpadding="0" cellspacing="0" style="background-color: #ffffff; border-radius: 16px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
-                    
-                    <!-- Header -->
-                    <tr>
-                        <td style="background: linear-gradient(135deg, #2563eb 0%, #0284c7 100%); padding: 40px 30px; text-align: center;">
-                            <h1 style="margin: 0; color: #ffffff; font-size: 28px; font-weight: bold;">
-                                🔧 Nouvelle Demande de Devis
-                            </h1>
-                            <p style="margin: 10px 0 0 0; color: #e0f2fe; font-size: 16px;">
-                                Via le Simulateur de Prix
-                            </p>
-                        </td>
-                    </tr>
+<body>
+    <div class="email-container">
+        <!-- Header -->
+        <div class="header">
+            <h1>🔧 Nouvelle Demande de Devis</h1>
+            <div class="badge">VIA SIMULATEUR</div>
+        </div>
 
-                    <!-- Content -->
-                    <tr>
-                        <td style="padding: 30px;">
-                            
-                            <!-- Alert Info -->
-                            <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #dbeafe; border-left: 4px solid #2563eb; border-radius: 8px; margin-bottom: 25px;">
-                                <tr>
-                                    <td style="padding: 15px;">
-                                        <p style="margin: 0; color: #1e3a8a; font-size: 14px;">
-                                            <strong>📋 Référence :</strong> #{{ str_pad($submission->id, 4, '0', STR_PAD_LEFT) }}
-                                            <br>
-                                            <strong>📅 Date :</strong> {{ $submission->created_at->format('d/m/Y à H:i') }}
-                                        </p>
-                                    </td>
-                                </tr>
-                            </table>
+        <!-- Content -->
+        <div class="content">
+            <!-- Alert -->
+            <div class="alert-box">
+                <p>⚡ Une nouvelle demande de devis vient d'être soumise via le simulateur de plomberie !</p>
+            </div>
 
-                            <!-- Client Info -->
-                            <h2 style="color: #1f2937; font-size: 20px; font-weight: bold; margin: 0 0 15px 0; border-bottom: 2px solid #e5e7eb; padding-bottom: 10px;">
-                                👤 Informations Client
-                            </h2>
-                            <table width="100%" cellpadding="8" cellspacing="0" style="margin-bottom: 25px;">
-                                <tr>
-                                    <td style="color: #6b7280; width: 30%;"><strong>Nom :</strong></td>
-                                    <td style="color: #1f2937; font-weight: 600;">{{ $submission->form_data['name'] ?? 'N/A' }}</td>
-                                </tr>
-                                <tr>
-                                    <td style="color: #6b7280;"><strong>Email :</strong></td>
-                                    <td style="color: #1f2937;">
-                                        <a href="mailto:{{ $submission->email }}" style="color: #2563eb; text-decoration: none;">
-                                            {{ $submission->email }}
-                                        </a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="color: #6b7280;"><strong>Téléphone :</strong></td>
-                                    <td style="color: #1f2937; font-weight: 600; font-size: 16px;">
-                                        <a href="tel:{{ $submission->phone }}" style="color: #2563eb; text-decoration: none;">
-                                            {{ $submission->phone }}
-                                        </a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="color: #6b7280;"><strong>Adresse :</strong></td>
-                                    <td style="color: #1f2937;">{{ $submission->form_data['address'] ?? '' }}, {{ $submission->postal_code }} {{ $submission->city }}</td>
-                                </tr>
-                            </table>
+            <!-- Timestamp -->
+            <div class="timestamp">
+                📅 Reçue le {{ $submission->created_at->format('d/m/Y à H:i') }} • Référence #{{ str_pad($submission->id, 4, '0', STR_PAD_LEFT) }}
+            </div>
 
-                            <!-- Project Info -->
-                            <h2 style="color: #1f2937; font-size: 20px; font-weight: bold; margin: 0 0 15px 0; border-bottom: 2px solid #e5e7eb; padding-bottom: 10px;">
-                                🔧 Détails du Projet
-                            </h2>
-                            <table width="100%" cellpadding="8" cellspacing="0" style="margin-bottom: 25px;">
-                                <tr>
-                                    <td style="color: #6b7280; width: 30%;"><strong>Type de travaux :</strong></td>
-                                    <td style="color: #1f2937; font-weight: 600;">
-                                        @if(is_array($submission->work_types))
-                                            {{ implode(', ', array_map(function($type) use ($workTypes) {
-                                                return $workTypes[$type]['name'] ?? $type;
-                                            }, $submission->work_types)) }}
-                                        @else
-                                            {{ $submission->work_types }}
-                                        @endif
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="color: #6b7280;"><strong>Urgence :</strong></td>
-                                    <td style="color: #1f2937;">
-                                        @php $urgency = $submission->form_data['urgency'] ?? 'normal'; @endphp
-                                        @if($urgency == 'emergency')
-                                            <span style="background-color: #dc2626; color: white; padding: 4px 12px; border-radius: 20px; font-weight: bold;">🚨 URGENCE (48h)</span>
-                                        @elseif($urgency == 'urgent')
-                                            <span style="background-color: #f97316; color: white; padding: 4px 12px; border-radius: 20px; font-weight: bold;">⚡ Urgent (1 semaine)</span>
-                                        @else
-                                            <span style="background-color: #10b981; color: white; padding: 4px 12px; border-radius: 20px; font-weight: bold;">✓ Normal (2-4 semaines)</span>
-                                        @endif
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="color: #6b7280;"><strong>Type de bien :</strong></td>
-                                    <td style="color: #1f2937;">{{ ucfirst($submission->property_type) }}</td>
-                                </tr>
-                                @if(!empty($submission->form_data['description']))
-                                <tr>
-                                    <td colspan="2" style="color: #6b7280; padding-top: 15px;">
-                                        <strong>Description :</strong>
-                                        <div style="background-color: #f9fafb; padding: 15px; border-radius: 8px; margin-top: 8px; color: #1f2937;">
-                                            {{ $submission->form_data['description'] }}
-                                        </div>
-                                    </td>
-                                </tr>
-                                @endif
-                            </table>
+            <!-- Client Info -->
+            <div class="client-info">
+                <h2>👤 Informations Client</h2>
+                
+                <div class="info-row">
+                    <div class="info-label">Nom :</div>
+                    <div class="info-value">{{ $submission->form_data['name'] ?? 'N/A' }}</div>
+                </div>
+                
+                <div class="info-row">
+                    <div class="info-label">Email :</div>
+                    <div class="info-value">
+                        <a href="mailto:{{ $submission->email }}" style="color: #2563eb; text-decoration: none;">
+                            {{ $submission->email }}
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="info-row">
+                    <div class="info-label">Téléphone :</div>
+                    <div class="info-value">
+                        <strong style="font-size: 18px;">{{ $submission->phone }}</strong>
+                    </div>
+                </div>
+                
+                <div class="info-row">
+                    <div class="info-label">Adresse :</div>
+                    <div class="info-value">{{ $submission->form_data['address'] ?? '' }}, {{ $submission->postal_code }} {{ $submission->city }}</div>
+                </div>
+            </div>
 
-                            <!-- CTA -->
-                            <table width="100%" cellpadding="0" cellspacing="0" style="margin-top: 30px;">
-                                <tr>
-                                    <td align="center">
-                                        <a href="mailto:{{ $submission->email }}" 
-                                           style="display: inline-block; background: linear-gradient(135deg, #2563eb 0%, #0284c7 100%); color: #ffffff; text-decoration: none; padding: 15px 40px; border-radius: 30px; font-weight: bold; font-size: 16px; box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);">
-                                            Répondre au Client
-                                        </a>
-                                    </td>
-                                </tr>
-                            </table>
-                        </td>
-                    </tr>
+            <!-- Phone CTA -->
+            <div class="phone-highlight">
+                <p style="margin: 0 0 10px; color: #475569; font-size: 14px;">Appeler le client maintenant :</p>
+                <a href="tel:{{ $submission->phone }}">📞 {{ $submission->phone }}</a>
+            </div>
 
-                    <!-- Footer -->
-                    <tr>
-                        <td style="background-color: #f9fafb; padding: 20px 30px; text-align: center; border-top: 1px solid #e5e7eb;">
-                            <p style="margin: 0; color: #6b7280; font-size: 14px;">
-                                Email généré automatiquement par le simulateur de prix
-                            </p>
-                        </td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
-    </table>
+            <!-- Project Info -->
+            <div class="client-info">
+                <h2>🔧 Détails du Projet</h2>
+                
+                <div class="info-row">
+                    <div class="info-label">Type de travaux :</div>
+                    <div class="info-value">
+                        <strong>
+                            @if(is_array($submission->work_types))
+                                {{ implode(', ', array_map(function($type) use ($workTypes) {
+                                    return $workTypes[$type]['name'] ?? $type;
+                                }, $submission->work_types)) }}
+                            @else
+                                {{ $submission->work_types }}
+                            @endif
+                        </strong>
+                    </div>
+                </div>
+                
+                <div class="info-row">
+                    <div class="info-label">Urgence :</div>
+                    <div class="info-value">
+                        @php $urgency = $submission->form_data['urgency'] ?? 'normal'; @endphp
+                        @if($urgency === 'emergency')
+                            <span class="urgency-badge urgency-emergency">🚨 URGENCE (48h)</span>
+                        @elseif($urgency === 'urgent')
+                            <span class="urgency-badge urgency-urgent">⚡ Urgent (1 semaine)</span>
+                        @else
+                            <span class="urgency-badge urgency-normal">✓ Normal (2-4 semaines)</span>
+                        @endif
+                    </div>
+                </div>
+                
+                <div class="info-row">
+                    <div class="info-label">Type de bien :</div>
+                    <div class="info-value">{{ $submission->property_type === 'HOUSE' ? 'Maison' : 'Appartement' }}</div>
+                </div>
+                
+                @if(!empty($submission->form_data['description']))
+                <div class="info-row" style="flex-direction: column; padding: 15px 0;">
+                    <div class="info-label" style="margin-bottom: 10px;">Description :</div>
+                    <div style="background-color: #f1f5f9; padding: 15px; border-radius: 8px; color: #1e293b; line-height: 1.6;">
+                        {{ $submission->form_data['description'] }}
+                    </div>
+                </div>
+                @endif
+                
+                @if(!empty($submission->form_data['photo_paths']))
+                <div class="info-row" style="flex-direction: column; padding: 15px 0;">
+                    <div class="info-label" style="margin-bottom: 10px;">Photos jointes :</div>
+                    <div class="info-value">
+                        📸 {{ count($submission->form_data['photo_paths']) }} photo(s) uploadée(s)
+                    </div>
+                </div>
+                @endif
+            </div>
+
+            <!-- CTA -->
+            <div style="text-align: center; margin: 30px 0;">
+                <a href="mailto:{{ $submission->email }}" class="cta-button">
+                    ✉️ Répondre au Client
+                </a>
+            </div>
+
+            <p style="color: #64748b; font-size: 14px; text-align: center; margin: 20px 0;">
+                💡 Conseil : Contactez le client rapidement pour maximiser vos chances de conversion
+            </p>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p><strong>{{ setting('company_name', 'Plombier Versailles') }}</strong></p>
+            <p>{{ setting('company_phone', '07 86 48 65 39') }} • {{ setting('company_email', 'contact@plombier-versailles78.fr') }}</p>
+            <p style="margin-top: 15px;">Email généré automatiquement par le simulateur de plomberie</p>
+        </div>
+    </div>
 </body>
 </html>
 
