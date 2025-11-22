@@ -8,10 +8,10 @@ use Illuminate\Support\Str;
 @section('page_title', 'Toutes les Soumissions')
 
 @section('content')
-<div class="p-4 md:p-6">
+<div class="p-4 md:p-6 max-w-full overflow-x-hidden">
     <!-- Filtres -->
     <div class="bg-white rounded-lg shadow p-4 md:p-6 mb-6">
-        <form method="GET" action="{{ route('admin.submissions') }}" class="grid grid-cols-1 md:grid-cols-5 gap-4">
+        <form method="GET" action="{{ route('admin.submissions') }}" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
             <div>
                 <label class="block text-sm font-medium text-gray-700 mb-2">Statut</label>
                 <select name="status" class="w-full px-4 py-2 border border-gray-300 rounded-lg">
