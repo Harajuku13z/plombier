@@ -25,6 +25,12 @@ class EmergencyController extends Controller
      */
     public function submit(Request $request)
     {
+        Log::info('🚨 EMERGENCY SUBMISSION STARTED', [
+            'has_photos' => $request->hasFile('photos'),
+            'email' => $request->email,
+            'name' => $request->name,
+        ]);
+        
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255',
@@ -46,6 +52,8 @@ class EmergencyController extends Controller
         ]);
 
         try {
+            Log::info('🚨 Creating emergency submission in database');
+            
             // Créer la soumission
             $submission = Submission::create([
                 'name' => $validated['name'],
@@ -60,8 +68,11 @@ class EmergencyController extends Controller
                 'urgency_level' => 'urgent', // Très urgent
             ]);
 
+            Log::info('🚨 Submission created', ['id' => $submission->id]);
+            
             // Gérer les photos
             if ($request->hasFile('photos')) {
+                Log::info('🚨 Processing photos', ['count' => count($request->file('photos'))]);
                 $photoPaths = [];
                 foreach ($request->file('photos') as $photo) {
                     $filename = Str::random(20) . '.' . $photo->getClientOriginalExtension();
