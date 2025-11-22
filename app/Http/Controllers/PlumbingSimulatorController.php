@@ -98,7 +98,8 @@ class PlumbingSimulatorController extends Controller
         ];
 
         $currentStepIndex = array_search($step, $this->steps);
-        $progress = round((($currentStepIndex + 1) / count($this->steps)) * 100);
+        $totalSteps = count($this->steps);
+        $progress = round((($currentStepIndex + 1) / $totalSteps) * 100);
 
         return view('simulator.steps.' . $step, compact(
             'step',
@@ -106,7 +107,8 @@ class PlumbingSimulatorController extends Controller
             'workTypes',
             'companySettings',
             'progress',
-            'currentStepIndex'
+            'currentStepIndex',
+            'totalSteps'
         ));
     }
 

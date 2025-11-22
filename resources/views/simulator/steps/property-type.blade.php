@@ -9,7 +9,7 @@
         <!-- Progress Bar -->
         <div class="mb-8">
             <div class="flex justify-between items-center mb-2">
-                <span class="text-sm font-semibold text-gray-600">Étape {{ $currentStepIndex + 1 }} sur 5</span>
+                <span class="text-sm font-semibold text-gray-600">Étape {{ $currentStepIndex + 1 }} sur {{ $totalSteps ?? 5 }}</span>
                 <span class="text-sm font-semibold text-primary">{{ $progress }}%</span>
             </div>
             <div class="w-full bg-gray-200 rounded-full h-3">
