@@ -68,13 +68,13 @@ class AdminController extends Controller
         // Vérification des identifiants
         $passwordMatch = false;
         
-        // Si c'est le mot de passe par défaut (non hashé)
-        if ($adminPassword === 'admin' && $request->password === 'admin') {
-            $passwordMatch = true;
-        }
-        // Si c'est un mot de passe hashé (bcrypt)
-        elseif (Hash::check($request->password, $adminPassword)) {
-            $passwordMatch = true;
+        // Vérifier si le mot de passe est hashé (commence par $2y$ pour bcrypt)
+        if (str_starts_with($adminPassword, '$2y$')) {
+            // Mot de passe hashé - utiliser Hash::check
+            $passwordMatch = Hash::check($request->password, $adminPassword);
+        } else {
+            // Mot de passe en clair - comparaison directe
+            $passwordMatch = ($request->password === $adminPassword);
         }
         
         if ($request->username === $adminUsername && $passwordMatch) {
