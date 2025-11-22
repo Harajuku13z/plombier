@@ -15,6 +15,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'admin.auth' => \App\Http\Middleware\AdminAuth::class,
             'check.setup' => \App\Http\Middleware\CheckSetup::class,
             'seo.automation.password' => \App\Http\Middleware\SeoAutomationPassword::class,
+            'block.non.france.bots' => \App\Http\Middleware\BlockNonFranceAndBots::class,
         ]);
         
         // Ajouter le tracking des visites et canonical URL au groupe web

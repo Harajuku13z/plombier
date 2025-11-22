@@ -206,7 +206,7 @@ Route::get('/services', [ServicesController::class, 'publicIndex'])->name('servi
 Route::get('/services/{slug}', [ServicesController::class, 'show'])->name('services.show');
 
 // ===== NOUVEAU SIMULATEUR DE PLOMBERIE =====
-Route::prefix('simulateur-plomberie')->name('simulator.')->group(function () {
+Route::prefix('simulateur-plomberie')->name('simulator.')->middleware(['block.non.france.bots'])->group(function () {
     Route::get('/', [PlumbingSimulatorController::class, 'index'])->name('index');
     Route::get('/{step}', [PlumbingSimulatorController::class, 'showStep'])->name('step');
     Route::post('/{step}', [PlumbingSimulatorController::class, 'submitStep'])->name('submit');
