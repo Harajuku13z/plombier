@@ -72,23 +72,49 @@
             color: #1e293b;
         }
         .step-box {
-            background-color: #f8fafc;
+            background-color: #ffffff;
             border: 2px solid #e2e8f0;
-            border-radius: 8px;
-            padding: 20px;
+            border-radius: 12px;
+            padding: 0;
             margin: 15px 0;
+            overflow: hidden;
+        }
+        .step-header {
+            background: linear-gradient(135deg, {{ setting('primary_color', '#3b82f6') }} 0%, {{ setting('secondary_color', '#1e40af') }} 100%);
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
         }
         .step-number {
-            background-color: {{ setting('primary_color', '#3b82f6') }};
+            background-color: rgba(255, 255, 255, 0.3);
             color: white;
-            width: 35px;
-            height: 35px;
+            width: 45px;
+            height: 45px;
             border-radius: 50%;
             display: inline-flex;
             align-items: center;
             justify-content: center;
             font-weight: bold;
-            margin-right: 15px;
+            font-size: 20px;
+            flex-shrink: 0;
+            border: 3px solid white;
+        }
+        .step-title {
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            margin: 0;
+        }
+        .step-content {
+            padding: 18px 20px;
+            background-color: #f8fafc;
+        }
+        .step-content p {
+            margin: 0;
+            color: #475569;
+            font-size: 15px;
+            line-height: 1.6;
         }
         .contact-box {
             background-color: #f0fdfa;
@@ -164,39 +190,57 @@
             @endif
 
             <!-- Next Steps -->
-            <h3 style="color: #1e293b; font-size: 20px; margin: 30px 0 20px;">
+            <h3 style="color: #1e293b; font-size: 22px; margin: 35px 0 25px; text-align: center; font-weight: bold;">
                 📅 Prochaines Étapes
             </h3>
 
-            <div class="step-box">
-                <div style="display: flex; align-items: flex-start;">
-                    <div class="step-number">1</div>
-                    <div>
-                        <h4 style="margin: 0 0 8px; color: #1e293b; font-size: 16px;">Analyse de votre demande</h4>
-                        <p style="margin: 0; color: #64748b; font-size: 14px;">Un plombier professionnel étudie votre projet en détail</p>
-                    </div>
-                </div>
-            </div>
+            <table width="100%" cellpadding="0" cellspacing="0" style="margin: 0;">
+                <tr>
+                    <td>
+                        <div class="step-box">
+                            <div class="step-header">
+                                <div class="step-number">1</div>
+                                <h4 class="step-title">⚙️ Analyse de votre demande</h4>
+                            </div>
+                            <div class="step-content">
+                                <p>Un plombier professionnel étudie votre projet en détail et prépare une solution adaptée à vos besoins.</p>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
 
-            <div class="step-box">
-                <div style="display: flex; align-items: flex-start;">
-                    <div class="step-number">2</div>
-                    <div>
-                        <h4 style="margin: 0 0 8px; color: #1e293b; font-size: 16px;">Contact sous 2 heures ⏱️</h4>
-                        <p style="margin: 0; color: #64748b; font-size: 14px;">Nous vous appelons pour discuter de votre projet (jours ouvrés)</p>
-                    </div>
-                </div>
-            </div>
+            <table width="100%" cellpadding="0" cellspacing="0" style="margin: 0;">
+                <tr>
+                    <td>
+                        <div class="step-box">
+                            <div class="step-header">
+                                <div class="step-number">2</div>
+                                <h4 class="step-title">📞 Contact sous 2 heures</h4>
+                            </div>
+                            <div class="step-content">
+                                <p><strong style="color: #1e40af;">Nous vous appelons rapidement</strong> pour discuter de votre projet et répondre à toutes vos questions (jours ouvrés).</p>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
 
-            <div class="step-box">
-                <div style="display: flex; align-items: flex-start;">
-                    <div class="step-number">3</div>
-                    <div>
-                        <h4 style="margin: 0 0 8px; color: #1e293b; font-size: 16px;">Devis gratuit personnalisé 💼</h4>
-                        <p style="margin: 0; color: #64748b; font-size: 14px;">Vous recevez un devis détaillé adapté à vos besoins, sans engagement</p>
-                    </div>
-                </div>
-            </div>
+            <table width="100%" cellpadding="0" cellspacing="0" style="margin: 0;">
+                <tr>
+                    <td>
+                        <div class="step-box">
+                            <div class="step-header">
+                                <div class="step-number">3</div>
+                                <h4 class="step-title">💼 Devis gratuit personnalisé</h4>
+                            </div>
+                            <div class="step-content">
+                                <p>Vous recevez un <strong style="color: #10b981;">devis détaillé 100% gratuit</strong> et sans engagement, parfaitement adapté à votre situation.</p>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
 
             <!-- Contact -->
             <div class="contact-box">
