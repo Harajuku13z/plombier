@@ -169,27 +169,35 @@ class PlumbingSimulatorController extends Controller
                 break;
 
             case 'contact':
-                $validated = $request->validate([
-                    'name' => 'required|string|min:2|max:255',
-                    'email' => 'required|email|max:255',
-                    'phone' => 'required|string|min:10|max:20',
-                    'address' => 'required|string|min:5|max:500',
-                    'city' => 'required|string|min:2|max:100',
-                    'postal_code' => 'required|string|min:4|max:10',
-                ], [
-                    'name.required' => 'Le nom est obligatoire',
-                    'name.min' => 'Le nom doit contenir au moins 2 caractères',
-                    'email.required' => 'L\'email est obligatoire',
-                    'email.email' => 'L\'email doit être valide',
-                    'phone.required' => 'Le téléphone est obligatoire',
-                    'phone.min' => 'Le téléphone doit contenir au moins 10 caractères',
-                    'address.required' => 'L\'adresse est obligatoire',
-                    'address.min' => 'L\'adresse doit contenir au moins 5 caractères',
-                    'city.required' => 'La ville est obligatoire',
-                    'city.min' => 'La ville doit contenir au moins 2 caractères',
-                    'postal_code.required' => 'Le code postal est obligatoire',
-                    'postal_code.min' => 'Le code postal doit contenir au moins 4 caractères',
-                ]);
+                try {
+                    $validated = $request->validate([
+                        'name' => 'required|string|min:2|max:255',
+                        'email' => 'required|email|max:255',
+                        'phone' => 'required|string|min:10|max:20',
+                        'address' => 'required|string|min:5|max:500',
+                        'city' => 'required|string|min:2|max:100',
+                        'postal_code' => 'required|string|min:4|max:10',
+                    ], [
+                        'name.required' => 'Le nom est obligatoire',
+                        'name.min' => 'Le nom doit contenir au moins 2 caractères',
+                        'email.required' => 'L\'email est obligatoire',
+                        'email.email' => 'L\'email doit être valide',
+                        'phone.required' => 'Le téléphone est obligatoire',
+                        'phone.min' => 'Le téléphone doit contenir au moins 10 caractères',
+                        'address.required' => 'L\'adresse est obligatoire',
+                        'address.min' => 'L\'adresse doit contenir au moins 5 caractères',
+                        'city.required' => 'La ville est obligatoire',
+                        'city.min' => 'La ville doit contenir au moins 2 caractères',
+                        'postal_code.required' => 'Le code postal est obligatoire',
+                        'postal_code.min' => 'Le code postal doit contenir au moins 4 caractères',
+                    ]);
+                } catch (\Illuminate\Validation\ValidationException $e) {
+                    Log::error('Validation failed at contact step', [
+                        'errors' => $e->errors(),
+                        'input' => $request->all(),
+                    ]);
+                    throw $e;
+                }
                 break;
 
             default:
@@ -199,9 +207,20 @@ class PlumbingSimulatorController extends Controller
         // Sauvegarder les données
         $data = array_merge($data, $validated);
         session(['simulator_data' => $data]);
+        
+        Log::info('Simulator step submitted', [
+            'step' => $step,
+            'validated' => $validated,
+            'session_data_keys' => array_keys($data),
+        ]);
 
         // Si c'est l'étape contact, créer la soumission
         if ($step === 'contact') {
+            Log::info('Creating submission from contact step', [
+                'has_work_types' => isset($data['work_types']),
+                'has_email' => isset($data['email']),
+                'has_phone' => isset($data['phone']),
+            ]);
             return $this->createSubmission($data);
         }
 
@@ -218,14 +237,27 @@ class PlumbingSimulatorController extends Controller
     private function createSubmission($data)
     {
         try {
+            Log::info('Creating submission', ['data_keys' => array_keys($data)]);
+            
             $workTypes = $this->getWorkTypes();
             
             // Gérer les types de travaux multiples
             $selectedWorkTypes = $data['work_types'] ?? [];
+            
+            if (empty($selectedWorkTypes)) {
+                Log::error('No work types selected');
+                return back()->with('error', 'Veuillez sélectionner au moins un type de travaux');
+            }
+            
             $workTypeNames = array_map(function($key) use ($workTypes) {
                 return $workTypes[$key]['name'] ?? $key;
             }, $selectedWorkTypes);
             $workTypesList = implode(', ', $workTypeNames);
+            
+            Log::info('Work types processed', [
+                'selected' => $selectedWorkTypes,
+                'names' => $workTypeNames,
+            ]);
 
             $urgencyLabels = [
                 'normal' => 'Normal (sous 2-4 semaines)',
