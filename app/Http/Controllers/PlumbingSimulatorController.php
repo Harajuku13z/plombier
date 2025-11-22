@@ -293,7 +293,14 @@ class PlumbingSimulatorController extends Controller
             
             $submission = new Submission();
             $submission->session_id = session()->getId();
-            $submission->property_type = $data['property_type'] ?? 'house';
+            // Convertir en majuscules pour l'ENUM
+            $propertyTypeMap = [
+                'house' => 'HOUSE',
+                'apartment' => 'APARTMENT',
+                'commercial' => 'HOUSE', // Pas dans l'ENUM, on met HOUSE par défaut
+                'other' => 'HOUSE',
+            ];
+            $submission->property_type = $propertyTypeMap[$data['property_type'] ?? 'house'] ?? 'HOUSE';
             $submission->work_types = $selectedWorkTypes; // Array - sera casté automatiquement
             $submission->phone = $data['phone'];
             $submission->email = $data['email'];
