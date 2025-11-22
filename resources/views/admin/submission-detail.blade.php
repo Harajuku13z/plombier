@@ -126,9 +126,14 @@
                                 @foreach($submission->photos as $photoPath)
                                 <div class="relative group">
                                     @php
-                                        // Utiliser url() directement pour éviter les problèmes de cache de routes
+                                        // Extraire l'ID et le nom du fichier depuis le chemin
                                         // Format: submissions/{id}/{filename}
-                                        $photoUrl = url('/storage/' . $photoPath);
+                                        $pathParts = explode('/', $photoPath);
+                                        $fileId = $pathParts[1] ?? $submission->id;
+                                        $fileName = end($pathParts);
+                                        
+                                        // Utiliser la route media.submission.photo qui fonctionne déjà
+                                        $photoUrl = route('media.submission.photo', ['id' => $fileId, 'file' => $fileName]);
                                     @endphp
                                     <a href="{{ $photoUrl }}" target="_blank" class="block">
                                         <img src="{{ $photoUrl }}" 
