@@ -97,12 +97,28 @@ class EmergencyController extends Controller
                         // Préparer les URLs absolues pour les photos
                         $photoUrls = [];
                         if ($submission->photos && count($submission->photos) > 0) {
-                            foreach ($submission->photos as $photoPath) {
-                                // Utiliser la route storage.serve pour générer une URL absolue
-                                $photoUrl = URL::to(route('storage.serve', ['path' => $photoPath], false));
-                                // Forcer HTTPS
-                                $photoUrl = str_replace('http://', 'https://', $photoUrl);
-                                $photoUrls[] = $photoUrl;
+                            try {
+                                foreach ($submission->photos as $photoPath) {
+                                    // Générer l'URL de manière sûre
+                                    try {
+                                        // Utiliser la route storage.serve pour générer une URL absolue
+                                        $photoUrl = url('/storage/' . urlencode($photoPath));
+                                        // Forcer HTTPS
+                                        $photoUrl = str_replace('http://', 'https://', $photoUrl);
+                                        $photoUrls[] = $photoUrl;
+                                    } catch (\Exception $urlError) {
+                                        Log::warning('Failed to generate photo URL', [
+                                            'photo' => $photoPath,
+                                            'error' => $urlError->getMessage(),
+                                        ]);
+                                        // Continuer même si une URL échoue
+                                    }
+                                }
+                            } catch (\Exception $photoError) {
+                                Log::warning('Error processing photos for email', [
+                                    'error' => $photoError->getMessage(),
+                                ]);
+                                // Continuer sans les photos si nécessaire
                             }
                         }
                         
@@ -119,6 +135,9 @@ class EmergencyController extends Controller
                     } catch (\Exception $mailError) {
                         Log::error('Failed to send emergency notification', [
                             'error' => $mailError->getMessage(),
+                            'file' => $mailError->getFile(),
+                            'line' => $mailError->getLine(),
+                            'trace' => $mailError->getTraceAsString(),
                             'to' => $email,
                         ]);
                     }
