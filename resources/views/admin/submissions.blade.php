@@ -1,5 +1,9 @@
 @extends('layouts.admin')
 
+@php
+use Illuminate\Support\Str;
+@endphp
+
 @section('title', 'Soumissions')
 @section('page_title', 'Toutes les Soumissions')
 
@@ -203,61 +207,61 @@
     </div>
 
     <!-- Vue desktop : Table -->
-    <div class="hidden md:block bg-white rounded-lg shadow overflow-hidden table-responsive">
-        <table class="min-w-full divide-y divide-gray-200">
+    <div class="hidden md:block bg-white rounded-lg shadow overflow-x-auto">
+        <table class="w-full divide-y divide-gray-200">
             <thead class="bg-gray-50">
                 <tr>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">ID</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Client</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Contact</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Ville</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Statut</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Suivi</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Date</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Actions</th>
+                    <th class="px-3 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">ID</th>
+                    <th class="px-3 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Client</th>
+                    <th class="px-3 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase hidden lg:table-cell">Contact</th>
+                    <th class="px-3 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase hidden xl:table-cell">Ville</th>
+                    <th class="px-3 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Statut</th>
+                    <th class="px-3 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase hidden xl:table-cell">Suivi</th>
+                    <th class="px-3 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase hidden lg:table-cell">Date</th>
+                    <th class="px-3 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Actions</th>
                 </tr>
             </thead>
             <tbody class="bg-white divide-y divide-gray-200">
                 @forelse($submissions as $submission)
                 <tr class="hover:bg-gray-50">
-                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                    <td class="px-3 lg:px-6 py-4 text-sm font-medium text-gray-900">
                         #{{ $submission->id }}
                     </td>
-                    <td class="px-6 py-4 whitespace-nowrap">
+                    <td class="px-3 lg:px-6 py-4">
                         <div class="text-sm font-medium text-gray-900">
                             @if($submission->name)
-                                {{ $submission->name }}
+                                {{ Str::limit($submission->name, 20) }}
                                 @if($submission->is_emergency)
-                                    <span class="ml-2 inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-red-100 text-red-800">
-                                        🚨 URGENCE
+                                    <span class="ml-1 inline-flex items-center px-1.5 py-0.5 rounded text-xs font-medium bg-red-100 text-red-800">
+                                        🚨
                                     </span>
                                 @endif
                             @else
-                            {{ $submission->first_name }} {{ $submission->last_name }}
+                            {{ Str::limit($submission->first_name . ' ' . $submission->last_name, 20) }}
                             @endif
                         </div>
-                        <div class="text-sm text-gray-500">
-                            {{ $submission->email }}
+                        <div class="text-xs text-gray-500 truncate max-w-[150px]">
+                            {{ Str::limit($submission->email, 25) }}
                         </div>
                     </td>
-                    <td class="px-6 py-4 whitespace-nowrap">
-                        <div class="text-sm text-gray-900">{{ $submission->phone }}</div>
-                        <div class="text-sm text-gray-500">{{ $submission->email }}</div>
+                    <td class="px-3 lg:px-6 py-4 hidden lg:table-cell">
+                        <div class="text-sm text-gray-900">{{ Str::limit($submission->phone, 15) }}</div>
+                        <div class="text-xs text-gray-500 truncate max-w-[150px]">{{ Str::limit($submission->email, 25) }}</div>
                     </td>
-                    <td class="px-6 py-4 whitespace-nowrap">
+                    <td class="px-3 lg:px-6 py-4 hidden xl:table-cell">
                         @if($submission->city)
                             <div class="text-sm font-medium text-gray-900">
-                                <i class="fas fa-map-marker-alt mr-1 text-gray-400"></i>{{ $submission->city }}
+                                <i class="fas fa-map-marker-alt mr-1 text-gray-400"></i>{{ Str::limit($submission->city, 15) }}
                             </div>
                             @if($submission->country)
-                                <div class="text-xs text-gray-500">{{ $submission->country }}</div>
+                                <div class="text-xs text-gray-500">{{ Str::limit($submission->country, 15) }}</div>
                             @endif
                         @else
-                            <span class="text-sm text-gray-400 italic">Non renseigné</span>
+                            <span class="text-xs text-gray-400 italic">-</span>
                         @endif
                     </td>
-                    <td class="px-6 py-4 whitespace-nowrap">
-                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
+                    <td class="px-3 lg:px-6 py-4">
+                        <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium
                             {{ match($submission->status) {
                                 'COMPLETED' => 'bg-green-100 text-green-800',
                                 'IN_PROGRESS' => 'bg-yellow-100 text-yellow-800',
@@ -272,7 +276,7 @@
                             } }}
                         </span>
                     </td>
-                    <td class="px-6 py-4 whitespace-nowrap">
+                    <td class="px-3 lg:px-6 py-4 hidden xl:table-cell">
                         @php
                             $devisCount = $submission->devis_count;
                             $facturesPayeesCount = $submission->factures_payees_count;
@@ -281,32 +285,33 @@
                             @if($devisCount > 0)
                                 <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-blue-100 text-blue-800">
                                     <i class="fas fa-file-invoice mr-1"></i>
-                                    {{ $devisCount }} devis
+                                    {{ $devisCount }}
                                 </span>
                             @else
-                                <span class="text-xs text-gray-400">Aucun devis</span>
+                                <span class="text-xs text-gray-400">-</span>
                             @endif
                             @if($facturesPayeesCount > 0)
                                 <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-green-100 text-green-800">
                                     <i class="fas fa-check-circle mr-1"></i>
-                                    {{ $facturesPayeesCount }} facture(s) payée(s)
+                                    {{ $facturesPayeesCount }}
                                 </span>
                             @endif
                         </div>
                     </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        {{ $submission->created_at->format('d/m/Y H:i') }}
+                    <td class="px-3 lg:px-6 py-4 text-sm text-gray-500 hidden lg:table-cell">
+                        {{ $submission->created_at->format('d/m/Y') }}<br>
+                        <span class="text-xs">{{ $submission->created_at->format('H:i') }}</span>
                     </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                    <td class="px-3 lg:px-6 py-4 text-sm font-medium">
                         <div class="flex items-center gap-2">
                             <a href="{{ route('admin.submission.show', $submission->id) }}" 
-                               class="text-blue-600 hover:text-blue-900"
+                               class="text-blue-600 hover:text-blue-900 p-1"
                                title="Voir les détails">
                                 <i class="fas fa-eye"></i>
                             </a>
                             @if($submission->status === 'COMPLETED')
                                 <a href="{{ route('admin.submission.create-client', $submission->id) }}" 
-                                   class="text-green-600 hover:text-green-900"
+                                   class="text-green-600 hover:text-green-900 p-1"
                                    title="Créer un devis">
                                     <i class="fas fa-file-invoice"></i>
                                 </a>
@@ -314,7 +319,7 @@
                             @if($submission->status === 'IN_PROGRESS')
                                 <form method="POST" action="{{ route('admin.submission.mark-abandoned', $submission->id) }}" class="inline">
                                     @csrf
-                                    <button type="submit" class="text-red-600 hover:text-red-900" 
+                                    <button type="submit" class="text-red-600 hover:text-red-900 p-1" 
                                             onclick="return confirm('Marquer comme abandonné ?')"
                                             title="Abandonner">
                                         <i class="fas fa-times"></i>
