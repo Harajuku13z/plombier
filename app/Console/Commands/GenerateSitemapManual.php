@@ -20,18 +20,18 @@ class GenerateSitemapManual extends Command
         // URL depuis la config ou les settings - FORCER normesrenovationbretagne.fr
         $baseUrl = null;
         
-        // 1. Vérifier le setting (mais REJETER sausercouverture.fr)
+        // 1. Vérifier le setting (mais REJETER sauserplomberie.fr)
         $settingUrl = \App\Models\Setting::get('site_url', null);
-        if (!empty($settingUrl) && strpos($settingUrl, 'sausercouverture.fr') === false) {
+        if (!empty($settingUrl) && strpos($settingUrl, 'sauserplomberie.fr') === false) {
             if (strpos($settingUrl, 'normesrenovationbretagne.fr') !== false) {
                 $baseUrl = $settingUrl;
             }
         }
         
-        // 2. Vérifier APP_URL depuis .env (mais REJETER sausercouverture.fr)
+        // 2. Vérifier APP_URL depuis .env (mais REJETER sauserplomberie.fr)
         if (empty($baseUrl)) {
             $envUrl = config('app.url', null);
-            if (!empty($envUrl) && strpos($envUrl, 'sausercouverture.fr') === false) {
+            if (!empty($envUrl) && strpos($envUrl, 'sauserplomberie.fr') === false) {
                 if (strpos($envUrl, 'normesrenovationbretagne.fr') !== false) {
                     $baseUrl = $envUrl;
                 }
@@ -49,9 +49,9 @@ class GenerateSitemapManual extends Command
         }
         $baseUrl = rtrim($baseUrl, '/');
         
-        // VÉRIFICATION FINALE : Rejeter sausercouverture.fr
-        if (strpos($baseUrl, 'sausercouverture.fr') !== false) {
-            $this->error('❌ ERREUR: sausercouverture.fr détectée, correction forcée !');
+        // VÉRIFICATION FINALE : Rejeter sauserplomberie.fr
+        if (strpos($baseUrl, 'sauserplomberie.fr') !== false) {
+            $this->error('❌ ERREUR: sauserplomberie.fr détectée, correction forcée !');
             $baseUrl = 'https://normesrenovationbretagne.fr';
         }
         

@@ -60,10 +60,10 @@ class KeywordController extends Controller
             $aiService = app(\App\Services\AiService::class);
             
             // Construire le prompt pour générer des mots-clés
-            $prompt = "Génère une liste de 20-30 mots-clés SEO pertinents pour un site de couvreur/toiture en France. ";
+            $prompt = "Génère une liste de 20-30 mots-clés SEO pertinents pour un site de plombier/plomberie en France. ";
             $prompt .= "Les mots-clés doivent être :\n";
-            $prompt .= "- Spécifiques et locaux (ex: 'couvreur Paris', 'réparation toiture Lyon')\n";
-            $prompt .= "- Variés (services, urgences, matériaux, types de toiture)\n";
+            $prompt .= "- Spécifiques et locaux (ex: 'plombier Paris', 'réparation plomberie Lyon')\n";
+            $prompt .= "- Variés (services, urgences, matériaux, types de plomberie)\n";
             $prompt .= "- Longue traîne (3-5 mots)\n";
             $prompt .= "- En français\n\n";
             $prompt .= "Services proposés : " . implode(', ', array_column($services, 'name')) . "\n\n";

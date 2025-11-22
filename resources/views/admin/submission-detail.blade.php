@@ -110,7 +110,7 @@
 
                     @if($submission->roof_work_types)
                     <div class="mt-4">
-                        <label class="text-sm font-medium text-gray-500">Travaux de toiture</label>
+                        <label class="text-sm font-medium text-gray-500">Travaux de plomberie</label>
                         <div class="mt-2 flex flex-wrap gap-2">
                             @foreach($submission->roof_work_types as $type)
                                 <span class="px-3 py-1 bg-purple-100 text-purple-800 text-sm font-medium rounded-full">

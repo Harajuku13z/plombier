@@ -137,7 +137,7 @@ INSTRUCTIONS IMPORTANTES:
 - ADAPTE le contenu à la localisation Paris, Île-de-France
 
 INSTRUCTIONS:
-- ADAPTE le contenu au service Isolation thermique (toiture, façade, isolation, etc.)
+- ADAPTE le contenu au service Isolation thermique (plomberie, façade, isolation, etc.)
 - ÉCRIS du contenu UNIQUE et SPÉCIFIQUE
 - UTILISE les informations de l'entreprise et localisation
 - GARDE la structure HTML exacte

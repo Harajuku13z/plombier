@@ -33,7 +33,7 @@
 4. ☑️ Cocher **"Bloquer l'accès au formulaire pour les utilisateurs hors de France"**
 5. Cliquer **"Sauvegarder"**
 
-**Chemin exact** : https://couvreur-chevigny-saint-sauveur.fr/config → Onglet Sécurité
+**Chemin exact** : https://plombier-chevigny-saint-sauveur.fr/config → Onglet Sécurité
 
 ---
 
@@ -108,7 +108,7 @@ Setting::get('block_non_france');
 # Ligne getClientIp() → return '8.8.8.8'; (USA)
 
 # Ou tester avec curl
-curl -H "X-Forwarded-For: 8.8.8.8" https://couvreur-chevigny-saint-sauveur.fr/form/propertyType
+curl -H "X-Forwarded-For: 8.8.8.8" https://plombier-chevigny-saint-sauveur.fr/form/propertyType
 ```
 
 ### Test étape 2 :

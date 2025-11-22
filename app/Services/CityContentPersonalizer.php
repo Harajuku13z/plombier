@@ -225,22 +225,22 @@ class CityContentPersonalizer
     protected function getRegionalArchitecture($region, $department)
     {
         $architectures = [
-            'Bretagne' => 'longères bretonnes et maisons en pierre avec toitures à forte pente en ardoise grise, lucarnes typiques et souches de cheminée en pierre',
+            'Bretagne' => 'longères bretonnes et maisons en pierre avec plomberies à forte pente en ardoise grise, lucarnes typiques et souches de cheminée en pierre',
             'Île-de-France' => 'architecture haussmannienne en pierre de taille pour Paris, pavillons de banlieue avec meulière et tuiles mécaniques, immeubles résidentiels modernes',
-            'Provence-Alpes-Côte d\'Azur' => 'mas provençaux et bastides en pierre avec toitures à faible pente en tuiles canal romanes, génoise et couleur ocre',
-            'Auvergne-Rhône-Alpes' => 'chalets et fermes montagnardes avec toitures à forte pente pour évacuation neige, lauzes ou ardoise, maisons lyonnaises en pierre dorée',
-            'Bourgogne-Franche-Comté' => 'maisons bourguignonnes en pierre calcaire, toitures aux tuiles vernissées polychromes typiques (tuiles de Bourgogne), forte pente',
-            'Grand Est' => 'maisons alsaciennes à colombages avec toitures pentues en tuiles plates mécaniques, architecture lorraine en pierre et brique, fermes vosgiennes',
-            'Hauts-de-France' => 'maisons en brique rouge typiques du Nord, toitures pentues en ardoise ou tuiles flamandes, architecture minière, longères picardes',
-            'Normandie' => 'maisons normandes à colombages et torchis, manoirs en pierre avec toitures en ardoise, chaumières traditionnelles (rares)',
-            'Nouvelle-Aquitaine' => 'maisons girondines en pierre blonde, charentaises avec toitures en tuiles canal, architecture basque avec toits débordants, fermes périgourdines',
-            'Occitanie' => 'mas languedociens et toulousains en brique rose et pierre avec tuiles canal, architecture caussenarde en pierre sèche, toitures faible pente',
-            'Pays de la Loire' => 'longères angevines en tuffeau avec toitures en ardoise d\'Angers, maisons vendéennes et nantaises, architecture ligérienne en pierre',
-            'Centre-Val de Loire' => 'maisons de Sologne en brique et bois, demeures ligériennes en tuffeau blanc, toitures en tuiles plates ou ardoise, architecture berrichonne',
-            'Corse' => 'maisons corses en pierre de granit avec toitures en lauzes (teghje) ou tuiles canal, génoises décoratives, architecture insulaire méditerranéenne',
+            'Provence-Alpes-Côte d\'Azur' => 'mas provençaux et bastides en pierre avec plomberies à faible pente en tuiles canal romanes, génoise et couleur ocre',
+            'Auvergne-Rhône-Alpes' => 'chalets et fermes montagnardes avec plomberies à forte pente pour évacuation neige, lauzes ou ardoise, maisons lyonnaises en pierre dorée',
+            'Bourgogne-Franche-Comté' => 'maisons bourguignonnes en pierre calcaire, plomberies aux tuiles vernissées polychromes typiques (tuiles de Bourgogne), forte pente',
+            'Grand Est' => 'maisons alsaciennes à colombages avec plomberies pentues en tuiles plates mécaniques, architecture lorraine en pierre et brique, fermes vosgiennes',
+            'Hauts-de-France' => 'maisons en brique rouge typiques du Nord, plomberies pentues en ardoise ou tuiles flamandes, architecture minière, longères picardes',
+            'Normandie' => 'maisons normandes à colombages et torchis, manoirs en pierre avec plomberies en ardoise, chaumières traditionnelles (rares)',
+            'Nouvelle-Aquitaine' => 'maisons girondines en pierre blonde, charentaises avec plomberies en tuiles canal, architecture basque avec toits débordants, fermes périgourdines',
+            'Occitanie' => 'mas languedociens et toulousains en brique rose et pierre avec tuiles canal, architecture caussenarde en pierre sèche, plomberies faible pente',
+            'Pays de la Loire' => 'longères angevines en tuffeau avec plomberies en ardoise d\'Angers, maisons vendéennes et nantaises, architecture ligérienne en pierre',
+            'Centre-Val de Loire' => 'maisons de Sologne en brique et bois, demeures ligériennes en tuffeau blanc, plomberies en tuiles plates ou ardoise, architecture berrichonne',
+            'Corse' => 'maisons corses en pierre de granit avec plomberies en lauzes (teghje) ou tuiles canal, génoises décoratives, architecture insulaire méditerranéenne',
         ];
         
-        return $architectures[$region] ?? 'architecture locale traditionnelle française avec toitures adaptées au climat régional';
+        return $architectures[$region] ?? 'architecture locale traditionnelle française avec plomberies adaptées au climat régional';
     }
     
     /**
@@ -304,7 +304,7 @@ Tu as un template de contenu pour "{$serviceName}" qui est générique. Tu dois 
    - Recommander les matériaux adaptés au climat local
    
 2. **Créer des exemples concrets et locaux :**
-   - "À {$city->name}, les toitures doivent résister à..."
+   - "À {$city->name}, les plomberies doivent résister à..."
    - "Dans le {$cityContext['department']}, les propriétaires de {$cityContext['area_type']} font face à..."
    - "Le climat {$cityContext['climate']['type']} de {$cityContext['region']} nécessite..."
 
@@ -434,11 +434,11 @@ EOT;
     protected function getServiceVerb($serviceName)
     {
         $verbs = [
-            'toiture' => 'intervient sur vos toitures',
+            'plomberie' => 'intervient sur vos plomberies',
             'façade' => 'rénove vos façades',
             'isolation' => 'améliore l\'isolation de vos bâtiments',
             'charpente' => 'répare et rénove vos charpentes',
-            'couverture' => 'assure tous vos travaux de couverture',
+            'plomberie' => 'assure tous vos travaux de plomberie',
             'zinguerie' => 'réalise vos travaux de zinguerie',
         ];
         

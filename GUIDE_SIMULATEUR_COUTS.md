@@ -3,7 +3,7 @@
 ## 📍 Accès
 
 ### Pour les visiteurs :
-- **URL publique** : `https://couvreur-chevigny-saint-sauveur.fr/simulateur`
+- **URL publique** : `https://plombier-chevigny-saint-sauveur.fr/simulateur`
 
 ### Pour l'administration :
 - **Configuration** : `/admin/simulator`
@@ -20,22 +20,22 @@
 - Impact SEO : utilisés pour meta title et description
 - Recommandé : 
   - Titre : "Simulateur de Coûts Travaux - Estimation Gratuite Instantanée"
-  - Description : "Estimez le coût de vos travaux de couverture, isolation, façade en quelques clics. Résultat immédiat avec fourchette de prix réaliste."
+  - Description : "Estimez le coût de vos travaux de plomberie, isolation, façade en quelques clics. Résultat immédiat avec fourchette de prix réaliste."
 
 ### 2. Configuration des services
 
 Pour chaque service, configurer :
 
 **Champs obligatoires :**
-- **ID** (slug) : Identifiant unique (ex: `toiture`, `facade`, `isolation`)
-- **Nom** : Nom affiché (ex: "Rénovation de toiture")
+- **ID** (slug) : Identifiant unique (ex: `plomberie`, `facade`, `isolation`)
+- **Nom** : Nom affiché (ex: "Rénovation de plomberie")
 - **Prix/m²** : Tarif de base au m² (ex: 80€)
 - **Description** : Description courte affichée
 
 **Options additionnelles par service :**
 Chaque service peut avoir des options comme :
 - Isolation thermique renforcée : +25€/m²
-- Couverture zinc : +40€/m²
+- Plomberie zinc : +40€/m²
 - Fenêtres de toit : +15€/m²
 - etc.
 
@@ -43,17 +43,17 @@ Chaque service peut avoir des options comme :
 
 ## 🎯 Services recommandés à configurer
 
-### Service 1 : Rénovation de toiture
+### Service 1 : Rénovation de plomberie
 ```
-ID: toiture
-Nom: Rénovation de toiture complète
+ID: plomberie
+Nom: Rénovation de plomberie complète
 Prix/m²: 80€
-Description: Remplacement ou rénovation complète de votre toiture
+Description: Remplacement ou rénovation complète de votre plomberie
 
 Options:
 - Isolation thermique : +25€/m²
 - Velux / fenêtres de toit : +15€/m²
-- Couverture zinc : +40€/m²
+- Plomberie zinc : +40€/m²
 - Ardoise naturelle : +50€/m²
 - Zinguerie complète : +20€/m²
 ```
@@ -190,7 +190,7 @@ Exemple : Pour 12 500€
 ### Optimisations recommandées :
 
 1. **Page dédiée par service** :
-   - `/simulateur/toiture`
+   - `/simulateur/plomberie`
    - `/simulateur/facade`
    - `/simulateur/isolation`
    - Chacune avec contenu SEO unique
@@ -201,8 +201,8 @@ Exemple : Pour 12 500€
 {
   "@context": "https://schema.org",
   "@type": "WebApplication",
-  "name": "Simulateur de Coûts Travaux Couverture",
-  "url": "https://couvreur-chevigny-saint-sauveur.fr/simulateur",
+  "name": "Simulateur de Coûts Travaux Plomberie",
+  "url": "https://plombier-chevigny-saint-sauveur.fr/simulateur",
   "applicationCategory": "FinanceApplication",
   "offers": {
     "@type": "Offer",
@@ -214,9 +214,9 @@ Exemple : Pour 12 500€
 ```
 
 3. **Optimiser pour recherches type** :
-   - "simulateur coût toiture"
-   - "calculer prix rénovation toiture"
-   - "estimer coût travaux couverture"
+   - "simulateur coût plomberie"
+   - "calculer prix rénovation plomberie"
+   - "estimer coût travaux plomberie"
 
 ---
 

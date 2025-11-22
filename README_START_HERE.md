@@ -35,7 +35,7 @@ git pull origin main && php artisan cache:clear && php artisan optimize
 
 # 2. Configurer domaine
 php artisan tinker
-App\Models\Setting::set('site_url', 'https://couvreur-chevigny-saint-sauveur.fr');
+App\Models\Setting::set('site_url', 'https://plombier-chevigny-saint-sauveur.fr');
 exit
 
 # 3. Régénérer sitemap

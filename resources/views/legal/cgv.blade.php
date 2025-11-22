@@ -11,7 +11,7 @@
             <div class="prose prose-lg max-w-none">
                 <h2 class="text-2xl font-semibold text-gray-800 mb-4">1. Objet</h2>
                 <p class="mb-6">
-                    Les présentes conditions générales de vente s'appliquent à tous les services de couverture, rénovation et travaux de toiture proposés par {{ $companyName }}.
+                    Les présentes conditions générales de vente s'appliquent à tous les services de plomberie, rénovation et travaux de plomberie proposés par {{ $companyName }}.
                 </p>
                 
                 <h2 class="text-2xl font-semibold text-gray-800 mb-4">2. Identification du vendeur</h2>
@@ -41,10 +41,10 @@
                             @endif
                         @endforeach
                     @else
-                        <li>Rénovation de toiture</li>
-                        <li>Pose de couverture</li>
-                        <li>Réparation de toiture</li>
-                        <li>Isolation de toiture</li>
+                        <li>Rénovation de plomberie</li>
+                        <li>Pose de plomberie</li>
+                        <li>Réparation de plomberie</li>
+                        <li>Isolation de plomberie</li>
                         <li>Demoussage et hydrofuge</li>
                         <li>Zinguerie</li>
                         <li>Charpente</li>

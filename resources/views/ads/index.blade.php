@@ -8,7 +8,7 @@
     // Récupérer les meta tags depuis SeoHelper
     $seoData = \App\Helpers\SeoHelper::generateMetaTags('ads', [
         'title' => 'Nos Annonces',
-        'description' => 'Découvrez nos services par ville. Solutions professionnelles de couverture et rénovation dans toute la région.',
+        'description' => 'Découvrez nos services par ville. Solutions professionnelles de plomberie et rénovation dans toute la région.',
         'image' => file_exists(public_path('images/og-services.jpg')) ? asset('images/og-services.jpg') : null,
     ]);
     

@@ -20,18 +20,18 @@ class GenerateCompleteSitemap extends Command
         // URL depuis la config ou les settings - FORCER normesrenovationbretagne.fr
         $baseUrl = null;
         
-        // 1. Vérifier le setting (mais REJETER sausercouverture.fr)
+        // 1. Vérifier le setting (mais REJETER sauserplomberie.fr)
         $settingUrl = \App\Models\Setting::get('site_url', null);
-        if (!empty($settingUrl) && strpos($settingUrl, 'sausercouverture.fr') === false) {
+        if (!empty($settingUrl) && strpos($settingUrl, 'sauserplomberie.fr') === false) {
             if (strpos($settingUrl, 'normesrenovationbretagne.fr') !== false) {
                 $baseUrl = $settingUrl;
             }
         }
         
-        // 2. Vérifier APP_URL depuis .env (mais REJETER sausercouverture.fr)
+        // 2. Vérifier APP_URL depuis .env (mais REJETER sauserplomberie.fr)
         if (empty($baseUrl)) {
             $envUrl = config('app.url', null);
-            if (!empty($envUrl) && strpos($envUrl, 'sausercouverture.fr') === false) {
+            if (!empty($envUrl) && strpos($envUrl, 'sauserplomberie.fr') === false) {
                 if (strpos($envUrl, 'normesrenovationbretagne.fr') !== false) {
                     $baseUrl = $envUrl;
                 }
@@ -49,9 +49,9 @@ class GenerateCompleteSitemap extends Command
         }
         $baseUrl = rtrim($baseUrl, '/');
         
-        // VÉRIFICATION FINALE : Rejeter sausercouverture.fr
-        if (strpos($baseUrl, 'sausercouverture.fr') !== false) {
-            $this->error('❌ ERREUR: sausercouverture.fr détectée, correction forcée !');
+        // VÉRIFICATION FINALE : Rejeter sauserplomberie.fr
+        if (strpos($baseUrl, 'sauserplomberie.fr') !== false) {
+            $this->error('❌ ERREUR: sauserplomberie.fr détectée, correction forcée !');
             $baseUrl = 'https://normesrenovationbretagne.fr';
         }
         
@@ -104,7 +104,7 @@ class GenerateCompleteSitemap extends Command
         
         // Services par défaut si aucun service trouvé
         if (empty($services)) {
-            $services = ['test-service', 'couvreur', 'couverture', 'hydrofuge'];
+            $services = ['test-service', 'plombier', 'plomberie', 'hydrofuge'];
         }
         
         $this->info("📋 Ajout de " . count($services) . " services...");
@@ -131,7 +131,7 @@ class GenerateCompleteSitemap extends Command
         if (empty($articles)) {
             $articles = [
                 'hydrofuge-comment-proteger-efficacement-vos-surfaces-de-leau-guide-complet-2024',
-                'guide-complet-hydrofuge-de-toiture-protection-et-impermeabilisation-2024'
+                'guide-complet-hydrofuge-de-plomberie-protection-et-impermeabilisation-2024'
             ];
         }
         
@@ -158,9 +158,9 @@ class GenerateCompleteSitemap extends Command
         // Annonces par défaut si aucune annonce trouvée
         if (empty($ads)) {
             $ads = [
-                'test-couvreur-2-chantilly',
-                'test-couvreur-2-senlis',
-                'test-couvreur-chantilly',
+                'test-plombier-2-chantilly',
+                'test-plombier-2-senlis',
+                'test-plombier-chantilly',
                 'hydrofuge-vitry-en-charollais',
                 'test-service-chantilly'
             ];
@@ -194,7 +194,7 @@ class GenerateCompleteSitemap extends Command
         
         // Portfolio par défaut si aucun élément trouvé
         if (empty($portfolio)) {
-            $portfolio = ['renovation-de-toiture-a-avrainville'];
+            $portfolio = ['renovation-de-plomberie-a-avrainville'];
         }
         
         $this->info("🖼️ Ajout de " . count($portfolio) . " éléments de portfolio...");

@@ -51,13 +51,13 @@ Le système génère automatiquement :
 ### 6. Exemples de services à générer
 
 ```
-Rénovation de toiture
+Rénovation de plomberie
 Réparation de gouttières
 Isolation des combles
 Ravalement de façade
 Charpente traditionnelle
-Couverture en ardoise
-Couverture en tuiles
+Plomberie en ardoise
+Plomberie en tuiles
 Zinguerie et étanchéité
 ```
 

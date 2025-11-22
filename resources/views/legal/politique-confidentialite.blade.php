@@ -40,7 +40,7 @@
                 <h2 class="text-2xl font-semibold text-gray-800 mb-4">4. Finalités du traitement</h2>
                 <p class="mb-4">Nous utilisons vos données personnelles pour :</p>
                 <ul class="list-disc pl-6 mb-6">
-                    <li>Fournir nos services de couverture et rénovation</li>
+                    <li>Fournir nos services de plomberie et rénovation</li>
                     <li>Répondre à vos demandes de devis</li>
                     <li>Vous contacter concernant nos services</li>
                     <li>Améliorer notre site web et nos services</li>

@@ -214,7 +214,7 @@ class PortfolioController extends Controller
         $companyName = setting('company_name', 'Votre Entreprise');
         $companyCity = setting('company_city', '');
         $workTypeLabels = [
-            'roof' => 'Toiture',
+            'roof' => 'Plomberie',
             'facade' => 'Façade', 
             'isolation' => 'Isolation',
             'mixed' => 'Travaux mixtes'
@@ -252,7 +252,7 @@ class PortfolioController extends Controller
                 $keywords[] = $companyCity;
             }
             if (($portfolioItem['work_type'] ?? '') === 'roof') {
-                $keywords = array_merge($keywords, ['toiture', 'couverture', 'charpente']);
+                $keywords = array_merge($keywords, ['plomberie', 'plomberie', 'charpente']);
             } elseif (($portfolioItem['work_type'] ?? '') === 'facade') {
                 $keywords = array_merge($keywords, ['façade', 'enduit', 'ravalement']);
             } elseif (($portfolioItem['work_type'] ?? '') === 'isolation') {
@@ -294,8 +294,8 @@ class PortfolioController extends Controller
         return [
             [
                 'id' => 'portfolio_' . time() . '_1',
-                'title' => 'Rénovation Toiture - Maison Familiale',
-                'description' => 'Rénovation complète d\'une toiture en tuiles avec remplacement de la charpente et pose d\'une nouvelle couverture. Travaux réalisés avec des matériaux de qualité supérieure.',
+                'title' => 'Rénovation Plomberie - Maison Familiale',
+                'description' => 'Rénovation complète d\'une plomberie en tuiles avec remplacement de la charpente et pose d\'une nouvelle plomberie. Travaux réalisés avec des matériaux de qualité supérieure.',
                 'work_type' => 'roof',
                 'images' => [
                     'uploads/portfolio/portfolio-1761026926-2964.jpeg',
@@ -303,14 +303,14 @@ class PortfolioController extends Controller
                 ],
                 'is_visible' => true,
                 'created_at' => date('c'),
-                'meta_title' => 'Rénovation Toiture - Maison Familiale | Couvreur Professionnel',
-                'meta_description' => 'Découvrez notre réalisation de rénovation de toiture. Travaux professionnels avec matériaux de qualité.',
-                'meta_keywords' => 'rénovation, toiture, couverture, charpente, travaux'
+                'meta_title' => 'Rénovation Plomberie - Maison Familiale | Plombier Professionnel',
+                'meta_description' => 'Découvrez notre réalisation de rénovation de plomberie. Travaux professionnels avec matériaux de qualité.',
+                'meta_keywords' => 'rénovation, plomberie, plomberie, charpente, travaux'
             ],
             [
                 'id' => 'portfolio_' . time() . '_2',
                 'title' => 'Demoussage et Traitement Hydrofuge',
-                'description' => 'Demoussage professionnel suivi d\'un traitement hydrofuge pour protéger la toiture contre les intempéries et les mousses.',
+                'description' => 'Demoussage professionnel suivi d\'un traitement hydrofuge pour protéger la plomberie contre les intempéries et les mousses.',
                 'work_type' => 'demoussage',
                 'images' => [
                     'uploads/portfolio/portfolio-1761034156-5402.jpeg',
@@ -318,14 +318,14 @@ class PortfolioController extends Controller
                 ],
                 'is_visible' => true,
                 'created_at' => date('c'),
-                'meta_title' => 'Demoussage et Traitement Hydrofuge | Couvreur Professionnel',
-                'meta_description' => 'Service de demoussage et traitement hydrofuge pour protéger votre toiture.',
-                'meta_keywords' => 'demoussage, hydrofuge, traitement, toiture, protection'
+                'meta_title' => 'Demoussage et Traitement Hydrofuge | Plombier Professionnel',
+                'meta_description' => 'Service de demoussage et traitement hydrofuge pour protéger votre plomberie.',
+                'meta_keywords' => 'demoussage, hydrofuge, traitement, plomberie, protection'
             ],
             [
                 'id' => 'portfolio_' . time() . '_3',
-                'title' => 'Réparation de Toiture - Urgence',
-                'description' => 'Intervention d\'urgence pour réparer une toiture endommagée par une tempête. Remplacement des tuiles cassées et vérification de l\'étanchéité.',
+                'title' => 'Réparation de Plomberie - Urgence',
+                'description' => 'Intervention d\'urgence pour réparer une plomberie endommagée par une tempête. Remplacement des tuiles cassées et vérification de l\'étanchéité.',
                 'work_type' => 'roof',
                 'images' => [
                     'uploads/portfolio/portfolio-1761065197-9694.jpeg',
@@ -333,13 +333,13 @@ class PortfolioController extends Controller
                 ],
                 'is_visible' => true,
                 'created_at' => date('c'),
-                'meta_title' => 'Réparation de Toiture - Urgence | Couvreur Professionnel',
-                'meta_description' => 'Réparation d\'urgence de toiture endommagée. Intervention rapide et professionnelle.',
-                'meta_keywords' => 'réparation, toiture, urgence, tempête, étanchéité'
+                'meta_title' => 'Réparation de Plomberie - Urgence | Plombier Professionnel',
+                'meta_description' => 'Réparation d\'urgence de plomberie endommagée. Intervention rapide et professionnelle.',
+                'meta_keywords' => 'réparation, plomberie, urgence, tempête, étanchéité'
             ],
             [
                 'id' => 'portfolio_' . time() . '_4',
-                'title' => 'Isolation Thermique Toiture',
+                'title' => 'Isolation Thermique Plomberie',
                 'description' => 'Pose d\'une isolation thermique performante dans les combles pour améliorer l\'efficacité énergétique de la maison.',
                 'work_type' => 'isolation',
                 'images' => [
@@ -347,7 +347,7 @@ class PortfolioController extends Controller
                 ],
                 'is_visible' => true,
                 'created_at' => date('c'),
-                'meta_title' => 'Isolation Thermique Toiture | Couvreur Professionnel',
+                'meta_title' => 'Isolation Thermique Plomberie | Plombier Professionnel',
                 'meta_description' => 'Isolation thermique performante pour améliorer l\'efficacité énergétique.',
                 'meta_keywords' => 'isolation, thermique, énergie, combles, efficacité'
             ]

@@ -115,6 +115,7 @@ class ContactController extends Controller
             'service_interest' => 'required|string|max:255',
             'subject' => 'required|string|min:6|max:255',
             'message' => 'required|string|min:6|max:2000',
+            'photos.*' => 'nullable|image|max:5120', // 5MB max par image
             'recaptcha_token' => 'nullable|string',
         ], [
             'name.required' => 'Le nom est obligatoire.',

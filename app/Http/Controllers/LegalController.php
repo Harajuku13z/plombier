@@ -12,7 +12,7 @@ class LegalController extends Controller
      */
     public function mentionsLegales()
     {
-        $companyName = setting('company_name', 'Sausser Couverture');
+        $companyName = setting('company_name', 'Sausser Plomberie');
         $companyAddress = setting('company_address', '');
         $companyPhone = setting('company_phone', '');
         $companyEmail = setting('company_email', '');
@@ -42,7 +42,7 @@ class LegalController extends Controller
      */
     public function politiqueConfidentialite()
     {
-        $companyName = setting('company_name', 'Sausser Couverture');
+        $companyName = setting('company_name', 'Sausser Plomberie');
         $companyEmail = setting('company_email', '');
         $companyPhone = setting('company_phone', '');
         $companyAddress = setting('company_address', '');
@@ -60,7 +60,7 @@ class LegalController extends Controller
      */
     public function cgv()
     {
-        $companyName = setting('company_name', 'Sausser Couverture');
+        $companyName = setting('company_name', 'Sausser Plomberie');
         $companyEmail = setting('company_email', '');
         $companyPhone = setting('company_phone', '');
         $companyAddress = setting('company_address', '');

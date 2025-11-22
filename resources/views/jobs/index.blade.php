@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Offres d'emploi - Normes Rénovation Bretagne</title>
-    <meta name="description" content="Découvrez nos offres d'emploi dans le domaine de la couverture et de la rénovation en Bretagne. Rejoignez notre équipe de professionnels.">
+    <meta name="description" content="Découvrez nos offres d'emploi dans le domaine de la plomberie et de la rénovation en Bretagne. Rejoignez notre équipe de professionnels.">
     <meta name="robots" content="index, follow">
     
     <!-- Données structurées JSON-LD pour chaque offre d'emploi -->
@@ -196,7 +196,7 @@
     <div class="container">
         <header>
             <h1>Offres d'emploi</h1>
-            <p class="subtitle">Rejoignez notre équipe de professionnels de la couverture et de la rénovation</p>
+            <p class="subtitle">Rejoignez notre équipe de professionnels de la plomberie et de la rénovation</p>
         </header>
         
         <div class="jobs-grid">

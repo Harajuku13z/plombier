@@ -37,13 +37,13 @@
                     rows="8" 
                     class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" 
                     placeholder="Exemples:
-Rénovation de toiture
+Rénovation de plomberie
 Réparation de gouttières
 Isolation des combles
 Ravalement de façade
 Charpente traditionnelle
-Couverture en ardoise
-Couverture en tuiles
+Plomberie en ardoise
+Plomberie en tuiles
 Zinguerie et étanchéité"
                     required
                 >{{ old('service_names') }}</textarea>
@@ -59,9 +59,9 @@ Zinguerie et étanchéité"
                         type="text" 
                         name="category" 
                         id="category"
-                        value="{{ old('category', 'Services de Couverture') }}" 
+                        value="{{ old('category', 'Services de Plomberie') }}" 
                         class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" 
-                        placeholder="Services de Couverture"
+                        placeholder="Services de Plomberie"
                     >
                 </div>
                 

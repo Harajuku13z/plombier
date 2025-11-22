@@ -308,7 +308,7 @@ class SitemapService
         }
         
         // Services par défaut
-        return ['test-service', 'couvreur', 'couverture', 'hydrofuge'];
+        return ['test-service', 'plombier', 'plomberie', 'hydrofuge'];
     }
 
     /**
@@ -338,7 +338,7 @@ class SitemapService
                 'updated_at' => Carbon::now()
             ],
             [
-                'slug' => 'guide-complet-hydrofuge-de-toiture-protection-et-impermeabilisation-2024',
+                'slug' => 'guide-complet-hydrofuge-de-plomberie-protection-et-impermeabilisation-2024',
                 'updated_at' => Carbon::now()
             ]
         ];
@@ -368,11 +368,11 @@ class SitemapService
         // Annonces par défaut
         return [
             [
-                'slug' => 'test-couvreur-2-chantilly',
+                'slug' => 'test-plombier-2-chantilly',
                 'updated_at' => Carbon::now()
             ],
             [
-                'slug' => 'test-couvreur-2-senlis',
+                'slug' => 'test-plombier-2-senlis',
                 'updated_at' => Carbon::now()
             ]
         ];
@@ -397,7 +397,7 @@ class SitemapService
         }
         
         // Portfolio par défaut
-        return ['renovation-de-toiture-a-avrainville'];
+        return ['renovation-de-plomberie-a-avrainville'];
     }
 
     /**

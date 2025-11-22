@@ -6,7 +6,7 @@
 
 ```bash
 # Sur votre serveur
-cd /path/to/couvreur
+cd /path/to/plombier
 
 # Réinitialiser avec mot de passe personnalisé
 php artisan admin:reset-password --username=admin --password=VotreNouveauMotDePasse --show
@@ -57,7 +57,7 @@ exit
 - **Username** : `admin`
 - **Password** : `admin`
 
-**Essayez d'abord** : https://couvreur-chevigny-saint-sauveur.fr/admin/login
+**Essayez d'abord** : https://plombier-chevigny-saint-sauveur.fr/admin/login
 - Username : `admin`
 - Password : `admin`
 
@@ -120,7 +120,7 @@ INSERT INTO settings (`key`, `value`) VALUES ('admin_password', 'VotreNouveauMot
 
 ## ✅ Test de Connexion
 
-1. Ouvrir : https://couvreur-chevigny-saint-sauveur.fr/admin/login
+1. Ouvrir : https://plombier-chevigny-saint-sauveur.fr/admin/login
 2. Entrer :
    - Username : `admin` (ou celui configuré)
    - Password : Votre nouveau mot de passe
@@ -175,7 +175,7 @@ php artisan admin:reset-password --password=VotreMotDePasse --show
 - Username : `admin`
 - Password : `VotreMotDePasse`
 
-**URL** : https://couvreur-chevigny-saint-sauveur.fr/admin/login
+**URL** : https://plombier-chevigny-saint-sauveur.fr/admin/login
 
 ---
 

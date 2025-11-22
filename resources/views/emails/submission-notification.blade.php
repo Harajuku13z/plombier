@@ -231,7 +231,7 @@
                 @endif
                 @if($submission->roof_work_types)
                 <div class="detail-item">
-                    <span class="detail-label">Travaux toiture :</span>
+                    <span class="detail-label">Travaux plomberie :</span>
                     @if(is_array($submission->roof_work_types))
                         {{ implode(', ', $submission->roof_work_types) }}
                     @else

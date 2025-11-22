@@ -223,7 +223,7 @@ class ServiceAiController extends Controller
 </div>';
             
             // Prompt système EXACTEMENT comme AdTemplateController
-            $systemMessage = "Tu es un expert en rédaction web pour services de rénovation/couverture en France. Tu génères UNIQUEMENT du JSON valide. PAS de texte avant ou après le JSON. PAS de markdown. PAS de code blocks. JUSTE le JSON brut.
+            $systemMessage = "Tu es un expert en rédaction web pour services de rénovation/plomberie en France. Tu génères UNIQUEMENT du JSON valide. PAS de texte avant ou après le JSON. PAS de markdown. PAS de code blocks. JUSTE le JSON brut.
 
 ⚠️ CRITIQUE : Les valeurs entre [crochets] dans les instructions sont des EXEMPLES/INSTRUCTIONS à suivre, PAS du contenu à copier littéralement. Tu DOIS générer du VRAI contenu professionnel et spécifique, en remplaçant complètement ces instructions par du contenu réel.";
             
@@ -248,10 +248,10 @@ class ServiceAiController extends Controller
             // Déterminer les types de prestations selon le service
             $prestationsExamples = '';
             $serviceLower = mb_strtolower($serviceName);
-            if (strpos($serviceLower, 'toiture') !== false || strpos($serviceLower, 'couverture') !== false) {
-                $prestationsExamples = "Exemples pour {$serviceName}: Réparation toiture, Hydrofuge toiture, Remplacement tuiles, Zinguerie, Réfection charpente, etc.";
+            if (strpos($serviceLower, 'plomberie') !== false || strpos($serviceLower, 'plomberie') !== false) {
+                $prestationsExamples = "Exemples pour {$serviceName}: Réparation plomberie, Hydrofuge plomberie, Remplacement tuiles, Zinguerie, Réfection charpente, etc.";
             } elseif (strpos($serviceLower, 'isolation') !== false || strpos($serviceLower, 'isol') !== false) {
-                $prestationsExamples = "Exemples pour {$serviceName}: Isolation combles perdus, Isolation toiture, Isolation murs, Isolation sols, Traitement ponts thermiques, etc.";
+                $prestationsExamples = "Exemples pour {$serviceName}: Isolation combles perdus, Isolation plomberie, Isolation murs, Isolation sols, Traitement ponts thermiques, etc.";
             } elseif (strpos($serviceLower, 'façade') !== false || strpos($serviceLower, 'ravalement') !== false) {
                 $prestationsExamples = "Exemples pour {$serviceName}: Ravalement façade, Enduit façade, Peinture façade, Nettoyage façade, Réfection parement, etc.";
             } else {

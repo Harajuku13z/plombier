@@ -741,7 +741,7 @@ Génère l'article HTML complet selon les consignes du prompt ci-dessus.";
         
         // Mots-clés prioritaires
         $priorityKeywords = [
-            'hydrofuge', 'hydrofugation', 'toiture', 'couverture', 'rénovation',
+            'hydrofuge', 'hydrofugation', 'plomberie', 'plomberie', 'rénovation',
             'isolation', 'façade', 'plomberie', 'électricité', 'élagage',
             'nettoyage', 'démoussage', 'réparation', 'entretien'
         ];
@@ -780,7 +780,7 @@ Génère l'article HTML complet selon les consignes du prompt ci-dessus.";
             $prompt = "Génère 10 mots-clés SEO pertinents pour l'article: {$title}
 
 RÈGLES:
-- Mots-clés liés à la rénovation, couverture, toiture
+- Mots-clés liés à la rénovation, plomberie, plomberie
 - Inclure des variantes et synonymes
 - Mots-clés locaux (Dijon, Bourgogne, etc.)
 - Mots-clés techniques du métier
@@ -838,9 +838,9 @@ GÉNÈRE LES MOTS-CLÉS:";
         
         // Ajouter des mots-clés génériques
         $generic = [
-            'rénovation', 'toiture', 'couvreur', 'expert', 'professionnel',
+            'rénovation', 'plomberie', 'plombier', 'expert', 'professionnel',
             'dijon', 'bourgogne', 'franche-comté', 'travaux', 'devis',
-            'qualité', 'garantie', 'artisan', 'couverture', 'tuiles'
+            'qualité', 'garantie', 'artisan', 'plomberie', 'tuiles'
         ];
         
         $keywords = array_merge($keywords, $generic);
@@ -926,7 +926,7 @@ GÉNÈRE LES MOTS-CLÉS:";
         $companySpecialization = setting('company_specialization', 'Travaux de Rénovation');
         $companyAddress = setting('company_address', '4 bis, Chemin des Postes, Avrainville (91)');
         
-        return "Tu es un rédacteur web professionnel et expert en rénovation de bâtiments (toiture, isolation, plomberie, électricité, façade, etc.) et SEO.
+        return "Tu es un rédacteur web professionnel et expert en rénovation de bâtiments (plomberie, isolation, plomberie, électricité, façade, etc.) et SEO.
 
 MISSION : Rédiger un article complet, informatif et optimisé SEO sur le sujet : {$title}
 
@@ -991,7 +991,7 @@ CONTENU À GÉNÉRER (2000-3000 mots) :
 
 MOTS-CLÉS À INTÉGRER :
 • {$title} (mot-clé principal)
-• rénovation, toiture, façade, isolation, plomberie, électricité
+• rénovation, plomberie, façade, isolation, plomberie, électricité
 • énergie, maison, entretien, travaux, {$companySpecialization}
 • Essonne, 91, professionnel, expert
 
@@ -1103,7 +1103,7 @@ Génère maintenant l'article HTML complet sur : {$title}";
     }
     
     /**
-     * Contenu spécifique pour l'hydrofuge de toiture
+     * Contenu spécifique pour l'hydrofuge de plomberie
      */
     private function generateHydrofugeContent($title, $companyName, $companyPhone, $companySpecialization)
     {
@@ -1113,31 +1113,31 @@ Génère maintenant l'article HTML complet sur : {$title}";
             <div class="bg-white p-6 rounded-xl shadow mb-6 hover:shadow-lg transition duration-300">
                 <h2 class="text-2xl font-semibold text-gray-800 my-4">🏠 Introduction</h2>
                 <p class="text-gray-700 text-base leading-relaxed mb-4">
-                    L\'hydrofuge de toiture est une technique essentielle pour protéger votre toit contre les intempéries et prolonger sa durée de vie. 
+                    L\'hydrofuge de plomberie est une technique essentielle pour protéger votre toit contre les intempéries et prolonger sa durée de vie. 
                     Cette solution imperméabilisante permet de créer une barrière protectrice qui repousse l\'eau tout en laissant respirer les matériaux.
                 </p>
                 <p class="text-gray-700 text-base leading-relaxed mb-4">
-                    Chez ' . $companyName . ', nous sommes spécialisés dans ' . $companySpecialization . ' et nous vous accompagnons dans tous vos projets d\'hydrofuge de toiture en Essonne.
+                    Chez ' . $companyName . ', nous sommes spécialisés dans ' . $companySpecialization . ' et nous vous accompagnons dans tous vos projets d\'hydrofuge de plomberie en Essonne.
                 </p>
             </div>
             
             <div class="bg-white p-6 rounded-xl shadow mb-6 hover:shadow-lg transition duration-300">
                 <h2 class="text-2xl font-semibold text-gray-800 my-4">🛠️ Techniques d\'hydrofuge</h2>
                 <p class="text-gray-700 text-base leading-relaxed mb-4">
-                    L\'hydrofuge peut être appliqué selon différentes techniques selon le type de toiture :
+                    L\'hydrofuge peut être appliqué selon différentes techniques selon le type de plomberie :
                 </p>
                 <ul class="list-disc list-inside text-gray-700 mb-2">
                     <li class="mb-2">🏠 <strong>Hydrofuge pour tuiles :</strong> Protection des tuiles en terre cuite ou béton</li>
                     <li class="mb-2">🏠 <strong>Hydrofuge pour ardoises :</strong> Traitement spécifique pour l\'ardoise naturelle</li>
-                    <li class="mb-2">🏠 <strong>Hydrofuge pour zinc :</strong> Protection des toitures en zinc</li>
-                    <li class="mb-2">🏠 <strong>Hydrofuge pour bac acier :</strong> Traitement des toitures industrielles</li>
+                    <li class="mb-2">🏠 <strong>Hydrofuge pour zinc :</strong> Protection des plomberies en zinc</li>
+                    <li class="mb-2">🏠 <strong>Hydrofuge pour bac acier :</strong> Traitement des plomberies industrielles</li>
                 </ul>
             </div>
             
             <div class="bg-white p-6 rounded-xl shadow mb-6 hover:shadow-lg transition duration-300">
                 <h2 class="text-2xl font-semibold text-gray-800 my-4">💡 Avantages de l\'hydrofuge</h2>
                 <p class="text-gray-700 text-base leading-relaxed mb-4">
-                    L\'application d\'un traitement hydrofuge sur votre toiture présente de nombreux avantages :
+                    L\'application d\'un traitement hydrofuge sur votre plomberie présente de nombreux avantages :
                 </p>
                 <ul class="list-disc list-inside text-gray-700 mb-2">
                     <li class="mb-2">✅ <strong>Protection contre l\'eau :</strong> Imperméabilisation efficace</li>
@@ -1151,27 +1151,27 @@ Génère maintenant l'article HTML complet sur : {$title}";
             <div class="bg-green-50 p-4 rounded-lg mb-4">
                 <h2 class="text-2xl font-semibold text-gray-800 my-4">❓ Questions Fréquentes</h2>
                 <div class="mb-4">
-                    <h3 class="font-bold text-gray-800">Qu\'est-ce que l\'hydrofuge de toiture ?</h3>
-                    <p class="text-gray-700">L\'hydrofuge est un traitement imperméabilisant qui protège votre toiture contre l\'eau tout en laissant respirer les matériaux.</p>
+                    <h3 class="font-bold text-gray-800">Qu\'est-ce que l\'hydrofuge de plomberie ?</h3>
+                    <p class="text-gray-700">L\'hydrofuge est un traitement imperméabilisant qui protège votre plomberie contre l\'eau tout en laissant respirer les matériaux.</p>
                 </div>
                 <div class="mb-4">
                     <h3 class="font-bold text-gray-800">Combien de temps dure un traitement hydrofuge ?</h3>
                     <p class="text-gray-700">Un traitement hydrofuge de qualité peut durer entre 5 et 10 ans selon les conditions climatiques et l\'entretien.</p>
                 </div>
                 <div class="mb-4">
-                    <h3 class="font-bold text-gray-800">Quel est le prix d\'un hydrofuge de toiture ?</h3>
-                    <p class="text-gray-700">Le prix varie selon la surface, le type de toiture et la complexité du chantier. Contactez-nous pour un devis personnalisé.</p>
+                    <h3 class="font-bold text-gray-800">Quel est le prix d\'un hydrofuge de plomberie ?</h3>
+                    <p class="text-gray-700">Le prix varie selon la surface, le type de plomberie et la complexité du chantier. Contactez-nous pour un devis personnalisé.</p>
                 </div>
             </div>
             
             <div class="bg-white p-6 rounded-xl shadow mb-6 hover:shadow-lg transition duration-300">
                 <h2 class="text-2xl font-semibold text-gray-800 my-4">🎯 Conclusion</h2>
                 <p class="text-gray-700 text-base leading-relaxed mb-4">
-                    L\'hydrofuge de toiture est un investissement judicieux pour protéger votre bien immobilier. 
+                    L\'hydrofuge de plomberie est un investissement judicieux pour protéger votre bien immobilier. 
                     Cette technique professionnelle vous garantit une protection durable contre les intempéries.
                 </p>
                 <p class="text-gray-700 text-base leading-relaxed mb-4">
-                    N\'hésitez pas à contacter ' . $companyName . ' pour tous vos besoins en hydrofuge de toiture en Essonne. 
+                    N\'hésitez pas à contacter ' . $companyName . ' pour tous vos besoins en hydrofuge de plomberie en Essonne. 
                     Notre équipe de professionnels vous accompagne dans votre projet avec expertise et qualité.
                 </p>
                 <div class="text-center mt-6">
@@ -1194,7 +1194,7 @@ Génère maintenant l'article HTML complet sur : {$title}";
             <div class="bg-white p-6 rounded-xl shadow mb-6 hover:shadow-lg transition duration-300">
                 <h2 class="text-2xl font-semibold text-gray-800 my-4">🏠 Introduction</h2>
                 <p class="text-gray-700 text-base leading-relaxed mb-4">
-                    Une hydrofugation réussie de votre toiture nécessite une préparation minutieuse et l\'application de techniques professionnelles. 
+                    Une hydrofugation réussie de votre plomberie nécessite une préparation minutieuse et l\'application de techniques professionnelles. 
                     Ces conseils vous permettront d\'obtenir un résultat optimal et durable.
                 </p>
                 <p class="text-gray-700 text-base leading-relaxed mb-4">
@@ -1263,7 +1263,7 @@ Génère maintenant l'article HTML complet sur : {$title}";
                     Une hydrofugation réussie nécessite expertise et savoir-faire. Ces conseils vous aideront à comprendre l\'importance d\'un travail professionnel.
                 </p>
                 <p class="text-gray-700 text-base leading-relaxed mb-4">
-                    Contactez ' . $companyName . ' pour une hydrofugation professionnelle de votre toiture en Essonne. 
+                    Contactez ' . $companyName . ' pour une hydrofugation professionnelle de votre plomberie en Essonne. 
                     Notre équipe maîtrise toutes ces techniques pour un résultat parfait.
                 </p>
                 <div class="text-center mt-6">
@@ -1286,7 +1286,7 @@ Génère maintenant l'article HTML complet sur : {$title}";
             <div class="bg-white p-6 rounded-xl shadow mb-6 hover:shadow-lg transition duration-300">
                 <h2 class="text-2xl font-semibold text-gray-800 my-4">🏠 Introduction</h2>
                 <p class="text-gray-700 text-base leading-relaxed mb-4">
-                    L\'hydrofugation de votre toiture offre de nombreux avantages concrets et mesurables. 
+                    L\'hydrofugation de votre plomberie offre de nombreux avantages concrets et mesurables. 
                     Cette technique de protection permet de préserver votre investissement immobilier tout en réduisant les coûts d\'entretien.
                 </p>
                 <p class="text-gray-700 text-base leading-relaxed mb-4">
@@ -1310,7 +1310,7 @@ Génère maintenant l'article HTML complet sur : {$title}";
             <div class="bg-white p-6 rounded-xl shadow mb-6 hover:shadow-lg transition duration-300">
                 <h2 class="text-2xl font-semibold text-gray-800 my-4">☀️ Résistance aux UV</h2>
                 <p class="text-gray-700 text-base leading-relaxed mb-4">
-                    L\'exposition prolongée au soleil peut endommager votre toiture. L\'hydrofugation apporte une protection supplémentaire :
+                    L\'exposition prolongée au soleil peut endommager votre plomberie. L\'hydrofugation apporte une protection supplémentaire :
                 </p>
                 <ul class="list-disc list-inside text-gray-700 mb-2">
                     <li class="mb-2">🌞 <strong>Protection UV :</strong> Filtre les rayons nocifs</li>
@@ -1328,7 +1328,7 @@ Génère maintenant l'article HTML complet sur : {$title}";
                 <ul class="list-disc list-inside text-gray-700 mb-2">
                     <li class="mb-2">🚫 <strong>Prévention :</strong> Évite l\'apparition de mousse</li>
                     <li class="mb-2">🧹 <strong>Nettoyage facilité :</strong> Moins de salissures</li>
-                    <li class="mb-2">💎 <strong>Esthétique :</strong> Toiture toujours propre</li>
+                    <li class="mb-2">💎 <strong>Esthétique :</strong> Plomberie toujours propre</li>
                     <li class="mb-2">🏆 <strong>Valeur :</strong> Améliore l\'apparence de votre maison</li>
                 </ul>
             </div>
@@ -1358,7 +1358,7 @@ Génère maintenant l'article HTML complet sur : {$title}";
                 </div>
                 <div class="mb-4">
                     <h3 class="font-bold text-gray-800">Combien coûte une hydrofugation ?</h3>
-                    <p class="text-gray-700">Le prix varie selon la surface et le type de toiture. Contactez-nous pour un devis gratuit.</p>
+                    <p class="text-gray-700">Le prix varie selon la surface et le type de plomberie. Contactez-nous pour un devis gratuit.</p>
                 </div>
             </div>
             
@@ -1369,7 +1369,7 @@ Génère maintenant l'article HTML complet sur : {$title}";
                 </p>
                 <p class="text-gray-700 text-base leading-relaxed mb-4">
                     Faites confiance à ' . $companyName . ' pour profiter de tous ces avantages. 
-                    Notre expertise garantit un résultat optimal pour votre toiture en Essonne.
+                    Notre expertise garantit un résultat optimal pour votre plomberie en Essonne.
                 </p>
                 <div class="text-center mt-6">
                     <a href="tel:' . $companyPhone . '" class="bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600 transition duration-300 inline-block">

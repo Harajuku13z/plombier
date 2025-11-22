@@ -109,7 +109,7 @@ echo "\n6. Test de génération des URLs de partage...\n";
 try {
     // Simuler un article pour tester les URLs
     $articleTitle = 'Test Article Title';
-    $articleUrl = 'https://sausercouverture.fr/blog/test-article';
+    $articleUrl = 'https://sauserplomberie.fr/blog/test-article';
     
     $testUrls = [
         'Facebook' => 'https://www.facebook.com/sharer/sharer.php?u=' . urlencode($articleUrl) . '&quote=' . urlencode($articleTitle),

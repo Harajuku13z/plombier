@@ -140,7 +140,7 @@ INSTRUCTIONS IMPORTANTES:
 - ADAPTE le contenu à la localisation {{COMPANY_CITY}}, {{COMPANY_REGION}}
 
 INSTRUCTIONS:
-- ADAPTE le contenu au service {{SERVICE_NAME}} (toiture, façade, isolation, etc.)
+- ADAPTE le contenu au service {{SERVICE_NAME}} (plomberie, façade, isolation, etc.)
 - ÉCRIS du contenu UNIQUE et SPÉCIFIQUE
 - UTILISE les informations de l'entreprise et localisation
 - GARDE la structure HTML exacte

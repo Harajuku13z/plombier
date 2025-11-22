@@ -195,83 +195,83 @@ class CostSimulatorController extends Controller
     protected function getDefaultConfig()
     {
         return [
-            'title' => 'Simulateur de Coûts',
-            'description' => 'Estimez rapidement le coût de vos travaux de rénovation',
+            'title' => 'Simulateur de Coûts Plomberie',
+            'description' => 'Estimez rapidement le coût de vos travaux de plomberie',
             'services' => [
                 [
-                    'id' => 'toiture',
-                    'name' => 'Rénovation de toiture',
-                    'base_cost_per_sqm' => 80,
-                    'description' => 'Remplacement ou rénovation complète de votre toiture',
+                    'id' => 'installation-sanitaire',
+                    'name' => 'Installation sanitaire complète',
+                    'base_cost_per_sqm' => 150,
+                    'description' => 'Installation complète salle de bain, cuisine, WC',
                     'additional_options' => [
                         [
-                            'id' => 'isolation',
-                            'name' => 'Isolation thermique renforcée',
-                            'cost_per_sqm' => 25
+                            'id' => 'equipements-premium',
+                            'name' => 'Équipements sanitaires premium',
+                            'cost_per_sqm' => 80
                         ],
                         [
-                            'id' => 'zinc',
-                            'name' => 'Couverture en zinc',
-                            'cost_per_sqm' => 40
-                        ],
-                        [
-                            'id' => 'velux',
-                            'name' => 'Installation fenêtres de toit',
-                            'cost_per_sqm' => 15
-                        ]
-                    ]
-                ],
-                [
-                    'id' => 'facade',
-                    'name' => 'Ravalement de façade',
-                    'base_cost_per_sqm' => 60,
-                    'description' => 'Nettoyage et rénovation de votre façade',
-                    'additional_options' => [
-                        [
-                            'id' => 'ite',
-                            'name' => 'Isolation thermique extérieure (ITE)',
+                            'id' => 'douche-italienne',
+                            'name' => 'Douche à l\'italienne',
                             'cost_per_sqm' => 50
                         ],
                         [
-                            'id' => 'peinture',
-                            'name' => 'Peinture de finition premium',
-                            'cost_per_sqm' => 20
+                            'id' => 'baignoire-balneo',
+                            'name' => 'Baignoire balnéo',
+                            'cost_per_sqm' => 100
                         ]
                     ]
                 ],
                 [
-                    'id' => 'isolation',
-                    'name' => 'Isolation des combles',
-                    'base_cost_per_sqm' => 35,
-                    'description' => 'Isolation thermique de vos combles',
-                    'additional_options' => [
-                        [
-                            'id' => 'laine_roche',
-                            'name' => 'Laine de roche haute performance',
-                            'cost_per_sqm' => 10
-                        ],
-                        [
-                            'id' => 'pare_vapeur',
-                            'name' => 'Pare-vapeur renforcé',
-                            'cost_per_sqm' => 5
-                        ]
-                    ]
-                ],
-                [
-                    'id' => 'charpente',
-                    'name' => 'Rénovation de charpente',
+                    'id' => 'chauffage',
+                    'name' => 'Installation système de chauffage',
                     'base_cost_per_sqm' => 120,
-                    'description' => 'Réparation ou remplacement de charpente',
+                    'description' => 'Chaudière, radiateurs, plancher chauffant',
                     'additional_options' => [
                         [
-                            'id' => 'traitement',
-                            'name' => 'Traitement anti-insectes et anti-humidité',
-                            'cost_per_sqm' => 15
+                            'id' => 'chaudiere-condensation',
+                            'name' => 'Chaudière à condensation',
+                            'cost_per_sqm' => 60
                         ],
                         [
-                            'id' => 'renfort',
-                            'name' => 'Renforcement structure',
-                            'cost_per_sqm' => 30
+                            'id' => 'plancher-chauffant',
+                            'name' => 'Plancher chauffant',
+                            'cost_per_sqm' => 70
+                        ]
+                    ]
+                ],
+                [
+                    'id' => 'canalisation',
+                    'name' => 'Rénovation canalisations',
+                    'base_cost_per_sqm' => 90,
+                    'description' => 'Remplacement tuyauterie, évacuation',
+                    'additional_options' => [
+                        [
+                            'id' => 'cuivre',
+                            'name' => 'Tuyauterie en cuivre',
+                            'cost_per_sqm' => 40
+                        ],
+                        [
+                            'id' => 'multicouche',
+                            'name' => 'Système multicouche PER',
+                            'cost_per_sqm' => 25
+                        ]
+                    ]
+                ],
+                [
+                    'id' => 'urgence',
+                    'name' => 'Dépannage d\'urgence 24/7',
+                    'base_cost_per_sqm' => 180,
+                    'description' => 'Intervention rapide fuite, dégât des eaux',
+                    'additional_options' => [
+                        [
+                            'id' => 'nuit-weekend',
+                            'name' => 'Intervention nuit/week-end',
+                            'cost_per_sqm' => 80
+                        ],
+                        [
+                            'id' => 'recherche-fuite',
+                            'name' => 'Recherche de fuite non destructive',
+                            'cost_per_sqm' => 60
                         ]
                     ]
                 ]

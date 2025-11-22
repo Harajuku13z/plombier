@@ -1111,15 +1111,15 @@ class SeoAutomationController extends Controller
             ]);
             
             // Construire le prompt pour ChatGPT
-            $prompt = "À partir de la description suivante d'une entreprise de couvreur/rénovation, génère une liste de 20 à 30 mots-clés SEO pertinents et spécifiques pour le secteur du bâtiment et de la rénovation.
+            $prompt = "À partir de la description suivante d'une entreprise de plombier/rénovation, génère une liste de 20 à 30 mots-clés SEO pertinents et spécifiques pour le secteur du bâtiment et de la rénovation.
 
 Description de l'entreprise :
 {$companyDescription}
 
 **Instructions :**
-- Génère des mots-clés spécifiques au secteur (ex: 'rénovation de toiture', 'couverture en tuiles', 'isolation thermique', etc.)
-- Inclus des mots-clés avec localisation (ex: 'couvreur à [ville]', 'rénovation toiture [ville]')
-- Inclus des mots-clés de services (ex: 'réparation toiture', 'charpente traditionnelle', 'isolation combles')
+- Génère des mots-clés spécifiques au secteur (ex: 'rénovation de plomberie', 'plomberie en tuiles', 'isolation thermique', etc.)
+- Inclus des mots-clés avec localisation (ex: 'plombier à [ville]', 'rénovation plomberie [ville]')
+- Inclus des mots-clés de services (ex: 'réparation plomberie', 'charpente traditionnelle', 'isolation combles')
 - Inclus des mots-clés de matériaux (ex: 'tuiles ardoise', 'zinc', 'isolation laine de verre')
 - Les mots-clés doivent être pertinents, recherchés et adaptés au secteur
 - Évite les mots-clés trop génériques ou hors sujet
@@ -1384,7 +1384,7 @@ mot-clé 3
         // Test GPT
         try {
             $gptService = new GptSeoGenerator();
-            $testKeyword = 'couvreur';
+            $testKeyword = 'plombier';
             $testCity = 'Paris';
             
             // Test avec un prompt minimal pour vérifier la connexion

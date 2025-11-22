@@ -243,7 +243,7 @@ class ArticleAiController extends Controller
      */
     private function generateKeywords($title, $category)
     {
-        $baseKeywords = ['couvreur', 'toiture', 'rénovation', 'devis gratuit'];
+        $baseKeywords = ['plombier', 'plomberie', 'rénovation', 'devis gratuit'];
         $titleKeywords = explode(' ', strtolower($title));
         $categoryKeywords = explode(' ', strtolower($category));
         

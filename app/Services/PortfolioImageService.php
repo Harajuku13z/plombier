@@ -22,9 +22,9 @@ class PortfolioImageService
             $workType = null;
             
             // Détecter le type de travaux selon le mot-clé
-            if (strpos($keywordLower, 'toiture') !== false || 
+            if (strpos($keywordLower, 'plomberie') !== false || 
                 strpos($keywordLower, 'toit') !== false || 
-                strpos($keywordLower, 'couverture') !== false ||
+                strpos($keywordLower, 'plomberie') !== false ||
                 strpos($keywordLower, 'charpente') !== false ||
                 strpos($keywordLower, 'tuile') !== false ||
                 strpos($keywordLower, 'ardoise') !== false) {

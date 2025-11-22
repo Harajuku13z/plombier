@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('image_path');
             $table->integer('display_order')->default(0);
             $table->boolean('is_active')->default(true);
-            $table->string('category')->nullable(); // toiture, facade, isolation, etc.
+            $table->string('category')->nullable(); // plomberie, facade, isolation, etc.
             $table->timestamps();
         });
     }

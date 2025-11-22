@@ -25,15 +25,15 @@ class EmailService
             $this->mailer->isSMTP();
             $this->mailer->Host = Setting::get('mail_host', 'smtp.hostinger.com');
             $this->mailer->SMTPAuth = true;
-            $this->mailer->Username = Setting::get('mail_username', 'contact@sausercouverture.fr');
+            $this->mailer->Username = Setting::get('mail_username', 'contact@sauserplomberie.fr');
             $this->mailer->Password = Setting::get('mail_password', 'Harajuku1993@');
             $this->mailer->SMTPSecure = Setting::get('mail_encryption', 'tls');
             $this->mailer->Port = Setting::get('mail_port', 587);
 
             // Configuration de l'expéditeur
             $this->mailer->setFrom(
-                Setting::get('mail_from_address', 'contact@sausercouverture.fr'),
-                Setting::get('mail_from_name', 'SA User Couverture')
+                Setting::get('mail_from_address', 'contact@sauserplomberie.fr'),
+                Setting::get('mail_from_name', 'SA User Plomberie')
             );
 
             // Configuration des caractères
@@ -314,7 +314,7 @@ class EmailService
         $workTypes = is_string($submission->work_types) ? json_decode($submission->work_types, true) : ($submission->work_types ?? []);
         
         $workTypeLabels = [
-            'roof' => 'Toiture',
+            'roof' => 'Plomberie',
             'facade' => 'Façade',
             'isolation' => 'Isolation'
         ];

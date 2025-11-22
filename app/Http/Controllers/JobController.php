@@ -13,12 +13,12 @@ class JobController extends Controller
     public function index()
     {
         try {
-            // Offres d'emploi légitimes pour une entreprise de couverture
+            // Offres d'emploi légitimes pour une entreprise de plomberie
             $jobs = [
             [
                 'id' => 1,
-                'title' => 'Couvreur / Zingueur H/F',
-                'description' => 'Nous recherchons un couvreur expérimenté pour rejoindre notre équipe. Missions : pose et réparation de toitures, zinguerie, étanchéité. CDI temps plein.',
+                'title' => 'Plombier / Zingueur H/F',
+                'description' => 'Nous recherchons un plombier expérimenté pour rejoindre notre équipe. Missions : pose et réparation de plomberies, zinguerie, étanchéité. CDI temps plein.',
                 'employmentType' => 'FULL_TIME',
                 'datePosted' => Carbon::now()->subDays(5)->format('Y-m-d'),
                 'validThrough' => Carbon::now()->addMonths(3)->format('Y-m-d'),
@@ -41,12 +41,12 @@ class JobController extends Controller
                     'sameAs' => 'https://normesrenovationbretagne.fr'
                 ],
                 'workHours' => 'Temps plein, 35h/semaine',
-                'qualifications' => 'CAP Couvreur ou expérience équivalente, permis B requis'
+                'qualifications' => 'CAP Plombier ou expérience équivalente, permis B requis'
             ],
             [
                 'id' => 2,
-                'title' => 'Apprenti Couvreur H/F',
-                'description' => 'Poste d\'apprentissage pour devenir couvreur professionnel. Formation en alternance, encadrement par des professionnels expérimentés.',
+                'title' => 'Apprenti Plombier H/F',
+                'description' => 'Poste d\'apprentissage pour devenir plombier professionnel. Formation en alternance, encadrement par des professionnels expérimentés.',
                 'employmentType' => 'PART_TIME',
                 'datePosted' => Carbon::now()->subDays(10)->format('Y-m-d'),
                 'validThrough' => Carbon::now()->addMonths(2)->format('Y-m-d'),
@@ -73,8 +73,8 @@ class JobController extends Controller
             ],
             [
                 'id' => 3,
-                'title' => 'Chef d\'équipe Couverture H/F',
-                'description' => 'Poste de chef d\'équipe pour encadrer une équipe de couvreurs. Gestion de chantiers, coordination des travaux, respect des normes de sécurité.',
+                'title' => 'Chef d\'équipe Plomberie H/F',
+                'description' => 'Poste de chef d\'équipe pour encadrer une équipe de plombiers. Gestion de chantiers, coordination des travaux, respect des normes de sécurité.',
                 'employmentType' => 'FULL_TIME',
                 'datePosted' => Carbon::now()->subDays(3)->format('Y-m-d'),
                 'validThrough' => Carbon::now()->addMonths(4)->format('Y-m-d'),

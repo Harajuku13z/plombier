@@ -44,7 +44,7 @@
                         class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                         required
                         maxlength="255"
-                        placeholder="Ex: Rénovation de toiture"
+                        placeholder="Ex: Rénovation de plomberie"
                     >
                 </div>
 
@@ -61,7 +61,7 @@
                         class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                         required
                         maxlength="255"
-                        placeholder="Ex: Rénovation de toiture"
+                        placeholder="Ex: Rénovation de plomberie"
                     >
                 </div>
 
@@ -78,7 +78,7 @@
                         class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                         required
                         maxlength="255"
-                        placeholder="Ex: renovation-toiture"
+                        placeholder="Ex: renovation-plomberie"
                     >
                     <p class="text-xs text-gray-500 mt-1">URL-friendly (minuscules, tirets)</p>
                 </div>

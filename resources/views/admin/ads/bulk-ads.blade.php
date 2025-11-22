@@ -207,8 +207,8 @@
                             <div class="flex space-x-2">
                                 <select id="keyword-select" class="flex-1 border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500">
                                     <option value="">Sélectionner un mot-clé prédéfini</option>
-                                    <option value="couverture">Couverture</option>
-                                    <option value="toiture">Toiture</option>
+                                    <option value="plomberie">Plomberie</option>
+                                    <option value="plomberie">Plomberie</option>
                                     <option value="façade">Façade</option>
                                     <option value="isolation">Isolation</option>
                                     <option value="hydrofuge">Hydrofuge</option>

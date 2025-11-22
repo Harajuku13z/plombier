@@ -41,7 +41,7 @@ class CronConfigController extends Controller
     protected function generateCronCommand($interval, $url = null)
     {
         $phpPath = '/usr/bin/php';
-        $projectPath = '/home/u570136219/domains/couvreur-chevigny-saint-sauveur.fr/public_html';
+        $projectPath = '/home/u570136219/domains/plombier-chevigny-saint-sauveur.fr/public_html';
         
         // Commande directe (recommandée)
         $directCommand = "{$phpPath} {$projectPath}/artisan seo:run-automations";

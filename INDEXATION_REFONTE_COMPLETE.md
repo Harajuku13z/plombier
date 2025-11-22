@@ -25,10 +25,10 @@ php artisan indexation:simple verify --limit=100
 php artisan indexation:simple index --limit=150
 
 # 4. Vérifier une URL spécifique
-php artisan indexation:simple verify --url="https://couvreur-chevigny-saint-sauveur.fr/"
+php artisan indexation:simple verify --url="https://plombier-chevigny-saint-sauveur.fr/"
 
 # 5. Indexer une URL spécifique
-php artisan indexation:simple index --url="https://couvreur-chevigny-saint-sauveur.fr/"
+php artisan indexation:simple index --url="https://plombier-chevigny-saint-sauveur.fr/"
 ```
 
 ### Option B : Utiliser Admin Web
@@ -130,7 +130,7 @@ App\Models\Setting::get('google_search_console_credentials');
 
 # 3. Vérifier sitemap
 php artisan sitemap:generate-daily
-curl https://couvreur-chevigny-saint-sauveur.fr/sitemap.xml | head -30
+curl https://plombier-chevigny-saint-sauveur.fr/sitemap.xml | head -30
 # Doit afficher URLs de VOTRE domaine
 
 # 4. Voir stats initiales
@@ -279,7 +279,7 @@ php artisan indexation:simple index --limit=150
 ### Vérifier URL spécifique
 
 ```bash
-php artisan indexation:simple verify --url="https://couvreur-chevigny-saint-sauveur.fr/blog/mon-article"
+php artisan indexation:simple verify --url="https://plombier-chevigny-saint-sauveur.fr/blog/mon-article"
 
 # Affiche :
 # - Statut : ✅ INDEXÉE ou ⚠️ NON INDEXÉE
@@ -290,7 +290,7 @@ php artisan indexation:simple verify --url="https://couvreur-chevigny-saint-sauv
 ### Indexer URL spécifique
 
 ```bash
-php artisan indexation:simple index --url="https://couvreur-chevigny-saint-sauveur.fr/"
+php artisan indexation:simple index --url="https://plombier-chevigny-saint-sauveur.fr/"
 
 # Envoie demande à Google
 # Résultat immédiat
@@ -639,7 +639,7 @@ php artisan sitemap:generate-daily
 # Test connexion = ✅ ?
 
 # 4. Tester 1 URL manuellement
-php artisan indexation:simple verify --url="https://couvreur-chevigny-saint-sauveur.fr/"
+php artisan indexation:simple verify --url="https://plombier-chevigny-saint-sauveur.fr/"
 
 # Si ça marche :
 # → Continuer avec verify --limit=100
@@ -662,11 +662,11 @@ php artisan indexation:simple stats
 # ✅ Pas d'erreur, tableau affiché
 
 # Test 2 : Vérification 1 URL
-php artisan indexation:simple verify --url="https://couvreur-chevigny-saint-sauveur.fr/"
+php artisan indexation:simple verify --url="https://plombier-chevigny-saint-sauveur.fr/"
 # ✅ Retourne : INDEXÉE ou NON INDEXÉE
 
 # Test 3 : Indexation 1 URL
-php artisan indexation:simple index --url="https://couvreur-chevigny-saint-sauveur.fr/"
+php artisan indexation:simple index --url="https://plombier-chevigny-saint-sauveur.fr/"
 # ✅ Message : Demande envoyée
 
 # Test 4 : Batch vérification

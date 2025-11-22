@@ -218,7 +218,7 @@ php artisan indexation:simple stats      # Stats indexation
 
 ```bash
 ssh votre-serveur
-cd /path/to/couvreur
+cd /path/to/plombier
 git pull origin main
 php artisan migrate  # Au cas où nouvelle table
 php artisan cache:clear
@@ -251,7 +251,7 @@ php artisan indexation:simple verify --limit=100
 
 ```bash
 # Indexer Homepage
-php artisan indexation:simple index --url="https://couvreur-chevigny-saint-sauveur.fr/"
+php artisan indexation:simple index --url="https://plombier-chevigny-saint-sauveur.fr/"
 
 # Indexer batch
 php artisan indexation:simple index --limit=150
@@ -269,7 +269,7 @@ php artisan indexation:simple index --limit=150
 # Ou via CLI
 php artisan tinker
 App\Models\Setting::set('daily_indexing_enabled', true);
-App\Models\Setting::set('site_url', 'https://couvreur-chevigny-saint-sauveur.fr');
+App\Models\Setting::set('site_url', 'https://plombier-chevigny-saint-sauveur.fr');
 exit
 ```
 
@@ -399,7 +399,7 @@ php artisan indexation:simple stats
 
 # 3. Configurer domaine
 php artisan tinker
-App\Models\Setting::set('site_url', 'https://couvreur-chevigny-saint-sauveur.fr');
+App\Models\Setting::set('site_url', 'https://plombier-chevigny-saint-sauveur.fr');
 exit
 
 # 4. Régénérer sitemap

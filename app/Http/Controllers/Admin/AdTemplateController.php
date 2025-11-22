@@ -566,7 +566,7 @@ class AdTemplateController extends Controller
 - Chaque description doit expliquer QUOI, COMMENT et POURQUOI spécifiquement pour {$serviceName}
 
 EXEMPLES DE PRESTATIONS SPÉCIFIQUES:
-- Pour 'Rénovation de toiture': 'Diagnostic et inspection de toiture', 'Nettoyage et démoussage', 'Réparation partielle de toiture', 'Réfection complète de toiture', 'Isolation de toiture', 'Étanchéité et traitement hydrofuge', 'Réparation de zinguerie', 'Pose de charpente', 'Installation de fenêtres de toit', 'Entretien annuel et maintenance préventive'
+- Pour 'Rénovation de plomberie': 'Diagnostic et inspection de plomberie', 'Nettoyage et démoussage', 'Réparation partielle de plomberie', 'Réfection complète de plomberie', 'Isolation de plomberie', 'Étanchéité et traitement hydrofuge', 'Réparation de zinguerie', 'Pose de charpente', 'Installation de fenêtres de toit', 'Entretien annuel et maintenance préventive'
 - Pour 'Plomberie': 'Installation de chauffe-eau', 'Réparation de fuites', 'Débouchage de canalisations', 'Pose de robinetterie', 'Installation de WC', 'Rénovation de salle de bain', 'Détection de fuites', 'Installation de radiateurs', 'Raccordement gaz', 'Maintenance préventive'
 
 GÉNÈRE UN JSON AVEC CES CHAMPS:
@@ -606,7 +606,7 @@ GÉNÈRE UN JSON AVEC CES CHAMPS:
 EXEMPLES CONCRETS POUR {$serviceName}:
 - Si {$serviceName} = 'Désamiantage' → prestations: 'Dépollution amiante', 'Retrait amiante sous confinement', 'Gestion déchets amiante'
 - Si {$serviceName} = 'Traitement humidité' → prestations: 'Diagnostic humidité par imagerie thermique', 'Injection résine anti-humidité', 'Installation VMC double flux'
-- Si {$serviceName} = 'Rénovation toiture' → prestations: 'Diagnostic toiture par drone', 'Réfection tuiles ardoise', 'Installation écran de sous-toiture'
+- Si {$serviceName} = 'Rénovation plomberie' → prestations: 'Diagnostic plomberie par drone', 'Réfection tuiles ardoise', 'Installation écran de sous-plomberie'
 ";
 
         if ($aiPrompt) {
@@ -980,13 +980,13 @@ EXEMPLES CONCRETS POUR {$serviceName}:
         // Détecter le type de service et générer des prestations spécifiques
         $serviceLower = strtolower($serviceName);
         
-        if (strpos($serviceLower, 'toiture') !== false || strpos($serviceLower, 'couverture') !== false || strpos($serviceLower, 'rénovation') !== false) {
+        if (strpos($serviceLower, 'plomberie') !== false || strpos($serviceLower, 'plomberie') !== false || strpos($serviceLower, 'rénovation') !== false) {
             $prestations = [
-                'Diagnostic et inspection de toiture - Évaluation complète de l\'état de la couverture et détection des fuites',
+                'Diagnostic et inspection de plomberie - Évaluation complète de l\'état de la plomberie et détection des fuites',
                 'Nettoyage et démoussage - Nettoyage haute pression et application d\'antimousse professionnel',
-                'Réparation partielle de toiture - Remplacement d\'ardoises, tuiles et réparation des joints',
-                'Réfection complète de toiture - Dépose et pose d\'une nouvelle couverture selon les normes',
-                'Isolation de toiture - Pose d\'isolants thermiques sous toiture ou par sarking',
+                'Réparation partielle de plomberie - Remplacement d\'ardoises, tuiles et réparation des joints',
+                'Réfection complète de plomberie - Dépose et pose d\'une nouvelle plomberie selon les normes',
+                'Isolation de plomberie - Pose d\'isolants thermiques sous plomberie ou par sarking',
                 'Étanchéité et traitement hydrofuge - Protection contre les infiltrations et l\'humidité',
                 'Réparation de zinguerie - Pose et entretien des gouttières, chéneaux et descentes d\'eau',
                 'Pose de charpente - Réparation ou installation de charpentes en bois traitées',
@@ -1034,14 +1034,14 @@ EXEMPLES CONCRETS POUR {$serviceName}:
             ];
         } elseif (strpos($serviceLower, 'isolation') !== false) {
             $prestations = [
-                'Isolation des combles - Pose d\'isolants thermiques sous toiture',
+                'Isolation des combles - Pose d\'isolants thermiques sous plomberie',
                 'Isolation des murs - Isolation intérieure ou extérieure des parois',
                 'Isolation des sols - Pose d\'isolants sous plancher et dalle',
                 'Isolation phonique - Réduction des bruits et amélioration acoustique',
                 'Isolation des fenêtres - Pose de double vitrage et calfeutrage',
                 'Isolation des portes - Pose de joints et amélioration de l\'étanchéité',
                 'Isolation des tuyaux - Protection des canalisations contre le gel',
-                'Isolation des toitures terrasses - Pose de membranes isolantes',
+                'Isolation des plomberies terrasses - Pose de membranes isolantes',
                 'Isolation des caves - Traitement de l\'humidité et isolation thermique',
                 'Audit énergétique - Diagnostic et recommandations d\'amélioration'
             ];
@@ -1174,7 +1174,7 @@ GÉNÈRE UN JSON AVEC CES CHAMPS:
 EXEMPLES CONCRETS POUR {$keyword}:
 - Si {$keyword} = 'Désamiantage' → prestations: 'Dépollution amiante', 'Retrait amiante sous confinement', 'Gestion déchets amiante'
 - Si {$keyword} = 'Traitement humidité' → prestations: 'Diagnostic humidité par imagerie thermique', 'Injection résine anti-humidité', 'Installation VMC double flux'
-- Si {$keyword} = 'Rénovation toiture' → prestations: 'Diagnostic toiture par drone', 'Réfection tuiles ardoise', 'Installation écran de sous-toiture'
+- Si {$keyword} = 'Rénovation plomberie' → prestations: 'Diagnostic plomberie par drone', 'Réfection tuiles ardoise', 'Installation écran de sous-plomberie'
 ";
 
         if ($aiPrompt) {
@@ -1638,7 +1638,7 @@ EXEMPLES CONCRETS POUR {$keyword}:
 </div>';
             
             // Prompt simplifié pour générer un JSON structuré
-            $systemMessage = "Tu es un expert en rédaction web pour services de rénovation/couverture en France. Tu génères UNIQUEMENT du JSON valide. PAS de texte avant ou après le JSON. PAS de markdown. PAS de code blocks. JUSTE le JSON brut.
+            $systemMessage = "Tu es un expert en rédaction web pour services de rénovation/plomberie en France. Tu génères UNIQUEMENT du JSON valide. PAS de texte avant ou après le JSON. PAS de markdown. PAS de code blocks. JUSTE le JSON brut.
 
 ⚠️ CRITIQUE : Les valeurs entre [crochets] dans les instructions sont des EXEMPLES/INSTRUCTIONS à suivre, PAS du contenu à copier littéralement. Tu DOIS générer du VRAI contenu professionnel et spécifique, en remplaçant complètement ces instructions par du contenu réel.";
             
@@ -1663,10 +1663,10 @@ EXEMPLES CONCRETS POUR {$keyword}:
             // Déterminer les types de prestations selon le service
             $prestationsExamples = '';
             $serviceLower = mb_strtolower($serviceName);
-            if (strpos($serviceLower, 'toiture') !== false || strpos($serviceLower, 'couverture') !== false) {
-                $prestationsExamples = "Exemples pour {$serviceName}: Réparation toiture, Hydrofuge toiture, Remplacement tuiles, Zinguerie, Réfection charpente, etc.";
+            if (strpos($serviceLower, 'plomberie') !== false || strpos($serviceLower, 'plomberie') !== false) {
+                $prestationsExamples = "Exemples pour {$serviceName}: Réparation plomberie, Hydrofuge plomberie, Remplacement tuiles, Zinguerie, Réfection charpente, etc.";
             } elseif (strpos($serviceLower, 'isolation') !== false || strpos($serviceLower, 'isol') !== false) {
-                $prestationsExamples = "Exemples pour {$serviceName}: Isolation combles perdus, Isolation toiture, Isolation murs, Isolation sols, Traitement ponts thermiques, etc.";
+                $prestationsExamples = "Exemples pour {$serviceName}: Isolation combles perdus, Isolation plomberie, Isolation murs, Isolation sols, Traitement ponts thermiques, etc.";
             } elseif (strpos($serviceLower, 'façade') !== false || strpos($serviceLower, 'ravalement') !== false) {
                 $prestationsExamples = "Exemples pour {$serviceName}: Ravalement façade, Enduit façade, Peinture façade, Nettoyage façade, Réfection parement, etc.";
             } else {
@@ -1745,7 +1745,7 @@ RÈGLES STRICTES:
 13. Assure-toi que le JSON est valide (vérifie les virgules, les accolades)
 14. ⚠️ MOTS-CLÉS: Le champ meta_keywords DOIT contenir AU MINIMUM 15-20 mots-clés pertinents et variés, séparés par des virgules. Inclus:
     - Le nom du service et ses variations (avec et sans [VILLE])
-    - Des termes techniques spécifiques au métier (ex: pour toiture: zinguerie, charpente, étanchéité, isolation, etc.)
+    - Des termes techniques spécifiques au métier (ex: pour plomberie: zinguerie, charpente, étanchéité, isolation, etc.)
     - Des mots-clés d'action (rénovation, réparation, installation, entretien, etc.)
     - Des termes de qualité (professionnel, expert, certifié, qualifié, etc.)
     - Des termes géographiques avec [VILLE] et [DÉPARTEMENT]
@@ -2190,7 +2190,7 @@ EXEMPLES CONCRETS SELON LE SERVICE:
         $serviceNameLower = mb_strtolower($serviceName);
         if (strpos($serviceNameLower, 'façade') !== false || strpos($serviceNameLower, 'ravalement') !== false) {
             $basePrompt .= "- Si {$serviceName} = 'Rénovation de façade' → EXCELLENT: 'Ravalement façade complet', 'Réfection enduit façade', 'Peinture façade haute qualité', 'Rénovation parement pierre', 'Pose bardage façade', 'Crépis façade décoratif', 'Nettoyage façade haute pression', 'Isolation façade par l'extérieur (ITE)', 'Remplacement volets et menuiseries', 'Restauration éléments décoratifs façade'\n";
-            $basePrompt .= "- MAUVAIS (INTERDIT): 'Diagnostic et inspection de toiture', 'Réparation partielle de toiture', 'Réfection complète de toiture', 'Isolation de toiture' (ce sont des prestations de TOITURE, pas de FAÇADE)\n";
+            $basePrompt .= "- MAUVAIS (INTERDIT): 'Diagnostic et inspection de plomberie', 'Réparation partielle de plomberie', 'Réfection complète de plomberie', 'Isolation de plomberie' (ce sont des prestations de PLOMBERIE, pas de FAÇADE)\n";
         } elseif (strpos($serviceNameLower, 'désamiantage') !== false || strpos($serviceNameLower, 'amiante') !== false) {
             $basePrompt .= "- Si {$serviceName} = 'Désamiantage' → EXCELLENT: 'Dépollution amiante', 'Diagnostic amiante avant travaux', 'Retrait amiante sous confinement', 'Gestion déchets amiante', 'Désamiantage flocage', 'Confinement amiante'\n";
             $basePrompt .= "- MAUVAIS (INTERDIT): 'Diagnostic et évaluation', 'Installation complète', 'Rénovation totale'\n";
@@ -2328,7 +2328,7 @@ Le champ \"description\" DOIT contenir un HTML COMPLET avec cette structure exac
     
     <!-- SECTION 6: NOTRE EXPERTISE LOCALE -->
     <h3 class=\"text-2xl font-bold text-gray-900 mb-4\">Notre Expertise Locale en {$serviceName}</h3>
-    <p class=\"leading-relaxed mb-4\">ÉCRIRE ICI notre expérience: depuis [NOMBRE] années, nous intervenons sur [VILLE] et dans [RÉGION] pour des projets de {$serviceName}. Nous avons réalisé [MENTIONNER TYPES DE PROJETS: ex: plus de 200 chantiers d'isolation de combles, 150 rénovations de toiture, etc.]. Notre connaissance des spécificités régionales nous permet de proposer des solutions adaptées.</p>
+    <p class=\"leading-relaxed mb-4\">ÉCRIRE ICI notre expérience: depuis [NOMBRE] années, nous intervenons sur [VILLE] et dans [RÉGION] pour des projets de {$serviceName}. Nous avons réalisé [MENTIONNER TYPES DE PROJETS: ex: plus de 200 chantiers d'isolation de combles, 150 rénovations de plomberie, etc.]. Notre connaissance des spécificités régionales nous permet de proposer des solutions adaptées.</p>
     <p class=\"leading-relaxed\">ÉCRIRE ICI des exemples concrets: nous avons notamment [MENTIONNER 2-3 EXEMPLES CONCRETS de réalisations en {$serviceName} dans [RÉGION], avec détails techniques si possible]. Cette expérience locale nous permet de comprendre les besoins spécifiques des habitants de [VILLE] et de [RÉGION] en matière de {$serviceName}.</p>
     
     <!-- SECTION 7: FINANCEMENT ET AIDES (PERSONNALISÉ SELON SERVICE) -->
@@ -2426,7 +2426,7 @@ GÉNÈRE UN JSON AVEC CES CHAMPS:
 - GÉNÈRE MINIMUM 6 QUESTIONS FAQ spécifiques à {$serviceName} avec réponses détaillées (minimum 3 phrases par réponse)
 - TOUT le contenu HTML dans \"description\" doit être COMPLET avec TOUS les \"ÉCRIRE ICI\" REMPLACÉS par du vrai texte
 - La description longue (long_description) doit faire minimum 400 mots
-- ⚠️⚠️⚠️ VALIDATION DES PRESTATIONS: Si les 10 prestations ne sont PAS spécifiques à {$serviceName} (ex: si {$serviceName} = 'Rénovation de façade' mais les prestations parlent de toiture ou autre chose), ta réponse sera REJETÉE et tu devras recommencer
+- ⚠️⚠️⚠️ VALIDATION DES PRESTATIONS: Si les 10 prestations ne sont PAS spécifiques à {$serviceName} (ex: si {$serviceName} = 'Rénovation de façade' mais les prestations parlent de plomberie ou autre chose), ta réponse sera REJETÉE et tu devras recommencer
 - Les 10 prestations DOIVENT être DIFFÉRENTES et COMPLÉMENTAIRES pour {$serviceName}
 - Chaque prestation DOIT être UNIQUE et ne pas se répéter
 - Pour la section FINANCEMENT ET AIDES (SECTION CRITIQUE):
@@ -2571,14 +2571,14 @@ GÉNÈRE UN JSON AVEC CES CHAMPS:
       <p class=\"leading-relaxed\"><strong>Éco-PTZ :</strong> Financement jusqu'à 30 000€ sans intérêts pour remplacer votre système de chauffage.</p>";
         }
         
-        // Toiture / Couverture
-        if (strpos($serviceLower, 'toiture') !== false || 
-            strpos($serviceLower, 'couverture') !== false ||
+        // Plomberie / Plomberie
+        if (strpos($serviceLower, 'plomberie') !== false || 
+            strpos($serviceLower, 'plomberie') !== false ||
             strpos($serviceLower, 'charpente') !== false) {
-            return "<p class=\"leading-relaxed mb-3\"><strong>MaPrimeRénov :</strong> Rénovation de toiture éligible si couplée avec des travaux d'isolation, jusqu'à 75€/m² pour l'isolation des combles.</p>
-      <p class=\"leading-relaxed mb-3\"><strong>Prime CEE :</strong> Aide disponible pour l'isolation de toiture lors d'une rénovation complète.</p>
-      <p class=\"leading-relaxed mb-3\"><strong>TVA réduite :</strong> TVA à 5,5% pour les travaux de rénovation de toiture dans les logements de plus de 2 ans.</p>
-      <p class=\"leading-relaxed\"><strong>Crédit d'impôt :</strong> Certains travaux de toiture peuvent bénéficier d'un crédit d'impôt sous certaines conditions.</p>";
+            return "<p class=\"leading-relaxed mb-3\"><strong>MaPrimeRénov :</strong> Rénovation de plomberie éligible si couplée avec des travaux d'isolation, jusqu'à 75€/m² pour l'isolation des combles.</p>
+      <p class=\"leading-relaxed mb-3\"><strong>Prime CEE :</strong> Aide disponible pour l'isolation de plomberie lors d'une rénovation complète.</p>
+      <p class=\"leading-relaxed mb-3\"><strong>TVA réduite :</strong> TVA à 5,5% pour les travaux de rénovation de plomberie dans les logements de plus de 2 ans.</p>
+      <p class=\"leading-relaxed\"><strong>Crédit d'impôt :</strong> Certains travaux de plomberie peuvent bénéficier d'un crédit d'impôt sous certaines conditions.</p>";
         }
         
         // Fenêtres / Menuiserie

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Prestations - Nettoyage de Toiture')
+@section('title', 'Prestations - Nettoyage de Plomberie')
 
 @section('content')
 <div class="min-h-screen bg-gray-50 py-16">
@@ -10,10 +10,10 @@
             <div class="text-center mb-12">
                 <h1 class="text-4xl font-bold text-gray-900 mb-4">
                     <i class="fas fa-home text-blue-600 mr-3"></i>
-                    Nettoyage de Toiture
+                    Nettoyage de Plomberie
                 </h1>
                 <p class="text-xl text-gray-600 max-w-2xl mx-auto">
-                    Nos services professionnels pour l'entretien et la protection de votre toiture
+                    Nos services professionnels pour l'entretien et la protection de votre plomberie
                 </p>
             </div>
 
@@ -24,7 +24,7 @@
             <div class="mt-16 bg-gradient-to-r from-blue-600 to-blue-800 rounded-2xl p-8 text-white text-center">
                 <h2 class="text-2xl font-bold mb-4">
                     <i class="fas fa-phone mr-2"></i>
-                    Prêt à entretenir votre toiture ?
+                    Prêt à entretenir votre plomberie ?
                 </h2>
                 <p class="text-lg mb-6 opacity-90">
                     Contactez-nous pour un devis gratuit et personnalisé

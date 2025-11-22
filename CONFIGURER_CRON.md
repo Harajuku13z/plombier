@@ -25,7 +25,7 @@ Sur Hostinger, vous n'avez pas toujours accès au crontab système, mais vous po
 
    **🔁 Remplacez :**
    - `USERNAME` → votre nom d'utilisateur Hostinger (ex: `u570136219`)
-   - `tondomaine.com` → votre domaine réel (ex: `couvreur-chevigny-saint-sauveur.fr`)
+   - `tondomaine.com` → votre domaine réel (ex: `plombier-chevigny-saint-sauveur.fr`)
 
    **💡 Si votre projet Laravel est dans un sous-dossier** (ex: `/laravel`), ajustez le chemin :
    ```bash

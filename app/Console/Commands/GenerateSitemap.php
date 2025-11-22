@@ -38,9 +38,9 @@ class GenerateSitemap extends Command
         }
         $baseUrl = rtrim($baseUrl, '/');
         
-        // VÉRIFICATION FINALE : Rejeter sausercouverture.fr
-        if (strpos($baseUrl, 'sausercouverture.fr') !== false) {
-            $this->error('❌ ERREUR: sausercouverture.fr détectée, correction forcée !');
+        // VÉRIFICATION FINALE : Rejeter sauserplomberie.fr
+        if (strpos($baseUrl, 'sauserplomberie.fr') !== false) {
+            $this->error('❌ ERREUR: sauserplomberie.fr détectée, correction forcée !');
             $baseUrl = 'https://normesrenovationbretagne.fr';
         }
         

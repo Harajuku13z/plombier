@@ -66,8 +66,8 @@ class City extends Model
             return null;
         }
         
-        $title = $this->meta_title ?: "Couvreur à {$this->name} ({$this->postal_code}) | Intervention Rapide";
-        $description = $this->meta_description ?: "Expert couvreur à {$this->name} ({$this->postal_code}). Rénovation, réparation, démoussage de toiture. Devis gratuit, intervention rapide.";
+        $title = $this->meta_title ?: "Plombier à {$this->name} ({$this->postal_code}) | Intervention Rapide";
+        $description = $this->meta_description ?: "Expert plombier à {$this->name} ({$this->postal_code}). Rénovation, réparation, démoussage de plomberie. Devis gratuit, intervention rapide.";
 
         return \RalphJSmit\Laravel\SEO\Support\SEOData::make()
             ->title($title)

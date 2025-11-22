@@ -37,8 +37,8 @@ class FixSiteUrl extends Command
             $this->line("   Aucune URL configurée");
         }
         
-        // Vérifier si l'URL contient sausercouverture.fr
-        if (!empty($currentUrl) && strpos($currentUrl, 'sausercouverture.fr') !== false) {
+        // Vérifier si l'URL contient sauserplomberie.fr
+        if (!empty($currentUrl) && strpos($currentUrl, 'sauserplomberie.fr') !== false) {
             $this->warn("⚠️  Ancienne URL détectée: {$currentUrl}");
             $this->info("   Correction vers: {$correctUrl}");
             
@@ -61,8 +61,8 @@ class FixSiteUrl extends Command
         $this->newLine();
         $this->info("📋 URL finale: {$finalUrl}");
         
-        if (strpos($finalUrl, 'sausercouverture.fr') !== false) {
-            $this->error("❌ ERREUR: L'URL contient encore sausercouverture.fr !");
+        if (strpos($finalUrl, 'sauserplomberie.fr') !== false) {
+            $this->error("❌ ERREUR: L'URL contient encore sauserplomberie.fr !");
             return 1;
         }
         

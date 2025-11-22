@@ -17,7 +17,7 @@
 
 ```bash
 # Sur le serveur
-cd /path/to/couvreur
+cd /path/to/plombier
 git pull origin main
 php artisan cache:clear
 php artisan route:clear
@@ -88,7 +88,7 @@ php artisan optimize
 **Si erreur** :
 - Console navigateur (F12)
 - Noter erreur
-- Vérifier sitemap accessible : `https://couvreur-chevigny-saint-sauveur.fr/sitemap.xml`
+- Vérifier sitemap accessible : `https://plombier-chevigny-saint-sauveur.fr/sitemap.xml`
 
 ---
 

@@ -7,17 +7,17 @@ use App\Models\Setting;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
-class CleanSausercouverture extends Command
+class CleanSauserplomberie extends Command
 {
-    protected $signature = 'clean:sausercouverture {--force : Force le nettoyage sans confirmation}';
-    protected $description = 'Nettoie complètement toutes les références à sausercouverture.fr dans la base de données et les fichiers';
+    protected $signature = 'clean:sauserplomberie {--force : Force le nettoyage sans confirmation}';
+    protected $description = 'Nettoie complètement toutes les références à sauserplomberie.fr dans la base de données et les fichiers';
 
     public function handle()
     {
-        $this->info('🧹 Nettoyage complet de sausercouverture.fr...');
+        $this->info('🧹 Nettoyage complet de sauserplomberie.fr...');
         
         if (!$this->option('force')) {
-            if (!$this->confirm('Êtes-vous sûr de vouloir nettoyer toutes les références à sausercouverture.fr ?')) {
+            if (!$this->confirm('Êtes-vous sûr de vouloir nettoyer toutes les références à sauserplomberie.fr ?')) {
                 $this->info('❌ Opération annulée');
                 return 0;
             }
@@ -30,7 +30,7 @@ class CleanSausercouverture extends Command
             // 1. Corriger le setting site_url
             $this->info('📝 Correction du setting site_url...');
             $currentUrl = Setting::get('site_url', null);
-            if (!empty($currentUrl) && strpos($currentUrl, 'sausercouverture.fr') !== false) {
+            if (!empty($currentUrl) && strpos($currentUrl, 'sauserplomberie.fr') !== false) {
                 Setting::set('site_url', $correctUrl, 'string', 'seo');
                 Setting::clearCache();
                 $this->line("   ✓ site_url corrigé: {$currentUrl} → {$correctUrl}");
@@ -42,8 +42,8 @@ class CleanSausercouverture extends Command
             $settings = DB::table('settings')->get();
             foreach ($settings as $setting) {
                 $value = $setting->value;
-                if (is_string($value) && strpos($value, 'sausercouverture.fr') !== false) {
-                    $newValue = str_replace('sausercouverture.fr', 'normesrenovationbretagne.fr', $value);
+                if (is_string($value) && strpos($value, 'sauserplomberie.fr') !== false) {
+                    $newValue = str_replace('sauserplomberie.fr', 'normesrenovationbretagne.fr', $value);
                     DB::table('settings')
                         ->where('id', $setting->id)
                         ->update(['value' => $newValue]);
@@ -59,12 +59,12 @@ class CleanSausercouverture extends Command
                 $updated = false;
                 $data = [];
                 
-                if (strpos($article->content ?? '', 'sausercouverture.fr') !== false) {
-                    $data['content'] = str_replace('sausercouverture.fr', 'normesrenovationbretagne.fr', $article->content);
+                if (strpos($article->content ?? '', 'sauserplomberie.fr') !== false) {
+                    $data['content'] = str_replace('sauserplomberie.fr', 'normesrenovationbretagne.fr', $article->content);
                     $updated = true;
                 }
-                if (strpos($article->meta_description ?? '', 'sausercouverture.fr') !== false) {
-                    $data['meta_description'] = str_replace('sausercouverture.fr', 'normesrenovationbretagne.fr', $article->meta_description);
+                if (strpos($article->meta_description ?? '', 'sauserplomberie.fr') !== false) {
+                    $data['meta_description'] = str_replace('sauserplomberie.fr', 'normesrenovationbretagne.fr', $article->meta_description);
                     $updated = true;
                 }
                 
@@ -82,12 +82,12 @@ class CleanSausercouverture extends Command
                 $updated = false;
                 $data = [];
                 
-                if (strpos($ad->content ?? '', 'sausercouverture.fr') !== false) {
-                    $data['content'] = str_replace('sausercouverture.fr', 'normesrenovationbretagne.fr', $ad->content);
+                if (strpos($ad->content ?? '', 'sauserplomberie.fr') !== false) {
+                    $data['content'] = str_replace('sauserplomberie.fr', 'normesrenovationbretagne.fr', $ad->content);
                     $updated = true;
                 }
-                if (strpos($ad->meta_description ?? '', 'sausercouverture.fr') !== false) {
-                    $data['meta_description'] = str_replace('sausercouverture.fr', 'normesrenovationbretagne.fr', $ad->meta_description);
+                if (strpos($ad->meta_description ?? '', 'sauserplomberie.fr') !== false) {
+                    $data['meta_description'] = str_replace('sauserplomberie.fr', 'normesrenovationbretagne.fr', $ad->meta_description);
                     $updated = true;
                 }
                 
@@ -129,7 +129,7 @@ class CleanSausercouverture extends Command
             
         } catch (\Exception $e) {
             $this->error('❌ Erreur lors du nettoyage: ' . $e->getMessage());
-            Log::error('Erreur nettoyage sausercouverture: ' . $e->getMessage());
+            Log::error('Erreur nettoyage sauserplomberie: ' . $e->getMessage());
             return 1;
         }
     }

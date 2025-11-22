@@ -13,10 +13,10 @@
                         try {
                             $description = setting('company_description', '');
                             if (empty($description)) {
-                                $description = 'Expert en travaux de rénovation et de couverture. Devis gratuit, qualité garantie. Nous intervenons rapidement pour tous vos projets de toiture, façade et isolation.';
+                                $description = 'Expert en travaux de rénovation et de plomberie. Devis gratuit, qualité garantie. Nous intervenons rapidement pour tous vos projets de plomberie, façade et isolation.';
                             }
                         } catch (Exception $e) {
-                            $description = 'Expert en travaux de rénovation et de couverture. Devis gratuit, qualité garantie. Nous intervenons rapidement pour tous vos projets de toiture, façade et isolation.';
+                            $description = 'Expert en travaux de rénovation et de plomberie. Devis gratuit, qualité garantie. Nous intervenons rapidement pour tous vos projets de plomberie, façade et isolation.';
                         }
                     @endphp
                     {{ $description }}

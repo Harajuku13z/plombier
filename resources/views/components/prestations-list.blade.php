@@ -40,7 +40,7 @@ $defaultPrestations = [
     [
         'icon' => 'fas fa-lightbulb',
         'title' => 'Conseils d\'entretien personnalisé',
-        'description' => 'Recommandations adaptées à votre toiture'
+        'description' => 'Recommandations adaptées à votre plomberie'
     ]
 ];
 

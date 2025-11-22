@@ -2,7 +2,7 @@
 
 ## 📍 Accès
 
-**Admin** : https://couvreur-chevigny-saint-sauveur.fr/admin/seo-automation
+**Admin** : https://plombier-chevigny-saint-sauveur.fr/admin/seo-automation
 
 **Mot de passe** : `elizo` (si demandé)
 
@@ -103,7 +103,7 @@ Exemples :
 
 **Avantages** :
 - ✅ Variation maximale (anti-duplication)
-- ✅ Couverture large sémantique
+- ✅ Plomberie large sémantique
 - ✅ Évite cannibalisation mots-clés
 
 **Filtrage** :
@@ -117,8 +117,8 @@ Exemples :
 4. Sauvegarder
 
 **Exemples mots-clés recommandés** :
-- "rénovation toiture"
-- "couverture zinc"
+- "rénovation plomberie"
+- "plomberie zinc"
 - "isolation combles"
 - "ravalement façade"
 - "charpente traditionnelle"
@@ -550,14 +550,14 @@ Si 10 villes : 1 article/ville = 10 total = Limite
 **Nombre optimal** : 30-50 mots-clés
 
 **Éviter** :
-- ❌ Mots-clés trop génériques ("couvreur")
+- ❌ Mots-clés trop génériques ("plombier")
 - ❌ Mots-clés hors sujet
-- ❌ Duplication ("toiture" et "toitures")
+- ❌ Duplication ("plomberie" et "plomberies")
 
 **Privilégier** :
-- ✅ Longue traîne ("rénovation toiture ardoise")
-- ✅ Intent clair ("prix couverture zinc")
-- ✅ Local ("couvreur + ville")
+- ✅ Longue traîne ("rénovation plomberie ardoise")
+- ✅ Intent clair ("prix plomberie zinc")
+- ✅ Local ("plombier + ville")
 - ✅ Variations sémantiques
 
 ### 3. Villes favorites sélection

@@ -200,7 +200,7 @@
                             <input type="url" class="form-control" id="site_url" name="site_url" 
                                    value="{{ setting('site_url', request()->getSchemeAndHttpHost()) }}"
                                    required>
-                            <small class="form-text text-muted">Votre domaine principal (ex: https://couvreur-chevigny-saint-sauveur.fr)</small>
+                            <small class="form-text text-muted">Votre domaine principal (ex: https://plombier-chevigny-saint-sauveur.fr)</small>
                         </div>
 
                         <div class="form-group">

@@ -777,7 +777,7 @@
                        id="keyword" 
                        name="keyword" 
                        value="{{ old('keyword') }}"
-                       placeholder="Ex: couvreur, toiture, rénovation..."
+                       placeholder="Ex: plombier, plomberie, rénovation..."
                        maxlength="255"
                        class="w-full px-4 py-3 border-2 border-blue-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-white">
                 <p class="text-xs text-gray-600 mt-2 flex items-center">

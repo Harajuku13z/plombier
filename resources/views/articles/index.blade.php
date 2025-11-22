@@ -8,7 +8,7 @@
     // Récupérer les meta tags depuis SeoHelper
     $seoData = \App\Helpers\SeoHelper::generateMetaTags('blog', [
         'title' => 'Blog et Astuces',
-        'description' => 'Découvrez nos articles et conseils d\'experts en rénovation et couverture',
+        'description' => 'Découvrez nos articles et conseils d\'experts en rénovation et plomberie',
         'image' => file_exists(public_path('images/og-blog.jpg')) ? asset('images/og-blog.jpg') : null,
     ]);
     

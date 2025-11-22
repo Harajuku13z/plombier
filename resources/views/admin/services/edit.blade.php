@@ -187,7 +187,7 @@
                                id="meta_keywords" 
                                name="meta_keywords" 
                                value="{{ old('meta_keywords', $service['meta_keywords'] ?? '') }}"
-                               placeholder="demoussage, toiture, rénovation, devis gratuit, professionnel..."
+                               placeholder="demoussage, plomberie, rénovation, devis gratuit, professionnel..."
                                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
                         <p class="text-sm text-gray-500 mt-1">Mots-clés séparés par des virgules (générés automatiquement par l'IA)</p>
                         @error('meta_keywords')

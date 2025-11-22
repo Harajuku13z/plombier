@@ -244,7 +244,7 @@
                                             <p style="margin: 8px 0;"><strong>Email :</strong> jean.dupont@email.com</p>
                                         </div>
                                     </div>
-                                    <p style="margin: 15px 0;"><strong>Types de travaux :</strong> Toiture, Façade</p>
+                                    <p style="margin: 15px 0;"><strong>Types de travaux :</strong> Plomberie, Façade</p>
                                 </div>
                                 
                                 <div style="background: #e8f5e8; padding: 20px; border-radius: 8px; margin: 25px 0;">

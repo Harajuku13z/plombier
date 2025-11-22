@@ -560,7 +560,7 @@ class ConfigController extends Controller
         $companyName = setting('company_name', 'Votre Entreprise');
         $companyCity = setting('company_city', '');
         $workTypeLabels = [
-            'roof' => 'Toiture',
+            'roof' => 'Plomberie',
             'facade' => 'Façade', 
             'isolation' => 'Isolation',
             'mixed' => 'Travaux mixtes'
@@ -593,7 +593,7 @@ class ConfigController extends Controller
             $keywords[] = $companyCity;
         }
         if ($request->input('work_type') === 'roof') {
-            $keywords = array_merge($keywords, ['toiture', 'couverture', 'charpente']);
+            $keywords = array_merge($keywords, ['plomberie', 'plomberie', 'charpente']);
         } elseif ($request->input('work_type') === 'facade') {
             $keywords = array_merge($keywords, ['façade', 'enduit', 'ravalement']);
         } elseif ($request->input('work_type') === 'isolation') {

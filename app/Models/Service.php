@@ -62,7 +62,7 @@ class Service extends Model
         }
         
         return \RalphJSmit\Laravel\SEO\Support\SEOData::make()
-            ->title($this->meta_title ?: $this->title . ' | Couvreur Expert')
+            ->title($this->meta_title ?: $this->title . ' | Plombier Expert')
             ->description($this->meta_description ?: \Str::limit(strip_tags($this->description ?? ''), 160))
             ->image($this->og_image ? asset($this->og_image) : ($this->image_path ? asset($this->image_path) : null))
             ->url(route('services.show', $this))

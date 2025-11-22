@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'Administration') - {{ setting('company_name', 'Sauser Couverture') }}</title>
+    <title>@yield('title', 'Administration') - {{ setting('company_name', 'Sauser Plomberie') }}</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     
     <!-- Tailwind CSS -->
@@ -169,7 +169,7 @@
                             <i class="fas fa-building text-white text-sm"></i>
                         </div>
                     @endif
-                    <span class="ml-3 text-lg font-semibold text-gray-900">{{ setting('company_name', 'Sauser Couverture') }}</span>
+                    <span class="ml-3 text-lg font-semibold text-gray-900">{{ setting('company_name', 'Sauser Plomberie') }}</span>
                 </div>
                     </div>
                     

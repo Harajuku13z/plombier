@@ -45,14 +45,14 @@
                 <label for="keyword" class="block text-sm font-medium text-gray-700 mb-2">Mot-clé principal</label>
                 <input type="text" id="keyword" name="keyword" 
                        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                       placeholder="Ex: couvreur dijon, rénovation toiture, isolation maison...">
+                       placeholder="Ex: plombier dijon, rénovation plomberie, isolation maison...">
             </div>
             
             <div class="mb-6">
                 <label for="instruction" class="block text-sm font-medium text-gray-700 mb-2">Instructions (optionnel)</label>
                 <textarea id="instruction" name="instruction" rows="4"
                           class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                          placeholder="Ex: Créer des articles sur les meilleurs couvreurs de Dijon avec des conseils pratiques et des prix..."></textarea>
+                          placeholder="Ex: Créer des articles sur les meilleurs plombiers de Dijon avec des conseils pratiques et des prix..."></textarea>
             </div>
 
             <div class="mb-6">
@@ -146,7 +146,7 @@
                 <label for="contentPrompt" class="block text-sm font-medium text-gray-700 mb-2">Prompt pour le contenu</label>
                 <textarea id="contentPrompt" rows="6" 
                           class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                          placeholder="Instructions pour la génération du contenu...">Tu es un rédacteur web professionnel et expert en rénovation de bâtiments (toiture, isolation, plomberie, électricité, façade, etc.) et SEO.
+                          placeholder="Instructions pour la génération du contenu...">Tu es un rédacteur web professionnel et expert en rénovation de bâtiments (plomberie, isolation, plomberie, électricité, façade, etc.) et SEO.
 À partir du titre fourni, rédige un article complet, structuré et optimisé SEO, sous format HTML prêt à publier, en utilisant Tailwind CSS pour que l'article soit agréable à lire.
 Structure à respecter précisément :
 Container principal : max-w-7xl mx-auto px-4 sm:px-6 lg:px-8
@@ -155,7 +155,7 @@ Sous-titres (h2) : text-2xl font-semibold text-gray-800 my-4
 Sections (div) : bg-white p-6 rounded-xl shadow mb-6 hover:shadow-lg transition duration-300
 Paragraphes (p) : text-gray-700 text-base leading-relaxed mb-4
 Listes à puces (ul > li) : list-disc list-inside text-gray-700 mb-2
-Icônes / emojis : ajouter avant le texte ou dans les titres pour illustrer certaines sections. Exemples : toiture 🏠, jardin 🌿, énergie ⚡, peinture 🎨, sécurité 🛡️
+Icônes / emojis : ajouter avant le texte ou dans les titres pour illustrer certaines sections. Exemples : plomberie 🏠, jardin 🌿, énergie ⚡, peinture 🎨, sécurité 🛡️
 FAQ : bg-green-50 p-4 rounded-lg mb-4, questions en gras et réponses normales
 Call-to-action : bouton bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600 transition duration-300
 Contenu à générer :
@@ -166,7 +166,7 @@ Conseils pratiques pour les propriétaires ou professionnels
 FAQ pertinente sur le sujet
 Conclusion avec appel à l'action pour contacter l'entreprise ou découvrir ses services
 SEO et mots-clés :
-Intégrer naturellement des mots-clés liés à la rénovation, toiture, façade, isolation, plomberie, électricité, énergie, maison, entretien, travaux…
+Intégrer naturellement des mots-clés liés à la rénovation, plomberie, façade, isolation, plomberie, électricité, énergie, maison, entretien, travaux…
 Optimiser les titres et sous-titres pour le référencement
 Important :
 Générer directement un fichier HTML complet et propre

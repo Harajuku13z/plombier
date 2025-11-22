@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title', 'Tous nos avis clients - ' . setting('company_name'))
-@section('description', 'Découvrez les avis de nos clients satisfaits. Plus de ' . $stats['total'] . ' avis avec une note moyenne de ' . $stats['average'] . '/5. Témoignages authentiques sur nos services de couverture et rénovation.')
+@section('description', 'Découvrez les avis de nos clients satisfaits. Plus de ' . $stats['total'] . ' avis avec une note moyenne de ' . $stats['average'] . '/5. Témoignages authentiques sur nos services de plomberie et rénovation.')
 
 @push('head')
 @endpush
@@ -9,8 +9,8 @@
 @php
     // Définir les variables pour le SEO centralisé
     $currentPage = 'reviews';
-    $pageTitle = 'Avis Clients - ' . setting('company_name', 'Sauser Couverture');
-    $pageDescription = 'Découvrez les avis de nos clients satisfaits. Plus de ' . $stats['total'] . ' avis avec une note moyenne de ' . $stats['average'] . '/5. Témoignages authentiques sur nos services de couverture et rénovation.';
+    $pageTitle = 'Avis Clients - ' . setting('company_name', 'Sauser Plomberie');
+    $pageDescription = 'Découvrez les avis de nos clients satisfaits. Plus de ' . $stats['total'] . ' avis avec une note moyenne de ' . $stats['average'] . '/5. Témoignages authentiques sur nos services de plomberie et rénovation.';
     // $pageImage supprimé pour utiliser l'image par défaut du SeoHelper
     $pageType = 'website';
 @endphp

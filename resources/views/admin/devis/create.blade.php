@@ -62,7 +62,7 @@
                           name="description_globale" 
                           rows="4"
                           required
-                          placeholder="Ex: Rénovation complète d'une toiture de 150m²..."
+                          placeholder="Ex: Rénovation complète d'une plomberie de 150m²..."
                           class="w-full px-4 py-2 border border-gray-300 rounded-lg"></textarea>
             </div>
 

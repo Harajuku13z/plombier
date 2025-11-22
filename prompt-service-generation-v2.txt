@@ -2,7 +2,7 @@ Prompt amélioré pour génération web de service de rénovation
 Tu es un expert en rédaction web pour les services de rénovation.
 
 INFORMATIONS SUR LE SERVICE:
-- Type de service : [ex: isolation thermique, toiture, façade, peinture, plomberie]
+- Type de service : [ex: isolation thermique, plomberie, façade, peinture, plomberie]
 - Description actuelle : [Brève description du service]
 - Objectif : créer un contenu web professionnel, engageant et optimisé pour le SEO, adapté à ce type de service.
 

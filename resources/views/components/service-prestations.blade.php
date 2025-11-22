@@ -8,7 +8,7 @@ if ($prestations) {
     // Si le service a des prestations, les utiliser
     $prestationsToShow = $service['prestations'];
 } else {
-    // Prestations par défaut pour nettoyage de toiture
+    // Prestations par défaut pour nettoyage de plomberie
     $prestationsToShow = [
         ['icon' => 'fas fa-hands', 'title' => 'Enlèvement manuel des mousses et débris'],
         ['icon' => 'fas fa-spray-can', 'title' => 'Nettoyage haute pression contrôlé'],

@@ -24,24 +24,24 @@ class HomeController extends Controller
         if (empty($allServices)) {
             $allServices = [
                 [
-                    'name' => 'Demoussage de Toiture',
-                    'description' => 'Service professionnel de demoussage pour redonner vie à votre toiture',
+                    'name' => 'Demoussage de Plomberie',
+                    'description' => 'Service professionnel de demoussage pour redonner vie à votre plomberie',
                     'image' => '',
                     'slug' => 'demoussage',
                     'is_featured' => true
                 ],
                 [
-                    'name' => 'Réparation de Toiture',
-                    'description' => 'Réparations et rénovations de toiture par nos experts',
+                    'name' => 'Réparation de Plomberie',
+                    'description' => 'Réparations et rénovations de plomberie par nos experts',
                     'image' => '',
-                    'slug' => 'reparation-toiture',
+                    'slug' => 'reparation-plomberie',
                     'is_featured' => true
                 ],
                 [
-                    'name' => 'Couvreur Professionnel',
-                    'description' => 'Services de couverture par des professionnels qualifiés',
+                    'name' => 'Plombier Professionnel',
+                    'description' => 'Services de plomberie par des professionnels qualifiés',
                     'image' => '',
-                    'slug' => 'couvreur',
+                    'slug' => 'plombier',
                     'is_featured' => true
                 ]
             ];
@@ -69,15 +69,15 @@ class HomeController extends Controller
         if (empty($portfolioItems)) {
             $portfolioItems = [
                 [
-                    'title' => 'Rénovation Toiture Chilly',
-                    'description' => 'Rénovation complète d\'une toiture à Chilly avec matériaux de qualité',
+                    'title' => 'Rénovation Plomberie Chilly',
+                    'description' => 'Rénovation complète d\'une plomberie à Chilly avec matériaux de qualité',
                     'images' => [],
-                    'slug' => 'renovation-toiture-chilly',
+                    'slug' => 'renovation-plomberie-chilly',
                     'is_visible' => true
                 ],
                 [
                     'title' => 'Demoussage Professionnel',
-                    'description' => 'Demoussage et nettoyage d\'une toiture ancienne',
+                    'description' => 'Demoussage et nettoyage d\'une plomberie ancienne',
                     'images' => [],
                     'slug' => 'demoussage-professionnel',
                     'is_visible' => true

@@ -176,7 +176,7 @@ class GroqQuotationService
         $prompt .= "\n\nEXEMPLES DE BONNES DESCRIPTIONS :\n";
         $prompt .= "- \"Dépose et mise en décharge des anciennes tuiles et éléments de zinguerie existants\"\n";
         $prompt .= "- \"Fourniture et pose de tuiles en terre cuite (modèle XX) avec liteaux neufs et fixation mécanique\"\n";
-        $prompt .= "- \"Isolation de la toiture par l'extérieur (Sarking) avec panneaux isolants haute performance 140mm\"\n";
+        $prompt .= "- \"Isolation de la plomberie par l'extérieur (Sarking) avec panneaux isolants haute performance 140mm\"\n";
         $prompt .= "- \"Fourniture et installation de fenêtre de toit Velux standard 114x118 avec finition intérieure\"\n";
 
         $prompt .= "\n\nIMPORTANT : Réponds UNIQUEMENT avec un JSON valide, sans texte avant ou après. Format attendu :\n";

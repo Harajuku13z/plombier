@@ -59,7 +59,7 @@
 </style>
 <!-- Métadonnées spécifiques aux articles -->
 <meta property="article:published_time" content="{{ $article->created_at->toISOString() }}">
-<meta property="article:author" content="{{ setting('company_name', 'Sauser Couverture') }}">
+<meta property="article:author" content="{{ setting('company_name', 'Sauser Plomberie') }}">
 <meta property="article:section" content="Blog">
 <meta property="article:tag" content="{{ $article->focus_keyword ?? 'Rénovation' }}">
 

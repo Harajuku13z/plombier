@@ -201,7 +201,7 @@ class SeoHelper
             'blog' => 'Découvrez nos articles et conseils sur la rénovation et les travaux' . $location . '. Guides pratiques et actualités.',
             'articles' => 'Découvrez nos articles et conseils sur la rénovation et les travaux' . $location . '. Guides pratiques et actualités.',
             'portfolio' => 'Découvrez quelques-unes de nos réalisations récentes' . $location . '. Laissez-vous inspirer pour votre prochain projet.',
-            'ads' => 'Découvrez nos services par ville' . $location . '. Solutions professionnelles de couverture et rénovation dans toute la région.',
+            'ads' => 'Découvrez nos services par ville' . $location . '. Solutions professionnelles de plomberie et rénovation dans toute la région.',
             'reviews' => 'Découvrez les avis de nos clients satisfaits' . $location . '. Témoignages et retours d\'expérience sur nos services.',
             'contact' => 'Contactez-nous pour un devis gratuit' . $location . '. Intervention rapide, qualité garantie.',
             'about' => 'Découvrez notre entreprise spécialisée en ' . $companySpecialization . $location . '. Expertise et professionnalisme à votre service.',

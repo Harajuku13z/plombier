@@ -137,7 +137,7 @@
             if (empty($keywordsValue)) {
                 // Utiliser view()->yieldContent() au lieu de @yield() dans un bloc PHP
                 $yieldKeywords = view()->yieldContent('keywords', '');
-                $keywordsValue = !empty($yieldKeywords) ? $yieldKeywords : @setting('meta_keywords', 'travaux, rénovation, toiture, façade');
+                $keywordsValue = !empty($yieldKeywords) ? $yieldKeywords : @setting('meta_keywords', 'travaux, rénovation, plomberie, façade');
             }
             // S'assurer que les keywords ne sont jamais vides
             if (empty($keywordsValue)) {
@@ -145,7 +145,7 @@
                 $keywordsValue = strtolower($companySpecialization) . ', travaux, rénovation, devis gratuit';
             }
         } catch (\Exception $e) {
-            $keywordsValue = 'travaux, rénovation, toiture, façade';
+            $keywordsValue = 'travaux, rénovation, plomberie, façade';
         }
     @endphp
     <meta name="keywords" content="{{ e($keywordsValue) }}">

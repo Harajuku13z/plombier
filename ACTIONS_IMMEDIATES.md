@@ -12,7 +12,7 @@
 ssh votre-serveur
 
 # Aller dans le dossier de l'application
-cd /path/to/couvreur-chevigny-saint-sauveur
+cd /path/to/plombier-chevigny-saint-sauveur
 
 # Pull les derniers changements
 git pull origin main
@@ -39,16 +39,16 @@ echo "✅ Déploiement terminé !"
 php artisan tinker
 
 # Exécuter ces commandes dans tinker :
-App\Models\Setting::set('site_url', 'https://couvreur-chevigny-saint-sauveur.fr');
+App\Models\Setting::set('site_url', 'https://plombier-chevigny-saint-sauveur.fr');
 App\Models\Setting::get('site_url');  # Vérifier que c'est bien enregistré
 exit
 ```
 
 **Alternative via l'admin web** :
-1. Aller sur `https://couvreur-chevigny-saint-sauveur.fr/admin`
+1. Aller sur `https://plombier-chevigny-saint-sauveur.fr/admin`
 2. Configuration ou Settings
 3. Chercher `site_url`
-4. Mettre `https://couvreur-chevigny-saint-sauveur.fr`
+4. Mettre `https://plombier-chevigny-saint-sauveur.fr`
 5. Sauvegarder
 
 ---
@@ -78,11 +78,11 @@ php artisan seo:diagnose --fix
 php artisan sitemap:generate-daily
 
 # Vérifier que le sitemap contient le BON domaine
-curl https://couvreur-chevigny-saint-sauveur.fr/sitemap.xml | head -30
+curl https://plombier-chevigny-saint-sauveur.fr/sitemap.xml | head -30
 
 # ✅ Vous DEVEZ voir des URLs comme :
-# <loc>https://couvreur-chevigny-saint-sauveur.fr/</loc>
-# <loc>https://couvreur-chevigny-saint-sauveur.fr/services/toiture</loc>
+# <loc>https://plombier-chevigny-saint-sauveur.fr/</loc>
+# <loc>https://plombier-chevigny-saint-sauveur.fr/services/plomberie</loc>
 # etc.
 
 # ❌ Si vous voyez un AUTRE domaine = PROBLÈME
@@ -96,10 +96,10 @@ curl https://couvreur-chevigny-saint-sauveur.fr/sitemap.xml | head -30
 ### A. Soumettre le sitemap
 
 1. Aller sur https://search.google.com/search-console
-2. Sélectionner votre propriété (couvreur-chevigny-saint-sauveur.fr)
+2. Sélectionner votre propriété (plombier-chevigny-saint-sauveur.fr)
 3. Menu gauche : **Sitemaps**
 4. Supprimer l'ancien sitemap s'il existe
-5. Ajouter nouveau sitemap : `https://couvreur-chevigny-saint-sauveur.fr/sitemap.xml`
+5. Ajouter nouveau sitemap : `https://plombier-chevigny-saint-sauveur.fr/sitemap.xml`
 6. **Envoyer**
 7. Attendre 1-2 min puis rafraîchir
 8. ✅ Statut doit être "Réussite" ou "En attente"
@@ -120,18 +120,18 @@ curl https://couvreur-chevigny-saint-sauveur.fr/sitemap.xml | head -30
 
 **URLs prioritaires (Top 20) :**
 ```
-https://couvreur-chevigny-saint-sauveur.fr/
-https://couvreur-chevigny-saint-sauveur.fr/services
-https://couvreur-chevigny-saint-sauveur.fr/services/renovation-toiture
-https://couvreur-chevigny-saint-sauveur.fr/services/couverture
-https://couvreur-chevigny-saint-sauveur.fr/services/facade
-https://couvreur-chevigny-saint-sauveur.fr/services/isolation
-https://couvreur-chevigny-saint-sauveur.fr/services/charpente
-https://couvreur-chevigny-saint-sauveur.fr/blog
-https://couvreur-chevigny-saint-sauveur.fr/simulateur
-https://couvreur-chevigny-saint-sauveur.fr/contact
-https://couvreur-chevigny-saint-sauveur.fr/avis
-https://couvreur-chevigny-saint-sauveur.fr/nos-realisations
+https://plombier-chevigny-saint-sauveur.fr/
+https://plombier-chevigny-saint-sauveur.fr/services
+https://plombier-chevigny-saint-sauveur.fr/services/renovation-plomberie
+https://plombier-chevigny-saint-sauveur.fr/services/plomberie
+https://plombier-chevigny-saint-sauveur.fr/services/facade
+https://plombier-chevigny-saint-sauveur.fr/services/isolation
+https://plombier-chevigny-saint-sauveur.fr/services/charpente
+https://plombier-chevigny-saint-sauveur.fr/blog
+https://plombier-chevigny-saint-sauveur.fr/simulateur
+https://plombier-chevigny-saint-sauveur.fr/contact
+https://plombier-chevigny-saint-sauveur.fr/avis
+https://plombier-chevigny-saint-sauveur.fr/nos-realisations
 # + Top 8 articles blog ou annonces avec plus de contenu
 ```
 
@@ -141,7 +141,7 @@ https://couvreur-chevigny-saint-sauveur.fr/nos-realisations
 
 ### Via l'admin web :
 
-1. **Aller sur** : `https://couvreur-chevigny-saint-sauveur.fr/admin/seo-automation`
+1. **Aller sur** : `https://plombier-chevigny-saint-sauveur.fr/admin/seo-automation`
 
 2. **Vérifier ces paramètres** :
    - ✅ Automatisation SEO = **Activée**
@@ -193,7 +193,7 @@ exit
    - Impressions (devrait augmenter)
    - Clics (devrait suivre)
    - Position moyenne (devrait baisser)
-3. Couverture :
+3. Plomberie :
    - Pages indexées (devrait augmenter)
    - Pages exclues (devrait diminuer)
 
@@ -261,7 +261,7 @@ php artisan tinker
 >>> config('app.url');
 
 # 2. Si c'est toujours incorrect, forcer :
->>> App\Models\Setting::set('site_url', 'https://couvreur-chevigny-saint-sauveur.fr');
+>>> App\Models\Setting::set('site_url', 'https://plombier-chevigny-saint-sauveur.fr');
 >>> App\Models\Setting::clearCache();
 >>> exit
 
@@ -271,7 +271,7 @@ php artisan cache:clear
 php artisan sitemap:generate-daily
 
 # 4. Re-vérifier
-curl https://couvreur-chevigny-saint-sauveur.fr/sitemap.xml | head -30
+curl https://plombier-chevigny-saint-sauveur.fr/sitemap.xml | head -30
 ```
 
 ### Les impressions ne remontent pas après 7 jours :
@@ -298,18 +298,18 @@ curl https://couvreur-chevigny-saint-sauveur.fr/sitemap.xml | head -30
 
 ```bash
 # 1. Sitemap correct
-curl https://couvreur-chevigny-saint-sauveur.fr/sitemap.xml | grep -o "https://couvreur-chevigny-saint-sauveur.fr" | head -5
+curl https://plombier-chevigny-saint-sauveur.fr/sitemap.xml | grep -o "https://plombier-chevigny-saint-sauveur.fr" | head -5
 # ✅ Doit afficher votre domaine 5 fois
 
 # 2. Robots.txt présent
-curl https://couvreur-chevigny-saint-sauveur.fr/robots.txt
+curl https://plombier-chevigny-saint-sauveur.fr/robots.txt
 # ✅ Doit afficher le contenu du robots.txt
 
 # 3. Sitemap soumis GSC
 # ✅ Vérifier dans GSC > Sitemaps : statut "Réussite"
 
 # 4. Indexation demandée
-# ✅ Vérifier GSC > Couverture : "En attente" ou "Indexée" pour vos Top 20
+# ✅ Vérifier GSC > Plomberie : "En attente" ou "Indexée" pour vos Top 20
 
 # 5. Analytics fonctionne
 # ✅ Vérifier Google Analytics : données temps réel actives
@@ -369,7 +369,7 @@ Cochez au fur et à mesure :
 
 **Chaque matin** (5 min) :
 1. Performances > Impressions hier : Noter le chiffre
-2. Couverture > Pages indexées : Noter le nombre
+2. Plomberie > Pages indexées : Noter le nombre
 
 **Objectif Jour 7** :
 - Impressions : > 100/jour (début de récupération)

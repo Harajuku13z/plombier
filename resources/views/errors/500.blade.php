@@ -95,7 +95,7 @@
                 <div class="p-4">
                     <i class="fas fa-tools text-4xl text-blue-600 mb-3"></i>
                     <h4 class="font-semibold text-gray-800 mb-2">Travaux de rénovation</h4>
-                    <p class="text-gray-600 text-sm">Toiture, façade, isolation</p>
+                    <p class="text-gray-600 text-sm">Plomberie, façade, isolation</p>
                 </div>
                 <div class="p-4">
                     <i class="fas fa-shield-alt text-4xl text-green-600 mb-3"></i>

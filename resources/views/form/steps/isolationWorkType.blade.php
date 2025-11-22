@@ -30,7 +30,7 @@
                             'murs' => ['label' => 'Isolation des Murs', 'icon' => 'Isolation_des_murs.webp'],
                             'sols' => ['label' => 'Isolation des Sols', 'icon' => 'Isolation_des_sols.webp'],
                             'combles' => ['label' => 'Isolation des Combles', 'icon' => 'Isolation_des_combles.webp'],
-                            'toitures' => ['label' => 'Isolation des Toitures', 'icon' => 'Isolation_des_toitures.webp'],
+                            'plomberies' => ['label' => 'Isolation des Plomberies', 'icon' => 'Isolation_des_plomberies.webp'],
                         ];
                         @endphp
 

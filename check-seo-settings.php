@@ -20,7 +20,7 @@ foreach ($settings as $key => $expected) {
 
 echo "\n2. Test de la page portfolio...\n";
 
-$url = 'https://sausercouverture.fr/nos-realisations';
+$url = 'https://sauserplomberie.fr/nos-realisations';
 $context = stream_context_create([
     'http' => [
         'method' => 'GET',
@@ -76,8 +76,8 @@ if ($response === false) {
 
 echo "\n📋 Instructions pour corriger :\n";
 echo "=============================\n";
-echo "1. Connectez-vous sur https://sausercouverture.fr/admin/login\n";
-echo "2. Allez sur https://sausercouverture.fr/admin/seo/pages\n";
+echo "1. Connectez-vous sur https://sauserplomberie.fr/admin/login\n";
+echo "2. Allez sur https://sauserplomberie.fr/admin/seo/pages\n";
 echo "3. Cliquez sur le bouton 'Réalisations' (🏗️)\n";
 echo "4. Remplissez EXACTEMENT :\n";
 echo "   - Titre Meta : Nos Réalisations\n";
@@ -86,4 +86,4 @@ echo "   - Titre Open Graph : Nos Réalisations\n";
 echo "   - Description Open Graph : Découvrez quelques-unes de nos réalisations récentes et laissez-vous inspirer pour votre prochain projet\n";
 echo "5. Cliquez sur 'Sauvegarder la Configuration SEO'\n";
 echo "6. Videz le cache : php artisan cache:clear\n";
-echo "7. Testez la page : https://sausercouverture.fr/nos-realisations\n";
+echo "7. Testez la page : https://sauserplomberie.fr/nos-realisations\n";

@@ -57,7 +57,7 @@ class AbandonedSubmission extends Model
             'propertyType' => 'Type de propriété',
             'surface' => 'Surface',
             'workType' => 'Type de travaux',
-            'roofWorkType' => 'Travaux de toiture',
+            'roofWorkType' => 'Travaux de plomberie',
             'facadeWorkType' => 'Travaux de façade',
             'isolationWorkType' => 'Travaux d\'isolation',
             'ownershipStatus' => 'Statut de propriété',

@@ -179,7 +179,7 @@ class GptSeoGenerator
     protected function extractSemanticKeywords($keyword)
     {
         $semanticMap = [
-            'toiture' => ['couverture', 'charpente', 'zinguerie', 'étanchéité', 'isolation', 'ardoise', 'tuile', 'zinc', 'faîtage', 'gouttière'],
+            'plomberie' => ['plomberie', 'charpente', 'zinguerie', 'étanchéité', 'isolation', 'ardoise', 'tuile', 'zinc', 'faîtage', 'gouttière'],
             'rénovation' => ['travaux', 'réhabilitation', 'restauration', 'modernisation', 'amélioration', 'rafraîchissement', 'transformation'],
             'isolation' => ['thermique', 'phonique', 'combles', 'murs', 'laine de verre', 'laine de roche', 'polystyrène', 'performance énergétique', 'économies'],
             'façade' => ['ravalement', 'enduit', 'peinture', 'bardage', 'ITE', 'isolation extérieure', 'crépi', 'nettoyage'],
@@ -301,16 +301,16 @@ class GptSeoGenerator
         
         // Titres inspirants fournis par l'utilisateur (à fort potentiel de conversion)
         $highConvertingTitles = [
-            "Fuite de Toiture : Que Faire Immédiatement Avant l'Arrivée du Couvreur ?",
-            "Rénover sa Toiture en {$currentYear} : Prix, Aides, Erreurs à Éviter",
-            "Toiture Abîmée : 7 Signes Qui Doivent Vous Alerter Immédiatement",
+            "Fuite de Plomberie : Que Faire Immédiatement Avant l'Arrivée du Plombier ?",
+            "Rénover sa Plomberie en {$currentYear} : Prix, Aides, Erreurs à Éviter",
+            "Plomberie Abîmée : 7 Signes Qui Doivent Vous Alerter Immédiatement",
             "Tuiles Cassées, Infiltrations : Combien Coûte Une Intervention d'Urgence ?",
-            "Pourquoi une Toiture Mal Isolée Peut Faire Exploser Votre Facture de Chauffage",
-            "Couverture Zinc, Ardoise ou Tuiles : Quelle Toiture Choisir en {$currentYear} ?",
-            "Nettoyage de Toiture : Le Guide Complet (Prix + Fréquence + Risques)",
-            "Urgence Toiture Après Tempête : Les 5 Gestes Qui Sauvent Votre Maison",
-            "Comment Savoir Si Votre Toiture a Plus de 20 Ans ? (Checklist Téléchargeable)",
-            "Étanchéité de Toiture : Causes, Solutions et Prix des Réparations en {$currentYear}",
+            "Pourquoi une Plomberie Mal Isolée Peut Faire Exploser Votre Facture de Chauffage",
+            "Plomberie Zinc, Ardoise ou Tuiles : Quelle Plomberie Choisir en {$currentYear} ?",
+            "Nettoyage de Plomberie : Le Guide Complet (Prix + Fréquence + Risques)",
+            "Urgence Plomberie Après Tempête : Les 5 Gestes Qui Sauvent Votre Maison",
+            "Comment Savoir Si Votre Plomberie a Plus de 20 Ans ? (Checklist Téléchargeable)",
+            "Étanchéité de Plomberie : Causes, Solutions et Prix des Réparations en {$currentYear}",
         ];
         
         // Templates optimisés par intention
@@ -384,8 +384,8 @@ Exemple d'inspiration : "{$inspirationTitle}"
 - Locale : "Expert [Service] à [Ville] | Certifié RGE"
 
 **Exemples de titres parfaits (60 caractères max) :**
-✅ "Rénovation Toiture Paris : Devis Gratuit & Prix 2025" (57 car.)
-✅ "Couvreur Dijon | Expert Certifié RGE • Devis 24h" (53 car.)
+✅ "Rénovation Plomberie Paris : Devis Gratuit & Prix 2025" (57 car.)
+✅ "Plombier Dijon | Expert Certifié RGE • Devis 24h" (53 car.)
 ✅ "Isolation Combles Lyon : Guide Complet Pro 2025" (50 car.)
 
 **RÈGLES D'OR :**
@@ -520,7 +520,7 @@ Génère une meta description SEO ULTRA-PERSUASIVE pour maximiser le CTR.
 - Locale : "Expert {$keyword} à {$city}. {$companyName} intervient sous 48h. Devis gratuit, garantie décennale, artisans locaux qualifiés."
 
 **Exemples parfaits (155-160 caractères) :**
-✅ "Expert rénovation toiture Paris. Artisan certifié RGE, devis gratuit sous 24h, garantie 10 ans. +500 clients satisfaits. Contactez-nous !" (156 car.)
+✅ "Expert rénovation plomberie Paris. Artisan certifié RGE, devis gratuit sous 24h, garantie 10 ans. +500 clients satisfaits. Contactez-nous !" (156 car.)
 ✅ "Isolation combles Lyon : guide complet, prix 2025, aides financières. Notre entreprise : 15 ans d'expérience, matériaux premium. Devis gratuit." (158 car.)
 
 **RÈGLES D'OR :**
@@ -614,13 +614,13 @@ Génère 12-15 mots-clés SEO pertinents pour cet article.
 ✅ Inclure la ville "{$city}" dans au moins 2-3 variantes (ex: "{$keyword} {$city}", "expert {$keyword} {$city}")
 ✅ Inclure 3-5 mots-clés connexes pertinents de la liste fournie
 ✅ Inclure des variantes locales (ex: "{$keyword} {$city}", "{$keyword} {département}")
-✅ Inclure des mots-clés techniques du secteur (toiture, couverture, isolation, rénovation, etc.)
+✅ Inclure des mots-clés techniques du secteur (plomberie, plomberie, isolation, rénovation, etc.)
 ✅ Inclure des mots-clés d'intention (devis, prix, tarif, expert, professionnel, artisan, certifié)
 ✅ Éviter les mots-clés trop génériques ou non pertinents
 ✅ Format: liste séparée par des virgules, sans numérotation, sans puces, sans guillemets
 
 **Exemples de format attendu :**
-{$keyword}, {$keyword} {$city}, expert {$keyword}, devis {$keyword}, prix {$keyword}, {$keyword} professionnel, couverture {$city}, toiture {$city}, isolation {$city}
+{$keyword}, {$keyword} {$city}, expert {$keyword}, devis {$keyword}, prix {$keyword}, {$keyword} professionnel, plomberie {$city}, plomberie {$city}, isolation {$city}
 
 **RÈGLES :**
 - Pas d'émojis
@@ -700,8 +700,8 @@ EOT;
                 'expert ' . $keyword,
                 'devis ' . $keyword,
                 $keyword . ' professionnel',
-                'couverture ' . $city,
-                'toiture ' . $city,
+                'plomberie ' . $city,
+                'plomberie ' . $city,
                 'isolation ' . $city,
                 'rénovation ' . $city,
                 'artisan ' . $city
@@ -1330,16 +1330,16 @@ Tu vas créer l'article le PLUS COMPLET et le MIEUX OPTIMISÉ jamais rédigé su
 4. Considère les différents matériaux et leur impact sur le prix (économique, standard, premium)
 5. Fournis des FOURCHETTES LARGES et RÉALISTES basées sur tes recherches
 
-**EXEMPLES DE FOURCHETTES RÉALISTES POUR "COUVREUR PROFESSIONNEL" / "RÉNOVATION TOITURE" :**
+**EXEMPLES DE FOURCHETTES RÉALISTES POUR "PLOMBIER PROFESSIONNEL" / "RÉNOVATION PLOMBERIE" :**
 - Petite réparation (remplacement de quelques tuiles, réparation ponctuelle) : 500€ à 2000€
 - Réparation moyenne (réfection partielle, zinguerie, remplacement d'une section) : 2000€ à 8000€
-- Rénovation complète toiture (dépose ancienne couverture, charpente si nécessaire, couverture neuve) : 8000€ à 25000€ pour une maison moyenne (100-150m²)
+- Rénovation complète plomberie (dépose ancienne plomberie, charpente si nécessaire, plomberie neuve) : 8000€ à 25000€ pour une maison moyenne (100-150m²)
 - Rénovation complète avec isolation thermique : 12000€ à 35000€
 - Installation neuve (construction) : 10000€ à 30000€ selon la superficie
 
 **EXEMPLES POUR "ISOLATION THERMIQUE" :**
 - Isolation combles perdus : 30€ à 80€/m²
-- Isolation sous toiture : 50€ à 120€/m²
+- Isolation sous plomberie : 50€ à 120€/m²
 - Isolation murs intérieurs : 40€ à 100€/m²
 - Isolation complète maison : 8000€ à 25000€ selon la superficie
 
@@ -1652,7 +1652,7 @@ Tu vas créer l'article le PLUS COMPLET et le MIEUX OPTIMISÉ jamais rédigé su
 - Conclure en mentionnant que {$companyName} propose des devis gratuits et transparents
 
 **Exemple de structure :**
-Pour une petite réparation (remplacement de quelques tuiles, réparation ponctuelle), comptez entre 500€ et 2000€. Pour une réparation moyenne (réfection partielle, zinguerie), la fourchette se situe entre 2000€ et 8000€. Pour une rénovation complète de toiture (dépose ancienne couverture, charpente si nécessaire, couverture neuve), l'investissement varie entre 8000€ et 25000€ pour une maison moyenne de 100-150m². Si vous optez pour une rénovation complète avec isolation thermique, prévoyez entre 12000€ et 35000€. Les prix dépendent de nombreux facteurs : la superficie à traiter, les matériaux choisis (tuiles, ardoise, zinc, etc.), la complexité technique (accessibilité, pente, hauteur), l'état initial de la charpente, et les finitions souhaitées. {$companyName} propose des devis gratuits et transparents détaillant chaque poste de dépense, permettant ainsi de comprendre précisément l'investissement nécessaire pour votre projet à {$city}.</p>
+Pour une petite réparation (remplacement de quelques tuiles, réparation ponctuelle), comptez entre 500€ et 2000€. Pour une réparation moyenne (réfection partielle, zinguerie), la fourchette se situe entre 2000€ et 8000€. Pour une rénovation complète de plomberie (dépose ancienne plomberie, charpente si nécessaire, plomberie neuve), l'investissement varie entre 8000€ et 25000€ pour une maison moyenne de 100-150m². Si vous optez pour une rénovation complète avec isolation thermique, prévoyez entre 12000€ et 35000€. Les prix dépendent de nombreux facteurs : la superficie à traiter, les matériaux choisis (tuiles, ardoise, zinc, etc.), la complexité technique (accessibilité, pente, hauteur), l'état initial de la charpente, et les finitions souhaitées. {$companyName} propose des devis gratuits et transparents détaillant chaque poste de dépense, permettant ainsi de comprendre précisément l'investissement nécessaire pour votre projet à {$city}.</p>
     </div>
   </div>
   
@@ -2042,7 +2042,7 @@ EOT;
             'matériau|matière|produit|équipement' => 'Guide des matériaux et équipements',
             'comparatif|meilleur|top|choix' => 'Comparatifs et recommandations d\'experts',
             'certification|rge|qualibat|label' => 'Certifications et qualifications professionnelles',
-            'garantie|assurance|décennale' => 'Garanties et couvertures assurantielles',
+            'garantie|assurance|décennale' => 'Garanties et plomberies assurantielles',
             'aide|subvention|crédit|prime' => 'Aides financières et dispositifs de soutien',
             'réglementation|norme|dtu|rt2020' => 'Normes et réglementations en vigueur',
             'erreur|éviter|piège|attention' => 'Erreurs courantes et pièges à éviter',

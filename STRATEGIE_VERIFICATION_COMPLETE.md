@@ -143,15 +143,15 @@ Taux : 7%
 ⚠️  URLS NON INDEXÉES (88)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-URL : https://couvreur.../service-ville1
+URL : https://plombier.../service-ville1
   État : DISCOVERED_CURRENTLY_NOT_INDEXED
   Raison : Découverte mais pas encore explorée
 
-URL : https://couvreur.../service-ville2
+URL : https://plombier.../service-ville2
   État : CRAWLED_CURRENTLY_NOT_INDEXED
   Raison : Explorée mais non indexée (qualité insuffisante)
 
-URL : https://couvreur.../blog-article-old
+URL : https://plombier.../blog-article-old
   État : EXCLUDED
   Raison : Exclue par Google (vérifier règles)
 
@@ -226,7 +226,7 @@ git pull origin main && php artisan optimize
 # 2. Configurer Google (si pas fait)
 # Via /admin/indexation
 # Ou php artisan tinker
-App\Models\Setting::set('site_url', 'https://couvreur-chevigny-saint-sauveur.fr');
+App\Models\Setting::set('site_url', 'https://plombier-chevigny-saint-sauveur.fr');
 App\Models\Setting::set('google_search_console_credentials', '{...JSON...}');
 
 # 3. Régénérer sitemap avec bon domaine
@@ -367,14 +367,14 @@ php artisan indexation:simple stats
 **Vérifier et indexer EN PREMIER** :
 ```bash
 # Homepage
-php artisan indexation:simple verify --url="https://couvreur-chevigny-saint-sauveur.fr/"
-php artisan indexation:simple index --url="https://couvreur-chevigny-saint-sauveur.fr/"
+php artisan indexation:simple verify --url="https://plombier-chevigny-saint-sauveur.fr/"
+php artisan indexation:simple index --url="https://plombier-chevigny-saint-sauveur.fr/"
 
 # Top services (répéter pour chaque)
-php artisan indexation:simple index --url="https://couvreur.../services/toiture"
+php artisan indexation:simple index --url="https://plombier.../services/plomberie"
 
 # Top articles
-php artisan indexation:simple index --url="https://couvreur.../blog/article-important"
+php artisan indexation:simple index --url="https://plombier.../blog/article-important"
 ```
 
 ### 2. Traiter Problèmes Récurrents
@@ -541,7 +541,7 @@ php artisan indexation:simple verify --url="https://..."
 
 **Après application stratégie complète** :
 
-- ✅ **10000 URLs vérifiées** (100% couverture)
+- ✅ **10000 URLs vérifiées** (100% plomberie)
 - ✅ **7000-9000 URLs indexées** (70-90%)
 - ✅ **Rapport CSV détaillé** (toutes URLs + raisons)
 - ✅ **Liste précise non-indexées** (avec raisons)

@@ -33,8 +33,8 @@
 ### URGENCE 1 : Corriger la configuration du domaine
 ```bash
 # Dans l'admin Laravel, vérifier/configurer :
-Settings > site_url = "https://couvreur-chevigny-saint-sauveur.fr"
-Settings > APP_URL (fichier .env) = "https://couvreur-chevigny-saint-sauveur.fr"
+Settings > site_url = "https://plombier-chevigny-saint-sauveur.fr"
+Settings > APP_URL (fichier .env) = "https://plombier-chevigny-saint-sauveur.fr"
 ```
 
 ### URGENCE 2 : Régénérer et soumettre le sitemap
@@ -45,7 +45,7 @@ php artisan sitemap:submit-to-google  # Si la commande existe
 
 # OU dans Google Search Console :
 1. Aller dans Sitemaps
-2. Ajouter/Réenvoyer : https://couvreur-chevigny-saint-sauveur.fr/sitemap.xml
+2. Ajouter/Réenvoyer : https://plombier-chevigny-saint-sauveur.fr/sitemap.xml
 ```
 
 ### URGENCE 3 : Demander réindexation des pages clés
@@ -69,7 +69,7 @@ User-agent: *
 Allow: /
 
 # Sitemaps
-Sitemap: https://couvreur-chevigny-saint-sauveur.fr/sitemap.xml
+Sitemap: https://plombier-chevigny-saint-sauveur.fr/sitemap.xml
 
 # Bloquer admin et API
 Disallow: /admin/
@@ -141,10 +141,10 @@ foreach ($lowQualityAds as $ad) {
 ### C. Créer du contenu "Pillar" de haute qualité
 
 **Pages piliers à créer** (manuellement ou avec IA supervisée) :
-1. Guide complet couverture 2025 (5000+ mots)
-2. Guide rénovation toiture (5000+ mots)
-3. Comparatif matériaux toiture (3000+ mots)
-4. Prix et devis toiture - Guide transparent (3000+ mots)
+1. Guide complet plomberie 2025 (5000+ mots)
+2. Guide rénovation plomberie (5000+ mots)
+3. Comparatif matériaux plomberie (3000+ mots)
+4. Prix et devis plomberie - Guide transparent (3000+ mots)
 5. Aides et subventions rénovation (3000+ mots)
 
 Ces pages doivent être :
@@ -201,8 +201,8 @@ chatgpt_model = gpt-4o (recommandé pour qualité max)
 google_search_console_credentials = [JSON credentials]
 
 # Domaine
-site_url = "https://couvreur-chevigny-saint-sauveur.fr" 
-APP_URL = "https://couvreur-chevigny-saint-sauveur.fr" (dans .env)
+site_url = "https://plombier-chevigny-saint-sauveur.fr" 
+APP_URL = "https://plombier-chevigny-saint-sauveur.fr" (dans .env)
 
 # Indexation quotidienne
 daily_indexing_enabled = true
@@ -255,7 +255,7 @@ php artisan tinker
 ### Régénérer le sitemap
 ```bash
 php artisan sitemap:generate-daily
-# Vérifier : curl https://couvreur-chevigny-saint-sauveur.fr/sitemap.xml | head -50
+# Vérifier : curl https://plombier-chevigny-saint-sauveur.fr/sitemap.xml | head -50
 ```
 
 ### Tester l'indexation
@@ -337,7 +337,7 @@ php artisan seo:run-automations --force
 ```php
 // Dans le prompt :
 **CRÉDIBILITÉ & SOURCES :**
-- Mentionner la norme DTU applicable (ex: DTU 40.11 pour couverture)
+- Mentionner la norme DTU applicable (ex: DTU 40.11 pour plomberie)
 - Référencer les aides Ma Prime Rénov' 2025
 - Citer l'ADEME pour chiffres isolation/économies
 - Parler des évolutions réglementaires RE2020
@@ -386,7 +386,7 @@ class ContentVariationEngine {
 {
   "@context": "https://schema.org",
   "@type": "RoofingContractor",
-  "name": "Couvreur Chevigny-Saint-Sauveur",
+  "name": "Plombier Chevigny-Saint-Sauveur",
   "image": "{{ asset('images/logo.png') }}",
   "@id": "{{ url('/') }}",
   "url": "{{ url('/') }}",
@@ -521,7 +521,7 @@ php artisan schedule:run
 tail -f storage/logs/laravel.log | grep -i "seo\|index"
 
 # Statut indexation
-curl -s https://couvreur-chevigny-saint-sauveur.fr/admin/indexation/statuses
+curl -s https://plombier-chevigny-saint-sauveur.fr/admin/indexation/statuses
 ```
 
 ### Ressources :
@@ -626,7 +626,7 @@ Pour maximiser les résultats :
 Allez dans `/admin/seo-automation` ou exécutez :
 ```bash
 php artisan tinker
->>> App\Models\Setting::set('site_url', 'https://couvreur-chevigny-saint-sauveur.fr');
+>>> App\Models\Setting::set('site_url', 'https://plombier-chevigny-saint-sauveur.fr');
 >>> App\Models\Setting::get('site_url');
 ```
 

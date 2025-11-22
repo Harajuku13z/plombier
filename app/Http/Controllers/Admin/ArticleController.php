@@ -939,11 +939,11 @@ CRITIQUE: NE PAS UTILISER DE PLACEHOLDERS COMME [Introduction engageante sur...]
 IMPORTANT POUR LES TITRES DE SECTIONS:
 - NE PAS utiliser des titres techniques comme Section Technique, Section Conseils, Section Avantages
 - UTILISER des titres naturels et accrocheurs comme dans l'exemple:
-  * Pourquoi hydrofuger sa toiture ?
+  * Pourquoi hydrofuger sa plomberie ?
   * Les facteurs influençant le coût d'un traitement hydrofuge
-  * Prix moyen pour hydrofuger une toiture
-  * Faire appel à un professionnel pour hydrofuger sa toiture
-  * Optimisez votre budget pour hydrofuger votre toiture
+  * Prix moyen pour hydrofuger une plomberie
+  * Faire appel à un professionnel pour hydrofuger sa plomberie
+  * Optimisez votre budget pour hydrofuger votre plomberie
 - Les titres doivent être NATURELS et AGRÉABLES à lire
 - Éviter les emojis dans les titres de sections (sauf pour Introduction et Questions Fréquentes)
 - Créer des titres qui donnent envie de lire la suite
@@ -1042,37 +1042,37 @@ Réponds UNIQUEMENT avec le JSON valide, sans texte avant ou après.";
         
         // Contenu spécifique selon le type d'article
         if ($isHydrofuge) {
-            $intro = "L'hydrofugation de toiture est une solution durable pour protéger votre couverture des intempéries et prolonger sa durée de vie. Chez " . $companyInfo['company_name'] . ", nous maîtrisons parfaitement cette technique essentielle pour maintenir l'intégrité de votre toit à " . $companyInfo['company_city'] . ", " . $companyInfo['company_region'] . ".";
-            $section1Title = "Pourquoi hydrofuger sa toiture ?";
+            $intro = "L'hydrofugation de plomberie est une solution durable pour protéger votre plomberie des intempéries et prolonger sa durée de vie. Chez " . $companyInfo['company_name'] . ", nous maîtrisons parfaitement cette technique essentielle pour maintenir l'intégrité de votre toit à " . $companyInfo['company_city'] . ", " . $companyInfo['company_region'] . ".";
+            $section1Title = "Pourquoi hydrofuger sa plomberie ?";
             $section1Content = "L'hydrofugation apporte de nombreux avantages : protection contre l'humidité, limitation de la formation de mousses et lichens, amélioration de l'aspect esthétique, et prolongation de la durée de vie des matériaux.";
             $section2Title = "Les facteurs influençant le coût d'un traitement hydrofuge";
-            $section2Content = "Le prix dépend de plusieurs éléments : la surface de la toiture, le type de produit utilisé, l'état initial de la couverture, l'accessibilité du chantier, et la région géographique.";
-            $section3Title = "Prix moyen pour hydrofuger une toiture";
+            $section2Content = "Le prix dépend de plusieurs éléments : la surface de la plomberie, le type de produit utilisé, l'état initial de la plomberie, l'accessibilité du chantier, et la région géographique.";
+            $section3Title = "Prix moyen pour hydrofuger une plomberie";
             $section3Content = "Le coût varie généralement entre 10€ et 30€ par m² pour l'hydrofuge seul, et entre 20€ et 50€ par m² si un nettoyage préalable est nécessaire.";
         } elseif ($isNettoyage) {
-            $intro = "Le nettoyage de toiture est une étape essentielle pour maintenir l'intégrité de votre couverture. " . $companyInfo['company_name'] . " propose des services de nettoyage professionnel adaptés à tous types de toitures à " . $companyInfo['company_city'] . ", " . $companyInfo['company_region'] . ".";
-            $section1Title = "Pourquoi nettoyer sa toiture ?";
+            $intro = "Le nettoyage de plomberie est une étape essentielle pour maintenir l'intégrité de votre plomberie. " . $companyInfo['company_name'] . " propose des services de nettoyage professionnel adaptés à tous types de plomberies à " . $companyInfo['company_city'] . ", " . $companyInfo['company_region'] . ".";
+            $section1Title = "Pourquoi nettoyer sa plomberie ?";
             $section1Content = "Le nettoyage régulier prévient l'accumulation de mousses, lichens et salissures qui peuvent endommager les matériaux et réduire l'efficacité de l'isolation.";
             $section2Title = "Les techniques de nettoyage professionnel";
-            $section2Content = "Nous utilisons des méthodes adaptées à chaque type de toiture : nettoyage haute pression, traitement anti-mousse, et application de produits protecteurs.";
+            $section2Content = "Nous utilisons des méthodes adaptées à chaque type de plomberie : nettoyage haute pression, traitement anti-mousse, et application de produits protecteurs.";
             $section3Title = "Fréquence recommandée pour le nettoyage";
-            $section3Content = "Un nettoyage tous les 2 à 3 ans est généralement suffisant, mais cela peut varier selon l'exposition, l'orientation et l'environnement de votre toiture.";
+            $section3Content = "Un nettoyage tous les 2 à 3 ans est généralement suffisant, mais cela peut varier selon l'exposition, l'orientation et l'environnement de votre plomberie.";
         } elseif ($isElagage) {
             $intro = "L'élagage et l'abattage d'arbres nécessitent une expertise technique et des équipements spécialisés. " . $companyInfo['company_name'] . " intervient en toute sécurité pour tous vos travaux d'élagage à " . $companyInfo['company_city'] . ", " . $companyInfo['company_region'] . ".";
             $section1Title = "Pourquoi élaguer vos arbres ?";
-            $section1Content = "L'élagage améliore la santé des arbres, prévient les chutes de branches dangereuses, améliore l'éclairage naturel, et protège votre toiture des dommages.";
+            $section1Content = "L'élagage améliore la santé des arbres, prévient les chutes de branches dangereuses, améliore l'éclairage naturel, et protège votre plomberie des dommages.";
             $section2Title = "Les techniques d'élagage professionnel";
             $section2Content = "Nous pratiquons l'élagage raisonné, respectueux de la biologie de l'arbre, avec des techniques de grimpe sécurisées et un matériel professionnel.";
             $section3Title = "Période idéale pour l'élagage";
             $section3Content = "L'automne et l'hiver sont les saisons privilégiées pour l'élagage, lorsque les arbres sont en dormance et moins sensibles aux interventions.";
         } elseif ($isRenovation) {
-            $intro = "La rénovation de toiture est un investissement important qui nécessite une expertise technique. " . $companyInfo['company_name'] . " accompagne vos projets de rénovation avec professionnalisme à " . $companyInfo['company_city'] . ", " . $companyInfo['company_region'] . ".";
-            $section1Title = "Pourquoi rénover sa toiture ?";
+            $intro = "La rénovation de plomberie est un investissement important qui nécessite une expertise technique. " . $companyInfo['company_name'] . " accompagne vos projets de rénovation avec professionnalisme à " . $companyInfo['company_city'] . ", " . $companyInfo['company_region'] . ".";
+            $section1Title = "Pourquoi rénover sa plomberie ?";
             $section1Content = "La rénovation améliore l'étanchéité, l'isolation thermique, l'esthétique, et la valeur de votre bien immobilier tout en prévenant les infiltrations d'eau.";
             $section2Title = "Les étapes d'une rénovation réussie";
             $section2Content = "Notre processus comprend : diagnostic complet, choix des matériaux, préparation du support, pose des nouveaux éléments, et finitions soignées.";
             $section3Title = "Garanties et suivi post-rénovation";
-            $section3Content = "Nous offrons des garanties décennales sur nos travaux et assurons un suivi régulier pour maintenir la qualité de votre toiture dans le temps.";
+            $section3Content = "Nous offrons des garanties décennales sur nos travaux et assurons un suivi régulier pour maintenir la qualité de votre plomberie dans le temps.";
         } else {
             $intro = "Découvrez tout ce que vous devez savoir sur " . $title . ". Chez " . $companyInfo['company_name'] . ", nous sommes spécialisés dans " . $companyInfo['company_specialization'] . " et nous vous accompagnons dans tous vos projets à " . $companyInfo['company_city'] . ", " . $companyInfo['company_region'] . ".";
             $section1Title = "Les Points Clés à Retenir";
@@ -1168,7 +1168,7 @@ Réponds UNIQUEMENT avec le JSON valide, sans texte avant ou après.";
         $companySpecialization = setting('company_specialization', 'Travaux de Rénovation');
         $companyAddress = setting('company_address', '4 bis, Chemin des Postes, Avrainville (91)');
         
-        return "Tu es un rédacteur web professionnel et expert en rénovation de bâtiments (toiture, isolation, plomberie, électricité, façade, etc.) et SEO.
+        return "Tu es un rédacteur web professionnel et expert en rénovation de bâtiments (plomberie, isolation, plomberie, électricité, façade, etc.) et SEO.
 
 MISSION : Rédiger un article complet, informatif et optimisé SEO sur le sujet : {$title}
 
@@ -1233,7 +1233,7 @@ CONTENU À GÉNÉRER (2000-3000 mots) :
 
 MOTS-CLÉS À INTÉGRER :
 • {$title} (mot-clé principal)
-• rénovation, toiture, façade, isolation, plomberie, électricité
+• rénovation, plomberie, façade, isolation, plomberie, électricité
 • énergie, maison, entretien, travaux, {$companySpecialization}
 • Essonne, 91, professionnel, expert
 
@@ -1360,7 +1360,7 @@ Génère maintenant l'article HTML complet sur : {$title}";
         
         // Mots-clés prioritaires
         $priorityKeywords = [
-            'hydrofuge', 'hydrofugation', 'toiture', 'couverture', 'rénovation',
+            'hydrofuge', 'hydrofugation', 'plomberie', 'plomberie', 'rénovation',
             'isolation', 'façade', 'plomberie', 'électricité', 'élagage',
             'nettoyage', 'démoussage', 'réparation', 'entretien'
         ];
@@ -1392,7 +1392,7 @@ Génère maintenant l'article HTML complet sur : {$title}";
             $prompt = "Génère 10 mots-clés SEO pertinents pour l'article: {$title}
 
 RÈGLES:
-- Mots-clés liés à la rénovation, couverture, toiture
+- Mots-clés liés à la rénovation, plomberie, plomberie
 - Inclure des variantes et synonymes
 - Mots-clés locaux (Dijon, Bourgogne, etc.)
 - Mots-clés techniques du métier
@@ -1442,8 +1442,8 @@ GÉNÈRE LES MOTS-CLÉS:";
         $baseKeywords = ['rénovation', 'travaux', 'professionnel', 'expert', 'qualité'];
         
         // Ajouter des mots-clés selon le titre
-        if (strpos($titleLower, 'toiture') !== false) {
-            $keywords[] = 'toiture, couverture, toit';
+        if (strpos($titleLower, 'plomberie') !== false) {
+            $keywords[] = 'plomberie, plomberie, toit';
         }
         if (strpos($titleLower, 'isolation') !== false) {
             $keywords[] = 'isolation, thermique, énergie';

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Travaux de toiture - Simulateur')
+@section('title', 'Travaux de plomberie - Simulateur')
 
 @section('content')
 <div class="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
@@ -18,7 +18,7 @@
 
             <div class="bg-white rounded-lg shadow-lg p-8 mb-8">
                 <h2 class="text-3xl font-bold text-center mb-4 text-gray-800">
-                    Quels travaux de toiture souhaitez-vous réaliser ?
+                    Quels travaux de plomberie souhaitez-vous réaliser ?
                 </h2>
                 <p class="text-center text-gray-600 mb-8">Sélectionnez une ou plusieurs options</p>
                 
@@ -27,13 +27,13 @@
                     <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                         @php
                         $roofWorks = [
-                            'peinture' => ['label' => 'Peinture', 'icon' => 'Peinture_Toiture.webp'],
-                            'hydrofuge' => ['label' => 'Hydrofuge', 'icon' => 'Hydrofuge_toiture.webp'],
-                            'refection' => ['label' => 'Réfection', 'icon' => 'Refection_de_toiture.webp'],
+                            'peinture' => ['label' => 'Peinture', 'icon' => 'Peinture_Plomberie.webp'],
+                            'hydrofuge' => ['label' => 'Hydrofuge', 'icon' => 'Hydrofuge_plomberie.webp'],
+                            'refection' => ['label' => 'Réfection', 'icon' => 'Refection_de_plomberie.webp'],
                             'accessoires' => ['label' => 'Accessoires', 'icon' => 'Accessoires_et_finitions.webp'],
-                            'remplacement' => ['label' => 'Remplacement', 'icon' => 'Remplacement_de_couverture.webp'],
+                            'remplacement' => ['label' => 'Remplacement', 'icon' => 'Remplacement_de_plomberie.webp'],
                             'traitement' => ['label' => 'Traitement Bois', 'icon' => 'Traitement_de_bois_de_charpente.webp'],
-                            'nettoyage' => ['label' => 'Nettoyage', 'icon' => 'Nettoyage_toiture_amiante.webp'],
+                            'nettoyage' => ['label' => 'Nettoyage', 'icon' => 'Nettoyage_plomberie_amiante.webp'],
                         ];
                         @endphp
 
@@ -41,7 +41,7 @@
                         <label for="roof_{{ $value }}" class="cursor-pointer">
                             <input type="checkbox" name="roof_work_type[]" value="{{ $value }}" id="roof_{{ $value }}" class="hidden work-checkbox">
                             <div class="work-option border-2 border-gray-300 rounded-lg p-4 text-center hover:border-blue-500 transition">
-                                <img src="{{ asset('icons2/Toiture/' . $work['icon']) }}" alt="{{ $work['label'] }}" class="w-16 h-16 mx-auto mb-2 object-contain">
+                                <img src="{{ asset('icons2/Plomberie/' . $work['icon']) }}" alt="{{ $work['label'] }}" class="w-16 h-16 mx-auto mb-2 object-contain">
                                 <p class="text-sm font-semibold text-gray-800">{{ $work['label'] }}</p>
                             </div>
                         </label>
@@ -120,7 +120,7 @@ if (Array.isArray(existingValues)) {
 @endif
 
 validateForm();
-console.log('✅ Étape 4 - Travaux Toiture (VERSION SIMPLE)');
+console.log('✅ Étape 4 - Travaux Plomberie (VERSION SIMPLE)');
 </script>
 
 <style>

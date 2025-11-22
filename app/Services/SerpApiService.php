@@ -47,7 +47,7 @@ class SerpApiService
             try {
                 $searchParams = [
                     'engine' => 'google',
-                    'q' => 'couvreur ' . $geo, // Recherche générique avec localisation
+                    'q' => 'plombier ' . $geo, // Recherche générique avec localisation
                     'gl' => strtolower($geo), // Code pays (fr pour France)
                     'hl' => 'fr', // Langue
                     'num' => 10, // Nombre de résultats
@@ -113,7 +113,7 @@ class SerpApiService
             try {
                 $autocompleteParams = [
                     'engine' => 'google_autocomplete',
-                    'q' => 'couvreur',
+                    'q' => 'plombier',
                     'gl' => strtolower($geo),
                     'hl' => 'fr',
                     'api_key' => $this->apiKey,
@@ -151,7 +151,7 @@ class SerpApiService
             try {
                 $trendsParams = [
                     'engine' => 'google_trends',
-                    'q' => 'couvreur',
+                    'q' => 'plombier',
                     'geo' => $geo,
                     'data_type' => 'TIMESERIES', // Format par défaut, plus fiable
                     'api_key' => $this->apiKey,
@@ -224,12 +224,12 @@ class SerpApiService
                 'limit' => $limit
             ]);
             
-            $prompt = "Génère une liste de {$limit} mots-clés SEO pertinents et recherchés pour le secteur du couvreur, de la toiture et de la rénovation en France (région: {$geo}).
+            $prompt = "Génère une liste de {$limit} mots-clés SEO pertinents et recherchés pour le secteur du plombier, de la plomberie et de la rénovation en France (région: {$geo}).
 
 **Instructions :**
-- Génère des mots-clés spécifiques au secteur (ex: 'rénovation de toiture', 'couverture en tuiles', 'isolation thermique', 'charpente traditionnelle')
-- Inclus des mots-clés avec localisation (ex: 'couvreur à [ville]', 'rénovation toiture [ville]')
-- Inclus des mots-clés de services (ex: 'réparation toiture', 'isolation combles', 'zinguerie', 'demoussage')
+- Génère des mots-clés spécifiques au secteur (ex: 'rénovation de plomberie', 'plomberie en tuiles', 'isolation thermique', 'charpente traditionnelle')
+- Inclus des mots-clés avec localisation (ex: 'plombier à [ville]', 'rénovation plomberie [ville]')
+- Inclus des mots-clés de services (ex: 'réparation plomberie', 'isolation combles', 'zinguerie', 'demoussage')
 - Inclus des mots-clés de matériaux (ex: 'tuiles ardoise', 'zinc', 'isolation laine de verre')
 - Les mots-clés doivent être pertinents, recherchés et adaptés au secteur français
 - Évite les mots-clés trop génériques ou hors sujet
@@ -330,8 +330,8 @@ mot-clé 3";
                             }
                         }
                         
-                        // La requête doit contenir le mot-clé principal ou être liée au domaine (couvreur, toiture, etc.)
-                        $domainWords = ['couvreur', 'toiture', 'couverture', 'charpente', 'rénovation', 'réparation', 'isolation', 'zinguerie', 'demoussage', 'hydrofuge'];
+                        // La requête doit contenir le mot-clé principal ou être liée au domaine (plombier, plomberie, etc.)
+                        $domainWords = ['plombier', 'plomberie', 'plomberie', 'charpente', 'rénovation', 'réparation', 'isolation', 'zinguerie', 'demoussage', 'hydrofuge'];
                         $hasDomainWord = false;
                         foreach ($domainWords as $domainWord) {
                             if (strpos($queryLower, $domainWord) !== false) {
@@ -419,7 +419,7 @@ mot-clé 3";
                         }
                         
                         // La requête doit contenir le mot-clé principal ou être liée au domaine
-                        $domainWords = ['couvreur', 'toiture', 'couverture', 'charpente', 'rénovation', 'réparation', 'isolation', 'zinguerie', 'demoussage', 'hydrofuge'];
+                        $domainWords = ['plombier', 'plomberie', 'plomberie', 'charpente', 'rénovation', 'réparation', 'isolation', 'zinguerie', 'demoussage', 'hydrofuge'];
                         $hasDomainWord = false;
                         foreach ($domainWords as $domainWord) {
                             if (strpos($queryLower, $domainWord) !== false) {
@@ -493,7 +493,7 @@ mot-clé 3";
             
             $prompt = "Pour le mot-clé SEO suivant: \"{$q}\"
 
-Génère {$limit} requêtes/questions associées que les internautes recherchent sur Google concernant ce sujet dans le secteur du couvreur, de la toiture et de la rénovation.
+Génère {$limit} requêtes/questions associées que les internautes recherchent sur Google concernant ce sujet dans le secteur du plombier, de la plomberie et de la rénovation.
 
 **Instructions :**
 - Génère des questions ou requêtes que les gens recherchent réellement sur Google
@@ -631,10 +631,10 @@ requête 3";
             
             $prompt = "Pour la requête de recherche suivante: \"{$q}\"
 
-Génère {$limit} exemples de titres et descriptions que les sites web concurrents utiliseraient pour se positionner sur cette requête dans le secteur du couvreur, de la toiture et de la rénovation.
+Génère {$limit} exemples de titres et descriptions que les sites web concurrents utiliseraient pour se positionner sur cette requête dans le secteur du plombier, de la plomberie et de la rénovation.
 
 **Instructions :**
-- Génère des titres réalistes que des entreprises de couvreur/rénovation utiliseraient
+- Génère des titres réalistes que des entreprises de plombier/rénovation utiliseraient
 - Génère des descriptions/snippets réalistes (2-3 phrases) qui expliquent les services
 - Les titres doivent être optimisés SEO et attractifs
 - Les descriptions doivent être informatives et persuasives

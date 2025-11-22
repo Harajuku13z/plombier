@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('ad_templates', function (Blueprint $table) {
             $table->id();
-            $table->string('name'); // Nom du template (ex: "Rénovation toiture")
+            $table->string('name'); // Nom du template (ex: "Rénovation plomberie")
             $table->string('service_name'); // Nom du service
             $table->string('service_slug'); // Slug du service
             $table->text('content_html'); // Contenu HTML généré par l'IA

@@ -174,13 +174,13 @@
                 
                 <div class="form-group">
                     <label class="form-label">Nom du Service *</label>
-                    <input type="text" name="name" class="form-input" placeholder="Ex: Couverture, Façade, Isolation, Hydrofuge..." required>
-                    <p class="text-xs text-gray-500 mt-1">Le nom de votre service (ex: "Couverture de toiture")</p>
+                    <input type="text" name="name" class="form-input" placeholder="Ex: Plomberie, Façade, Isolation, Hydrofuge..." required>
+                    <p class="text-xs text-gray-500 mt-1">Le nom de votre service (ex: "Plomberie de plomberie")</p>
                 </div>
                 
                 <div class="form-group">
                     <label class="form-label">Brief / Contexte du Service *</label>
-                    <textarea name="short_description" class="form-input form-textarea" rows="3" placeholder="Ex: Nous proposons tous types de travaux de toiture, réparation, rénovation complète, remplacement de tuiles..." required></textarea>
+                    <textarea name="short_description" class="form-input form-textarea" rows="3" placeholder="Ex: Nous proposons tous types de travaux de plomberie, réparation, rénovation complète, remplacement de tuiles..." required></textarea>
                     <p class="text-xs text-gray-500 mt-1">
                         <i class="fas fa-lightbulb text-yellow-500 mr-1"></i>
                         Donnez un brief court à l'IA pour qu'elle génère automatiquement la description courte et longue

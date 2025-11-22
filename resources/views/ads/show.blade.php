@@ -142,7 +142,7 @@
                                       style="background-color: rgba(var(--primary-color-rgb, 59, 130, 246), 0.1); color: var(--primary-color);">
                                     @switch($portfolioItem['work_type'])
                                         @case('roof')
-                                            <i class="fas fa-home mr-1"></i>Toiture
+                                            <i class="fas fa-home mr-1"></i>Plomberie
                                             @break
                                         @case('facade')
                                             <i class="fas fa-building mr-1"></i>Façade

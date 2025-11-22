@@ -214,7 +214,7 @@
                     <label class="block text-sm font-medium text-gray-700 mb-2">Mots-clés (séparés par des virgules)</label>
                     <input type="text" id="imageKeywords" name="keywords" 
                            class="w-full border border-gray-300 rounded-md px-3 py-2" 
-                           placeholder="couvreur, toiture, rénovation">
+                           placeholder="plombier, plomberie, rénovation">
                 </div>
                 <div class="mb-4">
                     <label class="block text-sm font-medium text-gray-700 mb-2">Titre (optionnel)</label>

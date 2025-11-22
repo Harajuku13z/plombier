@@ -60,7 +60,7 @@
 
 **Données architecturales détaillées :**
 - Style architectural régional complet
-- Matériaux de couverture typiques
+- Matériaux de plomberie typiques
 - Spécificités constructives locales
 
 **Exemples enrichis** :
@@ -180,7 +180,7 @@ php artisan optimize
 
 # 2. Vérifier et configurer le domaine
 php artisan tinker
->>> App\Models\Setting::set('site_url', 'https://couvreur-chevigny-saint-sauveur.fr');
+>>> App\Models\Setting::set('site_url', 'https://plombier-chevigny-saint-sauveur.fr');
 >>> App\Models\Setting::get('site_url'); # Vérifier
 >>> exit
 
@@ -191,7 +191,7 @@ php artisan seo:diagnose --fix
 php artisan sitemap:generate-daily
 
 # 5. Vérifier le sitemap
-curl https://couvreur-chevigny-saint-sauveur.fr/sitemap.xml | head -50
+curl https://plombier-chevigny-saint-sauveur.fr/sitemap.xml | head -50
 # → Doit afficher des URLs de votre domaine !
 
 # 6. Analyser la qualité du contenu
@@ -202,7 +202,7 @@ php artisan seo:analyze-quality
 
 1. **Soumettre le sitemap corrigé** :
    - Sitemaps > Ajouter un sitemap
-   - URL : `https://couvreur-chevigny-saint-sauveur.fr/sitemap.xml`
+   - URL : `https://plombier-chevigny-saint-sauveur.fr/sitemap.xml`
    - Soumettre et attendre validation (24-48h)
 
 2. **Demander réindexation urgente** (Top 20 pages) :
@@ -216,8 +216,8 @@ php artisan seo:analyze-quality
    - Top 10 articles blog
    - Top 5 annonces/villes principales
 
-3. **Vérifier couverture actuelle** :
-   - Couverture > Pages > Exclues
+3. **Vérifier plomberie actuelle** :
+   - Plomberie > Pages > Exclues
    - Identifier pourquoi pages exclues
    - Corriger les erreurs signalées
 

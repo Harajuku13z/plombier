@@ -86,7 +86,7 @@
                                     @elseif($item['work_type'] === 'isolation') bg-purple-100 text-purple-800
                                     @else bg-blue-100 text-blue-800
                                     @endif">
-                                    @if($item['work_type'] === 'roof') Toiture
+                                    @if($item['work_type'] === 'roof') Plomberie
                                     @elseif($item['work_type'] === 'facade') Façade
                                     @elseif($item['work_type'] === 'isolation') Isolation
                                     @else {{ ucfirst($item['work_type']) }}

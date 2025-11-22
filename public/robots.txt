@@ -1,11 +1,11 @@
-# Robots.txt optimisé pour couvreur-chevigny-saint-sauveur.fr
+# Robots.txt optimisé pour plombier-chevigny-saint-sauveur.fr
 # Dernière mise à jour : 2025-11-19
 
 User-agent: *
 Allow: /
 
 # Sitemaps
-Sitemap: https://couvreur-chevigny-saint-sauveur.fr/sitemap.xml
+Sitemap: https://plombier-chevigny-saint-sauveur.fr/sitemap.xml
 
 # Bloquer les pages d'administration
 Disallow: /admin/

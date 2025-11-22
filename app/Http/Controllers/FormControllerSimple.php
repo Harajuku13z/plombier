@@ -410,8 +410,8 @@ class FormControllerSimple extends Controller
         if ($step === 'propertyType') {
             $companyName = setting('company_name', 'Notre Entreprise');
             $pageTitle = 'Simulateur de devis gratuit - ' . $companyName;
-            $pageDescription = 'Obtenez votre devis gratuit en quelques clics pour vos travaux de rénovation. ' . $companyName . ' vous accompagne dans tous vos projets de toiture, isolation, façade et plus encore.';
-            $pageKeywords = 'devis gratuit, simulateur devis, estimation travaux, devis en ligne, rénovation, toiture, isolation, façade';
+            $pageDescription = 'Obtenez votre devis gratuit en quelques clics pour vos travaux de rénovation. ' . $companyName . ' vous accompagne dans tous vos projets de plomberie, isolation, façade et plus encore.';
+            $pageKeywords = 'devis gratuit, simulateur devis, estimation travaux, devis en ligne, rénovation, plomberie, isolation, façade';
         }
 
         return view('form.steps.' . $step, compact('submission', 'pageTitle', 'pageDescription', 'pageKeywords'));

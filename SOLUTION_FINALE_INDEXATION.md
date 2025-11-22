@@ -14,7 +14,7 @@ Les boutons de l'admin ne fonctionnent pas (clic sans effet).
 
 ```bash
 # Sur votre serveur
-cd /path/to/couvreur
+cd /path/to/plombier
 git pull origin main
 php artisan optimize
 ```
@@ -44,7 +44,7 @@ php artisan optimize
 │ └────────────────┴────────────────┴───────────┘ │
 │                                                  │
 │ 🗺️ SITEMAP                                       │
-│ URL: https://couvreur.../sitemap.xml            │
+│ URL: https://plombier.../sitemap.xml            │
 │ [Régénérer] [Soumettre à Google]                │
 │                                                  │
 │ 🔐 CONFIGURATION GOOGLE                          │
@@ -75,7 +75,7 @@ php artisan optimize
 
 ### Après déploiement :
 
-1. **Ouvrir** : https://couvreur-chevigny-saint-sauveur.fr/admin/indexation
+1. **Ouvrir** : https://plombier-chevigny-saint-sauveur.fr/admin/indexation
 2. **Voir** : Interface simplifiée avec 3 boutons
 3. **Cliquer** : "Vérifier 50 URLs"
 4. **Attendre** : 1-2 minutes
@@ -120,13 +120,13 @@ php artisan indexation:simple index --limit=150
 # ❌ Échouées : 3
 
 # 4. Vérifier 1 URL spécifique
-php artisan indexation:simple verify --url="https://couvreur-chevigny-saint-sauveur.fr/"
+php artisan indexation:simple verify --url="https://plombier-chevigny-saint-sauveur.fr/"
 
 # Résultat immédiat :
 # Statut : ✅ INDEXÉE ou ⚠️ NON INDEXÉE
 
 # 5. Indexer 1 URL spécifique
-php artisan indexation:simple index --url="https://couvreur-chevigny-saint-sauveur.fr/"
+php artisan indexation:simple index --url="https://plombier-chevigny-saint-sauveur.fr/"
 
 # Résultat immédiat :
 # ✅ Demande envoyée

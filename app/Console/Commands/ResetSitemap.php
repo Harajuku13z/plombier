@@ -73,8 +73,8 @@ class ResetSitemap extends Command
             
             // Récupérer l'URL corrigée
             $siteUrl = Setting::get('site_url', 'https://normesrenovationbretagne.fr');
-            if (strpos($siteUrl, 'sausercouverture.fr') !== false) {
-                $this->error("❌ ERREUR: L'URL contient encore sausercouverture.fr après correction !");
+            if (strpos($siteUrl, 'sauserplomberie.fr') !== false) {
+                $this->error("❌ ERREUR: L'URL contient encore sauserplomberie.fr après correction !");
                 $siteUrl = 'https://normesrenovationbretagne.fr';
                 Setting::set('site_url', $siteUrl, 'string', 'seo');
             }
@@ -130,12 +130,12 @@ class ResetSitemap extends Command
                 }
                 
                 // Vérifier les URLs incorrectes
-                if (strpos($content, 'sausercouverture.fr') !== false) {
-                    $this->warn("⚠️  Le sitemap " . $filename . " contient encore l'ancienne URL sausercouverture.fr - SUPPRESSION");
+                if (strpos($content, 'sauserplomberie.fr') !== false) {
+                    $this->warn("⚠️  Le sitemap " . $filename . " contient encore l'ancienne URL sauserplomberie.fr - SUPPRESSION");
                     unlink($sitemapFile);
                     $hasOldUrl = true;
                     $deletedForOldUrl++;
-                    Log::warning("⚠️ Le sitemap " . $filename . " contient encore l'ancienne URL sausercouverture.fr, suppression...");
+                    Log::warning("⚠️ Le sitemap " . $filename . " contient encore l'ancienne URL sauserplomberie.fr, suppression...");
                 } else if (strpos($content, 'localhost') !== false) {
                     // Vérifier aussi les URLs avec localhost
                     $this->warn("⚠️  Le sitemap " . $filename . " contient localhost - SUPPRESSION");
@@ -172,11 +172,11 @@ class ResetSitemap extends Command
                 $content = file_get_contents($sitemapFile);
                 $filename = basename($sitemapFile);
                 
-                if (strpos($content, 'sausercouverture.fr') !== false) {
-                    $this->error("❌ ERREUR: Le sitemap {$filename} contient encore sausercouverture.fr !");
+                if (strpos($content, 'sauserplomberie.fr') !== false) {
+                    $this->error("❌ ERREUR: Le sitemap {$filename} contient encore sauserplomberie.fr !");
                     unlink($sitemapFile);
                     $finalDeleted++;
-                    Log::error("❌ ERREUR: Le sitemap {$filename} contient encore sausercouverture.fr après régénération !");
+                    Log::error("❌ ERREUR: Le sitemap {$filename} contient encore sauserplomberie.fr après régénération !");
                 } else if (strpos($content, 'normesrenovationbretagne.fr') === false) {
                     $this->error("❌ ERREUR: Le sitemap {$filename} ne contient pas normesrenovationbretagne.fr !");
                     unlink($sitemapFile);
@@ -185,9 +185,9 @@ class ResetSitemap extends Command
                 } else {
                     // Compter combien d'URLs contiennent la bonne URL
                     $goodUrlCount = substr_count($content, 'normesrenovationbretagne.fr');
-                    $badUrlCount = substr_count($content, 'sausercouverture.fr');
+                    $badUrlCount = substr_count($content, 'sauserplomberie.fr');
                     if ($badUrlCount > 0) {
-                        $this->error("❌ ERREUR: Le sitemap {$filename} contient {$badUrlCount} URL(s) avec sausercouverture.fr !");
+                        $this->error("❌ ERREUR: Le sitemap {$filename} contient {$badUrlCount} URL(s) avec sauserplomberie.fr !");
                         unlink($sitemapFile);
                         $finalDeleted++;
                     } else {

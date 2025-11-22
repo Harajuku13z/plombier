@@ -12,9 +12,9 @@ return [
 
     'name' => env('COMPANY_NAME', 'Rénovation Expert'),
     'legal_name' => env('COMPANY_LEGAL_NAME', 'Rénovation Expert SARL'),
-    'slogan' => env('COMPANY_SLOGAN', 'Expert en travaux de toiture, façade et isolation'),
-    'description' => env('COMPANY_DESCRIPTION', 'Depuis plus de 20 ans, Rénovation Expert accompagne les particuliers et les professionnels dans leurs projets de rénovation. Spécialisés dans les travaux de toiture, façade et isolation, nous mettons notre expertise et notre savoir-faire au service de votre confort et de la valorisation de votre patrimoine.'),
-    'short_description' => env('COMPANY_SHORT_DESCRIPTION', 'Entreprise spécialisée en travaux de rénovation : toiture, façade, isolation. Certification RGE, garantie décennale, +20 ans d\'expérience.'),
+    'slogan' => env('COMPANY_SLOGAN', 'Expert en travaux de plomberie, façade et isolation'),
+    'description' => env('COMPANY_DESCRIPTION', 'Depuis plus de 20 ans, Rénovation Expert accompagne les particuliers et les professionnels dans leurs projets de rénovation. Spécialisés dans les travaux de plomberie, façade et isolation, nous mettons notre expertise et notre savoir-faire au service de votre confort et de la valorisation de votre patrimoine.'),
+    'short_description' => env('COMPANY_SHORT_DESCRIPTION', 'Entreprise spécialisée en travaux de rénovation : plomberie, façade, isolation. Certification RGE, garantie décennale, +20 ans d\'expérience.'),
     
     'phone' => env('COMPANY_PHONE', '01 23 45 67 89'),
     'phone_raw' => env('COMPANY_PHONE_RAW', '0123456789'),
@@ -57,10 +57,10 @@ return [
     ],
     
     'services' => [
-        'toiture' => [
-            'name' => 'Travaux de Toiture',
-            'description' => 'Rénovation, réparation et entretien de tous types de toitures',
-            'icon' => 'icons2/Toiture/Toiture.webp',
+        'plomberie' => [
+            'name' => 'Travaux de Plomberie',
+            'description' => 'Rénovation, réparation et entretien de tous types de plomberies',
+            'icon' => 'icons2/Plomberie/Plomberie.webp',
         ],
         'facade' => [
             'name' => 'Travaux de Façade',
@@ -94,9 +94,9 @@ return [
 
     'name' => env('COMPANY_NAME', 'Rénovation Expert'),
     'legal_name' => env('COMPANY_LEGAL_NAME', 'Rénovation Expert SARL'),
-    'slogan' => env('COMPANY_SLOGAN', 'Expert en travaux de toiture, façade et isolation'),
-    'description' => env('COMPANY_DESCRIPTION', 'Depuis plus de 20 ans, Rénovation Expert accompagne les particuliers et les professionnels dans leurs projets de rénovation. Spécialisés dans les travaux de toiture, façade et isolation, nous mettons notre expertise et notre savoir-faire au service de votre confort et de la valorisation de votre patrimoine.'),
-    'short_description' => env('COMPANY_SHORT_DESCRIPTION', 'Entreprise spécialisée en travaux de rénovation : toiture, façade, isolation. Certification RGE, garantie décennale, +20 ans d\'expérience.'),
+    'slogan' => env('COMPANY_SLOGAN', 'Expert en travaux de plomberie, façade et isolation'),
+    'description' => env('COMPANY_DESCRIPTION', 'Depuis plus de 20 ans, Rénovation Expert accompagne les particuliers et les professionnels dans leurs projets de rénovation. Spécialisés dans les travaux de plomberie, façade et isolation, nous mettons notre expertise et notre savoir-faire au service de votre confort et de la valorisation de votre patrimoine.'),
+    'short_description' => env('COMPANY_SHORT_DESCRIPTION', 'Entreprise spécialisée en travaux de rénovation : plomberie, façade, isolation. Certification RGE, garantie décennale, +20 ans d\'expérience.'),
     
     'phone' => env('COMPANY_PHONE', '01 23 45 67 89'),
     'phone_raw' => env('COMPANY_PHONE_RAW', '0123456789'),
@@ -139,10 +139,10 @@ return [
     ],
     
     'services' => [
-        'toiture' => [
-            'name' => 'Travaux de Toiture',
-            'description' => 'Rénovation, réparation et entretien de tous types de toitures',
-            'icon' => 'icons2/Toiture/Toiture.webp',
+        'plomberie' => [
+            'name' => 'Travaux de Plomberie',
+            'description' => 'Rénovation, réparation et entretien de tous types de plomberies',
+            'icon' => 'icons2/Plomberie/Plomberie.webp',
         ],
         'facade' => [
             'name' => 'Travaux de Façade',
@@ -176,9 +176,9 @@ return [
 
     'name' => env('COMPANY_NAME', 'Rénovation Expert'),
     'legal_name' => env('COMPANY_LEGAL_NAME', 'Rénovation Expert SARL'),
-    'slogan' => env('COMPANY_SLOGAN', 'Expert en travaux de toiture, façade et isolation'),
-    'description' => env('COMPANY_DESCRIPTION', 'Depuis plus de 20 ans, Rénovation Expert accompagne les particuliers et les professionnels dans leurs projets de rénovation. Spécialisés dans les travaux de toiture, façade et isolation, nous mettons notre expertise et notre savoir-faire au service de votre confort et de la valorisation de votre patrimoine.'),
-    'short_description' => env('COMPANY_SHORT_DESCRIPTION', 'Entreprise spécialisée en travaux de rénovation : toiture, façade, isolation. Certification RGE, garantie décennale, +20 ans d\'expérience.'),
+    'slogan' => env('COMPANY_SLOGAN', 'Expert en travaux de plomberie, façade et isolation'),
+    'description' => env('COMPANY_DESCRIPTION', 'Depuis plus de 20 ans, Rénovation Expert accompagne les particuliers et les professionnels dans leurs projets de rénovation. Spécialisés dans les travaux de plomberie, façade et isolation, nous mettons notre expertise et notre savoir-faire au service de votre confort et de la valorisation de votre patrimoine.'),
+    'short_description' => env('COMPANY_SHORT_DESCRIPTION', 'Entreprise spécialisée en travaux de rénovation : plomberie, façade, isolation. Certification RGE, garantie décennale, +20 ans d\'expérience.'),
     
     'phone' => env('COMPANY_PHONE', '01 23 45 67 89'),
     'phone_raw' => env('COMPANY_PHONE_RAW', '0123456789'),
@@ -221,10 +221,10 @@ return [
     ],
     
     'services' => [
-        'toiture' => [
-            'name' => 'Travaux de Toiture',
-            'description' => 'Rénovation, réparation et entretien de tous types de toitures',
-            'icon' => 'icons2/Toiture/Toiture.webp',
+        'plomberie' => [
+            'name' => 'Travaux de Plomberie',
+            'description' => 'Rénovation, réparation et entretien de tous types de plomberies',
+            'icon' => 'icons2/Plomberie/Plomberie.webp',
         ],
         'facade' => [
             'name' => 'Travaux de Façade',
@@ -258,9 +258,9 @@ return [
 
     'name' => env('COMPANY_NAME', 'Rénovation Expert'),
     'legal_name' => env('COMPANY_LEGAL_NAME', 'Rénovation Expert SARL'),
-    'slogan' => env('COMPANY_SLOGAN', 'Expert en travaux de toiture, façade et isolation'),
-    'description' => env('COMPANY_DESCRIPTION', 'Depuis plus de 20 ans, Rénovation Expert accompagne les particuliers et les professionnels dans leurs projets de rénovation. Spécialisés dans les travaux de toiture, façade et isolation, nous mettons notre expertise et notre savoir-faire au service de votre confort et de la valorisation de votre patrimoine.'),
-    'short_description' => env('COMPANY_SHORT_DESCRIPTION', 'Entreprise spécialisée en travaux de rénovation : toiture, façade, isolation. Certification RGE, garantie décennale, +20 ans d\'expérience.'),
+    'slogan' => env('COMPANY_SLOGAN', 'Expert en travaux de plomberie, façade et isolation'),
+    'description' => env('COMPANY_DESCRIPTION', 'Depuis plus de 20 ans, Rénovation Expert accompagne les particuliers et les professionnels dans leurs projets de rénovation. Spécialisés dans les travaux de plomberie, façade et isolation, nous mettons notre expertise et notre savoir-faire au service de votre confort et de la valorisation de votre patrimoine.'),
+    'short_description' => env('COMPANY_SHORT_DESCRIPTION', 'Entreprise spécialisée en travaux de rénovation : plomberie, façade, isolation. Certification RGE, garantie décennale, +20 ans d\'expérience.'),
     
     'phone' => env('COMPANY_PHONE', '01 23 45 67 89'),
     'phone_raw' => env('COMPANY_PHONE_RAW', '0123456789'),
@@ -303,10 +303,10 @@ return [
     ],
     
     'services' => [
-        'toiture' => [
-            'name' => 'Travaux de Toiture',
-            'description' => 'Rénovation, réparation et entretien de tous types de toitures',
-            'icon' => 'icons2/Toiture/Toiture.webp',
+        'plomberie' => [
+            'name' => 'Travaux de Plomberie',
+            'description' => 'Rénovation, réparation et entretien de tous types de plomberies',
+            'icon' => 'icons2/Plomberie/Plomberie.webp',
         ],
         'facade' => [
             'name' => 'Travaux de Façade',
@@ -340,9 +340,9 @@ return [
 
     'name' => env('COMPANY_NAME', 'Rénovation Expert'),
     'legal_name' => env('COMPANY_LEGAL_NAME', 'Rénovation Expert SARL'),
-    'slogan' => env('COMPANY_SLOGAN', 'Expert en travaux de toiture, façade et isolation'),
-    'description' => env('COMPANY_DESCRIPTION', 'Depuis plus de 20 ans, Rénovation Expert accompagne les particuliers et les professionnels dans leurs projets de rénovation. Spécialisés dans les travaux de toiture, façade et isolation, nous mettons notre expertise et notre savoir-faire au service de votre confort et de la valorisation de votre patrimoine.'),
-    'short_description' => env('COMPANY_SHORT_DESCRIPTION', 'Entreprise spécialisée en travaux de rénovation : toiture, façade, isolation. Certification RGE, garantie décennale, +20 ans d\'expérience.'),
+    'slogan' => env('COMPANY_SLOGAN', 'Expert en travaux de plomberie, façade et isolation'),
+    'description' => env('COMPANY_DESCRIPTION', 'Depuis plus de 20 ans, Rénovation Expert accompagne les particuliers et les professionnels dans leurs projets de rénovation. Spécialisés dans les travaux de plomberie, façade et isolation, nous mettons notre expertise et notre savoir-faire au service de votre confort et de la valorisation de votre patrimoine.'),
+    'short_description' => env('COMPANY_SHORT_DESCRIPTION', 'Entreprise spécialisée en travaux de rénovation : plomberie, façade, isolation. Certification RGE, garantie décennale, +20 ans d\'expérience.'),
     
     'phone' => env('COMPANY_PHONE', '01 23 45 67 89'),
     'phone_raw' => env('COMPANY_PHONE_RAW', '0123456789'),
@@ -385,10 +385,10 @@ return [
     ],
     
     'services' => [
-        'toiture' => [
-            'name' => 'Travaux de Toiture',
-            'description' => 'Rénovation, réparation et entretien de tous types de toitures',
-            'icon' => 'icons2/Toiture/Toiture.webp',
+        'plomberie' => [
+            'name' => 'Travaux de Plomberie',
+            'description' => 'Rénovation, réparation et entretien de tous types de plomberies',
+            'icon' => 'icons2/Plomberie/Plomberie.webp',
         ],
         'facade' => [
             'name' => 'Travaux de Façade',
@@ -422,9 +422,9 @@ return [
 
     'name' => env('COMPANY_NAME', 'Rénovation Expert'),
     'legal_name' => env('COMPANY_LEGAL_NAME', 'Rénovation Expert SARL'),
-    'slogan' => env('COMPANY_SLOGAN', 'Expert en travaux de toiture, façade et isolation'),
-    'description' => env('COMPANY_DESCRIPTION', 'Depuis plus de 20 ans, Rénovation Expert accompagne les particuliers et les professionnels dans leurs projets de rénovation. Spécialisés dans les travaux de toiture, façade et isolation, nous mettons notre expertise et notre savoir-faire au service de votre confort et de la valorisation de votre patrimoine.'),
-    'short_description' => env('COMPANY_SHORT_DESCRIPTION', 'Entreprise spécialisée en travaux de rénovation : toiture, façade, isolation. Certification RGE, garantie décennale, +20 ans d\'expérience.'),
+    'slogan' => env('COMPANY_SLOGAN', 'Expert en travaux de plomberie, façade et isolation'),
+    'description' => env('COMPANY_DESCRIPTION', 'Depuis plus de 20 ans, Rénovation Expert accompagne les particuliers et les professionnels dans leurs projets de rénovation. Spécialisés dans les travaux de plomberie, façade et isolation, nous mettons notre expertise et notre savoir-faire au service de votre confort et de la valorisation de votre patrimoine.'),
+    'short_description' => env('COMPANY_SHORT_DESCRIPTION', 'Entreprise spécialisée en travaux de rénovation : plomberie, façade, isolation. Certification RGE, garantie décennale, +20 ans d\'expérience.'),
     
     'phone' => env('COMPANY_PHONE', '01 23 45 67 89'),
     'phone_raw' => env('COMPANY_PHONE_RAW', '0123456789'),
@@ -467,10 +467,10 @@ return [
     ],
     
     'services' => [
-        'toiture' => [
-            'name' => 'Travaux de Toiture',
-            'description' => 'Rénovation, réparation et entretien de tous types de toitures',
-            'icon' => 'icons2/Toiture/Toiture.webp',
+        'plomberie' => [
+            'name' => 'Travaux de Plomberie',
+            'description' => 'Rénovation, réparation et entretien de tous types de plomberies',
+            'icon' => 'icons2/Plomberie/Plomberie.webp',
         ],
         'facade' => [
             'name' => 'Travaux de Façade',
@@ -504,9 +504,9 @@ return [
 
     'name' => env('COMPANY_NAME', 'Rénovation Expert'),
     'legal_name' => env('COMPANY_LEGAL_NAME', 'Rénovation Expert SARL'),
-    'slogan' => env('COMPANY_SLOGAN', 'Expert en travaux de toiture, façade et isolation'),
-    'description' => env('COMPANY_DESCRIPTION', 'Depuis plus de 20 ans, Rénovation Expert accompagne les particuliers et les professionnels dans leurs projets de rénovation. Spécialisés dans les travaux de toiture, façade et isolation, nous mettons notre expertise et notre savoir-faire au service de votre confort et de la valorisation de votre patrimoine.'),
-    'short_description' => env('COMPANY_SHORT_DESCRIPTION', 'Entreprise spécialisée en travaux de rénovation : toiture, façade, isolation. Certification RGE, garantie décennale, +20 ans d\'expérience.'),
+    'slogan' => env('COMPANY_SLOGAN', 'Expert en travaux de plomberie, façade et isolation'),
+    'description' => env('COMPANY_DESCRIPTION', 'Depuis plus de 20 ans, Rénovation Expert accompagne les particuliers et les professionnels dans leurs projets de rénovation. Spécialisés dans les travaux de plomberie, façade et isolation, nous mettons notre expertise et notre savoir-faire au service de votre confort et de la valorisation de votre patrimoine.'),
+    'short_description' => env('COMPANY_SHORT_DESCRIPTION', 'Entreprise spécialisée en travaux de rénovation : plomberie, façade, isolation. Certification RGE, garantie décennale, +20 ans d\'expérience.'),
     
     'phone' => env('COMPANY_PHONE', '01 23 45 67 89'),
     'phone_raw' => env('COMPANY_PHONE_RAW', '0123456789'),
@@ -549,10 +549,10 @@ return [
     ],
     
     'services' => [
-        'toiture' => [
-            'name' => 'Travaux de Toiture',
-            'description' => 'Rénovation, réparation et entretien de tous types de toitures',
-            'icon' => 'icons2/Toiture/Toiture.webp',
+        'plomberie' => [
+            'name' => 'Travaux de Plomberie',
+            'description' => 'Rénovation, réparation et entretien de tous types de plomberies',
+            'icon' => 'icons2/Plomberie/Plomberie.webp',
         ],
         'facade' => [
             'name' => 'Travaux de Façade',
@@ -586,9 +586,9 @@ return [
 
     'name' => env('COMPANY_NAME', 'Rénovation Expert'),
     'legal_name' => env('COMPANY_LEGAL_NAME', 'Rénovation Expert SARL'),
-    'slogan' => env('COMPANY_SLOGAN', 'Expert en travaux de toiture, façade et isolation'),
-    'description' => env('COMPANY_DESCRIPTION', 'Depuis plus de 20 ans, Rénovation Expert accompagne les particuliers et les professionnels dans leurs projets de rénovation. Spécialisés dans les travaux de toiture, façade et isolation, nous mettons notre expertise et notre savoir-faire au service de votre confort et de la valorisation de votre patrimoine.'),
-    'short_description' => env('COMPANY_SHORT_DESCRIPTION', 'Entreprise spécialisée en travaux de rénovation : toiture, façade, isolation. Certification RGE, garantie décennale, +20 ans d\'expérience.'),
+    'slogan' => env('COMPANY_SLOGAN', 'Expert en travaux de plomberie, façade et isolation'),
+    'description' => env('COMPANY_DESCRIPTION', 'Depuis plus de 20 ans, Rénovation Expert accompagne les particuliers et les professionnels dans leurs projets de rénovation. Spécialisés dans les travaux de plomberie, façade et isolation, nous mettons notre expertise et notre savoir-faire au service de votre confort et de la valorisation de votre patrimoine.'),
+    'short_description' => env('COMPANY_SHORT_DESCRIPTION', 'Entreprise spécialisée en travaux de rénovation : plomberie, façade, isolation. Certification RGE, garantie décennale, +20 ans d\'expérience.'),
     
     'phone' => env('COMPANY_PHONE', '01 23 45 67 89'),
     'phone_raw' => env('COMPANY_PHONE_RAW', '0123456789'),
@@ -631,10 +631,10 @@ return [
     ],
     
     'services' => [
-        'toiture' => [
-            'name' => 'Travaux de Toiture',
-            'description' => 'Rénovation, réparation et entretien de tous types de toitures',
-            'icon' => 'icons2/Toiture/Toiture.webp',
+        'plomberie' => [
+            'name' => 'Travaux de Plomberie',
+            'description' => 'Rénovation, réparation et entretien de tous types de plomberies',
+            'icon' => 'icons2/Plomberie/Plomberie.webp',
         ],
         'facade' => [
             'name' => 'Travaux de Façade',

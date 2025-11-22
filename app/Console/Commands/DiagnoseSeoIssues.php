@@ -33,8 +33,8 @@ class DiagnoseSeoIssues extends Command
         if (empty($siteUrl)) {
             $issues[] = "❌ CRITIQUE : 'site_url' n'est pas configuré dans Settings";
             if ($fix) {
-                Setting::set('site_url', $appUrl ?? 'https://couvreur-chevigny-saint-sauveur.fr', 'string', 'system');
-                $this->warn("   → CORRIGÉ : site_url défini à " . ($appUrl ?? 'https://couvreur-chevigny-saint-sauveur.fr'));
+                Setting::set('site_url', $appUrl ?? 'https://plombier-chevigny-saint-sauveur.fr', 'string', 'system');
+                $this->warn("   → CORRIGÉ : site_url défini à " . ($appUrl ?? 'https://plombier-chevigny-saint-sauveur.fr'));
             }
         } else {
             $this->info("   ✅ site_url configuré : {$siteUrl}");

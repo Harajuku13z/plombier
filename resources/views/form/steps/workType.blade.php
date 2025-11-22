@@ -27,12 +27,12 @@
                 <form method="POST" action="{{ route('form.submit', 'workType') }}">
                     @csrf
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        <!-- Toiture -->
+                        <!-- Plomberie -->
                         <label for="work_roof" class="cursor-pointer">
                             <input type="checkbox" name="work_type[]" value="roof" id="work_roof" class="hidden work-checkbox">
                             <div class="work-option border-3 border-gray-300 rounded-xl p-6 text-center hover:border-blue-500 hover:shadow-xl transition">
-                                <img src="{{ asset('icons2/Toiture/Toiture.webp') }}" alt="Toiture" class="w-24 h-24 mx-auto mb-4 object-contain">
-                                <h3 class="text-xl font-bold text-gray-800">Toiture</h3>
+                                <img src="{{ asset('icons2/Plomberie/Plomberie.webp') }}" alt="Plomberie" class="w-24 h-24 mx-auto mb-4 object-contain">
+                                <h3 class="text-xl font-bold text-gray-800">Plomberie</h3>
                             </div>
                         </label>
 

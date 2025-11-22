@@ -62,7 +62,7 @@
                     @endif
                 </h1>
                 <p class="text-xl md:text-2xl text-white/90 mb-10 leading-relaxed">
-                    {{ company('description', "Expert en toiture, façade et isolation") }}
+                    {{ company('description', "Expert en plomberie, façade et isolation") }}
                 </p>
                 <a href="{{ route('form.step', 'propertyType') }}" class="inline-flex items-center bg-yellow-400 text-gray-900 px-12 py-6 rounded-full text-2xl font-black hover:bg-yellow-300 transition transform hover:scale-105 shadow-2xl">
                     <i class="fas fa-rocket mr-3 text-3xl"></i>
@@ -124,7 +124,7 @@
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
             <div class="bg-white rounded-2xl shadow-lg p-8 hover:shadow-2xl transition">
                 <div class="w-16 h-16 rounded-full flex items-center justify-center mb-6 text-white text-3xl" style="background: var(--primary-color);"><i class="fas fa-home"></i></div>
-                <h3 class="text-2xl font-bold text-gray-800 mb-4">Travaux de Toiture</h3>
+                <h3 class="text-2xl font-bold text-gray-800 mb-4">Travaux de Plomberie</h3>
                 <p class="text-gray-600 mb-6">Réfection, étanchéité, isolation, traitement...</p>
                 <a href="{{ route('form.step', 'propertyType') }}" class="text-primary font-semibold hover:underline">Obtenir un devis →</a>
             </div>

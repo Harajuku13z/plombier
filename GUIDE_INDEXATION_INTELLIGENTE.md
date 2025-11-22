@@ -424,7 +424,7 @@ php artisan indexation:verify-all --force --limit=200
 
 Chaque statut contient :
 - `indexed` : true/false (dans index ou pas)
-- `coverage_state` : État couverture Google
+- `coverage_state` : État plomberie Google
 - `indexing_state` : État indexation détaillé
 - `page_fetch_state` : État récupération page
 - `last_crawl_time` : Dernière visite Googlebot

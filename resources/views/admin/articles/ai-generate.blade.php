@@ -50,11 +50,11 @@
                     <textarea name="titles" rows="8" 
                               class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" 
                               placeholder="Exemples:
-Comment choisir le bon matériau de couverture pour votre toiture
-Les 5 signes qui indiquent qu'il faut refaire votre toiture
-Guide complet de la rénovation de toiture en 2025
-Isolation thermique de toiture : économies et confort
-Réparation d'urgence de toiture : que faire en cas de fuite" 
+Comment choisir le bon matériau de plomberie pour votre plomberie
+Les 5 signes qui indiquent qu'il faut refaire votre plomberie
+Guide complet de la rénovation de plomberie en 2025
+Isolation thermique de plomberie : économies et confort
+Réparation d'urgence de plomberie : que faire en cas de fuite" 
                               required>{{ old('titles') }}</textarea>
                     <p class="text-xs text-gray-500 mt-1">Saisissez un titre par ligne. Chaque titre générera un article complet.</p>
                 </div>

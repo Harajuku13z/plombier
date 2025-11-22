@@ -27,14 +27,14 @@ php artisan cache:clear && php artisan optimize
 ### 2️⃣ Configurer domaine (2 min)
 ```bash
 php artisan tinker
-App\Models\Setting::set('site_url', 'https://couvreur-chevigny-saint-sauveur.fr');
+App\Models\Setting::set('site_url', 'https://plombier-chevigny-saint-sauveur.fr');
 exit
 php artisan sitemap:generate-daily
 ```
 
 ### 3️⃣ Soumettre Google (10 min)
 - Google Search Console → Sitemaps
-- Ajouter : `https://couvreur-chevigny-saint-sauveur.fr/sitemap.xml`
+- Ajouter : `https://plombier-chevigny-saint-sauveur.fr/sitemap.xml`
 - Demander indexation Top 20 pages
 
 ---

@@ -225,7 +225,7 @@
                         @php
                             $workTypes = json_decode($submission->work_types, true) ?? [];
                             $workTypeLabels = [
-                                'roof' => 'Toiture',
+                                'roof' => 'Plomberie',
                                 'facade' => 'Façade', 
                                 'isolation' => 'Isolation'
                             ];
@@ -243,7 +243,7 @@
                 
                 @if($submission->roof_work_types)
                 <div class="info-item">
-                    <span class="info-label">Travaux de toiture :</span>
+                    <span class="info-label">Travaux de plomberie :</span>
                     <span class="info-value">
                         @php
                             $roofTypes = json_decode($submission->roof_work_types, true) ?? [];
@@ -297,7 +297,7 @@
                             $isolationTypes = json_decode($submission->isolation_work_types, true) ?? [];
                             $isolationLabels = [
                                 'walls' => 'Murs',
-                                'roof' => 'Toiture',
+                                'roof' => 'Plomberie',
                                 'floor' => 'Sol',
                                 'windows' => 'Fenêtres'
                             ];

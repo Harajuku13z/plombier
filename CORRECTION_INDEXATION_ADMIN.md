@@ -23,7 +23,7 @@
 
 ```bash
 # Sur votre serveur
-cd /path/to/couvreur
+cd /path/to/plombier
 git pull origin main
 php artisan cache:clear
 php artisan route:clear
@@ -192,7 +192,7 @@ php artisan tinker
 
 ```bash
 # Depuis le serveur ou en local
-curl -X GET "https://couvreur-chevigny-saint-sauveur.fr/admin/indexation/statuses?filter=all&page=1&per_page=10" \
+curl -X GET "https://plombier-chevigny-saint-sauveur.fr/admin/indexation/statuses?filter=all&page=1&per_page=10" \
   -H "Cookie: votre_cookie_session"
 
 # Doit retourner :
@@ -244,7 +244,7 @@ php artisan migrate
 ```bash
 php artisan tinker
 >>> App\Models\UrlIndexationStatus::create([
-    'url' => 'https://couvreur-chevigny-saint-sauveur.fr/test',
+    'url' => 'https://plombier-chevigny-saint-sauveur.fr/test',
     'indexed' => false,
     'coverage_state' => 'Excluded',
     'last_verification_time' => now()

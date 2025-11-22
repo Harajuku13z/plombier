@@ -109,7 +109,7 @@ Avant de cliquer sur "Create cronjob" (ou "Sauvegarder"), vérifiez :
 
 ```
 Titre: Laravel Scheduler
-URL: https://couvreur-chevigny-saint-sauveur.fr/schedule/run?token=abc123def456ghi789jkl012mno345pqr678stu901vwx234yz
+URL: https://plombier-chevigny-saint-sauveur.fr/schedule/run?token=abc123def456ghi789jkl012mno345pqr678stu901vwx234yz
 Activer tâche: ✅
 Sauvegarder les réponses: ✅
 Calendrier: Personnalisé → * * * * *

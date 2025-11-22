@@ -287,7 +287,7 @@ function addService() {
                         name="services[${serviceIndex}][id]" 
                         required
                         pattern="[a-z0-9-]+"
-                        placeholder="ex: toiture"
+                        placeholder="ex: plomberie"
                     >
                 </div>
                 <div class="col-md-4">
@@ -297,7 +297,7 @@ function addService() {
                         class="form-control form-control-sm" 
                         name="services[${serviceIndex}][name]" 
                         required
-                        placeholder="ex: Rénovation de toiture"
+                        placeholder="ex: Rénovation de plomberie"
                     >
                 </div>
                 <div class="col-md-2">

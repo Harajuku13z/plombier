@@ -270,7 +270,7 @@
                 <input type="url" name="site_url" value="{{ $siteUrl }}" required
                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition">
                 <p class="mt-2 text-sm text-gray-600">
-                    <i class="fas fa-lightbulb mr-1"></i>Ex: https://couvreur-chevigny-saint-sauveur.fr
+                    <i class="fas fa-lightbulb mr-1"></i>Ex: https://plombier-chevigny-saint-sauveur.fr
                 </p>
             </div>
 

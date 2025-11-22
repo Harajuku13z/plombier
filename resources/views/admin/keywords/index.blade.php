@@ -67,7 +67,7 @@
                         id="keywordsTextarea"
                         rows="15"
                         class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm font-mono"
-                        placeholder="Exemple:&#10;rénovation de toiture&#10;couvreur Paris&#10;réparation toiture urgente&#10;démoussage toiture&#10;isolation des combles">@foreach($customKeywords as $keyword){{ $keyword }}
+                        placeholder="Exemple:&#10;rénovation de plomberie&#10;plombier Paris&#10;réparation plomberie urgente&#10;démoussage plomberie&#10;isolation des combles">@foreach($customKeywords as $keyword){{ $keyword }}
 @endforeach</textarea>
                     <p class="text-xs text-gray-500 mt-1">
                         <i class="fas fa-info-circle mr-1"></i>
@@ -112,7 +112,7 @@
                                    name="keyword" 
                                    required
                                    list="keywordsList"
-                                   placeholder="Ex: rénovation de toiture"
+                                   placeholder="Ex: rénovation de plomberie"
                                    class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm">
                             <datalist id="keywordsList">
                                 @foreach($customKeywords as $keyword)
@@ -133,7 +133,7 @@
                         <label class="block text-sm font-medium text-gray-700 mb-2">Titre (optionnel)</label>
                         <input type="text" 
                                name="title" 
-                               placeholder="Ex: Toiture rénovée"
+                               placeholder="Ex: Plomberie rénovée"
                                class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm">
                     </div>
                     <button type="submit" class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 text-sm">
