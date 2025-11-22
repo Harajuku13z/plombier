@@ -97,8 +97,8 @@ class EmergencyController extends Controller
                         $photoUrls = [];
                         if ($submission->photos && count($submission->photos) > 0) {
                             foreach ($submission->photos as $photoPath) {
-                                // Générer une URL absolue pour chaque photo
-                                $photoUrl = url('storage/' . $photoPath);
+                                // Utiliser la route storage.serve pour générer une URL absolue
+                                $photoUrl = URL::to(route('storage.serve', ['path' => $photoPath], false));
                                 // Forcer HTTPS
                                 $photoUrl = str_replace('http://', 'https://', $photoUrl);
                                 $photoUrls[] = $photoUrl;
