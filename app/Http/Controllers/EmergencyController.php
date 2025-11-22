@@ -93,9 +93,22 @@ class EmergencyController extends Controller
                     Log::info('Sending emergency notification', ['to' => $email]);
                     
                     try {
+                        // Préparer les URLs absolues pour les photos
+                        $photoUrls = [];
+                        if ($submission->photos && count($submission->photos) > 0) {
+                            foreach ($submission->photos as $photoPath) {
+                                // Générer une URL absolue pour chaque photo
+                                $photoUrl = url('storage/' . $photoPath);
+                                // Forcer HTTPS
+                                $photoUrl = str_replace('http://', 'https://', $photoUrl);
+                                $photoUrls[] = $photoUrl;
+                            }
+                        }
+                        
                         Mail::send('emails.emergency-submission', [
                             'submission' => $submission,
                             'emergency_type' => $validated['emergency_type'],
+                            'photoUrls' => $photoUrls,
                         ], function ($mail) use ($email, $submission) {
                             $mail->to($email)
                                  ->subject('🚨 URGENCE PLOMBERIE - ' . $submission->name . ' - Référence #' . str_pad($submission->id, 4, '0', STR_PAD_LEFT));
