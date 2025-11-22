@@ -289,6 +289,8 @@ class PlumbingSimulatorController extends Controller
             }
             
             // Créer la soumission avec les champs du modèle
+            Log::info('Creating submission object');
+            
             $submission = new Submission();
             $submission->session_id = session()->getId();
             $submission->property_type = $data['property_type'] ?? 'house';
@@ -312,15 +314,23 @@ class PlumbingSimulatorController extends Controller
                 'photo_paths' => $data['photo_paths'] ?? [],
             ];
             
-            Log::info('Saving submission', [
+            Log::info('About to save submission', [
                 'email' => $submission->email,
                 'phone' => $submission->phone,
                 'work_types' => $submission->work_types,
+                'form_data' => $submission->form_data,
             ]);
             
-            $submission->save();
-            
-            Log::info('Submission saved successfully', ['id' => $submission->id]);
+            try {
+                $submission->save();
+                Log::info('Submission saved successfully', ['id' => $submission->id]);
+            } catch (\Exception $saveError) {
+                Log::error('Error saving submission', [
+                    'error' => $saveError->getMessage(),
+                    'submission_data' => $submission->toArray(),
+                ]);
+                throw $saveError;
+            }
 
             // Envoyer l'email
             try {
@@ -350,10 +360,11 @@ class PlumbingSimulatorController extends Controller
         } catch (\Exception $e) {
             Log::error('Erreur création soumission simulateur', [
                 'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString(),
                 'data' => $data,
             ]);
 
-            return back()->withInput()->with('error', 'Une erreur est survenue. Veuillez réessayer.');
+            return back()->withInput()->with('error', 'ERREUR : ' . $e->getMessage() . ' (Ligne: ' . $e->getLine() . ')');
         }
     }
 
