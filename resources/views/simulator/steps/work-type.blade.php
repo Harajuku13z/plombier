@@ -105,9 +105,19 @@
             
             @error('work_types')
                 <div class="bg-red-50 border-l-4 border-red-500 p-4 mb-6 rounded">
-                    <p class="text-red-700 text-sm">{{ $message }}</p>
+                    <p class="text-red-700 text-sm font-semibold">
+                        <i class="fas fa-exclamation-circle mr-2"></i>
+                        {{ $message }}
+                    </p>
                 </div>
             @enderror
+            
+            <div id="selection-error" class="hidden bg-red-50 border-l-4 border-red-500 p-4 mb-6 rounded">
+                <p class="text-red-700 text-sm font-semibold">
+                    <i class="fas fa-exclamation-circle mr-2"></i>
+                    Veuillez sélectionner au moins un type de travaux
+                </p>
+            </div>
 
             <!-- Description optionnelle -->
             <div class="bg-white rounded-2xl p-6 shadow-lg mb-8">
@@ -138,5 +148,25 @@
         </form>
     </div>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.querySelector('form');
+    const errorDiv = document.getElementById('selection-error');
+    
+    form.addEventListener('submit', function(e) {
+        const checkboxes = document.querySelectorAll('input[name="work_types[]"]:checked');
+        
+        if (checkboxes.length === 0) {
+            e.preventDefault();
+            errorDiv.classList.remove('hidden');
+            window.scrollTo({ top: errorDiv.offsetTop - 100, behavior: 'smooth' });
+            return false;
+        }
+        
+        errorDiv.classList.add('hidden');
+    });
+});
+</script>
 @endsection
 

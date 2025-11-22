@@ -164,12 +164,25 @@ class PlumbingSimulatorController extends Controller
 
             case 'contact':
                 $validated = $request->validate([
-                    'name' => 'required|string|max:255',
+                    'name' => 'required|string|min:2|max:255',
                     'email' => 'required|email|max:255',
-                    'phone' => 'required|string|max:20',
-                    'address' => 'required|string|max:500',
-                    'city' => 'required|string|max:100',
-                    'postal_code' => 'required|string|max:10',
+                    'phone' => 'required|string|min:10|max:20',
+                    'address' => 'required|string|min:5|max:500',
+                    'city' => 'required|string|min:2|max:100',
+                    'postal_code' => 'required|string|min:4|max:10',
+                ], [
+                    'name.required' => 'Le nom est obligatoire',
+                    'name.min' => 'Le nom doit contenir au moins 2 caractères',
+                    'email.required' => 'L\'email est obligatoire',
+                    'email.email' => 'L\'email doit être valide',
+                    'phone.required' => 'Le téléphone est obligatoire',
+                    'phone.min' => 'Le téléphone doit contenir au moins 10 caractères',
+                    'address.required' => 'L\'adresse est obligatoire',
+                    'address.min' => 'L\'adresse doit contenir au moins 5 caractères',
+                    'city.required' => 'La ville est obligatoire',
+                    'city.min' => 'La ville doit contenir au moins 2 caractères',
+                    'postal_code.required' => 'Le code postal est obligatoire',
+                    'postal_code.min' => 'Le code postal doit contenir au moins 4 caractères',
                 ]);
                 break;
 

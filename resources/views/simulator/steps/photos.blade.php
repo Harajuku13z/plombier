@@ -6,8 +6,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <style>
     .progress-bar {
-        background: linear-gradient(90deg, {{ setting('primary_color', '#2563eb') }} 0%, {{ setting('secondary_color', '#0284c7') }} 100%);
-        box-shadow: 0 2px 8px rgba(37, 99, 235, 0.4);
+        background-color: {{ setting('primary_color', '#2563eb') }};
     }
     
     .photo-upload-zone {

@@ -6,8 +6,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <style>
     .progress-bar {
-        background: linear-gradient(90deg, {{ setting('primary_color', '#2563eb') }} 0%, {{ setting('secondary_color', '#0284c7') }} 100%);
-        box-shadow: 0 2px 8px rgba(37, 99, 235, 0.4);
+        background-color: {{ setting('primary_color', '#2563eb') }};
     }
     
     .urgency-card {
@@ -19,9 +18,25 @@
         transform: translateY(-4px);
     }
     
-    .urgency-card input:checked + div {
+    .urgency-card input[type="radio"]:checked + div {
         border-width: 3px !important;
         box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15) !important;
+    }
+    
+    /* Couleur spécifique pour chaque option */
+    .urgency-normal input:checked + div {
+        background-color: #ecfdf5 !important;
+        border-color: #10b981 !important;
+    }
+    
+    .urgency-urgent input:checked + div {
+        background-color: #fff7ed !important;
+        border-color: #f97316 !important;
+    }
+    
+    .urgency-emergency input:checked + div {
+        background-color: #fef2f2 !important;
+        border-color: #dc2626 !important;
     }
 </style>
 @endpush
@@ -57,9 +72,9 @@
             @csrf
             
             <div class="space-y-5 mb-8">
-                <label class="urgency-card block">
+                <label class="urgency-card urgency-normal block" onclick="this.querySelector('input').checked = true; this.querySelector('form').submit();">
                     <input type="radio" name="urgency" value="normal" 
-                           class="sr-only" required
+                           required
                            {{ (old('urgency', $data['urgency'] ?? '') == 'normal') ? 'checked' : '' }}>
                     <div class="bg-white border-2 border-gray-300 rounded-2xl p-6 hover:border-green-500 hover:shadow-lg">
                         <div class="flex items-center gap-4">
@@ -75,9 +90,9 @@
                     </div>
                 </label>
 
-                <label class="urgency-card block">
+                <label class="urgency-card urgency-urgent block" onclick="this.querySelector('input').checked = true;">
                     <input type="radio" name="urgency" value="urgent" 
-                           class="sr-only" required
+                           required
                            {{ (old('urgency', $data['urgency'] ?? '') == 'urgent') ? 'checked' : '' }}>
                     <div class="bg-white border-2 border-gray-300 rounded-2xl p-6 hover:border-orange-500 hover:shadow-lg">
                         <div class="flex items-center gap-4">
@@ -93,9 +108,9 @@
                     </div>
                 </label>
 
-                <label class="urgency-card block">
+                <label class="urgency-card urgency-emergency block" onclick="this.querySelector('input').checked = true;">
                     <input type="radio" name="urgency" value="emergency" 
-                           class="sr-only" required
+                           required
                            {{ (old('urgency', $data['urgency'] ?? '') == 'emergency') ? 'checked' : '' }}>
                     <div class="bg-white border-2 border-gray-300 rounded-2xl p-6 hover:border-red-600 hover:shadow-xl">
                         <div class="flex items-center gap-4">
