@@ -2,6 +2,45 @@
 
 @section('title', 'Simulateur de Prix - Type de Travaux')
 
+@push('head')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+    :root {
+        --primary-color: {{ setting('primary_color', '#2563eb') }};
+        --secondary-color: {{ setting('secondary_color', '#0284c7') }};
+    }
+    .text-primary { color: var(--primary-color) !important; }
+    .border-primary { border-color: var(--primary-color) !important; }
+    
+    .work-type-card {
+        transition: all 0.3s ease;
+        cursor: pointer;
+    }
+    
+    .work-type-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+    }
+    
+    .work-type-card input:checked + div {
+        background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%) !important;
+        border-color: var(--primary-color) !important;
+        border-width: 3px !important;
+        box-shadow: 0 8px 20px rgba(37, 99, 235, 0.25) !important;
+    }
+    
+    .work-type-icon {
+        background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+        box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+    }
+    
+    .progress-bar {
+        background: linear-gradient(90deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+        box-shadow: 0 2px 8px rgba(37, 99, 235, 0.4);
+    }
+</style>
+@endpush
+
 @section('content')
 <div class="min-h-screen bg-gradient-to-br from-blue-50 to-white py-12">
     <div class="container mx-auto px-4 max-w-4xl">
@@ -12,8 +51,8 @@
                 <span class="text-sm font-semibold text-gray-600">Étape {{ $currentStepIndex + 1 }} sur {{ $totalSteps ?? 5 }}</span>
                 <span class="text-sm font-semibold text-primary">{{ $progress }}%</span>
             </div>
-            <div class="w-full bg-gray-200 rounded-full h-3">
-                <div class="bg-gradient-to-r from-primary to-secondary h-3 rounded-full transition-all duration-500" 
+            <div class="w-full bg-gray-200 rounded-full h-3 overflow-hidden">
+                <div class="progress-bar h-3 rounded-full transition-all duration-500" 
                      style="width: {{ $progress }}%"></div>
             </div>
         </div>
@@ -34,22 +73,20 @@
             
             <div class="grid md:grid-cols-2 gap-6 mb-8">
                 @foreach($workTypes as $key => $workType)
-                <label class="relative cursor-pointer group">
+                <label class="work-type-card">
                     <input type="radio" name="work_type" value="{{ $key }}" 
-                           class="peer sr-only" required
+                           class="sr-only" required
                            {{ (old('work_type', $data['work_type'] ?? '') == $key) ? 'checked' : '' }}>
-                    <div class="bg-white border-3 border-gray-200 rounded-2xl p-6 transition-all duration-300
-                                peer-checked:border-primary peer-checked:bg-blue-50 peer-checked:shadow-xl
-                                hover:border-primary hover:shadow-lg">
+                    <div class="bg-white border-2 border-gray-300 rounded-2xl p-6 h-full">
                         <div class="flex items-start gap-4">
-                            <div class="bg-gradient-to-br from-primary to-secondary text-white w-14 h-14 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg">
+                            <div class="work-type-icon text-white w-16 h-16 rounded-xl flex items-center justify-center flex-shrink-0">
                                 <i class="fas {{ $workType['icon'] }} text-2xl"></i>
                             </div>
                             <div class="flex-1">
                                 <h3 class="text-xl font-bold text-gray-900 mb-2">
                                     {{ $workType['name'] }}
                                 </h3>
-                                <p class="text-gray-600 text-sm">
+                                <p class="text-gray-600 text-sm leading-relaxed">
                                     {{ $workType['description'] }}
                                 </p>
                             </div>
@@ -79,7 +116,8 @@
                 </a>
                 
                 <button type="submit" 
-                        class="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-primary to-secondary hover:from-blue-700 hover:to-blue-800 text-white rounded-full font-bold text-lg shadow-lg transition transform hover:scale-105">
+                        class="inline-flex items-center gap-2 px-8 py-4 text-white rounded-full font-bold text-lg shadow-xl transition transform hover:scale-105"
+                        style="background: linear-gradient(135deg, {{ setting('primary_color', '#2563eb') }} 0%, {{ setting('secondary_color', '#0284c7') }} 100%);">
                     <span>Suivant</span>
                     <i class="fas fa-arrow-right"></i>
                 </button>

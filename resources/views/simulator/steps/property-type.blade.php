@@ -2,6 +2,28 @@
 
 @section('title', 'Simulateur de Prix - Type de Bien')
 
+@push('head')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+    .progress-bar {
+        background: linear-gradient(90deg, {{ setting('primary_color', '#2563eb') }} 0%, {{ setting('secondary_color', '#0284c7') }} 100%);
+        box-shadow: 0 2px 8px rgba(37, 99, 235, 0.4);
+    }
+    .property-card {
+        transition: all 0.3s ease;
+        cursor: pointer;
+    }
+    .property-card:hover {
+        transform: translateY(-4px);
+    }
+    .property-card input:checked + div {
+        background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%) !important;
+        border-width: 3px !important;
+        box-shadow: 0 8px 20px rgba(37, 99, 235, 0.25) !important;
+    }
+</style>
+@endpush
+
 @section('content')
 <div class="min-h-screen bg-gradient-to-br from-blue-50 to-white py-12">
     <div class="container mx-auto px-4 max-w-4xl">
@@ -34,58 +56,50 @@
             
             <div class="grid md:grid-cols-2 gap-6 mb-8">
                 <!-- Maison -->
-                <label class="relative cursor-pointer group">
+                <label class="property-card">
                     <input type="radio" name="property_type" value="house" 
-                           class="peer sr-only" required
+                           class="sr-only" required
                            {{ (old('property_type', $data['property_type'] ?? '') == 'house') ? 'checked' : '' }}>
-                    <div class="bg-white border-3 border-gray-200 rounded-2xl p-8 transition-all duration-300
-                                peer-checked:border-primary peer-checked:bg-blue-50 peer-checked:shadow-xl
-                                hover:border-primary hover:shadow-lg text-center">
-                        <i class="fas fa-home text-5xl text-primary mb-4"></i>
+                    <div class="bg-white border-2 border-gray-300 rounded-2xl p-8 text-center h-full">
+                        <i class="fas fa-home text-6xl mb-4" style="color: {{ setting('primary_color', '#2563eb') }};"></i>
                         <h3 class="text-2xl font-bold text-gray-900 mb-2">Maison</h3>
-                        <p class="text-gray-600">Maison individuelle ou mitoyenne</p>
+                        <p class="text-gray-600 font-medium">Maison individuelle ou mitoyenne</p>
                     </div>
                 </label>
 
                 <!-- Appartement -->
-                <label class="relative cursor-pointer group">
+                <label class="property-card">
                     <input type="radio" name="property_type" value="apartment" 
-                           class="peer sr-only" required
+                           class="sr-only" required
                            {{ (old('property_type', $data['property_type'] ?? '') == 'apartment') ? 'checked' : '' }}>
-                    <div class="bg-white border-3 border-gray-200 rounded-2xl p-8 transition-all duration-300
-                                peer-checked:border-primary peer-checked:bg-blue-50 peer-checked:shadow-xl
-                                hover:border-primary hover:shadow-lg text-center">
-                        <i class="fas fa-building text-5xl text-primary mb-4"></i>
+                    <div class="bg-white border-2 border-gray-300 rounded-2xl p-8 text-center h-full">
+                        <i class="fas fa-building text-6xl mb-4" style="color: {{ setting('primary_color', '#2563eb') }};"></i>
                         <h3 class="text-2xl font-bold text-gray-900 mb-2">Appartement</h3>
-                        <p class="text-gray-600">Appartement en immeuble</p>
+                        <p class="text-gray-600 font-medium">Appartement en immeuble</p>
                     </div>
                 </label>
 
                 <!-- Commercial -->
-                <label class="relative cursor-pointer group">
+                <label class="property-card">
                     <input type="radio" name="property_type" value="commercial" 
-                           class="peer sr-only" required
+                           class="sr-only" required
                            {{ (old('property_type', $data['property_type'] ?? '') == 'commercial') ? 'checked' : '' }}>
-                    <div class="bg-white border-3 border-gray-200 rounded-2xl p-8 transition-all duration-300
-                                peer-checked:border-primary peer-checked:bg-blue-50 peer-checked:shadow-xl
-                                hover:border-primary hover:shadow-lg text-center">
-                        <i class="fas fa-store text-5xl text-primary mb-4"></i>
+                    <div class="bg-white border-2 border-gray-300 rounded-2xl p-8 text-center h-full">
+                        <i class="fas fa-store text-6xl mb-4" style="color: {{ setting('primary_color', '#2563eb') }};"></i>
                         <h3 class="text-2xl font-bold text-gray-900 mb-2">Commercial</h3>
-                        <p class="text-gray-600">Local professionnel, boutique</p>
+                        <p class="text-gray-600 font-medium">Local professionnel, boutique</p>
                     </div>
                 </label>
 
                 <!-- Autre -->
-                <label class="relative cursor-pointer group">
+                <label class="property-card">
                     <input type="radio" name="property_type" value="other" 
-                           class="peer sr-only" required
+                           class="sr-only" required
                            {{ (old('property_type', $data['property_type'] ?? '') == 'other') ? 'checked' : '' }}>
-                    <div class="bg-white border-3 border-gray-200 rounded-2xl p-8 transition-all duration-300
-                                peer-checked:border-primary peer-checked:bg-blue-50 peer-checked:shadow-xl
-                                hover:border-primary hover:shadow-lg text-center">
-                        <i class="fas fa-question-circle text-5xl text-primary mb-4"></i>
+                    <div class="bg-white border-2 border-gray-300 rounded-2xl p-8 text-center h-full">
+                        <i class="fas fa-question-circle text-6xl mb-4" style="color: {{ setting('primary_color', '#2563eb') }};"></i>
                         <h3 class="text-2xl font-bold text-gray-900 mb-2">Autre</h3>
-                        <p class="text-gray-600">Copropriété, bureau, etc.</p>
+                        <p class="text-gray-600 font-medium">Copropriété, bureau, etc.</p>
                     </div>
                 </label>
             </div>
@@ -99,7 +113,8 @@
                 </a>
                 
                 <button type="submit" 
-                        class="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-primary to-secondary hover:from-blue-700 hover:to-blue-800 text-white rounded-full font-bold text-lg shadow-lg transition transform hover:scale-105">
+                        class="inline-flex items-center gap-2 px-8 py-4 text-white rounded-full font-bold text-lg shadow-xl transition transform hover:scale-105"
+                        style="background: linear-gradient(135deg, {{ setting('primary_color', '#2563eb') }} 0%, {{ setting('secondary_color', '#0284c7') }} 100%);">
                     <span>Suivant</span>
                     <i class="fas fa-arrow-right"></i>
                 </button>

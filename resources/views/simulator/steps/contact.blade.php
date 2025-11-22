@@ -2,6 +2,16 @@
 
 @section('title', 'Simulateur de Prix - Vos Coordonnées')
 
+@push('head')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+    .progress-bar {
+        background: linear-gradient(90deg, {{ setting('primary_color', '#2563eb') }} 0%, {{ setting('secondary_color', '#0284c7') }} 100%);
+        box-shadow: 0 2px 8px rgba(37, 99, 235, 0.4);
+    }
+</style>
+@endpush
+
 @section('content')
 <div class="min-h-screen bg-gradient-to-br from-blue-50 to-white py-12">
     <div class="container mx-auto px-4 max-w-4xl">
@@ -129,9 +139,10 @@
             </div>
 
             <!-- Info Box -->
-            <div class="bg-blue-50 border-l-4 border-primary rounded-lg p-6 mb-8">
+            <div class="border-l-4 rounded-lg p-6 mb-8" 
+                 style="background-color: #eff6ff; border-color: {{ setting('primary_color', '#2563eb') }};">
                 <div class="flex items-start gap-3">
-                    <i class="fas fa-info-circle text-primary text-2xl flex-shrink-0 mt-1"></i>
+                    <i class="fas fa-info-circle text-2xl flex-shrink-0 mt-1" style="color: {{ setting('primary_color', '#2563eb') }};"></i>
                     <div>
                         <h4 class="font-bold text-gray-900 mb-2">Pourquoi ces informations ?</h4>
                         <p class="text-gray-700 text-sm">
@@ -150,7 +161,8 @@
                 </a>
                 
                 <button type="submit" 
-                        class="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white rounded-full font-bold text-lg shadow-lg transition transform hover:scale-105">
+                        class="inline-flex items-center gap-2 px-8 py-4 text-white rounded-full font-bold text-lg shadow-xl transition transform hover:scale-105"
+                        style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);">
                     <i class="fas fa-check-circle"></i>
                     <span>Recevoir Mon Devis</span>
                 </button>
