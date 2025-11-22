@@ -64,7 +64,8 @@ class EmergencyController extends Controller
                 'address' => $validated['address'],
                 'message' => $validated['description'],
                 'is_emergency' => true,
-                'status' => 'IN_PROGRESS',
+                'status' => 'COMPLETED', // Les urgences sont complètes dès la soumission
+                'completed_at' => now(), // Marquer comme complétée immédiatement
                 'urgency_level' => 'urgent', // Très urgent
             ]);
 
