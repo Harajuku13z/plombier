@@ -41,7 +41,16 @@
                         <div>
                             <label class="text-sm font-medium text-gray-500">Nom complet</label>
                             <p class="mt-1 text-lg font-medium text-gray-900">
-                                {{ $submission->first_name }} {{ $submission->last_name }}
+                                @if($submission->name)
+                                    {{ $submission->name }}
+                                    @if($submission->is_emergency)
+                                        <span class="ml-2 inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-red-100 text-red-800">
+                                            🚨 URGENCE
+                                        </span>
+                                    @endif
+                                @else
+                                    {{ $submission->first_name }} {{ $submission->last_name }}
+                                @endif
                             </p>
                         </div>
                         <div>
@@ -64,9 +73,56 @@
                             <label class="text-sm font-medium text-gray-500">Code postal / Ville</label>
                             <p class="mt-1 text-lg text-gray-900">{{ $submission->postal_code ?? '-' }}</p>
                         </div>
+                        @if($submission->address)
+                        <div class="md:col-span-2">
+                            <label class="text-sm font-medium text-gray-500">Adresse complète</label>
+                            <p class="mt-1 text-lg text-gray-900">{{ $submission->address }}</p>
+                        </div>
+                        @endif
                     </div>
                 </div>
             </div>
+
+            @if($submission->is_emergency)
+            <!-- Informations d'urgence -->
+            <div class="bg-red-50 border-2 border-red-200 rounded-lg shadow">
+                <div class="px-6 py-4 border-b border-red-200">
+                    <h2 class="text-xl font-semibold text-red-800">
+                        <i class="fas fa-exclamation-triangle mr-2"></i>Informations d'Urgence
+                    </h2>
+                </div>
+                <div class="p-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="text-sm font-medium text-red-700">Type d'urgence</label>
+                            <p class="mt-1 text-lg font-bold text-red-900">
+                                {{ ucfirst(str_replace('-', ' ', $submission->emergency_type ?? 'Non spécifié')) }}
+                            </p>
+                        </div>
+                        <div>
+                            <label class="text-sm font-medium text-red-700">Niveau d'urgence</label>
+                            <p class="mt-1 text-lg font-bold text-red-900">
+                                {{ ucfirst($submission->urgency_level ?? 'urgent') }}
+                            </p>
+                        </div>
+                        @if($submission->message)
+                        <div class="md:col-span-2">
+                            <label class="text-sm font-medium text-red-700">Description</label>
+                            <div class="mt-1 p-4 bg-white rounded border border-red-200">
+                                <p class="text-gray-900 whitespace-pre-wrap">{{ $submission->message }}</p>
+                            </div>
+                        </div>
+                        @endif
+                        @if($submission->work_type)
+                        <div>
+                            <label class="text-sm font-medium text-red-700">Type de travail</label>
+                            <p class="mt-1 text-lg font-medium text-red-900">{{ $submission->work_type }}</p>
+                        </div>
+                        @endif
+                    </div>
+                </div>
+            </div>
+            @endif
 
             <!-- Détails du projet -->
             <div class="bg-white rounded-lg shadow">

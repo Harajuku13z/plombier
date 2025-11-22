@@ -7,7 +7,7 @@
 <div class="p-4 md:p-6">
     <!-- Filtres -->
     <div class="bg-white rounded-lg shadow p-4 md:p-6 mb-6">
-        <form method="GET" action="{{ route('admin.submissions') }}" class="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <form method="GET" action="{{ route('admin.submissions') }}" class="grid grid-cols-1 md:grid-cols-5 gap-4">
             <div>
                 <label class="block text-sm font-medium text-gray-700 mb-2">Statut</label>
                 <select name="status" class="w-full px-4 py-2 border border-gray-300 rounded-lg">
@@ -15,6 +15,14 @@
                     <option value="COMPLETED" {{ request('status') == 'COMPLETED' ? 'selected' : '' }}>Complétées</option>
                     <option value="IN_PROGRESS" {{ request('status') == 'IN_PROGRESS' ? 'selected' : '' }}>En cours</option>
                     <option value="ABANDONED" {{ request('status') == 'ABANDONED' ? 'selected' : '' }}>Abandonnées</option>
+                </select>
+            </div>
+            
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Type</label>
+                <select name="emergency" class="w-full px-4 py-2 border border-gray-300 rounded-lg">
+                    <option value="">Tous</option>
+                    <option value="1" {{ request('emergency') == '1' ? 'selected' : '' }}>🚨 Urgences uniquement</option>
                 </select>
             </div>
 
@@ -105,7 +113,16 @@
                         </span>
                     </div>
                     <h3 class="text-lg font-semibold text-gray-900">
-                        {{ $submission->first_name }} {{ $submission->last_name }}
+                        @if($submission->name)
+                            {{ $submission->name }}
+                            @if($submission->is_emergency)
+                                <span class="ml-2 inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-red-100 text-red-800">
+                                    🚨 URGENCE
+                                </span>
+                            @endif
+                        @else
+                            {{ $submission->first_name }} {{ $submission->last_name }}
+                        @endif
                     </h3>
                 </div>
                 <div class="flex items-center gap-2">
@@ -208,7 +225,16 @@
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap">
                         <div class="text-sm font-medium text-gray-900">
-                            {{ $submission->first_name }} {{ $submission->last_name }}
+                            @if($submission->name)
+                                {{ $submission->name }}
+                                @if($submission->is_emergency)
+                                    <span class="ml-2 inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-red-100 text-red-800">
+                                        🚨 URGENCE
+                                    </span>
+                                @endif
+                            @else
+                                {{ $submission->first_name }} {{ $submission->last_name }}
+                            @endif
                         </div>
                         <div class="text-sm text-gray-500">
                             {{ $submission->email }}

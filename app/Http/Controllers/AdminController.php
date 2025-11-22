@@ -220,6 +220,10 @@ class AdminController extends Controller
                 $query->where('status', $request->status);
             }
 
+            if ($request->filled('emergency')) {
+                $query->where('is_emergency', true);
+            }
+
             if ($request->filled('date_from')) {
                 $query->whereDate('created_at', '>=', $request->date_from);
             }
@@ -233,8 +237,10 @@ class AdminController extends Controller
                 $query->where(function($q) use ($search) {
                     $q->where('first_name', 'like', "%{$search}%")
                       ->orWhere('last_name', 'like', "%{$search}%")
+                      ->orWhere('name', 'like', "%{$search}%")
                       ->orWhere('email', 'like', "%{$search}%")
-                      ->orWhere('phone', 'like', "%{$search}%");
+                      ->orWhere('phone', 'like', "%{$search}%")
+                      ->orWhere('address', 'like', "%{$search}%");
                 });
             }
 
