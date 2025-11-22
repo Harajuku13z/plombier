@@ -169,5 +169,72 @@
         </form>
     </div>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('contact-form');
+    
+    form.addEventListener('submit', function(e) {
+        // Validation basique côté client
+        const name = form.querySelector('[name="name"]');
+        const email = form.querySelector('[name="email"]');
+        const phone = form.querySelector('[name="phone"]');
+        const city = form.querySelector('[name="city"]');
+        const postalCode = form.querySelector('[name="postal_code"]');
+        const address = form.querySelector('[name="address"]');
+        
+        let errors = [];
+        
+        if (!name.value || name.value.length < 2) {
+            errors.push('Le nom doit contenir au moins 2 caractères');
+            name.classList.add('border-red-500');
+        } else {
+            name.classList.remove('border-red-500');
+        }
+        
+        if (!email.value || !email.value.includes('@')) {
+            errors.push('L\'email doit être valide');
+            email.classList.add('border-red-500');
+        } else {
+            email.classList.remove('border-red-500');
+        }
+        
+        if (!phone.value || phone.value.replace(/[^0-9]/g, '').length < 10) {
+            errors.push('Le téléphone doit contenir au moins 10 chiffres');
+            phone.classList.add('border-red-500');
+        } else {
+            phone.classList.remove('border-red-500');
+        }
+        
+        if (!city.value || city.value.length < 2) {
+            errors.push('La ville doit contenir au moins 2 caractères');
+            city.classList.add('border-red-500');
+        } else {
+            city.classList.remove('border-red-500');
+        }
+        
+        if (!postalCode.value || postalCode.value.length < 4) {
+            errors.push('Le code postal doit contenir au moins 4 caractères');
+            postalCode.classList.add('border-red-500');
+        } else {
+            postalCode.classList.remove('border-red-500');
+        }
+        
+        if (!address.value || address.value.length < 5) {
+            errors.push('L\'adresse doit contenir au moins 5 caractères');
+            address.classList.add('border-red-500');
+        } else {
+            address.classList.remove('border-red-500');
+        }
+        
+        if (errors.length > 0) {
+            e.preventDefault();
+            alert('Erreurs détectées :\n\n' + errors.join('\n'));
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            return false;
+        }
+    });
+});
+</script>
 @endsection
 
