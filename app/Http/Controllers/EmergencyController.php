@@ -76,6 +76,12 @@ class EmergencyController extends Controller
                 $companyEmail = Setting::get('company_email');
                 $adminNotificationEmail = Setting::get('admin_notification_email');
                 
+                Log::info('Emergency email configuration check', [
+                    'company_email' => $companyEmail,
+                    'admin_notification_email' => $adminNotificationEmail,
+                    'submission_id' => $submission->id,
+                ]);
+                
                 // Déterminer les destinataires
                 $recipients = [];
                 
@@ -89,11 +95,21 @@ class EmergencyController extends Controller
                     Log::warning('⚠️ No email configured for notifications');
                 }
                 
+                Log::info('Recipients for emergency notification', [
+                    'count' => count($recipients),
+                    'recipients' => $recipients,
+                ]);
+                
                 // Envoyer à tous les destinataires
                 foreach ($recipients as $email) {
                     Log::info('Sending emergency notification', ['to' => $email]);
                     
                     try {
+                        Log::info('About to call Mail::send', [
+                            'to' => $email,
+                            'template' => 'emails.emergency-submission',
+                        ]);
+                        
                         Mail::send('emails.emergency-submission', [
                             'submission' => $submission,
                             'emergency_type' => $validated['emergency_type'],
@@ -106,6 +122,9 @@ class EmergencyController extends Controller
                     } catch (\Exception $mailError) {
                         Log::error('Failed to send emergency notification', [
                             'error' => $mailError->getMessage(),
+                            'file' => $mailError->getFile(),
+                            'line' => $mailError->getLine(),
+                            'trace' => $mailError->getTraceAsString(),
                             'to' => $email,
                         ]);
                     }
