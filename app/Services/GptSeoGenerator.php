@@ -836,7 +836,7 @@ EOT;
         
         $wordCount = str_word_count(strip_tags($contenuHtml));
         if ($wordCount < 2000) {
-            Log::warning('Contenu en dessous du minimum requis (2000 mots)', [
+            Log::warning('Contenu en dessous du minimum requis (1500 mots)', [
                 'word_count' => $wordCount, 
                 'minimum' => 2000,
                 'recommended' => 2500,
@@ -844,7 +844,7 @@ EOT;
                 'city' => $city
             ]);
         } else if ($wordCount < 2500) {
-            Log::info('Contenu en dessous du recommandé (2500 mots)', [
+            Log::info('Contenu en dessous du recommandé (1800 mots)', [
                 'word_count' => $wordCount, 
                 'recommended' => 2500
             ]);
@@ -1032,7 +1032,7 @@ EOT;
         $lowerText = strtolower($text);
         $lowerKeyword = strtolower($keyword);
         
-        // 1. Longueur du contenu (15 points) - Minimum 2000 mots requis
+        // 1. Longueur du contenu (15 points) - Minimum 1500 mots requis
         if ($wordCount >= 3000) {
             $score += 15;
         } else if ($wordCount >= 2500) {
@@ -1040,7 +1040,7 @@ EOT;
         } else if ($wordCount >= 2000) {
             $score += 10; // Augmenté de 8 à 10 pour encourager 2000+ mots
         } else {
-            $score += 3; // Réduit de 5 à 3 pour pénaliser les articles < 2000 mots
+            $score += 3; // Réduit de 5 à 3 pour pénaliser les articles < 1500 mots
         }
         
         // 2. Densité mots-clés (15 points)
@@ -1806,8 +1806,8 @@ Créer l'article de référence ABSOLU sur "{$keyword}" à {$city} :
 6. **INTERDIT de mettre des placeholders ou des descriptions** (exemple INTERDIT : "Cette section sera développée plus tard" ou "Contenu à venir")
 7. **Vérifier que chaque section H2 fait minimum 700 mots AVANT de passer à la suivante** (compter les mots)
 8. **Si une section est trop courte, AJOUTER immédiatement** : exemples concrets détaillés, détails techniques approfondis, conseils d'experts, données chiffrées précises, cas pratiques réels, comparaisons détaillées, témoignages, statistiques, procédures étape par étape, avantages/inconvénients, coûts détaillés, durées, matériaux, techniques, normes, réglementations
-9. **L'article total doit faire MINIMUM {$targetWordCount} mots (2000 mots minimum absolu)** (idéalement 2500-3500 mots pour un score SEO optimal)
-   ⚠️ **CRITIQUE : Si l'article fait moins de 2000 mots, il sera considéré comme incomplet et refusé.**
+9. **L'article total doit faire MINIMUM {$targetWordCount} mots (1500 mots minimum absolu)** (idéalement 1800-2200 mots pour un score SEO optimal)
+   ⚠️ **CRITIQUE : Si l'article fait moins de 1500 mots, il sera considéré comme incomplet et refusé.**
 10. **Ne JAMAIS terminer l'article avant d'avoir développé TOUTES les sections du sommaire**
 11. **Chaque section doit contenir au minimum :**
     - 3-5 paragraphes de 100-150 mots chacun
