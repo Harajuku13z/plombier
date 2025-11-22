@@ -69,19 +69,65 @@ class EmergencyController extends Controller
                 $submission->update(['photos' => json_encode($photoPaths)]);
             }
 
-            // Envoyer l'email d'urgence
-            try {
-                $companyEmail = setting('company_email', config('company.email'));
-                
-                Mail::send('emails.emergency-submission', [
-                    'submission' => $submission,
-                    'emergency_type' => $validated['emergency_type'],
-                ], function ($message) use ($companyEmail, $submission) {
-                    $message->to($companyEmail)
-                            ->subject('🚨 URGENCE PLOMBERIE - ' . $submission->name);
-                });
-            } catch (\Exception $e) {
-                Log::error('Erreur envoi email urgence: ' . $e->getMessage());
+            // Vérifier si l'email est activé
+            $emailEnabled = setting('email_enabled', false);
+            
+            // Envoyer l'email de confirmation à l'utilisateur
+            if ($emailEnabled) {
+                try {
+                    if (!empty($submission->email)) {
+                        Log::info('Sending confirmation email to client', ['to' => $submission->email]);
+                        
+                        Mail::send('emails.emergency-confirmation', [
+                            'submission' => $submission,
+                            'emergency_type' => $validated['emergency_type'],
+                        ], function ($message) use ($submission) {
+                            $message->to($submission->email)
+                                    ->subject('✅ Votre demande d\'urgence a été reçue - Référence #' . str_pad($submission->id, 4, '0', STR_PAD_LEFT));
+                        });
+                        
+                        Log::info('✅ Confirmation email sent to client');
+                    } else {
+                        Log::warning('No email address for client, confirmation email not sent');
+                    }
+                } catch (\Exception $e) {
+                    Log::error('Erreur envoi email confirmation client', [
+                        'error' => $e->getMessage(),
+                        'trace' => $e->getTraceAsString(),
+                    ]);
+                }
+            } else {
+                Log::warning('Email is disabled in settings, confirmation email not sent');
+            }
+
+            // Envoyer l'email d'urgence à l'admin
+            if ($emailEnabled) {
+                try {
+                    $companyEmail = setting('company_email', config('company.email'));
+                    
+                    if ($companyEmail) {
+                        Log::info('Sending emergency notification email to admin', ['to' => $companyEmail]);
+                        
+                        Mail::send('emails.emergency-submission', [
+                            'submission' => $submission,
+                            'emergency_type' => $validated['emergency_type'],
+                        ], function ($message) use ($companyEmail, $submission) {
+                            $message->to($companyEmail)
+                                    ->subject('🚨 URGENCE PLOMBERIE - ' . $submission->name);
+                        });
+                        
+                        Log::info('✅ Emergency notification email sent to admin');
+                    } else {
+                        Log::warning('No company email configured, admin notification not sent');
+                    }
+                } catch (\Exception $e) {
+                    Log::error('Erreur envoi email urgence admin', [
+                        'error' => $e->getMessage(),
+                        'trace' => $e->getTraceAsString(),
+                    ]);
+                }
+            } else {
+                Log::warning('Email is disabled in settings, admin notification not sent');
             }
 
             return redirect()->route('urgence.success')->with('success', 'Votre demande d\'urgence a été envoyée. Nous vous contactons dans les plus brefs délais !');
