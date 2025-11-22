@@ -199,7 +199,6 @@
                     <td>
                         <div class="step-box">
                             <div class="step-header">
-                                <div class="step-number">1</div>
                                 <h4 class="step-title">⚙️ Analyse de votre demande</h4>
                             </div>
                             <div class="step-content">
@@ -215,7 +214,6 @@
                     <td>
                         <div class="step-box">
                             <div class="step-header">
-                                <div class="step-number">2</div>
                                 <h4 class="step-title">📞 Contact sous 2 heures</h4>
                             </div>
                             <div class="step-content">
@@ -231,7 +229,6 @@
                     <td>
                         <div class="step-box">
                             <div class="step-header">
-                                <div class="step-number">3</div>
                                 <h4 class="step-title">💼 Devis gratuit personnalisé</h4>
                             </div>
                             <div class="step-content">
