@@ -73,6 +73,12 @@ class EmergencyController extends Controller
             // Vérifier si l'email est activé
             $emailEnabled = setting('email_enabled', false);
             
+            Log::info('Emergency submission email check', [
+                'email_enabled' => $emailEnabled,
+                'submission_id' => $submission->id,
+                'client_email' => $submission->email,
+            ]);
+            
             // Envoyer l'email de confirmation à l'utilisateur
             if ($emailEnabled) {
                 try {
@@ -87,16 +93,26 @@ class EmergencyController extends Controller
                         }
                     }
                     
-                    Mail::send('emails.emergency-confirmation', [
-                        'submission' => $submission,
-                        'emergency_type' => $validated['emergency_type'],
-                        'photoUrls' => $photoUrls,
-                    ], function ($message) use ($submission) {
-                            $message->to($submission->email)
-                                    ->subject('✅ Votre demande d\'urgence a été reçue - Référence #' . str_pad($submission->id, 4, '0', STR_PAD_LEFT));
-                        });
-                        
-                        Log::info('✅ Confirmation email sent to client');
+                        try {
+                            Mail::send('emails.emergency-confirmation', [
+                                'submission' => $submission,
+                                'emergency_type' => $validated['emergency_type'],
+                                'photoUrls' => $photoUrls,
+                            ], function ($message) use ($submission) {
+                                $message->to($submission->email)
+                                        ->subject('✅ Votre demande d\'urgence a été reçue - Référence #' . str_pad($submission->id, 4, '0', STR_PAD_LEFT));
+                            });
+                            
+                            Log::info('✅ Confirmation email sent to client', ['to' => $submission->email]);
+                        } catch (\Exception $sendError) {
+                            Log::error('Failed to send confirmation email to client', [
+                                'to' => $submission->email,
+                                'error' => $sendError->getMessage(),
+                                'file' => $sendError->getFile(),
+                                'line' => $sendError->getLine(),
+                            ]);
+                            // Ne pas re-throw pour ne pas bloquer la soumission
+                        }
                     } else {
                         Log::warning('No email address for client, confirmation email not sent');
                     }
@@ -175,9 +191,12 @@ class EmergencyController extends Controller
                             Log::error('Failed to send emergency email to admin', [
                                 'to' => $adminEmail,
                                 'error' => $mailError->getMessage(),
+                                'file' => $mailError->getFile(),
+                                'line' => $mailError->getLine(),
                                 'trace' => $mailError->getTraceAsString(),
                             ]);
-                            throw $mailError; // Re-throw pour que l'erreur soit visible
+                            // Ne pas re-throw pour ne pas bloquer la soumission
+                            // L'email admin est important mais ne doit pas empêcher la soumission
                         }
                     } else {
                         Log::error('No valid admin email configured', [
