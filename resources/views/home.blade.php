@@ -233,19 +233,19 @@
     </section>
 
     <!-- Section Urgence Plomberie (Compacte) -->
-    <section class="py-8 md:py-10 bg-gradient-to-r from-red-600 to-red-700 relative overflow-hidden">
+    <section class="py-4 md:py-5 bg-gradient-to-r from-red-800 to-red-900 relative overflow-hidden">
         <div class="absolute inset-0 opacity-10">
-            <div class="absolute top-0 right-0 w-32 h-32 bg-red-500 rounded-full blur-2xl animate-pulse"></div>
+            <div class="absolute top-0 right-0 w-24 h-24 bg-red-700 rounded-full blur-2xl animate-pulse"></div>
         </div>
         
         <div class="container mx-auto px-4 relative z-10">
             <div class="max-w-5xl mx-auto">
-                <div class="flex flex-col md:flex-row items-center justify-between gap-4 md:gap-6 text-white">
+                <div class="flex flex-col md:flex-row items-center justify-between gap-3 md:gap-4 text-white">
                     <!-- Left: Message -->
                     <div class="text-center md:text-left flex-1">
-                        <div class="flex items-center justify-center md:justify-start gap-3 mb-2">
-                            <i class="fas fa-exclamation-triangle text-2xl md:text-3xl animate-pulse"></i>
-                            <h3 class="text-xl md:text-2xl font-black">URGENCE 24/7</h3>
+                        <div class="flex items-center justify-center md:justify-start gap-2 mb-1">
+                            <i class="fas fa-exclamation-triangle text-xl md:text-2xl animate-pulse"></i>
+                            <h3 class="text-lg md:text-xl font-bold">URGENCE 24/7</h3>
                         </div>
                         @php
                             $postalCode = setting('company_postal_code', '78000');
@@ -280,21 +280,21 @@
                             ];
                             $departmentName = $departments[$departmentCode] ?? $departmentCode;
                         @endphp
-                        <p class="text-red-100 text-sm md:text-base">
+                        <p class="text-red-100 text-xs md:text-sm">
                             Intervention rapide à <strong class="text-white">{{ setting('company_city', 'Versailles') }}</strong> et tout le département <strong class="text-white">{{ $departmentName }} ({{ $departmentCode }})</strong> • Fuite, dégât des eaux, débouchage
                         </p>
                     </div>
                     
                     <!-- Right: CTA -->
-                    <div class="flex flex-col sm:flex-row gap-3">
+                    <div class="flex flex-col sm:flex-row gap-2">
                         <a href="tel:{{ str_replace(' ', '', setting('company_phone', '')) }}" 
-                           class="bg-white text-red-600 hover:bg-red-50 px-6 py-3 rounded-full font-black text-lg shadow-xl transition transform hover:scale-105 inline-flex items-center justify-center gap-2">
+                           class="bg-white text-red-800 hover:bg-gray-50 px-5 py-2.5 rounded-lg font-semibold text-base shadow-lg transition-all duration-300 transform hover:scale-105 hover:shadow-xl inline-flex items-center justify-center gap-2 border-2 border-transparent hover:border-red-800">
                             <i class="fas fa-phone-alt"></i>
                             <span>{{ setting('company_phone', '07 86 48 65 39') }}</span>
                         </a>
                         
                         <a href="{{ route('urgence.index') }}" 
-                           class="bg-red-900 hover:bg-red-950 text-white px-5 py-3 rounded-full font-bold shadow-xl transition inline-flex items-center justify-center gap-2 text-sm">
+                           class="bg-red-950 hover:bg-red-900 text-white px-4 py-2.5 rounded-lg font-semibold shadow-lg transition-all duration-300 transform hover:scale-105 hover:shadow-xl inline-flex items-center justify-center gap-2 border-2 border-red-800 hover:border-red-700">
                             <i class="fas fa-ambulance"></i>
                             <span>SOS</span>
                         </a>
