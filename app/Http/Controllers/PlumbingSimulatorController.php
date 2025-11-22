@@ -284,6 +284,12 @@ class PlumbingSimulatorController extends Controller
 
             $message .= "Adresse : {$data['address']}, {$data['postal_code']} {$data['city']}\n";
 
+            // Vérifier que toutes les données requises sont présentes
+            if (!isset($data['phone']) || !isset($data['email'])) {
+                Log::error('Missing required data', ['data' => $data]);
+                return back()->with('error', 'Données de session manquantes. Veuillez recommencer le simulateur.');
+            }
+            
             // Créer la soumission avec les champs du modèle
             $submission = new Submission();
             $submission->session_id = session()->getId();
@@ -300,20 +306,29 @@ class PlumbingSimulatorController extends Controller
             
             // Stocker toutes les données dans form_data
             $submission->form_data = [
-                'name' => $data['name'],
-                'address' => $data['address'],
-                'urgency' => $data['urgency'],
+                'name' => $data['name'] ?? '',
+                'address' => $data['address'] ?? '',
+                'urgency' => $data['urgency'] ?? 'normal',
                 'description' => $data['description'] ?? '',
                 'work_types_names' => $workTypeNames,
                 'photo_paths' => $data['photo_paths'] ?? [],
             ];
             
+            Log::info('Saving submission', [
+                'email' => $submission->email,
+                'phone' => $submission->phone,
+                'work_types' => $submission->work_types,
+            ]);
+            
             $submission->save();
+            
+            Log::info('Submission saved successfully', ['id' => $submission->id]);
 
             // Envoyer l'email
             try {
                 $companyEmail = Setting::get('company_email');
                 if ($companyEmail) {
+                    Log::info('Sending email', ['to' => $companyEmail]);
                     Mail::send('emails.simulator-submission', [
                         'submission' => $submission,
                         'data' => $data,
@@ -322,12 +337,15 @@ class PlumbingSimulatorController extends Controller
                         $mail->to($companyEmail)
                              ->subject('Nouvelle demande de devis - Simulateur');
                     });
+                    Log::info('Email sent successfully');
                 }
             } catch (\Exception $e) {
                 Log::error('Erreur envoi email simulateur: ' . $e->getMessage());
+                // Ne pas bloquer même si l'email échoue
             }
 
             // Rediriger vers la page de succès
+            Log::info('Redirecting to success page', ['submission_id' => $submission->id]);
             session()->forget('simulator_data');
             return redirect()->route('simulator.success')->with('submission_id', $submission->id);
 
