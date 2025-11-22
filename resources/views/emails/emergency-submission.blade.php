@@ -100,20 +100,15 @@
                                 <p style="margin: 0; color: #1f2937; font-size: 15px; line-height: 1.6; white-space: pre-wrap;">{{ $submission->message }}</p>
                             </div>
 
-                            @if(isset($photoUrls) && count($photoUrls) > 0)
-                            <!-- Photos -->
-                            <h2 style="color: #1f2937; font-size: 20px; font-weight: bold; margin: 25px 0 15px 0; border-bottom: 2px solid #e5e7eb; padding-bottom: 10px;">
-                                📷 Photos de l'Urgence
-                            </h2>
-                            <div style="margin-bottom: 25px;">
-                                @foreach($photoUrls as $index => $photoUrl)
-                                <div style="margin-bottom: 15px; text-align: center;">
-                                    <p style="margin: 0 0 5px 0; color: #6b7280; font-size: 12px;">Photo {{ $index + 1 }}</p>
-                                    <img src="{{ $photoUrl }}" 
-                                         alt="Photo urgence {{ $index + 1 }}" 
-                                         style="max-width: 100%; max-height: 400px; height: auto; border-radius: 8px; border: 2px solid #dc2626; box-shadow: 0 4px 8px rgba(0,0,0,0.1);" />
+                            @if($submission->photos && count($submission->photos) > 0)
+                            <div class="info-row">
+                                <div class="info-label">Photos :</div>
+                                <div class="info-value">
+                                    📸 <strong>{{ count($submission->photos) }} photo(s)</strong> uploadée(s)
+                                    <div style="font-size: 12px; color: #64748b; margin-top: 5px;">
+                                        Accédez aux photos via l'administration
+                                    </div>
                                 </div>
-                                @endforeach
                             </div>
                             @endif
 

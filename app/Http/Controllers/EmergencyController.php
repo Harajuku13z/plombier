@@ -4,10 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Submission;
+use App\Models\Setting;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\URL;
 
 class EmergencyController extends Controller
 {
@@ -70,151 +70,78 @@ class EmergencyController extends Controller
                 $submission->update(['photos' => $photoPaths]); // Le modèle cast déjà en array
             }
 
-            // Vérifier si l'email est activé
-            $emailEnabled = setting('email_enabled', false);
-            
-            Log::info('Emergency submission email check', [
-                'email_enabled' => $emailEnabled,
-                'submission_id' => $submission->id,
-                'client_email' => $submission->email,
-            ]);
-            
-            // Envoyer l'email de confirmation à l'utilisateur
-            if ($emailEnabled) {
+            // Envoyer les emails (inspiré du simulateur)
+            try {
+                $companyEmail = Setting::get('company_email');
+                $adminNotificationEmail = Setting::get('admin_notification_email');
+                
+                // Déterminer les destinataires
+                $recipients = [];
+                
+                if (!empty($adminNotificationEmail)) {
+                    $recipients[] = $adminNotificationEmail;
+                    Log::info('Admin notification email configured', ['admin_email' => $adminNotificationEmail]);
+                } elseif (!empty($companyEmail)) {
+                    $recipients[] = $companyEmail;
+                    Log::info('Using company email for notification', ['company_email' => $companyEmail]);
+                } else {
+                    Log::warning('⚠️ No email configured for notifications');
+                }
+                
+                // Envoyer à tous les destinataires
+                foreach ($recipients as $email) {
+                    Log::info('Sending emergency notification', ['to' => $email]);
+                    
+                    try {
+                        Mail::send('emails.emergency-submission', [
+                            'submission' => $submission,
+                            'emergency_type' => $validated['emergency_type'],
+                        ], function ($mail) use ($email, $submission) {
+                            $mail->to($email)
+                                 ->subject('🚨 URGENCE PLOMBERIE - ' . $submission->name . ' - Référence #' . str_pad($submission->id, 4, '0', STR_PAD_LEFT));
+                        });
+                        
+                        Log::info('✅ Emergency notification sent successfully to: ' . $email);
+                    } catch (\Exception $mailError) {
+                        Log::error('Failed to send emergency notification', [
+                            'error' => $mailError->getMessage(),
+                            'to' => $email,
+                        ]);
+                    }
+                }
+                
+                // Envoyer un email de confirmation au client
                 try {
                     if (!empty($submission->email)) {
                         Log::info('Sending confirmation email to client', ['to' => $submission->email]);
                         
-                    // Préparer les URLs absolues pour les photos
-                    $photoUrls = [];
-                    if ($submission->photos && count($submission->photos) > 0) {
-                        foreach ($submission->photos as $photoPath) {
-                            $photoUrls[] = URL::to(route('storage.serve', ['path' => $photoPath], false));
-                        }
-                    }
-                    
-                        try {
-                            Mail::send('emails.emergency-confirmation', [
-                                'submission' => $submission,
-                                'emergency_type' => $validated['emergency_type'],
-                                'photoUrls' => $photoUrls,
-                            ], function ($message) use ($submission) {
-                                $message->to($submission->email)
-                                        ->subject('✅ Votre demande d\'urgence a été reçue - Référence #' . str_pad($submission->id, 4, '0', STR_PAD_LEFT));
-                            });
-                            
-                            Log::info('✅ Confirmation email sent to client', ['to' => $submission->email]);
-                        } catch (\Exception $sendError) {
-                            Log::error('Failed to send confirmation email to client', [
-                                'to' => $submission->email,
-                                'error' => $sendError->getMessage(),
-                                'file' => $sendError->getFile(),
-                                'line' => $sendError->getLine(),
-                            ]);
-                            // Ne pas re-throw pour ne pas bloquer la soumission
-                        }
-                    } else {
-                        Log::warning('No email address for client, confirmation email not sent');
-                    }
-                } catch (\Exception $e) {
-                    Log::error('Erreur envoi email confirmation client', [
-                        'error' => $e->getMessage(),
-                        'trace' => $e->getTraceAsString(),
-                    ]);
-                }
-            } else {
-                Log::warning('Email is disabled in settings, confirmation email not sent');
-            }
-
-            // Envoyer l'email d'urgence à l'admin
-            if ($emailEnabled) {
-                try {
-                    // Essayer d'abord admin_notification_email, puis company_email, puis config
-                    $adminEmail = setting('admin_notification_email');
-                    if (empty($adminEmail)) {
-                        $adminEmail = setting('company_email');
-                    }
-                    if (empty($adminEmail)) {
-                        $adminEmail = config('company.email');
-                    }
-                    
-                    Log::info('Checking admin email configuration', [
-                        'admin_notification_email' => setting('admin_notification_email'),
-                        'company_email' => setting('company_email'),
-                        'config_company_email' => config('company.email'),
-                        'final_admin_email' => $adminEmail,
-                    ]);
-                    
-                    if (!empty($adminEmail) && filter_var($adminEmail, FILTER_VALIDATE_EMAIL)) {
-                        Log::info('Sending emergency notification email to admin', ['to' => $adminEmail]);
+                        Mail::send('emails.emergency-confirmation', [
+                            'submission' => $submission,
+                            'emergency_type' => $validated['emergency_type'],
+                            'companySettings' => [
+                                'name' => Setting::get('company_name', 'Plombier Versailles'),
+                                'phone' => Setting::get('company_phone', '07 86 48 65 39'),
+                                'email' => $companyEmail,
+                            ],
+                        ], function ($mail) use ($submission) {
+                            $mail->to($submission->email)
+                                 ->subject('✅ Votre demande d\'urgence a été reçue - Référence #' . str_pad($submission->id, 4, '0', STR_PAD_LEFT));
+                        });
                         
-                        try {
-                            // Préparer les URLs absolues pour les photos
-                            $photoUrls = [];
-                            if ($submission->photos && count($submission->photos) > 0) {
-                                foreach ($submission->photos as $photoPath) {
-                                    $photoUrls[] = URL::to(route('storage.serve', ['path' => $photoPath], false));
-                                }
-                            }
-                            
-                            Mail::send('emails.emergency-submission', [
-                                'submission' => $submission,
-                                'emergency_type' => $validated['emergency_type'],
-                                'photoUrls' => $photoUrls,
-                            ], function ($message) use ($adminEmail, $submission) {
-                                $message->to($adminEmail)
-                                        ->subject('🚨 URGENCE PLOMBERIE - ' . $submission->name);
-                                
-                                // Attacher les photos si elles existent
-                                if ($submission->photos && count($submission->photos) > 0) {
-                                    foreach ($submission->photos as $photoPath) {
-                                        $fullPath = storage_path('app/public/' . $photoPath);
-                                        if (file_exists($fullPath)) {
-                                            try {
-                                                $message->attach($fullPath, [
-                                                    'as' => basename($photoPath),
-                                                    'mime' => mime_content_type($fullPath),
-                                                ]);
-                                            } catch (\Exception $attachError) {
-                                                Log::warning('Failed to attach photo to email', [
-                                                    'photo' => $photoPath,
-                                                    'error' => $attachError->getMessage(),
-                                                ]);
-                                            }
-                                        }
-                                    }
-                                }
-                            });
-                            
-                            Log::info('✅ Emergency notification email sent to admin', ['to' => $adminEmail]);
-                        } catch (\Exception $mailError) {
-                            Log::error('Failed to send emergency email to admin', [
-                                'to' => $adminEmail,
-                                'error' => $mailError->getMessage(),
-                                'file' => $mailError->getFile(),
-                                'line' => $mailError->getLine(),
-                                'trace' => $mailError->getTraceAsString(),
-                            ]);
-                            // Ne pas re-throw pour ne pas bloquer la soumission
-                            // L'email admin est important mais ne doit pas empêcher la soumission
-                        }
-                    } else {
-                        Log::error('No valid admin email configured', [
-                            'admin_notification_email' => setting('admin_notification_email'),
-                            'company_email' => setting('company_email'),
-                            'config_company_email' => config('company.email'),
-                        ]);
+                        Log::info('✅ Confirmation email sent to client');
                     }
-                } catch (\Exception $e) {
-                    Log::error('Erreur envoi email urgence admin', [
-                        'error' => $e->getMessage(),
-                        'file' => $e->getFile(),
-                        'line' => $e->getLine(),
-                        'trace' => $e->getTraceAsString(),
+                } catch (\Exception $confirmError) {
+                    Log::error('Failed to send confirmation email to client', [
+                        'error' => $confirmError->getMessage(),
                     ]);
                 }
-            } else {
-                Log::warning('Email is disabled in settings, admin notification not sent');
+                
+            } catch (\Exception $e) {
+                Log::error('Erreur générale email urgence', [
+                    'error' => $e->getMessage(),
+                    'trace' => $e->getTraceAsString(),
+                ]);
+                // Ne pas bloquer même si l'email échoue
             }
 
             return redirect()->route('urgence.success')->with('success', 'Votre demande d\'urgence a été envoyée. Nous vous contactons dans les plus brefs délais !');
