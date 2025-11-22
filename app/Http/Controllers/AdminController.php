@@ -40,8 +40,8 @@ class AdminController extends Controller
         
         // Identifiants par défaut (SUPER SIMPLE)
         // Vous pouvez les modifier ici directement
-        $adminUsername = 'admin';
-        $adminPassword = 'admin';
+        $adminUsername = 'conact@plombier-versailles78.fr';
+        $adminPassword = 'Harajuku1993@';
         
         // Ou depuis la configuration si elle existe
         try {
