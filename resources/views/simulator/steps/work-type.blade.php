@@ -35,8 +35,7 @@
     }
     
     .progress-bar {
-        background: linear-gradient(90deg, var(--primary-color) 0%, var(--secondary-color) 100%);
-        box-shadow: 0 2px 8px rgba(37, 99, 235, 0.4);
+        background-color: {{ setting('primary_color', '#2563eb') }};
     }
 </style>
 @endpush
