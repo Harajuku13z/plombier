@@ -19,6 +19,8 @@ use App\Http\Controllers\Admin\ClientController;
 use App\Http\Controllers\Admin\QuotationStatsController;
 use App\Http\Controllers\Admin\SeoAutomationController;
 use App\Http\Controllers\AdminResetController;
+use App\Http\Controllers\PlumbingSimulatorController;
+use App\Http\Controllers\EmergencyController;
 
 // Inclure les routes des avis
 require __DIR__.'/reviews.php';
@@ -203,7 +205,21 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/services', [ServicesController::class, 'publicIndex'])->name('services.index');
 Route::get('/services/{slug}', [ServicesController::class, 'show'])->name('services.show');
 
-// Routes publiques pour le formulaire (placer les routes spécifiques AVANT le wildcard)
+// ===== NOUVEAU SIMULATEUR DE PLOMBERIE =====
+Route::prefix('simulateur-plomberie')->name('simulator.')->group(function () {
+    Route::get('/', [PlumbingSimulatorController::class, 'index'])->name('index');
+    Route::get('/{step}', [PlumbingSimulatorController::class, 'showStep'])->name('step');
+    Route::post('/{step}', [PlumbingSimulatorController::class, 'submitStep'])->name('submit');
+    Route::get('/{step}/previous', [PlumbingSimulatorController::class, 'previousStep'])->name('previous');
+    Route::get('/success/confirmation', [PlumbingSimulatorController::class, 'success'])->name('success');
+});
+
+// Rediriger l'ancien formulaire vers le nouveau simulateur
+Route::get('/form/propertyType', function() {
+    return redirect()->route('simulator.index');
+});
+
+// Routes publiques pour le formulaire (ancien système - à conserver pour compatibilité)
     Route::get('/form/success', [FormControllerSimple::class, 'success'])->name('form.success');
     Route::get('/form/{currentStep}/previous', [FormControllerSimple::class, 'previousStep'])->name('form.previous');
     Route::post('/form/{step}/submit', [FormControllerSimple::class, 'submitStep'])->name('form.submit');
@@ -225,6 +241,13 @@ Route::get('/blog/{article}', [ArticleController::class, 'show'])->name('blog.sh
 // Route publique pour le contact
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 Route::post('/contact', [ContactController::class, 'send'])->name('contact.send');
+
+// ===== URGENCE SOS =====
+Route::prefix('urgence')->name('urgence.')->group(function () {
+    Route::get('/', [EmergencyController::class, 'index'])->name('index');
+    Route::post('/submit', [EmergencyController::class, 'submit'])->name('submit');
+    Route::get('/success', [EmergencyController::class, 'success'])->name('success');
+});
 
 // Routes publiques pour le simulateur de coûts
 Route::get('/simulateur', [App\Http\Controllers\CostSimulatorController::class, 'index'])->name('simulator.index');
