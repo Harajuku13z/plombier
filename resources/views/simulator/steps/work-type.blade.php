@@ -23,14 +23,14 @@
     }
     
     .work-type-card input:checked + div {
-        background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%) !important;
-        border-color: var(--primary-color) !important;
+        background-color: #eff6ff !important;
+        border-color: {{ setting('primary_color', '#2563eb') }} !important;
         border-width: 3px !important;
         box-shadow: 0 8px 20px rgba(37, 99, 235, 0.25) !important;
     }
     
     .work-type-icon {
-        background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+        background-color: {{ setting('primary_color', '#2563eb') }};
         box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
     }
     
@@ -140,7 +140,7 @@
                 
                 <button type="submit" 
                         class="inline-flex items-center gap-2 px-8 py-4 text-white rounded-full font-bold text-lg shadow-xl transition transform hover:scale-105"
-                        style="background: linear-gradient(135deg, {{ setting('primary_color', '#2563eb') }} 0%, {{ setting('secondary_color', '#0284c7') }} 100%);">
+                        style="background-color: {{ setting('primary_color', '#2563eb') }};">
                     <span>Suivant</span>
                     <i class="fas fa-arrow-right"></i>
                 </button>

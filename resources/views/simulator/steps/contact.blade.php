@@ -161,7 +161,7 @@
                 
                 <button type="submit" 
                         class="inline-flex items-center gap-2 px-8 py-4 text-white rounded-full font-bold text-lg shadow-xl transition transform hover:scale-105"
-                        style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);">
+                        style="background-color: #10b981;">
                     <i class="fas fa-check-circle"></i>
                     <span>Recevoir Mon Devis</span>
                 </button>

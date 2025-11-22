@@ -146,19 +146,25 @@ class PlumbingSimulatorController extends Controller
                 break;
 
             case 'photos':
-                $validated = $request->validate([
-                    'photos.*' => 'nullable|image|max:5120', // 5MB max
-                ]);
+                $validated = [];
                 
                 // Gérer l'upload des photos
                 if ($request->hasFile('photos')) {
                     $photoPaths = [];
                     foreach ($request->file('photos') as $photo) {
-                        $filename = \Illuminate\Support\Str::random(20) . '.' . $photo->getClientOriginalExtension();
-                        $path = $photo->storeAs('simulator-temp', $filename, 'public');
-                        $photoPaths[] = $path;
+                        if ($photo->isValid()) {
+                            $filename = \Illuminate\Support\Str::random(20) . '.' . $photo->getClientOriginalExtension();
+                            $path = $photo->storeAs('simulator-temp', $filename, 'public');
+                            $photoPaths[] = $path;
+                        }
                     }
-                    $validated['photo_paths'] = $photoPaths;
+                    // Stocker seulement les chemins (strings), pas les objets UploadedFile
+                    if (!empty($photoPaths)) {
+                        $validated['photo_paths'] = $photoPaths;
+                    }
+                } else {
+                    // Pas de photos, continuer quand même
+                    $validated = [];
                 }
                 break;
 

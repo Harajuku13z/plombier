@@ -75,7 +75,7 @@
                            class="hidden">
                     <label for="photo-input" 
                            class="inline-block px-6 py-3 text-white rounded-full font-bold cursor-pointer transition hover:opacity-90"
-                           style="background: linear-gradient(135deg, {{ setting('primary_color', '#2563eb') }} 0%, {{ setting('secondary_color', '#0284c7') }} 100%);">
+                           style="background-color: {{ setting('primary_color', '#2563eb') }};">
                         <i class="fas fa-images mr-2"></i>
                         Sélectionner des Photos
                     </label>
@@ -114,7 +114,7 @@
                 
                 <button type="submit" 
                         class="inline-flex items-center gap-2 px-8 py-4 text-white rounded-full font-bold text-lg shadow-xl transition transform hover:scale-105"
-                        style="background: linear-gradient(135deg, {{ setting('primary_color', '#2563eb') }} 0%, {{ setting('secondary_color', '#0284c7') }} 100%);">
+                        style="background-color: {{ setting('primary_color', '#2563eb') }};">
                     <span>Suivant</span>
                     <i class="fas fa-arrow-right"></i>
                 </button>
