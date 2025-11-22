@@ -17,7 +17,9 @@ class GptSeoGenerator
     {
         $this->apiKey = Setting::where('key', 'chatgpt_api_key')->value('value');
         $this->model = Setting::where('key', 'chatgpt_model')->value('value') ?? 'gpt-4o';
-        $this->maxTokens = 4000;
+        // Réduire max_tokens pour éviter de dépasser la limite du modèle
+        // gpt-3.5-turbo max: 16385 tokens (prompt + completion)
+        $this->maxTokens = 2000; // Réduit de 4000 à 2000 pour laisser de la marge
         $this->temperature = 0.7;
     }
     
@@ -1175,8 +1177,8 @@ EOT;
         $serpInsights = $this->extractSerpInsights($serpResults);
         $competitorTopics = $serpInsights['topics'] ?? [];
         $commonQuestions = $serpInsights['questions'] ?? [];
-        // FORCER un minimum de 2000 mots pour un bon score SEO
-        $targetWordCount = max(2000, $semanticAnalysis['content_depth_required'] ?? 2200);
+        // Réduire le nombre de mots pour économiser les tokens
+        $targetWordCount = max(1500, $semanticAnalysis['content_depth_required'] ?? 1800);
         $competitorGaps = $semanticAnalysis['competitor_weaknesses'] ?? [];
         $relatedKeywords = $semanticAnalysis['related_keywords'] ?? [];
         $userIntent = $semanticAnalysis['user_intent'] ?? 'informational';
@@ -1201,8 +1203,8 @@ Tu vas créer l'article le PLUS COMPLET et le MIEUX OPTIMISÉ jamais rédigé su
 **Localisation :** {$city}
 **Entreprise :** {$companyName}
 **Intention utilisateur :** {$userIntent}
-**Objectif longueur :** MINIMUM {$targetWordCount} mots (idéalement 2500-3500 mots pour un score SEO optimal)
-**⚠️ CRITIQUE : L'article DOIT faire au minimum 2000 mots. Si l'article fait moins de 2000 mots, il sera considéré comme incomplet et refusé.**
+**Objectif longueur :** MINIMUM {$targetWordCount} mots (idéalement 1800-2200 mots pour un score SEO optimal)
+**⚠️ CRITIQUE : L'article DOIT faire au minimum 1500 mots. Si l'article fait moins de 1500 mots, il sera considéré comme incomplet et refusé.**
 **Année de référence :** {$currentYear}
 
 **À propos de {$companyName} :**
@@ -1829,11 +1831,11 @@ Créer l'article de référence ABSOLU sur "{$keyword}" à {$city} :
 2. Compter toutes les sections H2 dans l'article
 3. Comparer avec le nombre de sections dans le sommaire
 4. Vérifier que CHAQUE section du sommaire a son équivalent H2 développé dans l'article
-5. Vérifier que CHAQUE section H2 fait minimum 700 mots
+5. Vérifier que CHAQUE section H2 fait minimum 400 mots
 6. **Si l'article fait moins de {$targetWordCount} mots, AJOUTER immédiatement du contenu** : développer davantage chaque section, ajouter des exemples, des détails techniques, des conseils, des données chiffrées
 7. Si une section manque ou est trop courte, AJOUTER du contenu immédiatement
 8. Ne JAMAIS envoyer l'article si :
-   - Le nombre total de mots est < {$targetWordCount} (minimum 2000)
+   - Le nombre total de mots est < {$targetWordCount} (minimum 1500)
    - Une section est manquante ou incomplète
    - Le contenu est superficiel ou manque de profondeur
 
@@ -1848,10 +1850,10 @@ Créer l'article de référence ABSOLU sur "{$keyword}" à {$city} :
 <h2 id="section-2">Comment obtenir votre devis ?</h2>
 <p>Pour obtenir un devis personnalisé pour votre projet de zinguerie moderne à Chevigny-Saint-Sauveur, plusieurs options s'offrent à vous...</p>
 <p>La première étape consiste à...</p>
-<!-- Minimum 700 mots de contenu détaillé et utile -->
+<!-- Minimum 400 mots de contenu détaillé et utile -->
 ```
 
-**RÉDIGE MAINTENANT** cet article exceptionnel de {$targetWordCount}+ mots. Chaque mot doit apporter de la valeur. Chaque section doit éduquer ET persuader. Chaque élément doit être optimisé pour le SEO ET l'humain. **TOUTES les sections du sommaire doivent être complètes et détaillées (700-900 mots chacune). AUCUNE section vide ou incomplète ne sera acceptée.**
+**RÉDIGE MAINTENANT** cet article exceptionnel de {$targetWordCount}+ mots. Chaque mot doit apporter de la valeur. Chaque section doit éduquer ET persuader. Chaque élément doit être optimisé pour le SEO ET l'humain. **TOUTES les sections du sommaire doivent être complètes et détaillées (400-600 mots chacune). AUCUNE section vide ou incomplète ne sera acceptée.**
 
 🚀 **C'EST PARTI. Produis le meilleur contenu SEO jamais créé sur ce sujet.**
 EOT;
