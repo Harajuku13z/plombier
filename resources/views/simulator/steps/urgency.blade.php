@@ -79,7 +79,7 @@
                     <div class="bg-white border-2 border-gray-300 rounded-2xl p-6 hover:border-green-500 hover:shadow-lg">
                         <div class="flex items-center gap-4">
                             <div class="w-16 h-16 rounded-xl flex items-center justify-center flex-shrink-0 shadow-md"
-                                 style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);">
+                                 style="background-color: #10b981;">
                                 <i class="fas fa-calendar-check text-white text-2xl"></i>
                             </div>
                             <div>
@@ -97,7 +97,7 @@
                     <div class="bg-white border-2 border-gray-300 rounded-2xl p-6 hover:border-orange-500 hover:shadow-lg">
                         <div class="flex items-center gap-4">
                             <div class="w-16 h-16 rounded-xl flex items-center justify-center flex-shrink-0 shadow-md"
-                                 style="background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);">
+                                 style="background-color: #f97316;">
                                 <i class="fas fa-clock text-white text-2xl"></i>
                             </div>
                             <div>
@@ -115,7 +115,7 @@
                     <div class="bg-white border-2 border-gray-300 rounded-2xl p-6 hover:border-red-600 hover:shadow-xl">
                         <div class="flex items-center gap-4">
                             <div class="w-16 h-16 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg animate-pulse"
-                                 style="background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%);">
+                                 style="background-color: #dc2626;">
                                 <i class="fas fa-exclamation-triangle text-white text-2xl"></i>
                             </div>
                             <div class="flex-1">
