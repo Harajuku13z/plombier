@@ -116,6 +116,26 @@ class EmergencyController extends Controller
                         ], function ($mail) use ($email, $submission) {
                             $mail->to($email)
                                  ->subject('🚨 URGENCE PLOMBERIE - ' . $submission->name . ' - Référence #' . str_pad($submission->id, 4, '0', STR_PAD_LEFT));
+                            
+                            // Attacher les photos en pièces jointes
+                            if ($submission->photos && count($submission->photos) > 0) {
+                                foreach ($submission->photos as $photoPath) {
+                                    $fullPath = storage_path('app/public/' . $photoPath);
+                                    if (file_exists($fullPath)) {
+                                        try {
+                                            $mail->attach($fullPath, [
+                                                'as' => basename($photoPath),
+                                                'mime' => mime_content_type($fullPath),
+                                            ]);
+                                        } catch (\Exception $attachError) {
+                                            Log::warning('Failed to attach photo', [
+                                                'photo' => $photoPath,
+                                                'error' => $attachError->getMessage(),
+                                            ]);
+                                        }
+                                    }
+                                }
+                            }
                         });
                         
                         Log::info('✅ Emergency notification sent successfully to: ' . $email);
