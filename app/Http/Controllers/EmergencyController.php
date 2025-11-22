@@ -126,7 +126,8 @@ class EmergencyController extends Controller
                             'emergency_type' => $validated['emergency_type'],
                         ], function ($mail) use ($email, $submission) {
                             $mail->to($email)
-                                 ->subject('🚨 URGENCE PLOMBERIE - ' . $submission->name . ' - Référence #' . str_pad($submission->id, 4, '0', STR_PAD_LEFT));
+                                 ->subject('URGENCE PLOMBERIE - ' . $submission->name . ' - Référence #' . str_pad($submission->id, 4, '0', STR_PAD_LEFT))
+                                 ->replyTo($submission->email, $submission->name);
                             
                             // Attacher les photos en pièces jointes
                             if ($submission->photos && count($submission->photos) > 0) {
