@@ -100,29 +100,32 @@
                                 <p style="margin: 0; color: #1f2937; font-size: 15px; line-height: 1.6; white-space: pre-wrap;">{{ $submission->message }}</p>
                             </div>
 
-                            @if(isset($photoUrls) && count($photoUrls) > 0)
+                            @if($submission->photos && count($submission->photos) > 0)
                             <!-- Photos -->
                             <h2 style="color: #1f2937; font-size: 20px; font-weight: bold; margin: 25px 0 15px 0; border-bottom: 2px solid #e5e7eb; padding-bottom: 10px;">
-                                📷 Photos de l'Urgence ({{ count($photoUrls) }})
+                                📷 Photos de l'Urgence ({{ count($submission->photos) }})
                             </h2>
                             <div style="margin-bottom: 25px;">
                                 <table width="100%" cellpadding="0" cellspacing="0">
                                     <tr>
                                         <td>
-                                            <div style="display: flex; flex-wrap: wrap; gap: 10px;">
-                                                @foreach($photoUrls as $index => $photoUrl)
-                                                <div style="flex: 0 0 calc(50% - 5px); max-width: 280px; margin-bottom: 10px;">
-                                                    <a href="{{ $photoUrl }}" target="_blank" style="display: block; border: 2px solid #dc2626; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
-                                                        <img src="{{ $photoUrl }}" 
-                                                             alt="Photo urgence {{ $index + 1 }}" 
-                                                             style="width: 100%; height: auto; display: block; max-height: 200px; object-fit: cover;" />
-                                                        <div style="background-color: #fef2f2; padding: 8px; text-align: center; font-size: 12px; color: #991b1b; font-weight: bold;">
-                                                            Photo {{ $index + 1 }}
-                                                        </div>
-                                                    </a>
-                                                </div>
-                                                @endforeach
+                                            @foreach($submission->photos as $index => $photoPath)
+                                            @php
+                                                // Générer l'URL de manière sûre dans la vue
+                                                $photoUrl = url('/storage/' . $photoPath);
+                                                $photoUrl = str_replace('http://', 'https://', $photoUrl);
+                                            @endphp
+                                            <div style="display: inline-block; width: 48%; margin: 1%; vertical-align: top;">
+                                                <a href="{{ $photoUrl }}" target="_blank" style="display: block; border: 2px solid #dc2626; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+                                                    <img src="{{ $photoUrl }}" 
+                                                         alt="Photo urgence {{ $index + 1 }}" 
+                                                         style="width: 100%; height: auto; display: block; max-height: 200px; object-fit: cover;" />
+                                                    <div style="background-color: #fef2f2; padding: 8px; text-align: center; font-size: 12px; color: #991b1b; font-weight: bold;">
+                                                        Photo {{ $index + 1 }}
+                                                    </div>
+                                                </a>
                                             </div>
+                                            @endforeach
                                         </td>
                                     </tr>
                                 </table>

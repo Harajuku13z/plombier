@@ -94,38 +94,9 @@ class EmergencyController extends Controller
                     Log::info('Sending emergency notification', ['to' => $email]);
                     
                     try {
-                        // Préparer les URLs absolues pour les photos
-                        $photoUrls = [];
-                        if ($submission->photos && count($submission->photos) > 0) {
-                            try {
-                                foreach ($submission->photos as $photoPath) {
-                                    // Générer l'URL de manière sûre
-                                    try {
-                                        // Utiliser la route storage.serve pour générer une URL absolue
-                                        $photoUrl = url('/storage/' . urlencode($photoPath));
-                                        // Forcer HTTPS
-                                        $photoUrl = str_replace('http://', 'https://', $photoUrl);
-                                        $photoUrls[] = $photoUrl;
-                                    } catch (\Exception $urlError) {
-                                        Log::warning('Failed to generate photo URL', [
-                                            'photo' => $photoPath,
-                                            'error' => $urlError->getMessage(),
-                                        ]);
-                                        // Continuer même si une URL échoue
-                                    }
-                                }
-                            } catch (\Exception $photoError) {
-                                Log::warning('Error processing photos for email', [
-                                    'error' => $photoError->getMessage(),
-                                ]);
-                                // Continuer sans les photos si nécessaire
-                            }
-                        }
-                        
                         Mail::send('emails.emergency-submission', [
                             'submission' => $submission,
                             'emergency_type' => $validated['emergency_type'],
-                            'photoUrls' => $photoUrls,
                         ], function ($mail) use ($email, $submission) {
                             $mail->to($email)
                                  ->subject('🚨 URGENCE PLOMBERIE - ' . $submission->name . ' - Référence #' . str_pad($submission->id, 4, '0', STR_PAD_LEFT));
@@ -135,9 +106,6 @@ class EmergencyController extends Controller
                     } catch (\Exception $mailError) {
                         Log::error('Failed to send emergency notification', [
                             'error' => $mailError->getMessage(),
-                            'file' => $mailError->getFile(),
-                            'line' => $mailError->getLine(),
-                            'trace' => $mailError->getTraceAsString(),
                             'to' => $email,
                         ]);
                     }
