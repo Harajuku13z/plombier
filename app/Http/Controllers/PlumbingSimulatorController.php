@@ -14,11 +14,11 @@ class PlumbingSimulatorController extends Controller
      * Étapes du simulateur
      */
     private $steps = [
-        'work-type',      // Type de travaux
+        'work-type',      // Type de travaux (sélection multiple)
         'urgency',        // Niveau d'urgence
         'property-type',  // Type de bien
+        'photos',         // Upload photos
         'contact',        // Informations de contact
-        'summary'         // Récapitulatif
     ];
 
     /**
@@ -127,7 +127,8 @@ class PlumbingSimulatorController extends Controller
         switch ($step) {
             case 'work-type':
                 $validated = $request->validate([
-                    'work_type' => 'required|string',
+                    'work_types' => 'required|array|min:1',
+                    'work_types.*' => 'string',
                     'description' => 'nullable|string|max:500',
                 ]);
                 break;
@@ -142,6 +143,23 @@ class PlumbingSimulatorController extends Controller
                 $validated = $request->validate([
                     'property_type' => 'required|in:house,apartment,commercial,other',
                 ]);
+                break;
+
+            case 'photos':
+                $validated = $request->validate([
+                    'photos.*' => 'nullable|image|max:5120', // 5MB max
+                ]);
+                
+                // Gérer l'upload des photos
+                if ($request->hasFile('photos')) {
+                    $photoPaths = [];
+                    foreach ($request->file('photos') as $photo) {
+                        $filename = \Illuminate\Support\Str::random(20) . '.' . $photo->getClientOriginalExtension();
+                        $path = $photo->storeAs('simulator-temp', $filename, 'public');
+                        $photoPaths[] = $path;
+                    }
+                    $validated['photo_paths'] = $photoPaths;
+                }
                 break;
 
             case 'contact':
@@ -182,7 +200,13 @@ class PlumbingSimulatorController extends Controller
     {
         try {
             $workTypes = $this->getWorkTypes();
-            $workTypeName = $workTypes[$data['work_type']]['name'] ?? $data['work_type'];
+            
+            // Gérer les types de travaux multiples
+            $selectedWorkTypes = $data['work_types'] ?? [];
+            $workTypeNames = array_map(function($key) use ($workTypes) {
+                return $workTypes[$key]['name'] ?? $key;
+            }, $selectedWorkTypes);
+            $workTypesList = implode(', ', $workTypeNames);
 
             $urgencyLabels = [
                 'normal' => 'Normal (sous 2-4 semaines)',
@@ -199,7 +223,7 @@ class PlumbingSimulatorController extends Controller
 
             // Créer le message récapitulatif
             $message = "=== DEMANDE VIA SIMULATEUR DE PRIX ===\n\n";
-            $message .= "Type de travaux : {$workTypeName}\n";
+            $message .= "Types de travaux : {$workTypesList}\n";
             $message .= "Urgence : " . ($urgencyLabels[$data['urgency']] ?? $data['urgency']) . "\n";
             $message .= "Type de bien : " . ($propertyLabels[$data['property_type']] ?? $data['property_type']) . "\n\n";
             
@@ -214,7 +238,7 @@ class PlumbingSimulatorController extends Controller
                 'name' => $data['name'],
                 'email' => $data['email'],
                 'phone' => $data['phone'],
-                'work_type' => $data['work_type'],
+                'work_type' => implode(', ', $selectedWorkTypes),
                 'property_type' => $data['property_type'],
                 'urgency_level' => $data['urgency'],
                 'address' => $data['address'],
@@ -224,6 +248,11 @@ class PlumbingSimulatorController extends Controller
                 'source' => 'simulator',
                 'status' => 'pending',
             ]);
+            
+            // Gérer les photos si présentes
+            if (!empty($data['photo_paths'])) {
+                $submission->update(['photos' => json_encode($data['photo_paths'])]);
+            }
 
             // Envoyer l'email
             try {

@@ -71,12 +71,19 @@
         <form method="POST" action="{{ route('simulator.submit', 'work-type') }}">
             @csrf
             
+            <div class="bg-blue-50 border-l-4 border-blue-500 rounded-lg p-4 mb-6">
+                <p class="text-blue-900 text-sm font-semibold">
+                    <i class="fas fa-info-circle mr-2"></i>
+                    Vous pouvez sélectionner <strong>plusieurs types de travaux</strong>
+                </p>
+            </div>
+
             <div class="grid md:grid-cols-2 gap-6 mb-8">
                 @foreach($workTypes as $key => $workType)
                 <label class="work-type-card">
-                    <input type="radio" name="work_type" value="{{ $key }}" 
-                           class="sr-only" required
-                           {{ (old('work_type', $data['work_type'] ?? '') == $key) ? 'checked' : '' }}>
+                    <input type="checkbox" name="work_types[]" value="{{ $key }}" 
+                           class="sr-only"
+                           {{ in_array($key, old('work_types', $data['work_types'] ?? [])) ? 'checked' : '' }}>
                     <div class="bg-white border-2 border-gray-300 rounded-2xl p-6 h-full">
                         <div class="flex items-start gap-4">
                             <div class="work-type-icon text-white w-16 h-16 rounded-xl flex items-center justify-center flex-shrink-0">
@@ -95,6 +102,12 @@
                 </label>
                 @endforeach
             </div>
+            
+            @error('work_types')
+                <div class="bg-red-50 border-l-4 border-red-500 p-4 mb-6 rounded">
+                    <p class="text-red-700 text-sm">{{ $message }}</p>
+                </div>
+            @enderror
 
             <!-- Description optionnelle -->
             <div class="bg-white rounded-2xl p-6 shadow-lg mb-8">

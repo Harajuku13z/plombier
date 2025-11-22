@@ -31,56 +31,61 @@
 @section('content')
 
 <!-- Hero Emergency Section -->
-<section class="bg-gradient-to-br from-red-600 via-red-700 to-red-800 text-white py-16 md:py-24 relative overflow-hidden">
+<section class="relative overflow-hidden py-16 md:py-20" 
+         style="background: linear-gradient(135deg, {{ setting('primary_color', '#2563eb') }} 0%, {{ setting('secondary_color', '#0284c7') }} 100%);">
     <div class="absolute inset-0 opacity-10">
-        <div class="absolute top-0 right-0 w-96 h-96 bg-red-500 rounded-full blur-3xl animate-pulse"></div>
-        <div class="absolute bottom-0 left-0 w-96 h-96 bg-red-900 rounded-full blur-3xl animate-pulse" style="animation-delay: 1s;"></div>
+        <div class="absolute top-0 right-0 w-96 h-96 bg-white rounded-full blur-3xl"></div>
+        <div class="absolute bottom-0 left-0 w-96 h-96 bg-white rounded-full blur-3xl"></div>
     </div>
     
     <div class="container mx-auto px-4 relative z-10">
-        <div class="max-w-4xl mx-auto text-center">
-            <div class="inline-flex items-center justify-center bg-white text-red-600 rounded-full p-4 mb-6 emergency-alert">
-                <i class="fas fa-exclamation-triangle text-5xl"></i>
+        <div class="max-w-5xl mx-auto">
+            <!-- Badge Urgence -->
+            <div class="text-center mb-8">
+                <div class="inline-flex items-center gap-2 bg-red-600 text-white px-6 py-3 rounded-full font-bold text-lg shadow-xl animate-pulse">
+                    <i class="fas fa-exclamation-triangle text-2xl"></i>
+                    <span>URGENCE 24h/7j</span>
+                </div>
             </div>
             
-            <h1 class="text-4xl md:text-6xl font-black mb-6">
-                🚨 SOS URGENCE PLOMBERIE
+            <h1 class="text-4xl md:text-6xl font-black mb-6 text-center text-white">
+                Plombier d'Urgence
             </h1>
             
-            <p class="text-2xl md:text-3xl mb-8 text-red-100">
-                Intervention Rapide 24h/7j
+            <p class="text-xl md:text-2xl mb-8 text-center text-blue-100">
+                Intervention Rapide à {{ setting('company_city', 'Versailles') }} ({{ substr(setting('company_postal_code', '78'), 0, 2) }}) et environs
             </p>
             
-            <div class="bg-white/20 backdrop-blur-sm rounded-2xl p-6 mb-8 inline-block">
-                <div class="text-xl font-bold mb-2">Zone d'intervention</div>
-                <div class="text-3xl font-black">
-                    {{ setting('company_city', 'Versailles') }} 
-                    <span class="text-red-200">({{ substr(setting('company_postal_code', '78'), 0, 2) }})</span>
-                </div>
-                <div class="text-red-100 mt-2">et tout le département</div>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
+                <a href="tel:{{ str_replace(' ', '', setting('company_phone', '')) }}" 
+                   class="bg-white hover:bg-blue-50 px-10 py-5 rounded-full font-black text-2xl md:text-3xl shadow-2xl transition transform hover:scale-105 inline-flex items-center gap-3"
+                   style="color: {{ setting('primary_color', '#2563eb') }};">
+                    <i class="fas fa-phone-alt"></i>
+                    <span>{{ setting('company_phone', '07 86 48 65 39') }}</span>
+                </a>
+                
+                <a href="#formulaire-urgence" 
+                   class="bg-red-600 hover:bg-red-700 text-white px-8 py-5 rounded-full font-bold text-lg shadow-xl transition inline-flex items-center gap-2">
+                    <i class="fas fa-file-alt"></i>
+                    <span>Formulaire SOS</span>
+                </a>
             </div>
             
-            <a href="tel:{{ str_replace(' ', '', setting('company_phone', '')) }}" 
-               class="inline-block bg-white text-red-600 hover:bg-red-50 px-12 py-6 rounded-full font-black text-3xl md:text-4xl shadow-2xl transition transform hover:scale-105 mb-8">
-                <i class="fas fa-phone-alt mr-3"></i>
-                {{ setting('company_phone', '07 86 48 65 39') }}
-            </a>
-            
-            <div class="grid md:grid-cols-3 gap-6 mt-12">
-                <div class="bg-white/10 backdrop-blur-sm rounded-xl p-6">
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="bg-white/20 backdrop-blur-sm rounded-xl p-6 text-white text-center">
                     <i class="fas fa-clock text-4xl mb-3"></i>
                     <div class="font-bold text-xl">Disponible 24h/7j</div>
-                    <div class="text-red-100 text-sm">Nuits, week-ends, jours fériés</div>
+                    <div class="text-blue-100 text-sm">Nuits, week-ends, jours fériés</div>
                 </div>
-                <div class="bg-white/10 backdrop-blur-sm rounded-xl p-6">
+                <div class="bg-white/20 backdrop-blur-sm rounded-xl p-6 text-white text-center">
                     <i class="fas fa-bolt text-4xl mb-3"></i>
                     <div class="font-bold text-xl">Intervention < 1h</div>
-                    <div class="text-red-100 text-sm">En cas d'urgence critique</div>
+                    <div class="text-blue-100 text-sm">En cas d'urgence critique</div>
                 </div>
-                <div class="bg-white/10 backdrop-blur-sm rounded-xl p-6">
+                <div class="bg-white/20 backdrop-blur-sm rounded-xl p-6 text-white text-center">
                     <i class="fas fa-tools text-4xl mb-3"></i>
                     <div class="font-bold text-xl">Équipé & Certifié</div>
-                    <div class="text-red-100 text-sm">Matériel professionnel</div>
+                    <div class="text-blue-100 text-sm">Matériel professionnel</div>
                 </div>
             </div>
         </div>
@@ -353,16 +358,27 @@
 </section>
 
 <!-- CTA Final -->
-<section class="py-16 bg-gradient-to-br from-red-600 to-red-800 text-white">
-    <div class="container mx-auto px-4 text-center">
-        <h2 class="text-3xl md:text-4xl font-black mb-6">
+<section class="py-16 text-white relative overflow-hidden"
+         style="background: linear-gradient(135deg, {{ setting('primary_color', '#2563eb') }} 0%, {{ setting('secondary_color', '#0284c7') }} 100%);">
+    <div class="absolute inset-0 opacity-10">
+        <div class="absolute top-0 right-0 w-64 h-64 bg-white rounded-full blur-3xl"></div>
+    </div>
+    
+    <div class="container mx-auto px-4 text-center relative z-10">
+        <div class="inline-flex items-center gap-2 bg-red-600 text-white px-4 py-2 rounded-full font-bold mb-4 animate-pulse">
+            <i class="fas fa-exclamation-circle"></i>
+            <span>URGENCE</span>
+        </div>
+        
+        <h2 class="text-3xl md:text-4xl font-black mb-4">
             Ne laissez pas l'urgence s'aggraver
         </h2>
-        <p class="text-xl text-red-100 mb-8">
+        <p class="text-xl text-blue-100 mb-8">
             Chaque minute compte en cas de fuite ou dégât des eaux
         </p>
         <a href="tel:{{ str_replace(' ', '', setting('company_phone', '')) }}" 
-           class="inline-block bg-white text-red-600 hover:bg-red-50 px-12 py-6 rounded-full font-black text-2xl md:text-3xl shadow-2xl transition transform hover:scale-105">
+           class="inline-block bg-white hover:bg-blue-50 px-12 py-6 rounded-full font-black text-2xl md:text-3xl shadow-2xl transition transform hover:scale-105"
+           style="color: {{ setting('primary_color', '#2563eb') }};">
             <i class="fas fa-phone-alt mr-3"></i>
             {{ setting('company_phone', '07 86 48 65 39') }}
         </a>
