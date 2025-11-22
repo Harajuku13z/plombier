@@ -126,8 +126,9 @@
                                 @foreach($submission->photos as $photoPath)
                                 <div class="relative group">
                                     @php
-                                        // Utiliser la route storage.serve pour servir les fichiers sans lien symbolique
-                                        $photoUrl = route('storage.serve', ['path' => $photoPath]);
+                                        // Utiliser url() directement pour éviter les problèmes de cache de routes
+                                        // Format: submissions/{id}/{filename}
+                                        $photoUrl = url('/storage/' . $photoPath);
                                     @endphp
                                     <a href="{{ $photoUrl }}" target="_blank" class="block">
                                         <img src="{{ $photoUrl }}" 
