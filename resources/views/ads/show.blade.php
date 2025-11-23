@@ -202,11 +202,41 @@
             padding-bottom: 3rem;
         }
         
-        /* Cards avec padding réduit */
-        .card-padding {
-            padding: 1rem;
-        }
+    /* Cards avec padding réduit */
+    .card-padding {
+        padding: 1rem;
     }
+    
+    /* Boutons de partage - un par ligne sur mobile */
+    .ad-content .flex.items-center.space-x-3,
+    .ad-content .flex.items-center.space-x-2,
+    .ad-content div[class*="flex"][class*="space-x"] {
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 0.75rem !important;
+    }
+    
+    .ad-content .flex.items-center.space-x-3 > *,
+    .ad-content .flex.items-center.space-x-2 > *,
+    .ad-content div[class*="flex"][class*="space-x"] > * {
+        width: 100% !important;
+        margin: 0 !important;
+    }
+    
+    /* Cibler spécifiquement les boutons de partage */
+    .ad-content a[href*="facebook.com/sharer"],
+    .ad-content a[href*="wa.me"],
+    .ad-content a[href*="whatsapp"],
+    .ad-content a[href*="mailto:"][href*="subject"],
+    .ad-content button[onclick*="copyToClipboard"],
+    .ad-content a[class*="bg-blue-600"],
+    .ad-content a[class*="bg-green-500"],
+    .ad-content a[class*="bg-gray-600"] {
+        display: block !important;
+        width: 100% !important;
+        margin-bottom: 0.75rem !important;
+    }
+}
 </style>
 @endpush
 
