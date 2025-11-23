@@ -35,25 +35,50 @@
     * {
         word-wrap: break-word;
         overflow-wrap: break-word;
+        word-break: break-word;
+        white-space: normal !important;
     }
     
     /* Titres responsive */
     h1, h2, h3, h4, h5, h6 {
         word-wrap: break-word;
         overflow-wrap: break-word;
+        word-break: break-word;
         hyphens: auto;
+        white-space: normal !important;
     }
     
     /* Contenu de l'annonce - responsive */
     .ad-content {
         max-width: 100%;
         overflow-x: hidden;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        word-break: break-word;
     }
     
     .ad-content * {
         max-width: 100% !important;
-        word-wrap: break-word;
-        overflow-wrap: break-word;
+        word-wrap: break-word !important;
+        overflow-wrap: break-word !important;
+        word-break: break-word !important;
+        white-space: normal !important;
+    }
+    
+    /* Paragraphes et textes */
+    .ad-content p,
+    .ad-content span,
+    .ad-content div,
+    .ad-content a,
+    .ad-content strong,
+    .ad-content em,
+    .ad-content b,
+    .ad-content i {
+        word-wrap: break-word !important;
+        overflow-wrap: break-word !important;
+        word-break: break-word !important;
+        white-space: normal !important;
+        max-width: 100% !important;
     }
     
     /* Tableaux responsive */
@@ -90,11 +115,18 @@
     .ad-content ol {
         padding-left: 1.5rem;
         margin: 1rem 0;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        word-break: break-word;
     }
     
     .ad-content li {
         margin-bottom: 0.5rem;
-        word-wrap: break-word;
+        word-wrap: break-word !important;
+        overflow-wrap: break-word !important;
+        word-break: break-word !important;
+        white-space: normal !important;
+        max-width: 100% !important;
     }
     
     /* Boutons responsive */
@@ -106,9 +138,28 @@
     }
     
     @media (max-width: 640px) {
+        /* Forcer les retours à la ligne sur mobile */
+        body, body * {
+            word-wrap: break-word !important;
+            overflow-wrap: break-word !important;
+            word-break: break-word !important;
+            white-space: normal !important;
+        }
+        
+        /* Empêcher le texte de dépasser */
+        p, span, div, a, h1, h2, h3, h4, h5, h6, li, td, th {
+            max-width: 100% !important;
+            word-wrap: break-word !important;
+            overflow-wrap: break-word !important;
+            word-break: break-word !important;
+            white-space: normal !important;
+        }
+        
         .btn-responsive {
             padding: 0.625rem 0.875rem;
             font-size: 0.85rem;
+            white-space: normal !important;
+            word-wrap: break-word !important;
         }
         
         /* Réduire les paddings sur mobile */
@@ -121,16 +172,22 @@
         h1 {
             font-size: 1.75rem !important;
             line-height: 1.2;
+            word-wrap: break-word !important;
+            white-space: normal !important;
         }
         
         h2 {
             font-size: 1.5rem !important;
             line-height: 1.3;
+            word-wrap: break-word !important;
+            white-space: normal !important;
         }
         
         h3 {
             font-size: 1.25rem !important;
             line-height: 1.4;
+            word-wrap: break-word !important;
+            white-space: normal !important;
         }
         
         /* Padding réduit dans les sections */
