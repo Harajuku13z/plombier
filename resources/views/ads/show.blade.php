@@ -18,13 +18,145 @@
         --secondary-color: {{ setting('secondary_color', '#1e40af') }};
         --accent-color: {{ setting('accent_color', '#f59e0b') }};
     }
+    
+    /* Fix responsive mobile - empêcher le scroll horizontal */
+    body {
+        overflow-x: hidden;
+        max-width: 100vw;
+    }
+    
+    /* Container principal */
+    .container {
+        max-width: 100%;
+        overflow-x: hidden;
+    }
+    
+    /* Forcer le word-wrap sur tous les textes */
+    * {
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    }
+    
+    /* Titres responsive */
+    h1, h2, h3, h4, h5, h6 {
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        hyphens: auto;
+    }
+    
+    /* Contenu de l'annonce - responsive */
+    .ad-content {
+        max-width: 100%;
+        overflow-x: hidden;
+    }
+    
+    .ad-content * {
+        max-width: 100% !important;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    }
+    
+    /* Tableaux responsive */
+    .ad-content table {
+        width: 100% !important;
+        display: block;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .ad-content table thead,
+    .ad-content table tbody,
+    .ad-content table tr {
+        display: block;
+    }
+    
+    .ad-content table td,
+    .ad-content table th {
+        display: block;
+        padding: 8px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+    
+    /* Images responsive */
+    .ad-content img {
+        max-width: 100% !important;
+        height: auto !important;
+        display: block;
+    }
+    
+    /* Listes responsive */
+    .ad-content ul,
+    .ad-content ol {
+        padding-left: 1.5rem;
+        margin: 1rem 0;
+    }
+    
+    .ad-content li {
+        margin-bottom: 0.5rem;
+        word-wrap: break-word;
+    }
+    
+    /* Boutons responsive */
+    .btn-responsive {
+        white-space: normal;
+        word-wrap: break-word;
+        padding: 0.75rem 1rem;
+        font-size: 0.9rem;
+    }
+    
+    @media (max-width: 640px) {
+        .btn-responsive {
+            padding: 0.625rem 0.875rem;
+            font-size: 0.85rem;
+        }
+        
+        /* Réduire les paddings sur mobile */
+        .container {
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+        
+        /* Titres plus petits sur mobile */
+        h1 {
+            font-size: 1.75rem !important;
+            line-height: 1.2;
+        }
+        
+        h2 {
+            font-size: 1.5rem !important;
+            line-height: 1.3;
+        }
+        
+        h3 {
+            font-size: 1.25rem !important;
+            line-height: 1.4;
+        }
+        
+        /* Padding réduit dans les sections */
+        section {
+            padding-top: 2rem;
+            padding-bottom: 2rem;
+        }
+        
+        /* Hero section plus compacte */
+        .hero-section {
+            padding-top: 3rem;
+            padding-bottom: 3rem;
+        }
+        
+        /* Cards avec padding réduit */
+        .card-padding {
+            padding: 1rem;
+        }
+    }
 </style>
 @endpush
 
 @section('content')
 <div class="min-h-screen bg-gray-50">
     <!-- Hero Section -->
-    <section class="relative py-20 text-white overflow-hidden">
+    <section class="relative py-12 md:py-20 text-white overflow-hidden hero-section">
         @if(!empty($featuredImage))
         @php
             // Nettoyer le chemin de l'image (enlever le préfixe uploads/ si déjà présent dans asset())
@@ -39,29 +171,29 @@
         
         <div class="container mx-auto px-4 relative z-10">
             <div class="max-w-4xl mx-auto text-center">
-                <h1 class="text-4xl md:text-5xl font-bold mb-6">
-                    <i class="fas fa-tools mr-4"></i>
-                    {{ $ad->title ?? 'Service professionnel' }}
+                <h1 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 md:mb-6 px-2">
+                    <i class="fas fa-tools mr-2 md:mr-4"></i>
+                    <span class="break-words">{{ $ad->title ?? 'Service professionnel' }}</span>
                 </h1>
-                <p class="text-xl md:text-2xl mb-8 leading-relaxed">
+                <p class="text-base sm:text-lg md:text-xl lg:text-2xl mb-6 md:mb-8 leading-relaxed px-2">
                     Service professionnel à {{ $cityModel->name ?? 'votre ville' }} - Devis gratuit et intervention rapide
                 </p>
-                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <div class="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center px-2">
                     <a href="{{ route('form.step', 'propertyType') }}" 
-                       class="text-white font-bold py-4 px-8 rounded-lg text-lg transition-colors shadow-lg"
+                       class="text-white font-bold py-3 px-4 md:py-4 md:px-8 rounded-lg text-sm md:text-lg transition-colors shadow-lg btn-responsive"
                        style="background-color: var(--accent-color);"
                        onmouseover="this.style.backgroundColor='var(--secondary-color)';"
                        onmouseout="this.style.backgroundColor='var(--accent-color)';">
                         <i class="fas fa-calculator mr-2"></i>
-                        Simulateur de devis
+                        <span class="break-words">Simulateur de devis</span>
                     </a>
                     <a href="tel:{{ setting('company_phone_raw') }}" 
-                       class="text-white font-bold py-4 px-8 rounded-lg text-lg transition-colors shadow-lg"
+                       class="text-white font-bold py-3 px-4 md:py-4 md:px-8 rounded-lg text-sm md:text-lg transition-colors shadow-lg btn-responsive"
                        style="background-color: var(--primary-color);"
                        onmouseover="this.style.backgroundColor='var(--secondary-color)';"
                        onmouseout="this.style.backgroundColor='var(--primary-color)';">
                         <i class="fas fa-phone mr-2"></i>
-                        {{ setting('company_phone') }}
+                        <span class="break-words">{{ setting('company_phone') }}</span>
                     </a>
                 </div>
             </div>
@@ -69,33 +201,33 @@
     </section>
 
     <!-- Contenu de l'annonce -->
-    <section class="py-16">
+    <section class="py-8 md:py-16">
         <div class="container mx-auto px-4">
             <div class="max-w-6xl mx-auto">
-                <div class="bg-white rounded-2xl shadow-lg p-8 md:p-12">
+                <div class="bg-white rounded-2xl shadow-lg p-4 md:p-8 lg:p-12 card-padding ad-content overflow-x-hidden">
                     {!! $ad->content_html ?? '<p>Contenu en cours de chargement...</p>' !!}
                 </div>
 
-                <div class="mt-12 rounded-2xl p-8 text-white text-center" style="background: linear-gradient(90deg, var(--primary-color) 0%, var(--secondary-color) 100%);">
-                    <h3 class="text-2xl font-bold mb-4">Prêt à Démarrer Votre Projet à {{ $cityModel->name ?? 'votre ville' }} ?</h3>
-                    <p class="text-lg mb-6">Contactez-nous dès aujourd'hui pour un devis gratuit et personnalisé</p>
+                <div class="mt-8 md:mt-12 rounded-2xl p-4 md:p-8 text-white text-center overflow-x-hidden" style="background: linear-gradient(90deg, var(--primary-color) 0%, var(--secondary-color) 100%);">
+                    <h3 class="text-xl md:text-2xl font-bold mb-3 md:mb-4 px-2 break-words">Prêt à Démarrer Votre Projet à {{ $cityModel->name ?? 'votre ville' }} ?</h3>
+                    <p class="text-base md:text-lg mb-4 md:mb-6 px-2 break-words">Contactez-nous dès aujourd'hui pour un devis gratuit et personnalisé</p>
                     
-                    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <div class="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center px-2">
                         <a href="{{ route('form.step', 'propertyType') }}" 
-                           class="text-white font-bold py-4 px-8 rounded-lg text-lg transition-colors shadow-lg"
+                           class="text-white font-bold py-3 px-4 md:py-4 md:px-8 rounded-lg text-sm md:text-lg transition-colors shadow-lg btn-responsive"
                            style="background-color: var(--accent-color);"
                            onmouseover="this.style.backgroundColor='var(--secondary-color)';"
                            onmouseout="this.style.backgroundColor='var(--accent-color)';">
                             <i class="fas fa-calculator mr-2"></i>
-                            Simulateur de devis
+                            <span class="break-words">Simulateur de devis</span>
                         </a>
                         <a href="tel:{{ setting('company_phone_raw') }}" 
-                           class="text-white font-bold py-4 px-8 rounded-lg text-lg transition-colors shadow-lg"
+                           class="text-white font-bold py-3 px-4 md:py-4 md:px-8 rounded-lg text-sm md:text-lg transition-colors shadow-lg btn-responsive"
                            style="background-color: var(--primary-color);"
                            onmouseover="this.style.backgroundColor='var(--secondary-color)';"
                            onmouseout="this.style.backgroundColor='var(--primary-color)';">
                             <i class="fas fa-phone mr-2"></i>
-                            Appeler Maintenant
+                            <span class="break-words">Appeler Maintenant</span>
                         </a>
                     </div>
                 </div>
@@ -105,12 +237,12 @@
 
     <!-- Section Nos Réalisations -->
     @if(!empty($portfolioItems) && count($portfolioItems) > 0)
-    <section class="py-16 bg-gray-50">
+    <section class="py-8 md:py-16 bg-gray-50">
         <div class="container mx-auto px-4">
             <div class="max-w-6xl mx-auto">
-                <div class="text-center mb-12">
-                    <h2 class="text-3xl font-bold text-gray-900 mb-4">Nos Réalisations</h2>
-                    <p class="text-lg text-gray-600">Découvrez quelques-unes de nos réalisations récentes</p>
+                <div class="text-center mb-8 md:mb-12">
+                    <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-3 md:mb-4 px-2 break-words">Nos Réalisations</h2>
+                    <p class="text-base md:text-lg text-gray-600 px-2 break-words">Découvrez quelques-unes de nos réalisations récentes</p>
                 </div>
                 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -186,22 +318,22 @@
 
     <!-- Section Annonces Similaires -->
     @if(isset($relatedAds) && $relatedAds->count() > 0)
-    <section class="py-16 bg-gray-100">
+    <section class="py-8 md:py-16 bg-gray-100">
         <div class="container mx-auto px-4">
             <div class="max-w-6xl mx-auto">
-                <div class="text-center mb-12">
-                    <h2 class="text-3xl font-bold text-gray-900 mb-4">Autres Services à {{ $cityModel->name ?? 'votre ville' }}</h2>
-                    <p class="text-lg text-gray-600">Découvrez nos autres services disponibles dans votre ville</p>
+                <div class="text-center mb-8 md:mb-12">
+                    <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-3 md:mb-4 px-2 break-words">Autres Services à {{ $cityModel->name ?? 'votre ville' }}</h2>
+                    <p class="text-base md:text-lg text-gray-600 px-2 break-words">Découvrez nos autres services disponibles dans votre ville</p>
                 </div>
                 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     @foreach($relatedAds as $relatedAd)
                     <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
-                        <div class="p-6">
-                            <h3 class="text-xl font-bold text-gray-900 mb-2">{{ $relatedAd->title }}</h3>
-                            <p class="text-gray-600 text-sm mb-4">{{ Str::limit($relatedAd->meta_description, 100) }}</p>
+                        <div class="p-4 md:p-6">
+                            <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-2 break-words">{{ $relatedAd->title }}</h3>
+                            <p class="text-gray-600 text-sm mb-4 break-words">{{ Str::limit($relatedAd->meta_description, 100) }}</p>
                             <a href="{{ route('ads.show', $relatedAd->slug) }}" 
-                               class="inline-block text-white font-semibold px-4 py-2 rounded-lg transition-colors"
+                               class="inline-block text-white font-semibold px-4 py-2 rounded-lg transition-colors text-sm md:text-base break-words"
                                style="background-color: var(--primary-color);"
                                onmouseover="this.style.backgroundColor='var(--secondary-color)';"
                                onmouseout="this.style.backgroundColor='var(--primary-color)';">
@@ -217,12 +349,12 @@
     @endif
 
     <!-- Section Avis Clients -->
-    <section class="py-16 bg-white">
+    <section class="py-8 md:py-16 bg-white">
         <div class="container mx-auto px-4">
             <div class="max-w-6xl mx-auto">
-                <div class="text-center mb-12">
-                    <h2 class="text-3xl font-bold text-gray-900 mb-4">Avis de Nos Clients</h2>
-                    <p class="text-lg text-gray-600">Ce que disent nos clients sur nos services</p>
+                <div class="text-center mb-8 md:mb-12">
+                    <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-3 md:mb-4 px-2 break-words">Avis de Nos Clients</h2>
+                    <p class="text-base md:text-lg text-gray-600 px-2 break-words">Ce que disent nos clients sur nos services</p>
                 </div>
                 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -232,32 +364,32 @@
                     
                     @if($reviews->count() > 0)
                     @foreach($reviews as $review)
-                    <div class="bg-gray-50 rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300">
-                        <div class="flex items-center mb-4">
-                            <div class="w-12 h-12 rounded-full overflow-hidden mr-4">
+                    <div class="bg-gray-50 rounded-2xl p-4 md:p-6 shadow-lg hover:shadow-xl transition-all duration-300">
+                        <div class="flex items-center mb-3 md:mb-4">
+                            <div class="w-10 h-10 md:w-12 md:h-12 rounded-full overflow-hidden mr-3 md:mr-4 flex-shrink-0">
                                 @if($review->author_photo_url)
                                 <img src="{{ $review->author_photo_url }}" alt="{{ $review->author_name }}" class="w-full h-full object-cover">
                                 @else
-                                <div class="w-full h-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white font-bold text-lg">
+                                <div class="w-full h-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white font-bold text-sm md:text-lg">
                                     {{ $review->author_initials }}
                                 </div>
                                 @endif
                             </div>
-                            <div>
-                                <h4 class="font-bold text-gray-900">{{ $review->author_name }}</h4>
+                            <div class="min-w-0 flex-1">
+                                <h4 class="font-bold text-gray-900 text-sm md:text-base break-words">{{ $review->author_name }}</h4>
                                 <div class="flex items-center">
                                     @for($i = 1; $i <= 5; $i++)
-                                    <i class="fas fa-star text-yellow-400 {{ $i <= $review->rating ? '' : 'opacity-30' }}"></i>
+                                    <i class="fas fa-star text-yellow-400 text-xs md:text-sm {{ $i <= $review->rating ? '' : 'opacity-30' }}"></i>
                                     @endfor
                                 </div>
                             </div>
                         </div>
                         
-                        <div class="text-gray-700 mb-4">
+                        <div class="text-gray-700 mb-3 md:mb-4 text-sm md:text-base">
                             @if($review->review_text)
-                                <p>{{ Str::limit($review->review_text, 150) }}</p>
+                                <p class="break-words">{{ Str::limit($review->review_text, 150) }}</p>
                             @else
-                                <p class="text-gray-500 italic">Avis sans contenu détaillé</p>
+                                <p class="text-gray-500 italic break-words">Avis sans contenu détaillé</p>
                             @endif
                         </div>
                         
