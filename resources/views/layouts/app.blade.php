@@ -467,7 +467,7 @@
     </script>
     @endif
 </head>
-<body class="bg-gray-50">
+<body class="bg-gray-50" style="overflow-x: hidden; max-width: 100vw;">
     @include('partials.header')
     
     <main>
