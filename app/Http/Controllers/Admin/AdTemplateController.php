@@ -1704,7 +1704,6 @@ Génère un JSON avec cette structure et remplis chaque champ avec du CONTENU R�
     {\"question\": \"[Question fréquente réelle sur {$serviceName}]\", \"reponse\": \"[Réponse détaillée et professionnelle]\"}
   ],
   \"pourquoi_choisir\": \"[Génère un texte détaillant pourquoi choisir {$companyName} pour {$serviceName} à [VILLE] dans le département [DÉPARTEMENT]. Mentionne expertise, qualité, réactivité, garanties, savoir-faire local, etc.]\",
-  \"financement_aides\": \"[Génère un texte sur les aides disponibles: MaPrimeRénov, CEE, éco-PTZ, TVA réduite, etc. Adapte selon le service.]\",
   \"infos_pratiques\": [
     \"[Utilise EXACTEMENT les informations pratiques fournies ci-dessus - ne pas inventer]\"
   ],
@@ -1822,7 +1821,7 @@ RÈGLES STRICTES:
             }
             
             // Remplacer toute mention de vraie ville par [VILLE] dans tous les champs texte
-            $textFields = ['description_courte', 'description_longue', 'pourquoi_choisir', 'financement_aides', 
+            $textFields = ['description_courte', 'description_longue', 'pourquoi_choisir', 
                           'meta_title', 'meta_description', 'meta_keywords', 'og_title', 'og_description', 
                           'twitter_title', 'twitter_description', 'texte_garantie', 'titre_garantie'];
             
@@ -2128,7 +2127,6 @@ RÈGLES STRICTES:
         $html = str_replace('[service]', $escape($serviceName), $html);
         $html = str_replace('[entreprise]', $escape($companyName), $html);
         $html = str_replace('[pourquoi_choisir]', $escape($data['pourquoi_choisir'] ?? ''), $html);
-        $html = str_replace('[financement_aides]', $escape($data['financement_aides'] ?? ''), $html);
         $html = str_replace('[infos_pratiques_liste]', $infosPratiquesHtml, $html);
         $html = str_replace('[URL]', $escape($serviceUrl), $html);
         $html = str_replace('[TITRE]', $escape($serviceName), $html);
@@ -2142,9 +2140,6 @@ RÈGLES STRICTES:
      */
     private function buildTemplatePromptForService($serviceName, $shortDescription, $companyInfo, $aiPrompt = null)
     {
-        // Déterminer les informations de financement selon le service
-        $financementInfo = $this->getFinancementInfoForService($serviceName);
-        
         $basePrompt = "Tu es un expert technique en {$serviceName} avec une connaissance PROFONDE des prestations, techniques et matériaux spécifiques à ce domaine. Crée un template d'annonce TOTALEMENT personnalisé pour {$serviceName}.
 
 ⚠️⚠️⚠️ SERVICE À PERSONNALISER: {$serviceName} ⚠️⚠️⚠️
@@ -2319,18 +2314,7 @@ Le champ \"description\" DOIT contenir un HTML COMPLET avec cette structure exac
     <p class=\"leading-relaxed mb-4\">ÉCRIRE ICI notre expérience: depuis [NOMBRE] années, nous intervenons sur [VILLE] et dans [RÉGION] pour des projets de {$serviceName}. Nous avons réalisé [MENTIONNER TYPES DE PROJETS: ex: plus de 200 chantiers d'isolation de combles, 150 rénovations de plomberie, etc.]. Notre connaissance des spécificités régionales nous permet de proposer des solutions adaptées.</p>
     <p class=\"leading-relaxed\">ÉCRIRE ICI des exemples concrets: nous avons notamment [MENTIONNER 2-3 EXEMPLES CONCRETS de réalisations en {$serviceName} dans [RÉGION], avec détails techniques si possible]. Cette expérience locale nous permet de comprendre les besoins spécifiques des habitants de [VILLE] et de [RÉGION] en matière de {$serviceName}.</p>
     
-    <!-- SECTION 7: FINANCEMENT ET AIDES (PERSONNALISÉ SELON SERVICE) -->
-    <div class=\"bg-yellow-50 p-6 rounded-lg border-l-4 border-yellow-600\">
-      <h4 class=\"text-xl font-bold text-gray-900 mb-3\">Financement et Aides pour {$serviceName}</h4>
-      <p class=\"leading-relaxed mb-3\">ÉCRIRE ICI un paragraphe d'introduction personnalisé pour {$serviceName}: mentionner pourquoi les aides sont importantes pour ce type de travaux (économies d'énergie, rénovation, amélioration de l'habitat). SOYEZ SPÉCIFIQUE à {$serviceName}, pas générique.</p>
-      
-      <!-- INFORMATIONS DE FINANCEMENT SPÉCIFIQUES À {$serviceName} - COPIER CE CONTENU TEL QUEL: -->
-      {$financementInfo}
-      
-      <p class=\"leading-relaxed mt-3\">ÉCRIRE ICI un paragraphe de conclusion CONCRET: expliquer COMMENT notre équipe aide les clients (ex: montage de dossiers MaPrimeRénov, simulation CEE, accompagnement éco-PTZ, etc.). Mentionner des actions concrètes comme \"Nous remplissons votre dossier MaPrimeRénov\", \"Nous calculons votre éligibilité CEE\", etc.</p>
-    </div>
-    
-    <!-- SECTION 8: BESOIN D'UN DEVIS -->
+    <!-- SECTION 7: BESOIN D'UN DEVIS -->
     <div class=\"bg-gradient-to-r from-blue-50 to-green-50 p-6 rounded-lg border-l-4 border-blue-600\">
       <h4 class=\"text-xl font-bold text-gray-900 mb-3\">Besoin d'un Devis pour {$serviceName} à [VILLE]?</h4>
       <p class=\"mb-4 text-gray-700\">Contactez-nous dès aujourd'hui pour obtenir un devis gratuit et personnalisé pour vos travaux de {$serviceName} à [VILLE].</p>
@@ -2417,13 +2401,6 @@ GÉNÈRE UN JSON AVEC CES CHAMPS:
 - ⚠️⚠️⚠️ VALIDATION DES PRESTATIONS: Si les 10 prestations ne sont PAS spécifiques à {$serviceName} (ex: si {$serviceName} = 'Rénovation de façade' mais les prestations parlent de plomberie ou autre chose), ta réponse sera REJETÉE et tu devras recommencer
 - Les 10 prestations DOIVENT être DIFFÉRENTES et COMPLÉMENTAIRES pour {$serviceName}
 - Chaque prestation DOIT être UNIQUE et ne pas se répéter
-- Pour la section FINANCEMENT ET AIDES (SECTION CRITIQUE):
-  * ⚠️⚠️⚠️ CRITIQUE: Le contenu HTML entre les balises COMMENTAIRES \"SECTION CRITIQUE - INFORMATIONS DE FINANCEMENT\" et \"FIN DU CONTENU À COPIER\" DOIT être COPIÉ EXACTEMENT tel quel dans le champ \"description\" du JSON
-  * ⚠️⚠️⚠️ CE CONTENU CONTIENT LES INFORMATIONS SPÉCIFIQUES SUR MaPrimeRénov, CEE, Éco-PTZ, TVA RÉDUITE - TU NE DOIS PAS LE MODIFIER
-  * ⚠️⚠️⚠️ NE REMPLACE PAS CE CONTENU PAR DU TEXTE GÉNÉRIQUE - SI TU NE COPIE PAS EXACTEMENT CE CONTENU, TA RÉPONSE SERA REJETÉE
-  * ÉCRIS UNIQUEMENT les paragraphes d'introduction et conclusion AVANT et APRÈS ce contenu (entre les balises <p class=\"leading-relaxed mb-3\">...</p>), en les personnalisant pour {$serviceName}
-  * INTERDIT d'utiliser \"Nous vous accompagnons dans vos démarches pour bénéficier des aides financières disponibles pour vos travaux de\" - utilise une phrase UNIQUE et SPÉCIFIQUE
-  * VALIDATION: Ta réponse sera vérifiée - si le contenu MaPrimeRénov ou CEE n'est pas présent exactement comme fourni ci-dessus, la génération sera rejetée
 ";
 
         if ($aiPrompt) {
@@ -2522,68 +2499,4 @@ GÉNÈRE UN JSON AVEC CES CHAMPS:
         ];
     }
 
-    /**
-     * Obtenir les informations de financement selon le type de service
-     */
-    private function getFinancementInfoForService($serviceName)
-    {
-        $serviceLower = strtolower($serviceName);
-        
-        // Isolation thermique - MaPrimeRénov, CEE, etc.
-        if (strpos($serviceLower, 'isolation') !== false || 
-            strpos($serviceLower, 'thermique') !== false ||
-            strpos($serviceLower, 'isoler') !== false) {
-            return "
-      <p class=\"leading-relaxed mb-3\"><strong>MaPrimeRénov :</strong> Pour vos travaux d'isolation thermique, MaPrimeRénov est l'aide principale de l'État. Elle peut couvrir jusqu'à 90% du montant de vos travaux selon vos revenus (jusqu'à 75€/m² pour l'isolation des combles perdus, 100€/m² pour l'isolation des murs, 120€/m² pour l'isolation des planchers bas). Cette aide est versée directement à l'entreprise RGE et est cumulable avec les primes CEE et l'éco-PTZ.</p>
-      <p class=\"leading-relaxed mb-3\"><strong>Primes CEE (Certificats d'Économies d'Énergie) :</strong> Les primes CEE pour l'isolation peuvent atteindre 50€/m² pour les combles, 25€/m² pour les murs, selon le niveau d'isolation et votre fournisseur d'énergie (EDF, Engie, Total Direct Énergie, etc.). Ces primes sont versées directement par les fournisseurs et sont cumulables avec MaPrimeRénov, permettant de réduire significativement le coût de vos travaux d'isolation.</p>
-      <p class=\"leading-relaxed mb-3\"><strong>Éco-PTZ (Éco-prêt à taux zéro) :</strong> L'éco-prêt à taux zéro permet de financer jusqu'à 30 000€ de travaux d'isolation sans intérêts, sur 20 ans maximum. Accessible sans conditions de ressources, il finance jusqu'à 75€/m² d'isolation de combles ou 100€/m² d'isolation de murs. Il est cumulable avec MaPrimeRénov et les primes CEE.</p>
-      <p class=\"leading-relaxed\"><strong>TVA réduite à 5,5% :</strong> Tous les travaux d'isolation thermique bénéficient de la TVA réduite à 5,5% au lieu de 20% pour les logements de plus de 2 ans. Cette réduction s'applique à la fois sur la main d'œuvre et les matériaux, représentant une économie importante sur votre facture globale d'isolation.</p>";
-        }
-        
-        // Rénovation énergétique
-        if (strpos($serviceLower, 'rénovation') !== false && 
-            (strpos($serviceLower, 'énergét') !== false || strpos($serviceLower, 'energet') !== false)) {
-            return "<p class=\"leading-relaxed mb-3\"><strong>MaPrimeRénov :</strong> Aide principale pour la rénovation énergétique, pouvant atteindre jusqu'à 90% du montant des travaux selon vos revenus.</p>
-      <p class=\"leading-relaxed mb-3\"><strong>Prime CEE :</strong> Complémentaire à MaPrimeRénov, les Certificats d'Économies d'Énergie offrent des primes additionnelles pour améliorer l'efficacité énergétique.</p>
-      <p class=\"leading-relaxed mb-3\"><strong>Éco-PTZ :</strong> Prêt à taux zéro jusqu'à 50 000€ pour financer votre rénovation énergétique globale.</p>
-      <p class=\"leading-relaxed\"><strong>Chèque Énergie :</strong> Pour les ménages modestes, le chèque énergie peut être utilisé pour financer une partie des travaux.</p>";
-        }
-        
-        // Chauffage / PAC
-        if (strpos($serviceLower, 'chauffage') !== false || 
-            strpos($serviceLower, 'pompe à chaleur') !== false ||
-            strpos($serviceLower, 'pac') !== false) {
-            return "<p class=\"leading-relaxed mb-3\"><strong>MaPrimeRénov :</strong> Installation de pompes à chaleur éligible à MaPrimeRénov, jusqu'à 11 000€ selon vos revenus.</p>
-      <p class=\"leading-relaxed mb-3\"><strong>Prime CEE :</strong> Prime additionnelle pour l'installation de systèmes de chauffage performants, cumulable avec MaPrimeRénov.</p>
-      <p class=\"leading-relaxed mb-3\"><strong>TVA réduite :</strong> TVA à 5,5% pour l'installation d'équipements de chauffage dans les logements anciens.</p>
-      <p class=\"leading-relaxed\"><strong>Éco-PTZ :</strong> Financement jusqu'à 30 000€ sans intérêts pour remplacer votre système de chauffage.</p>";
-        }
-        
-        // Plomberie / Plomberie
-        if (strpos($serviceLower, 'plomberie') !== false || 
-            strpos($serviceLower, 'plomberie') !== false ||
-            strpos($serviceLower, 'charpente') !== false) {
-            return "<p class=\"leading-relaxed mb-3\"><strong>MaPrimeRénov :</strong> Rénovation de plomberie éligible si couplée avec des travaux d'isolation, jusqu'à 75€/m² pour l'isolation des combles.</p>
-      <p class=\"leading-relaxed mb-3\"><strong>Prime CEE :</strong> Aide disponible pour l'isolation de plomberie lors d'une rénovation complète.</p>
-      <p class=\"leading-relaxed mb-3\"><strong>TVA réduite :</strong> TVA à 5,5% pour les travaux de rénovation de plomberie dans les logements de plus de 2 ans.</p>
-      <p class=\"leading-relaxed\"><strong>Crédit d'impôt :</strong> Certains travaux de plomberie peuvent bénéficier d'un crédit d'impôt sous certaines conditions.</p>";
-        }
-        
-        // Fenêtres / Menuiserie
-        if (strpos($serviceLower, 'fenêtre') !== false || 
-            strpos($serviceLower, 'menuiserie') !== false ||
-            strpos($serviceLower, 'vitrage') !== false) {
-            return "<p class=\"leading-relaxed mb-3\"><strong>MaPrimeRénov :</strong> Remplacement de fenêtres par des modèles performants éligible à MaPrimeRénov, jusqu'à 75€ par menuiserie.</p>
-      <p class=\"leading-relaxed mb-3\"><strong>Prime CEE :</strong> Aide supplémentaire pour l'installation de fenêtres double vitrage performantes.</p>
-      <p class=\"leading-relaxed mb-3\"><strong>TVA réduite :</strong> TVA à 5,5% pour le remplacement de menuiseries dans les logements anciens.</p>
-      <p class=\"leading-relaxed\"><strong>Crédit d'impôt :</strong> Possibilité de crédit d'impôt pour l'installation de fenêtres à haute performance énergétique.</p>";
-        }
-        
-        // Par défaut - financement général (mais toujours avec détails)
-        return "
-      <p class=\"leading-relaxed mb-3\"><strong>MaPrimeRénov :</strong> Selon votre projet de {$serviceName} et vos revenus, vous pouvez bénéficier de MaPrimeRénov. Cette aide de l'État peut couvrir une partie significative de vos travaux. Notre équipe vous aide à monter votre dossier et vérifier votre éligibilité selon le type de travaux de {$serviceName} que vous souhaitez réaliser.</p>
-      <p class=\"leading-relaxed mb-3\"><strong>Primes CEE (Certificats d'Économies d'Énergie) :</strong> Les primes CEE sont versées par les fournisseurs d'énergie pour inciter à la rénovation énergétique. Pour vos travaux de {$serviceName}, nous vérifions votre éligibilité et calculons le montant de la prime que vous pouvez obtenir. Ces primes sont cumulables avec MaPrimeRénov.</p>
-      <p class=\"leading-relaxed mb-3\"><strong>Éco-PTZ (Éco-prêt à taux zéro) :</strong> Pour financer vos travaux de {$serviceName}, l'éco-prêt à taux zéro permet d'emprunter jusqu'à 50 000€ sans intérêts sur 20 ans. Accessible sans conditions de ressources, il peut couvrir une partie importante de votre projet.</p>
-      <p class=\"leading-relaxed\"><strong>TVA réduite à 5,5% :</strong> Pour vos travaux de {$serviceName} dans un logement de plus de 2 ans, vous bénéficiez de la TVA réduite à 5,5% au lieu de 20%, ce qui représente une économie significative sur l'ensemble de votre projet.</p>";
-    }
 }
