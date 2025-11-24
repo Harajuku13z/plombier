@@ -138,10 +138,7 @@ use Illuminate\Support\Facades\Storage;
                             <div class="bg-white rounded-2xl shadow-lg p-12">
                                 <i class="fas fa-star text-6xl text-gray-300 mb-6"></i>
                                 <h3 class="text-2xl font-bold text-gray-800 mb-4">Aucun avis pour le moment</h3>
-                                <p class="text-gray-600 mb-8">Soyez le premier à partager votre expérience !</p>
-                                <a href="{{ route('reviews.create') }}" class="inline-block bg-blue-600 text-white px-8 py-4 rounded-full font-semibold hover:bg-blue-700 transition">
-                                    <i class="fas fa-plus mr-2"></i>Ajouter un Avis
-                                </a>
+                                <p class="text-gray-600">Nos avis clients seront bientôt disponibles.</p>
                             </div>
                         </div>
                     @endforelse
@@ -171,10 +168,10 @@ use Illuminate\Support\Facades\Storage;
                     </p>
                     <div class="flex flex-col sm:flex-row gap-4 justify-center">
                         <a href="{{ url('/') }}" class="inline-block bg-white text-blue-600 px-8 py-4 rounded-full font-semibold text-lg hover:bg-blue-50 transition-all duration-300 shadow-lg hover:shadow-xl">
-                            <i class="fas fa-calculator mr-2"></i>Démarrer mon projet
+                            <i class="fas fa-home mr-2"></i>Retour à l'accueil
                         </a>
-                        <a href="{{ route('reviews.create') }}" class="inline-block bg-blue-500 text-white px-8 py-4 rounded-full font-semibold text-lg hover:bg-blue-400 transition-all duration-300 shadow-lg hover:shadow-xl">
-                            <i class="fas fa-star mr-2"></i>Laisser un avis
+                        <a href="{{ route('form.step', 'propertyType') }}" class="inline-block bg-blue-600 text-white px-8 py-4 rounded-full font-semibold text-lg hover:bg-blue-700 transition-all duration-300 shadow-lg hover:shadow-xl">
+                            <i class="fas fa-calculator mr-2"></i>Obtenir un devis gratuit
                         </a>
                     </div>
                 </div>
