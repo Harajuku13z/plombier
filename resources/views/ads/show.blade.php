@@ -300,64 +300,78 @@
                     {!! $ad->content_html ?? '<p>Contenu en cours de chargement...</p>' !!}
                 </div>
 
-                <!-- Section Financement et Aides (Mise en avant) -->
-                <div class="mt-8 bg-gradient-to-br from-yellow-50 to-orange-50 rounded-2xl shadow-xl p-6 md:p-8 border-2 border-yellow-300">
-                    <div class="flex items-center mb-6">
-                        <div class="w-16 h-16 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-2xl flex items-center justify-center mr-4 shadow-lg">
-                            <i class="fas fa-euro-sign text-white text-3xl"></i>
-                        </div>
-                        <div>
-                            <h3 class="text-2xl md:text-3xl font-bold text-gray-900 mb-1">Financement et Aides</h3>
-                            <p class="text-gray-600">Profitez des aides financières pour vos travaux</p>
-                        </div>
-                    </div>
-                    
-                    <div class="prose prose-lg max-w-none">
-                        <p class="text-gray-700 mb-4 leading-relaxed">
-                            Découvrez les différentes aides disponibles pour vos travaux de {{ $ad->service->name ?? 'rénovation' }} à {{ $cityModel->name ?? 'votre ville' }}. 
-                            Vous pouvez bénéficier de plusieurs dispositifs financiers pour réduire significativement le coût de vos travaux.
-                        </p>
-                        
-                        <div class="grid md:grid-cols-2 gap-4 mb-4">
-                            <div class="bg-white rounded-lg p-4 shadow">
-                                <div class="flex items-center mb-2">
-                                    <i class="fas fa-home text-green-600 text-xl mr-3"></i>
-                                    <h4 class="font-bold text-gray-900">MaPrimeRénov'</h4>
+                <!-- Section Simulateur de Prix (Mise en avant) -->
+                <div class="mt-8 bg-gradient-to-br from-blue-600 to-indigo-700 rounded-3xl shadow-2xl p-6 md:p-8 lg:p-10 overflow-hidden group">
+                    <div class="flex flex-col md:flex-row items-center gap-6 md:gap-8">
+                        <!-- Texte et CTA -->
+                        <div class="flex-1 text-white">
+                            <div class="flex items-center mb-4">
+                                <div class="w-14 h-14 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center mr-4 shadow-lg">
+                                    <i class="fas fa-calculator text-white text-2xl"></i>
                                 </div>
-                                <p class="text-sm text-gray-600">Aide de l'État pour vos travaux de rénovation énergétique, jusqu'à 90% du montant des travaux selon vos revenus.</p>
+                                <div>
+                                    <h3 class="text-2xl md:text-3xl font-bold mb-1">Simulateur de Prix Gratuit</h3>
+                                    <p class="text-blue-100 text-sm">Obtenez votre devis en 2 minutes</p>
+                                </div>
                             </div>
                             
-                            <div class="bg-white rounded-lg p-4 shadow">
-                                <div class="flex items-center mb-2">
-                                    <i class="fas fa-leaf text-green-600 text-xl mr-3"></i>
-                                    <h4 class="font-bold text-gray-900">Certificats CEE</h4>
-                                </div>
-                                <p class="text-sm text-gray-600">Primes énergie versées par les fournisseurs d'énergie, cumulables avec MaPrimeRénov'.</p>
-                            </div>
-                            
-                            <div class="bg-white rounded-lg p-4 shadow">
-                                <div class="flex items-center mb-2">
-                                    <i class="fas fa-piggy-bank text-blue-600 text-xl mr-3"></i>
-                                    <h4 class="font-bold text-gray-900">Éco-Prêt à Taux Zéro</h4>
-                                </div>
-                                <p class="text-sm text-gray-600">Prêt sans intérêts jusqu'à 50 000€ pour financer vos travaux de rénovation énergétique.</p>
-                            </div>
-                            
-                            <div class="bg-white rounded-lg p-4 shadow">
-                                <div class="flex items-center mb-2">
-                                    <i class="fas fa-percent text-blue-600 text-xl mr-3"></i>
-                                    <h4 class="font-bold text-gray-900">TVA Réduite</h4>
-                                </div>
-                                <p class="text-sm text-gray-600">TVA à 5,5% pour les travaux de rénovation énergétique, contre 20% en temps normal.</p>
-                            </div>
-                        </div>
-                        
-                        <div class="bg-yellow-100 border-l-4 border-yellow-500 p-4 rounded">
-                            <p class="text-gray-800">
-                                <i class="fas fa-info-circle text-yellow-600 mr-2"></i>
-                                <strong>Notre accompagnement :</strong> Contactez-nous pour plus d'informations sur ces dispositifs. 
-                                Nous vous aidons à constituer vos dossiers et à maximiser vos aides financières.
+                            <p class="text-base md:text-lg text-blue-50 mb-6 leading-relaxed">
+                                Calculez le coût estimatif de vos travaux de {{ $ad->service->name ?? 'plomberie' }} à {{ $cityModel->name ?? 'votre ville' }}. 
+                                Notre simulateur intelligent vous fournit une estimation détaillée, personnalisée selon votre projet.
                             </p>
+                            
+                            <div class="space-y-3 mb-6">
+                                <div class="flex items-center text-white">
+                                    <i class="fas fa-check-circle text-green-300 mr-3"></i>
+                                    <span>Estimation précise et personnalisée</span>
+                                </div>
+                                <div class="flex items-center text-white">
+                                    <i class="fas fa-check-circle text-green-300 mr-3"></i>
+                                    <span>100% gratuit, sans engagement</span>
+                                </div>
+                                <div class="flex items-center text-white">
+                                    <i class="fas fa-check-circle text-green-300 mr-3"></i>
+                                    <span>Réponse immédiate en ligne</span>
+                                </div>
+                            </div>
+                            
+                            <a href="{{ route('form.step', 'propertyType') }}" 
+                               class="inline-block bg-white text-blue-600 font-bold px-8 py-4 rounded-full text-lg hover:bg-blue-50 transition-all duration-300 shadow-xl hover:shadow-2xl hover:scale-105 transform">
+                                <i class="fas fa-arrow-right mr-2"></i>
+                                Démarrer le simulateur
+                            </a>
+                        </div>
+                        
+                        <!-- Image du Simulateur -->
+                        <div class="flex-1 w-full md:w-auto">
+                            <a href="{{ route('form.step', 'propertyType') }}" class="block relative rounded-2xl overflow-hidden shadow-2xl border-4 border-white/30 bg-white/10 backdrop-blur-sm cursor-pointer hover:border-blue-400 transition-all duration-300 group">
+                                @if(setting('simulator_image') && file_exists(public_path(setting('simulator_image'))))
+                                <img src="{{ asset(setting('simulator_image')) }}" 
+                                     alt="Simulateur de Prix" 
+                                     class="w-full h-64 md:h-80 object-cover transition-transform duration-500 group-hover:scale-110">
+                                @else
+                                <div class="w-full h-64 md:h-80 flex items-center justify-center bg-gradient-to-br from-blue-500 to-indigo-600">
+                                    <i class="fas fa-calculator text-white text-9xl opacity-70"></i>
+                                </div>
+                                @endif
+                                <div class="absolute inset-0 bg-gradient-to-t from-blue-900/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center p-6">
+                                    <span class="text-white text-xl font-bold transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                                        <i class="fas fa-mouse-pointer mr-2"></i>Cliquez pour calculer
+                                    </span>
+                                </div>
+                            </a>
+                            
+                            <div class="mt-4 flex justify-center gap-2">
+                                <span class="bg-white/20 backdrop-blur-sm text-white text-xs px-3 py-1 rounded-full">
+                                    <i class="fas fa-clock mr-1"></i>2 min
+                                </span>
+                                <span class="bg-white/20 backdrop-blur-sm text-white text-xs px-3 py-1 rounded-full">
+                                    <i class="fas fa-gift mr-1"></i>Gratuit
+                                </span>
+                                <span class="bg-white/20 backdrop-blur-sm text-white text-xs px-3 py-1 rounded-full">
+                                    <i class="fas fa-shield-alt mr-1"></i>Sans engagement
+                                </span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -643,40 +657,94 @@
 
 @push('scripts')
 <script>
-// Masquer les anciennes sections "Financement et aides" dans le contenu de l'annonce
+// Masquer TOUTES les références au financement dans le contenu de l'annonce
 document.addEventListener('DOMContentLoaded', function() {
     const adContent = document.querySelector('.ad-content');
     if (!adContent) return;
     
-    // Trouver tous les h4 qui contiennent "Financement"
-    const h4Elements = adContent.querySelectorAll('h4');
-    h4Elements.forEach(h4 => {
-        const text = h4.textContent.toLowerCase();
-        if (text.includes('financement') && text.includes('aide')) {
-            // Trouver la div parente avec bg-yellow-50
-            let parent = h4.closest('.bg-yellow-50, div[class*="bg-yellow"]');
-            if (parent) {
-                parent.classList.add('old-financing-section');
-            } else {
-                // Si pas de parent trouvé, cacher le h4 et le paragraphe suivant
-                h4.classList.add('old-financing-section');
-                if (h4.nextElementSibling && h4.nextElementSibling.tagName === 'P') {
-                    h4.nextElementSibling.classList.add('old-financing-section');
+    // Mots-clés de financement à détecter
+    const financingKeywords = [
+        'financement',
+        'maprimerenov',
+        "maprimerénov'",
+        'prime rénov',
+        'certificat',
+        'cee',
+        'éco-prêt',
+        'eco-pret',
+        'tva réduite',
+        'tva à 5',
+        'aide financière',
+        'aide gouvernementale',
+        'subvention'
+    ];
+    
+    // Fonction pour vérifier si un texte contient des mots-clés de financement
+    function containsFinancingKeyword(text) {
+        const lowerText = text.toLowerCase().replace(/'/g, "'");
+        return financingKeywords.some(keyword => lowerText.includes(keyword));
+    }
+    
+    // 1. Masquer tous les titres (h1-h6) mentionnant le financement
+    const headings = adContent.querySelectorAll('h1, h2, h3, h4, h5, h6');
+    headings.forEach(heading => {
+        if (containsFinancingKeyword(heading.textContent)) {
+            // Cacher le titre et le paragraphe suivant
+            heading.classList.add('old-financing-section');
+            let nextEl = heading.nextElementSibling;
+            while (nextEl && (nextEl.tagName === 'P' || nextEl.tagName === 'UL' || nextEl.tagName === 'DIV')) {
+                if (containsFinancingKeyword(nextEl.textContent) || nextEl.className.includes('bg-yellow') || nextEl.className.includes('border-l-4')) {
+                    nextEl.classList.add('old-financing-section');
+                    nextEl = nextEl.nextElementSibling;
+                } else {
+                    break;
                 }
             }
         }
     });
     
-    // Aussi cacher les divs avec border-l-4 border-yellow-600 qui contiennent "Financement"
-    const yellowDivs = adContent.querySelectorAll('div[class*="border-l-4"]');
-    yellowDivs.forEach(div => {
-        if (div.textContent.toLowerCase().includes('financement') && 
-            div.textContent.toLowerCase().includes('aide')) {
-            div.classList.add('old-financing-section');
+    // 2. Masquer tous les paragraphes mentionnant le financement
+    const paragraphs = adContent.querySelectorAll('p');
+    paragraphs.forEach(p => {
+        if (containsFinancingKeyword(p.textContent)) {
+            p.classList.add('old-financing-section');
+        }
+    });
+    
+    // 3. Masquer toutes les divs avec classes de financement
+    const divs = adContent.querySelectorAll('div');
+    divs.forEach(div => {
+        // Vérifier les classes
+        if (div.className.includes('bg-yellow') || 
+            div.className.includes('bg-green') || 
+            div.className.includes('border-l-4')) {
+            if (containsFinancingKeyword(div.textContent)) {
+                div.classList.add('old-financing-section');
+            }
+        }
+    });
+    
+    // 4. Masquer les listes contenant des infos de financement
+    const lists = adContent.querySelectorAll('ul, ol');
+    lists.forEach(list => {
+        if (containsFinancingKeyword(list.textContent)) {
+            list.classList.add('old-financing-section');
+        }
+    });
+    
+    // 5. Nettoyage final : si une section entière parle de financement, la masquer
+    const sections = adContent.querySelectorAll('section, article, aside');
+    sections.forEach(section => {
+        const text = section.textContent.toLowerCase();
+        // Si plus de 50% du contenu parle de financement
+        const financingMentions = financingKeywords.filter(keyword => text.includes(keyword)).length;
+        if (financingMentions >= 3) {
+            section.classList.add('old-financing-section');
         }
     });
 });
 </script>
 @endpush
 
+@endsection
 @endsection
