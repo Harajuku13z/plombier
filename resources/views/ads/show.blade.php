@@ -110,6 +110,11 @@
         display: block;
     }
     
+    /* Masquer l'ancienne section Financement dans le contenu de l'annonce */
+    .ad-content .old-financing-section {
+        display: none !important;
+    }
+    
     /* Listes responsive */
     .ad-content ul,
     .ad-content ol {
@@ -635,4 +640,43 @@
         </div>
     </section>
 </div>
+
+@push('scripts')
+<script>
+// Masquer les anciennes sections "Financement et aides" dans le contenu de l'annonce
+document.addEventListener('DOMContentLoaded', function() {
+    const adContent = document.querySelector('.ad-content');
+    if (!adContent) return;
+    
+    // Trouver tous les h4 qui contiennent "Financement"
+    const h4Elements = adContent.querySelectorAll('h4');
+    h4Elements.forEach(h4 => {
+        const text = h4.textContent.toLowerCase();
+        if (text.includes('financement') && text.includes('aide')) {
+            // Trouver la div parente avec bg-yellow-50
+            let parent = h4.closest('.bg-yellow-50, div[class*="bg-yellow"]');
+            if (parent) {
+                parent.classList.add('old-financing-section');
+            } else {
+                // Si pas de parent trouvé, cacher le h4 et le paragraphe suivant
+                h4.classList.add('old-financing-section');
+                if (h4.nextElementSibling && h4.nextElementSibling.tagName === 'P') {
+                    h4.nextElementSibling.classList.add('old-financing-section');
+                }
+            }
+        }
+    });
+    
+    // Aussi cacher les divs avec border-l-4 border-yellow-600 qui contiennent "Financement"
+    const yellowDivs = adContent.querySelectorAll('div[class*="border-l-4"]');
+    yellowDivs.forEach(div => {
+        if (div.textContent.toLowerCase().includes('financement') && 
+            div.textContent.toLowerCase().includes('aide')) {
+            div.classList.add('old-financing-section');
+        }
+    });
+});
+</script>
+@endpush
+
 @endsection
