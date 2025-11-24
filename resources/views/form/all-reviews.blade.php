@@ -31,14 +31,9 @@ use Illuminate\Support\Facades\Storage;
                 <h1 class="text-5xl md:text-6xl font-bold mb-6">
                     Nos Avis Clients
                 </h1>
-                <p class="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
+                <p class="text-xl text-blue-100 max-w-2xl mx-auto">
                     Découvrez ce que nos clients pensent de nos services
                 </p>
-                
-                <!-- Bouton Ajouter Avis -->
-                <a href="{{ route('reviews.create') }}" class="inline-block bg-white text-blue-600 px-8 py-4 rounded-full font-semibold text-lg hover:bg-blue-50 transition-all duration-300 shadow-lg hover:shadow-xl">
-                    <i class="fas fa-plus mr-2"></i>Ajouter un Avis
-                </a>
             </div>
         </div>
     </div>
