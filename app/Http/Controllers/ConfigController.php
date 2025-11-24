@@ -367,7 +367,7 @@ class ConfigController extends Controller
         $validated = $request->validate([
             'portfolio_images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:5120',
             'project_title' => 'nullable|string|max:255',
-            'work_type' => 'nullable|string|in:roof,facade,isolation,mixed',
+            'work_type' => 'nullable|string|max:255',
             'project_description' => 'nullable|string|max:1000',
             'portfolio_per_page' => 'nullable|integer|min:3|max:20',
             'portfolio_order' => 'nullable|string|in:newest,oldest,random',
@@ -663,9 +663,9 @@ class ConfigController extends Controller
         $validated = $request->validate([
             'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:5120',
             'title' => 'required|string|max:255',
-            'work_type' => 'required|string|in:roof,facade,isolation,mixed',
+            'work_type' => 'required|string|max:255',
             'description' => 'nullable|string|max:1000',
-            'is_visible' => 'nullable|in:on,1,true,false,0',
+            'is_visible' => 'nullable',
         ]);
 
         $portfolioData = Setting::get('portfolio_items', '[]');
