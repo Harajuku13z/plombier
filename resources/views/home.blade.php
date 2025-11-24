@@ -582,39 +582,42 @@
                     <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-400 to-indigo-300"></div>
                     
                     <div class="relative z-10">
-                        <div class="flex items-center mb-4">
+                        <div class="text-center mb-4">
+                            <h3 class="text-2xl font-bold mb-2" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.8);">
+                                Simulateur de Prix
+                            </h3>
+                            <div class="w-16 h-1 bg-blue-300 rounded-full mx-auto"></div>
+                        </div>
+                        
+                        <!-- Image cliquable du simulateur (grande) -->
+                        <a href="{{ route('form.step', 'propertyType') }}" 
+                           class="block mb-4 group/image"
+                           onclick="trackFormClick('{{ request()->url() }}')">
                             @if(setting('simulator_image') && file_exists(public_path(setting('simulator_image'))))
                                 <!-- Image du simulateur configurée -->
-                                <div class="w-16 h-16 bg-white/20 rounded-2xl overflow-hidden mr-4 shadow-lg flex-shrink-0">
+                                <div class="relative rounded-2xl overflow-hidden shadow-2xl border-4 border-white/30 group-hover/image:border-white/50 transition-all duration-300">
                                     <img src="{{ asset(setting('simulator_image')) }}" 
-                                         alt="Simulateur" 
-                                         class="w-full h-full object-cover">
+                                         alt="Simulateur de Prix" 
+                                         class="w-full h-auto object-cover group-hover/image:scale-105 transition-transform duration-300">
+                                    <!-- Overlay au hover -->
+                                    <div class="absolute inset-0 bg-gradient-to-t from-blue-900/80 via-transparent to-transparent opacity-0 group-hover/image:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-6">
+                                        <div class="bg-white text-blue-700 px-6 py-3 rounded-xl font-bold shadow-xl transform translate-y-4 group-hover/image:translate-y-0 transition-transform duration-300">
+                                            <i class="fas fa-calculator mr-2"></i>
+                                            Cliquez pour démarrer
+                                            <i class="fas fa-arrow-right ml-2"></i>
+                                        </div>
+                                    </div>
                                 </div>
                             @else
-                                <!-- Icône par défaut si pas d'image -->
-                                <div class="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center mr-4 shadow-lg">
-                                    <i class="fas fa-calculator text-white text-2xl"></i>
+                                <!-- Placeholder si pas d'image configurée -->
+                                <div class="bg-white/20 backdrop-blur-sm rounded-2xl p-12 text-center border-4 border-white/30 group-hover/image:border-white/50 transition-all duration-300">
+                                    <i class="fas fa-calculator text-white text-6xl mb-4 opacity-80 group-hover/image:scale-110 transition-transform duration-300"></i>
+                                    <p class="text-white text-xl font-bold mb-2" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.8);">
+                                        Devis en ligne
+                                    </p>
+                                    <p class="text-blue-200 text-base">En moins de 2 minutes</p>
                                 </div>
                             @endif
-                            <div>
-                                <h3 class="text-2xl font-bold mb-1" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.8);">
-                                    Simulateur de Prix
-                                </h3>
-                                <div class="w-12 h-1 bg-blue-300 rounded-full"></div>
-                            </div>
-                        </div>
-                        
-                        <div class="text-white/95 mb-4 text-base leading-relaxed font-medium" style="text-shadow: 1px 1px 3px rgba(0,0,0,0.7);">
-                            Obtenez une estimation gratuite et instantanée pour vos travaux de plomberie en quelques clics.
-                        </div>
-                        
-                        <!-- Bouton CTA -->
-                        <a href="{{ route('form.step', 'propertyType') }}" 
-                           class="block w-full bg-white hover:bg-blue-50 text-blue-700 font-bold py-3 px-6 rounded-xl text-center transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 mb-3"
-                           onclick="trackFormClick('{{ request()->url() }}')">
-                            <i class="fas fa-calculator mr-2"></i>
-                            Lancer le Simulateur
-                            <i class="fas fa-arrow-right ml-2"></i>
                         </a>
                         
                         <!-- Avantages -->
