@@ -345,6 +345,42 @@ class AdminController extends Controller
     }
 
     /**
+     * Renvoyer l'email de notification à l'admin
+     */
+    public function resendSubmissionEmail($id)
+    {
+        try {
+            $submission = Submission::findOrFail($id);
+            
+            // Récupérer l'email de l'admin depuis les settings
+            $adminEmail = \App\Models\Setting::get('company_email');
+            
+            // Si pas d'email dans les settings, utiliser MAIL_FROM_ADDRESS comme fallback
+            if (!$adminEmail) {
+                $adminEmail = config('mail.from.address', 'contact@plombier-versailles78.fr');
+            }
+            
+            if (!$adminEmail || $adminEmail === 'hello@example.com') {
+                return back()->with('error', '❌ Email administrateur non configuré. Veuillez configurer l\'email dans les paramètres ou le fichier .env');
+            }
+            
+            // Envoyer l'email de notification
+            \Illuminate\Support\Facades\Mail::to($adminEmail)->send(new \App\Mail\SubmissionNotification($submission));
+            
+            return back()->with('success', '✅ Email renvoyé avec succès à <strong>' . $adminEmail . '</strong>');
+            
+        } catch (\Exception $e) {
+            \Log::error('Erreur lors du renvoi de l\'email de soumission', [
+                'error' => $e->getMessage(),
+                'submission_id' => $id,
+                'trace' => $e->getTraceAsString()
+            ]);
+            
+            return back()->with('error', '❌ Erreur lors de l\'envoi de l\'email : ' . $e->getMessage());
+        }
+    }
+
+    /**
      * Supprimer toutes les soumissions (avec vérification du mot de passe)
      */
     public function deleteAllSubmissions(Request $request)

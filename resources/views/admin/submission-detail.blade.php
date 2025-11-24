@@ -4,6 +4,25 @@
 
 @section('content')
 <div class="p-6">
+    <!-- Messages Flash -->
+    @if(session('success'))
+    <div class="mb-6 bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
+        <span class="block sm:inline">{!! session('success') !!}</span>
+        <button type="button" class="absolute top-0 bottom-0 right-0 px-4 py-3" onclick="this.parentElement.style.display='none';">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+    @endif
+
+    @if(session('error'))
+    <div class="mb-6 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+        <span class="block sm:inline">{!! session('error') !!}</span>
+        <button type="button" class="absolute top-0 bottom-0 right-0 px-4 py-3" onclick="this.parentElement.style.display='none';">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+    @endif
+
     <div class="mb-6 flex justify-between items-center">
         <div>
             <a href="{{ route('admin.submissions') }}" class="text-blue-600 hover:text-blue-800 text-sm mb-2 inline-block">
@@ -401,6 +420,12 @@
                         <i class="fas fa-phone mr-2"></i>Appeler
                     </a>
                     @endif
+                    <form method="POST" action="{{ route('admin.submission.resend-email', $submission->id) }}" class="w-full">
+                        @csrf
+                        <button type="submit" class="block w-full text-center bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition">
+                            <i class="fas fa-paper-plane mr-2"></i>Renvoyer email à l'admin
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>

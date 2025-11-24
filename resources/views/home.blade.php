@@ -530,7 +530,7 @@
         </div>
     </section>
 
-    <!-- Sections Écologie et Aide Financière -->
+    <!-- Sections Écologie, Simulateur et Aide Financière -->
     @if(($homeConfig['ecology']['enabled'] ?? false) || ($homeConfig['financing']['enabled'] ?? false))
     <section class="py-20 bg-gray-50">
         <div class="container mx-auto px-4">
@@ -575,6 +575,77 @@
                     <div class="absolute -bottom-2 -left-2 w-16 h-16 bg-white/5 rounded-full"></div>
                 </div>
                 @endif
+                
+                <!-- Section Simulateur de Prix (Centre/Droite) -->
+                <div class="group relative overflow-hidden bg-gradient-to-br from-blue-600 to-indigo-700 rounded-3xl p-8 text-white shadow-2xl hover:shadow-3xl transition-all duration-300">
+                    <!-- Effet de brillance -->
+                    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-400 to-indigo-300"></div>
+                    
+                    <div class="relative z-10">
+                        <div class="flex items-center mb-6">
+                            <div class="w-20 h-20 bg-white/20 rounded-2xl flex items-center justify-center mr-6 shadow-lg">
+                                <i class="fas fa-calculator text-white text-3xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-3xl font-bold mb-2" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.8);">
+                                    Simulateur de Prix
+                                </h3>
+                                <div class="w-16 h-1 bg-blue-300 rounded-full"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="text-white/95 mb-6 text-lg leading-relaxed font-medium" style="text-shadow: 1px 1px 3px rgba(0,0,0,0.7);">
+                            Obtenez une estimation gratuite et instantanée pour vos travaux de plomberie en quelques clics. Rapide, simple et sans engagement.
+                        </div>
+                        
+                        <!-- Image illustrative du simulateur -->
+                        <div class="mb-6 rounded-xl overflow-hidden shadow-lg border-4 border-white/30 bg-white/10 backdrop-blur-sm">
+                            <div class="aspect-video bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center">
+                                <div class="text-center p-6">
+                                    <i class="fas fa-file-invoice-dollar text-white text-6xl mb-4 opacity-80"></i>
+                                    <p class="text-white text-xl font-bold" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.8);">
+                                        Devis en ligne<br>
+                                        <span class="text-blue-200 text-base">En moins de 2 minutes</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Bouton CTA -->
+                        <a href="{{ route('form.step', 'propertyType') }}" 
+                           class="block w-full bg-white hover:bg-blue-50 text-blue-700 font-bold py-4 px-6 rounded-xl text-center transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
+                           onclick="trackFormClick('{{ request()->url() }}')">
+                            <i class="fas fa-calculator mr-2"></i>
+                            Lancer le Simulateur
+                            <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                        
+                        <!-- Avantages -->
+                        <div class="grid grid-cols-3 gap-3 mt-6">
+                            <div class="text-center">
+                                <div class="text-2xl mb-2">⚡</div>
+                                <div class="text-xs font-bold" style="text-shadow: 1px 1px 2px rgba(0,0,0,0.8);">Instantané</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-2xl mb-2">🎯</div>
+                                <div class="text-xs font-bold" style="text-shadow: 1px 1px 2px rgba(0,0,0,0.8);">Précis</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-2xl mb-2">💯</div>
+                                <div class="text-xs font-bold" style="text-shadow: 1px 1px 2px rgba(0,0,0,0.8);">Gratuit</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Motif décoratif -->
+                    <div class="absolute -top-4 -right-4 w-24 h-24 bg-white/10 rounded-full"></div>
+                    <div class="absolute -bottom-2 -left-2 w-16 h-16 bg-white/5 rounded-full"></div>
+                    
+                    <!-- Badge "Nouveau" -->
+                    <div class="absolute top-4 right-4 bg-yellow-400 text-blue-900 text-xs font-bold px-3 py-1 rounded-full shadow-lg animate-pulse">
+                        ✨ NOUVEAU
+                    </div>
+                </div>
                 
                 <!-- Section Aide Financière (Droite) -->
                 @if(($homeConfig['financing']['enabled'] ?? false) && !empty($homeConfig['financing']['content']))
