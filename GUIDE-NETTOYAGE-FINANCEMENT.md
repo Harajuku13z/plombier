@@ -47,54 +47,103 @@ Ce guide explique comment supprimer **complètement** toutes les références au
 - ✅ Image du simulateur carrée (aspect-ratio 1:1)
 - ✅ Design moderne avec dégradé bleu/indigo
 
-## 🧹 Nettoyer les Templates Existants
+## 🧹 Nettoyer les Templates et Annonces Existants
 
-Les templates **déjà créés** dans la base de données peuvent contenir du contenu de financement. Pour les nettoyer :
+Les templates et annonces **déjà créés** dans la base de données peuvent contenir du contenu de financement.
 
-### Étape 1 : Exécuter le script de nettoyage
+### Option 1 : Nettoyage COMPLET (Recommandé) 🎯
+
+Nettoie **à la fois** les templates ET les annonces en une seule fois :
+
+```bash
+php clean-all-financing.php
+```
+
+### Option 2 : Nettoyage Séparé
+
+#### A. Nettoyer uniquement les templates
 
 ```bash
 php clean-financing-from-templates.php
 ```
 
-### Ce que fait le script :
+#### B. Nettoyer uniquement les annonces
 
-1. ✅ Récupère tous les templates de la table `ad_templates`
-2. ✅ Détecte et supprime les sections de financement par patterns regex :
+```bash
+php clean-financing-from-ads.php
+```
+
+### Ce que font les scripts :
+
+#### Script `clean-all-financing.php` (Recommandé)
+
+1. ✅ **Partie 1** : Nettoie tous les templates (`ad_templates`)
+2. ✅ **Partie 2** : Nettoie toutes les annonces (`ads`)
+3. ✅ Affiche un résumé complet avec statistiques
+
+**Exemple de sortie :**
+
+```
+╔════════════════════════════════════════════════════════════════════╗
+║  🧹 NETTOYAGE COMPLET DU CONTENU FINANCEMENT                      ║
+║  Templates + Annonces                                              ║
+╚════════════════════════════════════════════════════════════════════╝
+
+┌────────────────────────────────────────────────────────────────────┐
+│  ÉTAPE 1/2 : Nettoyage des TEMPLATES                              │
+└────────────────────────────────────────────────────────────────────┘
+
+📊 Nombre de templates trouvés : 12
+
+🔍 Template #1 : Rénovation plomberie ✅ (1247 caractères supprimés)
+🔍 Template #2 : Débouchage canalisation ℹ️  Déjà propre
+...
+
+✅ Templates nettoyés : 8 / 12
+
+┌────────────────────────────────────────────────────────────────────┐
+│  ÉTAPE 2/2 : Nettoyage des ANNONCES                               │
+└────────────────────────────────────────────────────────────────────┘
+
+📊 Nombre d'annonces trouvées : 156
+
+🔍 Annonce #1 : Débouchage canalisation à Paris ✅ (842 caractères)
+🔍 Annonce #2 : Réparation fuite d'eau à Versailles ✅ (1134 caractères)
+...
+
+✅ Annonces nettoyées : 142 / 156
+
+╔════════════════════════════════════════════════════════════════════╗
+║  📊 RÉSUMÉ FINAL                                                   ║
+╚════════════════════════════════════════════════════════════════════╝
+
+✅ Templates nettoyés    : 8 / 12
+✅ Annonces nettoyées    : 142 / 156
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🎯 TOTAL NETTOYÉ         : 150 éléments
+
+🎉 SUCCÈS COMPLET !
+
+✅ Tous les templates sont propres
+✅ Toutes les annonces sont propres
+✅ Les futures annonces seront sans financement
+✅ Le JavaScript/CSS masque automatiquement tout résidu
+```
+
+#### Scripts individuels
+
+**`clean-financing-from-templates.php`** : Nettoie uniquement les templates
+**`clean-financing-from-ads.php`** : Nettoie uniquement les annonces
+
+Chaque script détecte et supprime les sections de financement par 8 patterns regex :
    - Divs avec `bg-yellow-50` et titre "Financement"
    - Divs avec `border-l-4 border-yellow` et "Financement"
    - Titres h1-h6 contenant "Financement et aides"
    - Paragraphes mentionnant MaPrimeRénov, CEE, éco-PTZ, TVA réduite
-3. ✅ Met à jour les templates dans la base de données
-4. ✅ Affiche un résumé détaillé du nettoyage
-
-### Exemple de sortie :
-
-```
-🧹 NETTOYAGE DU CONTENU FINANCEMENT DANS LES TEMPLATES
-======================================================================
-
-📊 Nombre de templates trouvés : 12
-
-🔍 Traitement du template #1 : Rénovation plomberie
-   ✂️  Pattern 1 : contenu supprimé
-   ✂️  Pattern 4 : contenu supprimé
-   ✅ Template nettoyé ! (1247 caractères supprimés)
-
-🔍 Traitement du template #2 : Débouchage canalisation
-   ℹ️  Aucun contenu de financement trouvé
-
-...
-
-======================================================================
-📊 RÉSUMÉ DU NETTOYAGE
-======================================================================
-✅ Templates nettoyés : 8
-ℹ️  Templates inchangés : 4
-
-🎉 SUCCÈS ! Les templates ont été nettoyés.
-💡 Les nouvelles annonces créées à partir de ces templates n'auront plus de contenu de financement.
-```
+   - Listes (ul/ol) avec infos de financement
+   - Strong tags avec mots-clés de financement
+   - Sections commentées "FINANCEMENT"
+   - Et plus...
 
 ## 🔄 Pour les Anciennes Annonces Déjà Publiées
 
@@ -119,6 +168,7 @@ Après avoir exécuté le script `clean-financing-from-templates.php` :
 
 ## 📋 Checklist Complète
 
+### Code Source
 - [x] ✅ Supprimé `getFinancementInfoForService()` dans `AdTemplateController.php`
 - [x] ✅ Supprimé section financement des templates HTML dans les controllers
 - [x] ✅ Supprimé `financement_aides` des prompts JSON
@@ -126,8 +176,15 @@ Après avoir exécuté le script `clean-financing-from-templates.php` :
 - [x] ✅ Ajouté CSS de masquage dans `show.blade.php`
 - [x] ✅ Ajouté JavaScript de masquage renforcé dans `show.blade.php`
 - [x] ✅ Remplacé section financement par section Simulateur
-- [x] ✅ Créé script de nettoyage des templates existants
-- [ ] ⏳ Exécuter le script `clean-financing-from-templates.php` sur le serveur de production
+
+### Scripts de Nettoyage
+- [x] ✅ Créé script `clean-financing-from-templates.php` (templates)
+- [x] ✅ Créé script `clean-financing-from-ads.php` (annonces)
+- [x] ✅ Créé script `clean-all-financing.php` (complet)
+
+### Exécution sur Production
+- [ ] ⏳ Exécuter `php clean-all-financing.php` sur le serveur de production
+  - Ou séparément : `php clean-financing-from-templates.php` + `php clean-financing-from-ads.php`
 
 ## 🚀 Déploiement
 
@@ -137,12 +194,37 @@ Après avoir exécuté le script `clean-financing-from-templates.php` :
 # 1. Pull des derniers changements
 git pull origin main
 
-# 2. Nettoyer les templates existants
-php clean-financing-from-templates.php
+# 2. Nettoyer TOUT (templates + annonces) en une seule fois
+php clean-all-financing.php
+
+# OU nettoyage séparé (si préféré)
+php clean-financing-from-templates.php  # Nettoie les templates
+php clean-financing-from-ads.php        # Nettoie les annonces
 
 # 3. Vider le cache (si nécessaire)
 php artisan cache:clear
 php artisan view:clear
+php artisan config:clear
+```
+
+### Ordre recommandé pour un nouveau déploiement :
+
+```bash
+# Étape 1 : Mettre à jour le code
+git pull origin main
+composer install --no-dev --optimize-autoloader
+
+# Étape 2 : Nettoyer la base de données
+php clean-all-financing.php
+
+# Étape 3 : Vider les caches
+php artisan optimize:clear
+php artisan config:cache
+php artisan route:cache
+php artisan view:cache
+
+# Étape 4 : Vérifier le résultat
+# Visitez quelques pages d'annonces pour confirmer
 ```
 
 ## ✨ Résultat Final
