@@ -143,6 +143,67 @@ class Setting extends Model
     {
         self::set('setup_completed', true, 'boolean', 'general', 'Initial setup completed');
     }
+
+    /**
+     * Retourne l'adresse complète de l'entreprise formatée
+     * 
+     * @param string $separator Séparateur entre les lignes (par défaut : ', ')
+     * @param bool $includeCountry Inclure le pays (par défaut : true)
+     * @return string
+     */
+    public static function getFullAddress(string $separator = ', ', bool $includeCountry = true): string
+    {
+        $address = self::get('company_address', '35 Rue des Chantiers');
+        $postalCode = self::get('company_postal_code', '78000');
+        $city = self::get('company_city', 'Versailles');
+        $country = self::get('company_country', 'France');
+        
+        $parts = [
+            $address,
+            trim($postalCode . ' ' . $city)
+        ];
+        
+        if ($includeCountry && !empty($country)) {
+            $parts[] = $country;
+        }
+        
+        return implode($separator, array_filter($parts));
+    }
+
+    /**
+     * Retourne l'adresse complète HTML formatée
+     * 
+     * @return string
+     */
+    public static function getFullAddressHtml(): string
+    {
+        $address = self::get('company_address', '35 Rue des Chantiers');
+        $postalCode = self::get('company_postal_code', '78000');
+        $city = self::get('company_city', 'Versailles');
+        $country = self::get('company_country', 'France');
+        
+        $html = '<div class="address">';
+        $html .= '<div>' . e($address) . '</div>';
+        $html .= '<div>' . e($postalCode) . ' ' . e($city) . '</div>';
+        
+        if (!empty($country)) {
+            $html .= '<div>' . e($country) . '</div>';
+        }
+        
+        $html .= '</div>';
+        
+        return $html;
+    }
+
+    /**
+     * Retourne l'adresse pour Google Maps / liens
+     * 
+     * @return string
+     */
+    public static function getAddressForMaps(): string
+    {
+        return urlencode(self::getFullAddress(', ', true));
+    }
 }
 
 

@@ -49,4 +49,5 @@ return array(
     'ec07570ca5a812141189b1fa81503674' => $vendorDir . '/phpunit/phpunit/src/Framework/Assert/Functions.php',
     '4da227543b849bd0e7907fc872ef25f9' => $vendorDir . '/ralphjsmit/laravel-seo/src/helpers.php',
     '8ae28d5269ad171fd8156edb3858d43d' => $baseDir . '/app/Helpers/SettingsHelper.php',
+    'b4e3f29b106af37a2bb239f73cdf68c7' => $baseDir . '/app/helpers.php',
 );

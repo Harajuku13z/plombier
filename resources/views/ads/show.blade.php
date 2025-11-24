@@ -389,56 +389,6 @@
                     </div>
                 </div>
 
-                <!-- Section Informations Pratiques -->
-                <div class="mt-8 bg-white rounded-2xl shadow-lg p-6 md:p-8 border border-gray-200">
-                    <h3 class="text-2xl font-bold text-gray-900 mb-6 flex items-center">
-                        <i class="fas fa-info-circle text-blue-600 mr-3"></i>
-                        Informations Pratiques
-                    </h3>
-                    
-                    <div class="grid md:grid-cols-2 gap-6">
-                        <div class="flex items-start">
-                            <i class="fas fa-map-marker-alt text-red-600 text-xl mt-1 mr-4"></i>
-                            <div>
-                                <h4 class="font-bold text-gray-900 mb-1">Adresse</h4>
-                                <p class="text-gray-700">{{ setting('company_address', '35 Rue des Chantiers') }}</p>
-                                <p class="text-gray-700">{{ setting('company_postal_code', '78000') }} {{ setting('company_city', 'Versailles') }}</p>
-                                @if(setting('company_country'))
-                                <p class="text-gray-700">{{ setting('company_country', 'France') }}</p>
-                                @endif
-                            </div>
-                        </div>
-                        
-                        <div class="flex items-start">
-                            <i class="fas fa-phone text-green-600 text-xl mt-1 mr-4"></i>
-                            <div>
-                                <h4 class="font-bold text-gray-900 mb-1">Téléphone</h4>
-                                <a href="tel:{{ setting('company_phone_raw') }}" class="text-blue-600 hover:text-blue-800 text-lg font-semibold">
-                                    {{ setting('company_phone', '07 86 48 65 39') }}
-                                </a>
-                            </div>
-                        </div>
-                        
-                        <div class="flex items-start">
-                            <i class="fas fa-envelope text-blue-600 text-xl mt-1 mr-4"></i>
-                            <div>
-                                <h4 class="font-bold text-gray-900 mb-1">Email</h4>
-                                <a href="mailto:{{ setting('company_email') }}" class="text-blue-600 hover:text-blue-800">
-                                    {{ setting('company_email', 'contact@plombier-versailles78.fr') }}
-                                </a>
-                            </div>
-                        </div>
-                        
-                        <div class="flex items-start">
-                            <i class="fas fa-building text-purple-600 text-xl mt-1 mr-4"></i>
-                            <div>
-                                <h4 class="font-bold text-gray-900 mb-1">Société</h4>
-                                <p class="text-gray-700">{{ setting('company_name', 'Plombier Versailles') }}</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
                 <div class="mt-8 md:mt-12 rounded-2xl p-4 md:p-8 text-white text-center overflow-x-hidden" style="background: linear-gradient(90deg, var(--primary-color) 0%, var(--secondary-color) 100%);">
                     <h3 class="text-xl md:text-2xl font-bold mb-3 md:mb-4 px-2 break-words">Prêt à Démarrer Votre Projet à {{ $cityModel->name ?? 'votre ville' }} ?</h3>
                     <p class="text-base md:text-lg mb-4 md:mb-6 px-2 break-words">Contactez-nous dès aujourd'hui pour un devis gratuit et personnalisé</p>
