@@ -295,6 +295,118 @@
                     {!! $ad->content_html ?? '<p>Contenu en cours de chargement...</p>' !!}
                 </div>
 
+                <!-- Section Financement et Aides (Mise en avant) -->
+                <div class="mt-8 bg-gradient-to-br from-yellow-50 to-orange-50 rounded-2xl shadow-xl p-6 md:p-8 border-2 border-yellow-300">
+                    <div class="flex items-center mb-6">
+                        <div class="w-16 h-16 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-2xl flex items-center justify-center mr-4 shadow-lg">
+                            <i class="fas fa-euro-sign text-white text-3xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl md:text-3xl font-bold text-gray-900 mb-1">Financement et Aides</h3>
+                            <p class="text-gray-600">Profitez des aides financières pour vos travaux</p>
+                        </div>
+                    </div>
+                    
+                    <div class="prose prose-lg max-w-none">
+                        <p class="text-gray-700 mb-4 leading-relaxed">
+                            Découvrez les différentes aides disponibles pour vos travaux de {{ $ad->service->name ?? 'rénovation' }} à {{ $cityModel->name ?? 'votre ville' }}. 
+                            Vous pouvez bénéficier de plusieurs dispositifs financiers pour réduire significativement le coût de vos travaux.
+                        </p>
+                        
+                        <div class="grid md:grid-cols-2 gap-4 mb-4">
+                            <div class="bg-white rounded-lg p-4 shadow">
+                                <div class="flex items-center mb-2">
+                                    <i class="fas fa-home text-green-600 text-xl mr-3"></i>
+                                    <h4 class="font-bold text-gray-900">MaPrimeRénov'</h4>
+                                </div>
+                                <p class="text-sm text-gray-600">Aide de l'État pour vos travaux de rénovation énergétique, jusqu'à 90% du montant des travaux selon vos revenus.</p>
+                            </div>
+                            
+                            <div class="bg-white rounded-lg p-4 shadow">
+                                <div class="flex items-center mb-2">
+                                    <i class="fas fa-leaf text-green-600 text-xl mr-3"></i>
+                                    <h4 class="font-bold text-gray-900">Certificats CEE</h4>
+                                </div>
+                                <p class="text-sm text-gray-600">Primes énergie versées par les fournisseurs d'énergie, cumulables avec MaPrimeRénov'.</p>
+                            </div>
+                            
+                            <div class="bg-white rounded-lg p-4 shadow">
+                                <div class="flex items-center mb-2">
+                                    <i class="fas fa-piggy-bank text-blue-600 text-xl mr-3"></i>
+                                    <h4 class="font-bold text-gray-900">Éco-Prêt à Taux Zéro</h4>
+                                </div>
+                                <p class="text-sm text-gray-600">Prêt sans intérêts jusqu'à 50 000€ pour financer vos travaux de rénovation énergétique.</p>
+                            </div>
+                            
+                            <div class="bg-white rounded-lg p-4 shadow">
+                                <div class="flex items-center mb-2">
+                                    <i class="fas fa-percent text-blue-600 text-xl mr-3"></i>
+                                    <h4 class="font-bold text-gray-900">TVA Réduite</h4>
+                                </div>
+                                <p class="text-sm text-gray-600">TVA à 5,5% pour les travaux de rénovation énergétique, contre 20% en temps normal.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-yellow-100 border-l-4 border-yellow-500 p-4 rounded">
+                            <p class="text-gray-800">
+                                <i class="fas fa-info-circle text-yellow-600 mr-2"></i>
+                                <strong>Notre accompagnement :</strong> Contactez-nous pour plus d'informations sur ces dispositifs. 
+                                Nous vous aidons à constituer vos dossiers et à maximiser vos aides financières.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section Informations Pratiques -->
+                <div class="mt-8 bg-white rounded-2xl shadow-lg p-6 md:p-8 border border-gray-200">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-6 flex items-center">
+                        <i class="fas fa-info-circle text-blue-600 mr-3"></i>
+                        Informations Pratiques
+                    </h3>
+                    
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="flex items-start">
+                            <i class="fas fa-map-marker-alt text-red-600 text-xl mt-1 mr-4"></i>
+                            <div>
+                                <h4 class="font-bold text-gray-900 mb-1">Adresse</h4>
+                                <p class="text-gray-700">{{ setting('company_address', '35 Rue des Chantiers') }}</p>
+                                <p class="text-gray-700">{{ setting('company_postal_code', '78000') }} {{ setting('company_city', 'Versailles') }}</p>
+                                @if(setting('company_country'))
+                                <p class="text-gray-700">{{ setting('company_country', 'France') }}</p>
+                                @endif
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <i class="fas fa-phone text-green-600 text-xl mt-1 mr-4"></i>
+                            <div>
+                                <h4 class="font-bold text-gray-900 mb-1">Téléphone</h4>
+                                <a href="tel:{{ setting('company_phone_raw') }}" class="text-blue-600 hover:text-blue-800 text-lg font-semibold">
+                                    {{ setting('company_phone', '07 86 48 65 39') }}
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <i class="fas fa-envelope text-blue-600 text-xl mt-1 mr-4"></i>
+                            <div>
+                                <h4 class="font-bold text-gray-900 mb-1">Email</h4>
+                                <a href="mailto:{{ setting('company_email') }}" class="text-blue-600 hover:text-blue-800">
+                                    {{ setting('company_email', 'contact@plombier-versailles78.fr') }}
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <i class="fas fa-building text-purple-600 text-xl mt-1 mr-4"></i>
+                            <div>
+                                <h4 class="font-bold text-gray-900 mb-1">Société</h4>
+                                <p class="text-gray-700">{{ setting('company_name', 'Plombier Versailles') }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="mt-8 md:mt-12 rounded-2xl p-4 md:p-8 text-white text-center overflow-x-hidden" style="background: linear-gradient(90deg, var(--primary-color) 0%, var(--secondary-color) 100%);">
                     <h3 class="text-xl md:text-2xl font-bold mb-3 md:mb-4 px-2 break-words">Prêt à Démarrer Votre Projet à {{ $cityModel->name ?? 'votre ville' }} ?</h3>
                     <p class="text-base md:text-lg mb-4 md:mb-6 px-2 break-words">Contactez-nous dès aujourd'hui pour un devis gratuit et personnalisé</p>
