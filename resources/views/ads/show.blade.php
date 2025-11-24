@@ -242,6 +242,19 @@
         padding: 1rem;
     }
 }
+
+/* MASQUER DÉFINITIVEMENT toutes les sections de financement */
+.old-financing-section,
+.ad-content *[class*="financing"],
+.ad-content *[class*="financement"] {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    height: 0 !important;
+    overflow: hidden !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
 </style>
 @endpush
 
@@ -342,15 +355,15 @@
                             </a>
                         </div>
                         
-                        <!-- Image du Simulateur -->
-                        <div class="flex-1 w-full md:w-auto">
-                            <a href="{{ route('form.step', 'propertyType') }}" class="block relative rounded-2xl overflow-hidden shadow-2xl border-4 border-white/30 bg-white/10 backdrop-blur-sm cursor-pointer hover:border-blue-400 transition-all duration-300 group">
+                        <!-- Image du Simulateur (Carrée) -->
+                        <div class="flex-1 w-full md:w-auto md:max-w-md">
+                            <a href="{{ route('form.step', 'propertyType') }}" class="block relative rounded-2xl overflow-hidden shadow-2xl border-4 border-white/30 bg-white/10 backdrop-blur-sm cursor-pointer hover:border-blue-400 transition-all duration-300 group aspect-square">
                                 @if(setting('simulator_image') && file_exists(public_path(setting('simulator_image'))))
                                 <img src="{{ asset(setting('simulator_image')) }}" 
                                      alt="Simulateur de Prix" 
-                                     class="w-full h-64 md:h-80 object-cover transition-transform duration-500 group-hover:scale-110">
+                                     class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
                                 @else
-                                <div class="w-full h-64 md:h-80 flex items-center justify-center bg-gradient-to-br from-blue-500 to-indigo-600">
+                                <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-blue-500 to-indigo-600">
                                     <i class="fas fa-calculator text-white text-9xl opacity-70"></i>
                                 </div>
                                 @endif
@@ -662,7 +675,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const adContent = document.querySelector('.ad-content');
     if (!adContent) return;
     
-    // Mots-clés de financement à détecter
+    // Mots-clés de financement à détecter (très exhaustif)
     const financingKeywords = [
         'financement',
         'maprimerenov',
@@ -672,41 +685,82 @@ document.addEventListener('DOMContentLoaded', function() {
         'cee',
         'éco-prêt',
         'eco-pret',
+        'éco-ptz',
+        'eco-ptz',
         'tva réduite',
         'tva à 5',
         'aide financière',
         'aide gouvernementale',
-        'subvention'
+        'subvention',
+        'économie d\'énergie',
+        'économies d\'énergie',
+        'avantage financier',
+        'avantages financiers',
+        'aide',
+        'aides'
     ];
     
     // Fonction pour vérifier si un texte contient des mots-clés de financement
     function containsFinancingKeyword(text) {
-        const lowerText = text.toLowerCase().replace(/'/g, "'");
+        if (!text) return false;
+        const lowerText = text.toLowerCase().replace(/'/g, "'").replace(/'/g, "'");
         return financingKeywords.some(keyword => lowerText.includes(keyword));
     }
     
-    // 1. Masquer tous les titres (h1-h6) mentionnant le financement
+    // Fonction pour masquer un élément et tous ses frères suivants jusqu'au prochain titre
+    function hideElementAndFollowing(element) {
+        if (!element) return;
+        
+        element.style.display = 'none';
+        element.classList.add('old-financing-section');
+        
+        let nextEl = element.nextElementSibling;
+        let count = 0;
+        const maxElements = 20; // Limite de sécurité
+        
+        while (nextEl && count < maxElements) {
+            const isHeading = /^H[1-6]$/.test(nextEl.tagName);
+            
+            // Si on trouve un nouveau titre qui NE parle PAS de financement, on arrête
+            if (isHeading && !containsFinancingKeyword(nextEl.textContent)) {
+                break;
+            }
+            
+            // Sinon, on masque l'élément
+            const currentEl = nextEl;
+            nextEl = nextEl.nextElementSibling;
+            
+            currentEl.style.display = 'none';
+            currentEl.classList.add('old-financing-section');
+            count++;
+            
+            // Si c'est un titre de financement, continuer
+            if (isHeading && containsFinancingKeyword(currentEl.textContent)) {
+                continue;
+            }
+            
+            // Si l'élément ne parle plus de financement, on peut arrêter
+            if (!containsFinancingKeyword(currentEl.textContent)) {
+                break;
+            }
+        }
+    }
+    
+    // 1. PRIORITÉ MAX : Masquer tous les titres (h1-h6) mentionnant "financement" et TOUT ce qui suit
     const headings = adContent.querySelectorAll('h1, h2, h3, h4, h5, h6');
     headings.forEach(heading => {
-        if (containsFinancingKeyword(heading.textContent)) {
-            // Cacher le titre et le paragraphe suivant
-            heading.classList.add('old-financing-section');
-            let nextEl = heading.nextElementSibling;
-            while (nextEl && (nextEl.tagName === 'P' || nextEl.tagName === 'UL' || nextEl.tagName === 'DIV')) {
-                if (containsFinancingKeyword(nextEl.textContent) || nextEl.className.includes('bg-yellow') || nextEl.className.includes('border-l-4')) {
-                    nextEl.classList.add('old-financing-section');
-                    nextEl = nextEl.nextElementSibling;
-                } else {
-                    break;
-                }
-            }
+        const text = heading.textContent.trim();
+        if (containsFinancingKeyword(text)) {
+            console.log('🚫 Masquage du titre financement:', text);
+            hideElementAndFollowing(heading);
         }
     });
     
-    // 2. Masquer tous les paragraphes mentionnant le financement
+    // 2. Masquer tous les paragraphes restants mentionnant le financement
     const paragraphs = adContent.querySelectorAll('p');
     paragraphs.forEach(p => {
-        if (containsFinancingKeyword(p.textContent)) {
+        if (p.style.display !== 'none' && containsFinancingKeyword(p.textContent)) {
+            p.style.display = 'none';
             p.classList.add('old-financing-section');
         }
     });
@@ -714,11 +768,12 @@ document.addEventListener('DOMContentLoaded', function() {
     // 3. Masquer toutes les divs avec classes de financement
     const divs = adContent.querySelectorAll('div');
     divs.forEach(div => {
-        // Vérifier les classes
-        if (div.className.includes('bg-yellow') || 
-            div.className.includes('bg-green') || 
-            div.className.includes('border-l-4')) {
-            if (containsFinancingKeyword(div.textContent)) {
+        if (div.style.display !== 'none' && containsFinancingKeyword(div.textContent)) {
+            if (div.className.includes('bg-yellow') || 
+                div.className.includes('bg-green') || 
+                div.className.includes('border-l-4') ||
+                div.className.includes('border-yellow')) {
+                div.style.display = 'none';
                 div.classList.add('old-financing-section');
             }
         }
@@ -727,21 +782,29 @@ document.addEventListener('DOMContentLoaded', function() {
     // 4. Masquer les listes contenant des infos de financement
     const lists = adContent.querySelectorAll('ul, ol');
     lists.forEach(list => {
-        if (containsFinancingKeyword(list.textContent)) {
+        if (list.style.display !== 'none' && containsFinancingKeyword(list.textContent)) {
+            list.style.display = 'none';
             list.classList.add('old-financing-section');
         }
     });
     
-    // 5. Nettoyage final : si une section entière parle de financement, la masquer
-    const sections = adContent.querySelectorAll('section, article, aside');
-    sections.forEach(section => {
-        const text = section.textContent.toLowerCase();
-        // Si plus de 50% du contenu parle de financement
-        const financingMentions = financingKeywords.filter(keyword => text.includes(keyword)).length;
-        if (financingMentions >= 3) {
-            section.classList.add('old-financing-section');
+    // 5. Nettoyage final : balayage de tous les éléments restants
+    const allElements = adContent.querySelectorAll('*');
+    allElements.forEach(el => {
+        if (el.style.display !== 'none') {
+            const text = el.textContent.trim();
+            // Si l'élément contient UNIQUEMENT du contenu de financement (pas d'autre contenu utile)
+            if (text.length > 20 && containsFinancingKeyword(text)) {
+                const financingRatio = financingKeywords.filter(k => text.toLowerCase().includes(k)).length;
+                if (financingRatio >= 2) {
+                    el.style.display = 'none';
+                    el.classList.add('old-financing-section');
+                }
+            }
         }
     });
+    
+    console.log('✅ Script de masquage du financement terminé');
 });
 </script>
 @endpush

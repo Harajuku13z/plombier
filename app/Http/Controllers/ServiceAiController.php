@@ -187,10 +187,6 @@ class ServiceAiController extends Controller
       <h3 class="text-xl font-bold text-gray-900 mb-3">Pourquoi choisir [service] avec [entreprise]</h3>
       <p class="leading-relaxed">[pourquoi_choisir]</p>
     </div>
-    <div class="bg-yellow-50 p-6 rounded-lg border-l-4 border-yellow-600">
-      <h4 class="text-xl font-bold text-gray-900 mb-3">Financement et aides</h4>
-      <p>[financement_aides]</p>
-    </div>
     <div class="bg-gradient-to-r from-blue-50 to-green-50 p-6 rounded-lg border-l-4 border-blue-600">
       <h4 class="text-xl font-bold text-gray-900 mb-3">Besoin d\'un devis ?</h4>
       <p class="mb-4">Contactez-nous pour un devis gratuit pour [service].</p>
@@ -315,7 +311,6 @@ Génère un JSON avec cette structure et remplis chaque champ avec du CONTENU R�
     {\"question\": \"[Question fréquente réelle sur {$serviceName}]\", \"reponse\": \"[Réponse détaillée et professionnelle]\"}
   ],
   \"pourquoi_choisir\": \"[Génère un texte détaillant pourquoi choisir {$companyName} pour {$serviceName} à {$companyCity} dans le département {$companyDept}. Mentionne expertise, qualité, réactivité, garanties, savoir-faire local, etc.]\",
-  \"financement_aides\": \"[Génère un texte sur les aides disponibles: MaPrimeRénov, CEE, éco-PTZ, TVA réduite, etc. Adapte selon le service.]\",
   \"infos_pratiques\": [
     {$infosPratiquesJsonString}
   ],
@@ -753,7 +748,6 @@ RÈGLES STRICTES:
         $html = str_replace('[service]', $escape($serviceName), $html);
         $html = str_replace('[entreprise]', $escape($companyName), $html);
         $html = str_replace('[pourquoi_choisir]', $escape($data['pourquoi_choisir'] ?? ''), $html);
-        $html = str_replace('[financement_aides]', $escape($data['financement_aides'] ?? ''), $html);
         $html = str_replace('[infos_pratiques_liste]', $infosPratiquesHtml, $html);
         $html = str_replace('[URL]', $escape($serviceUrl), $html);
         $html = str_replace('[TITRE]', $escape($serviceName), $html);

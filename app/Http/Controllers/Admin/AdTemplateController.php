@@ -915,10 +915,6 @@ EXEMPLES CONCRETS POUR {$serviceName}:
                 </div>
                 <h3 class="text-2xl font-bold text-gray-900 mb-4">Notre Expertise Locale</h3>
                 <p class="leading-relaxed">Depuis plusieurs années, nous intervenons sur [VILLE] et sa région, développant une connaissance approfondie des besoins locaux en ' . $serviceName . '.</p>
-                <div class="bg-yellow-50 p-6 rounded-lg border-l-4 border-yellow-600">
-                    <h4 class="text-xl font-bold text-gray-900 mb-3">Financement et aides</h4>
-                    <p>Nous vous accompagnons dans vos démarches pour bénéficier des aides financières disponibles pour vos travaux de ' . $serviceName . '.</p>
-                </div>
                 <div class="bg-gradient-to-r from-blue-50 to-green-50 p-6 rounded-lg border-l-4 border-blue-600">
                     <h4 class="text-xl font-bold text-gray-900 mb-3">Besoin d\'un devis?</h4>
                     <p class="mb-4">Contactez-nous pour un devis gratuit pour ' . $serviceName . ' à [VILLE].</p>
@@ -1223,10 +1219,6 @@ EXEMPLES CONCRETS POUR {$keyword}:
                 </div>
                 <h3 class="text-2xl font-bold text-gray-900 mb-4">Notre Expertise Locale</h3>
                 <p class="leading-relaxed">Depuis plusieurs années, nous intervenons sur [VILLE] et sa région, développant une connaissance approfondie des besoins locaux en ' . $keyword . '.</p>
-                <div class="bg-yellow-50 p-6 rounded-lg border-l-4 border-yellow-600">
-                    <h4 class="text-xl font-bold text-gray-900 mb-3">Financement et aides</h4>
-                    <p>Nous vous accompagnons dans vos démarches pour bénéficier des aides financières disponibles pour vos travaux de ' . $keyword . '.</p>
-                </div>
                 <div class="bg-gradient-to-r from-blue-50 to-green-50 p-6 rounded-lg border-l-4 border-blue-600">
                     <h4 class="text-xl font-bold text-gray-900 mb-3">Besoin d\'un devis?</h4>
                     <p class="mb-4">Contactez-nous pour un devis gratuit pour ' . $keyword . ' à [VILLE].</p>
@@ -1601,10 +1593,6 @@ EXEMPLES CONCRETS POUR {$keyword}:
     <div class="bg-green-50 p-6 rounded-lg">
       <h3 class="text-xl font-bold text-gray-900 mb-3">Pourquoi choisir [service] avec [entreprise]</h3>
       <p class="leading-relaxed">[pourquoi_choisir]</p>
-    </div>
-    <div class="bg-yellow-50 p-6 rounded-lg border-l-4 border-yellow-600">
-      <h4 class="text-xl font-bold text-gray-900 mb-3">Financement et aides</h4>
-      <p>[financement_aides]</p>
     </div>
     <div class="bg-gradient-to-r from-blue-50 to-green-50 p-6 rounded-lg border-l-4 border-blue-600">
       <h4 class="text-xl font-bold text-gray-900 mb-3">Besoin d\'un devis ?</h4>
