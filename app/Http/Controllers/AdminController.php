@@ -353,21 +353,30 @@ class AdminController extends Controller
             $submission = Submission::findOrFail($id);
             
             // Récupérer l'email de l'admin depuis les settings
-            $adminEmail = \App\Models\Setting::get('company_email');
-            
-            // Si pas d'email dans les settings, utiliser MAIL_FROM_ADDRESS comme fallback
-            if (!$adminEmail) {
-                $adminEmail = config('mail.from.address', 'contact@plombier-versailles78.fr');
-            }
+            $adminEmail = \App\Models\Setting::get('admin_notification_email') 
+                ?? \App\Models\Setting::get('company_email')
+                ?? \App\Models\Setting::get('mail_from_address');
             
             if (!$adminEmail || $adminEmail === 'hello@example.com') {
                 return back()->with('error', '❌ Email administrateur non configuré. Veuillez configurer l\'email dans les paramètres ou le fichier .env');
             }
             
-            // Envoyer l'email de notification
-            \Illuminate\Support\Facades\Mail::to($adminEmail)->send(new \App\Mail\SubmissionNotification($submission));
+            // Utiliser le même service d'email que lors de la soumission initiale
+            $emailService = new \App\Services\EmailService();
             
-            return back()->with('success', '✅ Email renvoyé avec succès à <strong>' . $adminEmail . '</strong>');
+            \Log::info('Renvoi de l\'email de notification admin', [
+                'submission_id' => $submission->id,
+                'admin_email' => $adminEmail
+            ]);
+            
+            // Envoyer l'email admin avec photos attachées
+            $sent = $emailService->sendSubmissionNotification($submission);
+            
+            if ($sent) {
+                return back()->with('success', '✅ Email renvoyé avec succès à <strong>' . $adminEmail . '</strong>');
+            } else {
+                return back()->with('error', '❌ Erreur lors de l\'envoi de l\'email. Vérifiez les logs pour plus de détails.');
+            }
             
         } catch (\Exception $e) {
             \Log::error('Erreur lors du renvoi de l\'email de soumission', [

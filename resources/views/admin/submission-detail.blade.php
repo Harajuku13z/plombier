@@ -140,7 +140,117 @@
                 ]);
             @endphp
 
-            <!-- Section débogage (toujours visible pour l'admin) -->
+            <!-- Section toutes les données -->
+            <div class="bg-white border-2 border-blue-300 rounded-lg shadow mb-6">
+                <div class="px-6 py-4 border-b border-blue-200 flex items-center justify-between bg-blue-50">
+                    <h2 class="text-lg font-semibold text-blue-900">
+                        <i class="fas fa-database mr-2 text-blue-600"></i>Toutes les Données de la Soumission
+                    </h2>
+                    <button onclick="document.getElementById('all-data-section').classList.toggle('hidden')" 
+                            class="px-3 py-1 bg-blue-600 text-white text-sm rounded hover:bg-blue-700 transition">
+                        <i class="fas fa-eye mr-1"></i>Afficher/Masquer
+                    </button>
+                </div>
+                <div id="all-data-section" class="p-6 hidden">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        @php
+                            $allFields = [
+                                'ID' => $submission->id,
+                                'Session ID' => $submission->session_id,
+                                'User Identifier' => $submission->user_identifier,
+                                'Type de formulaire' => $submission->is_emergency ? '🚨 URGENCE' : ($submission->work_type ?? 'Simulateur'),
+                                'Civilité (gender)' => $submission->gender,
+                                'Prénom (first_name)' => $submission->first_name,
+                                'Nom (last_name)' => $submission->last_name,
+                                'Nom complet (name)' => $submission->name,
+                                'Email' => $submission->email,
+                                'Téléphone (phone)' => $submission->phone,
+                                'Code postal' => $submission->postal_code,
+                                'Adresse complète' => $submission->address,
+                                'Ville (city)' => $submission->city,
+                                'Pays (country)' => $submission->country,
+                                'Code pays (country_code)' => $submission->country_code,
+                                'Type de bien (property_type)' => $submission->property_type,
+                                'Surface (m²)' => $submission->surface,
+                                'Statut propriétaire (ownership_status)' => $submission->ownership_status,
+                                'Type de travail (work_type)' => $submission->work_type,
+                                'Types de travaux (work_types)' => is_array($submission->work_types) ? implode(', ', $submission->work_types) : $submission->work_types,
+                                'Travaux plomberie (roof_work_types)' => is_array($submission->roof_work_types) ? implode(', ', $submission->roof_work_types) : $submission->roof_work_types,
+                                'Travaux façade (facade_work_types)' => is_array($submission->facade_work_types) ? implode(', ', $submission->facade_work_types) : $submission->facade_work_types,
+                                'Travaux isolation (isolation_work_types)' => is_array($submission->isolation_work_types) ? implode(', ', $submission->isolation_work_types) : $submission->isolation_work_types,
+                                'Message / Description' => $submission->message,
+                                'Est urgence (is_emergency)' => $submission->is_emergency ? 'OUI' : 'NON',
+                                'Type d\'urgence (emergency_type)' => $submission->emergency_type,
+                                'Niveau d\'urgence (urgency_level)' => $submission->urgency_level,
+                                'Statut' => $submission->status,
+                                'Étape actuelle (current_step)' => $submission->current_step,
+                                'Adresse IP (ip_address)' => $submission->ip_address,
+                                'URL référente (referrer_url)' => $submission->referrer_url,
+                                'User Agent' => $submission->user_agent,
+                                'Score reCAPTCHA' => $submission->recaptcha_score,
+                                'Date création' => $submission->created_at?->format('d/m/Y H:i:s'),
+                                'Date mise à jour' => $submission->updated_at?->format('d/m/Y H:i:s'),
+                                'Date complétion' => $submission->completed_at?->format('d/m/Y H:i:s'),
+                                'Date abandon' => $submission->abandoned_at?->format('d/m/Y H:i:s'),
+                            ];
+                        @endphp
+                        
+                        @foreach($allFields as $label => $value)
+                            <div class="border-b border-gray-200 pb-2">
+                                <label class="text-xs font-semibold text-gray-500 uppercase tracking-wide">{{ $label }}</label>
+                                <p class="mt-1 text-sm text-gray-900 font-medium">
+                                    @if($value)
+                                        @if(Str::startsWith($value, 'http'))
+                                            <a href="{{ $value }}" target="_blank" class="text-blue-600 hover:text-blue-800 break-all">
+                                                {{ Str::limit($value, 50) }}
+                                            </a>
+                                        @else
+                                            {{ $value }}
+                                        @endif
+                                    @else
+                                        <span class="text-gray-400 italic">Non renseigné</span>
+                                    @endif
+                                </p>
+                            </div>
+                        @endforeach
+                    </div>
+                    
+                    <!-- Form Data JSON -->
+                    @if($submission->form_data && !empty($submission->form_data))
+                    <div class="mt-6">
+                        <h3 class="font-semibold text-sm text-gray-700 mb-2 flex items-center">
+                            <i class="fas fa-code mr-2 text-purple-600"></i>
+                            Données formulaire complètes (form_data)
+                        </h3>
+                        <pre class="bg-gray-900 text-green-400 p-4 rounded text-xs overflow-x-auto max-h-64 overflow-y-auto">{{ json_encode($submission->form_data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE) }}</pre>
+                    </div>
+                    @endif
+                    
+                    <!-- Tracking Data JSON -->
+                    @if($submission->tracking_data && !empty($submission->tracking_data))
+                    <div class="mt-6">
+                        <h3 class="font-semibold text-sm text-gray-700 mb-2 flex items-center">
+                            <i class="fas fa-chart-line mr-2 text-orange-600"></i>
+                            Données de tracking (tracking_data)
+                        </h3>
+                        <pre class="bg-gray-900 text-orange-400 p-4 rounded text-xs overflow-x-auto max-h-64 overflow-y-auto">{{ json_encode($submission->tracking_data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE) }}</pre>
+                    </div>
+                    @endif
+                    
+                    <!-- Photos Array -->
+                    @if($submission->photos && !empty($submission->photos))
+                    <div class="mt-6">
+                        <h3 class="font-semibold text-sm text-gray-700 mb-2 flex items-center">
+                            <i class="fas fa-images mr-2 text-indigo-600"></i>
+                            Photos (submission->photos)
+                        </h3>
+                        <pre class="bg-gray-900 text-indigo-400 p-4 rounded text-xs overflow-x-auto">{{ json_encode($submission->photos, JSON_PRETTY_PRINT) }}</pre>
+                    </div>
+                    @endif
+                </div>
+            </div>
+
+            <!-- Section débogage photos (compact) -->
             <div class="bg-gray-50 border-2 border-gray-300 rounded-lg shadow mb-6">
                 <div class="px-6 py-4 border-b border-gray-300 flex items-center justify-between">
                     <h2 class="text-lg font-semibold text-gray-700">

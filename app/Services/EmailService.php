@@ -101,15 +101,66 @@ class EmailService
             $this->mailer->isHTML(true);
             $this->mailer->Body = $this->generateAdminEmailBody($submission);
 
-            // Joindre les photos (si présentes)
+            // Joindre TOUTES les photos (tracking_data + photos directes)
+            $allPhotos = [];
+            
+            // 1. Photos du champ 'photos' (urgence ou autres)
+            if ($submission->photos && is_array($submission->photos)) {
+                $allPhotos = array_merge($allPhotos, $submission->photos);
+            }
+            
+            // 2. Photos du tracking_data (simulateur)
             $tracking = $submission->tracking_data ?? [];
             if (is_array($tracking) && !empty($tracking['photos']) && is_array($tracking['photos'])) {
-                $photos = array_slice($tracking['photos'], 0, 5);
-                foreach ($photos as $photo) {
-                    $path = public_path(ltrim($photo, '/'));
+                $allPhotos = array_merge($allPhotos, $tracking['photos']);
+            }
+            
+            // Dédupliquer et limiter à 5 photos
+            $allPhotos = array_values(array_unique($allPhotos));
+            $photosToAttach = array_slice($allPhotos, 0, 5);
+            
+            \Log::info('Attaching photos to admin email', [
+                'submission_id' => $submission->id,
+                'total_photos' => count($allPhotos),
+                'photos_to_attach' => count($photosToAttach)
+            ]);
+            
+            foreach ($photosToAttach as $index => $photo) {
+                // Nettoyer le chemin (enlever storage/ si présent)
+                $cleanPath = ltrim(str_replace('storage/', '', $photo), '/');
+                
+                // Essayer plusieurs chemins possibles
+                $possiblePaths = [
+                    public_path($photo),                    // Chemin direct
+                    public_path('storage/' . $cleanPath),   // storage/...
+                    storage_path('app/public/' . $cleanPath) // storage/app/public/...
+                ];
+                
+                $attached = false;
+                foreach ($possiblePaths as $path) {
                     if (file_exists($path)) {
-                        try { $this->mailer->addAttachment($path); } catch (\Throwable $e) { \Log::warning('Attachment error: '.$e->getMessage()); }
+                        try {
+                            $this->mailer->addAttachment($path, 'photo_' . ($index + 1) . '_' . basename($path));
+                            \Log::info('Photo attached successfully', [
+                                'file' => basename($path),
+                                'path' => $path
+                            ]);
+                            $attached = true;
+                            break;
+                        } catch (\Throwable $e) {
+                            \Log::warning('Attachment error for path: ' . $path, [
+                                'error' => $e->getMessage()
+                            ]);
+                        }
                     }
+                }
+                
+                if (!$attached) {
+                    \Log::warning('Photo not found for attachment', [
+                        'original_path' => $photo,
+                        'clean_path' => $cleanPath,
+                        'tried_paths' => $possiblePaths
+                    ]);
                 }
             }
 
@@ -363,20 +414,41 @@ class EmailService
      */
     private function generatePhotosHtml(Submission $submission): string
     {
-        $tracking = $submission->tracking_data ?? [];
-        $photos = [];
-        if (is_array($tracking) && isset($tracking['photos']) && is_array($tracking['photos'])) {
-            $photos = array_slice($tracking['photos'], 0, 5);
+        // Fusionner TOUTES les sources de photos
+        $allPhotos = [];
+        
+        // 1. Photos du champ 'photos' (urgence ou autres)
+        if ($submission->photos && is_array($submission->photos)) {
+            $allPhotos = array_merge($allPhotos, $submission->photos);
         }
+        
+        // 2. Photos du tracking_data (simulateur)
+        $tracking = $submission->tracking_data ?? [];
+        if (is_array($tracking) && isset($tracking['photos']) && is_array($tracking['photos'])) {
+            $allPhotos = array_merge($allPhotos, $tracking['photos']);
+        }
+        
+        // Dédupliquer et limiter à 5 photos
+        $allPhotos = array_values(array_unique($allPhotos));
+        $photos = array_slice($allPhotos, 0, 5);
+        
         if (empty($photos)) return '';
+        
         $items = '';
-        foreach ($photos as $photo) {
+        foreach ($photos as $index => $photo) {
             $url = $this->publicPhotoUrl($submission, $photo);
-            $items .= "<a href='{$url}' target='_blank' style='display:inline-block;margin:4px;border:1px solid #eee;border-radius:6px;overflow:hidden;'>"
-                   . "<img src='{$url}' alt='Photo' style='width:120px;height:120px;object-fit:cover;display:block;'>"
+            $items .= "<a href='{$url}' target='_blank' style='display:inline-block;margin:4px;border:1px solid #ddd;border-radius:6px;overflow:hidden;box-shadow:0 2px 4px rgba(0,0,0,0.1);'>"
+                   . "<img src='{$url}' alt='Photo " . ($index + 1) . "' style='width:150px;height:150px;object-fit:cover;display:block;'>"
+                   . "<div style='background:#f8f9fa;padding:4px 8px;text-align:center;font-size:11px;color:#666;'>Photo " . ($index + 1) . "</div>"
                    . "</a>";
         }
-        return "<div style='padding:16px;background:#f8f9fa;border-radius:8px;'><h3 style='margin:0 0 10px 0;'>📷 Photos du projet</h3><div>{$items}</div></div>";
+        
+        $photoCount = count($photos);
+        return "<div style='padding:20px;background:#f0f9ff;border:2px solid #bae6fd;border-radius:8px;margin:15px 0;'>"
+             . "<h3 style='margin:0 0 12px 0;color:#0c4a6e;font-size:16px;'><span style='font-size:20px;'>📷</span> Photos jointes ({$photoCount})</h3>"
+             . "<p style='margin:0 0 10px 0;font-size:13px;color:#64748b;'>Les photos sont également disponibles en pièces jointes.</p>"
+             . "<div style='display:flex;flex-wrap:wrap;gap:8px;'>{$items}</div>"
+             . "</div>";
     }
 
     /**
