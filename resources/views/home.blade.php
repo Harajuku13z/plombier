@@ -1,8 +1,63 @@
 @extends('layouts.app')
 
-@section('title', setting('company_name', 'Votre Entreprise') . ' - ' . setting('company_specialization', 'Travaux de Rénovation'))
-@section('description', setting('company_description', 'Expert en travaux de rénovation'))
+@section('title', 'Plombier Versailles 78 | Artisan Expert en Plomberie Yvelines | Dépannage Urgence 24h/7')
+@section('description', 'Plombier professionnel à Versailles (78) et Yvelines. Dépannage urgence 24h/24, installation sanitaire, réparation fuite, débouchage canalisation. Devis gratuit ☎️ ' . setting('company_phone', '07 86 48 65 39'))
 
+@push('head')
+<!-- SEO Meta Tags Optimisés pour Plombier Versailles 78 -->
+<meta name="keywords" content="plombier versailles, plombier versailles 78, plombier yvelines, plomberie versailles, artisan plombier versailles, dépannage plomberie versailles, plombier urgence versailles, plombier 24h versailles, réparation fuite versailles, débouchage canalisation versailles, installation sanitaire versailles, plombier pas cher versailles, devis plombier versailles, plombier chauffagiste versailles, dépannage chauffe-eau versailles, installation chaudière versailles, plomberie salle de bain versailles, rénovation salle de bain versailles, plombier le chesnay, plombier viroflay, plombier vélizy, plombier jouy en josas, plombier buc, plombier saint cyr l'école, plombier bailly, plombier noisy le roi, installation plomberie neuve versailles, remplacement tuyauterie versailles, détection fuite versailles, réparation robinetterie versailles, plombier certifié versailles, entreprise plomberie versailles 78000, plombier agrée versailles, plomberie chauffage versailles, installation VMC versailles, plombier qualifié yvelines, urgence plombier week-end versailles, plombier dimanche versailles, dégorgement urgence versailles, curage canalisation versailles, inspection caméra canalisation versailles">
+<meta name="geo.region" content="FR-78" />
+<meta name="geo.placename" content="Versailles" />
+<meta name="geo.position" content="48.801408;2.130122" />
+<meta name="ICBM" content="48.801408, 2.130122" />
+<meta property="og:title" content="Plombier Versailles 78 | Expert Plomberie Yvelines | Urgence 24h/7" />
+<meta property="og:description" content="Votre plombier professionnel à Versailles et dans les Yvelines. Intervention rapide, devis gratuit. Dépannage urgence 24h/24, 7j/7." />
+<meta property="og:type" content="website" />
+<meta property="og:locale" content="fr_FR" />
+<link rel="canonical" href="{{ url('/') }}" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Plumber",
+  "name": "{{ setting('company_name', 'Plombier Versailles') }}",
+  "description": "Plombier professionnel à Versailles (78) - Dépannage urgence 24h/24, installation, réparation",
+  "image": "{{ asset(setting('company_logo', '/images/logo.png')) }}",
+  "telephone": "{{ setting('company_phone', '07 86 48 65 39') }}",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "{{ setting('company_address', '') }}",
+    "addressLocality": "Versailles",
+    "postalCode": "78000",
+    "addressRegion": "Yvelines",
+    "addressCountry": "FR"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": "48.801408",
+    "longitude": "2.130122"
+  },
+  "url": "{{ url('/') }}",
+  "priceRange": "€€",
+  "areaServed": [
+    "Versailles",
+    "Le Chesnay",
+    "Viroflay",
+    "Vélizy-Villacoublay",
+    "Jouy-en-Josas",
+    "Buc",
+    "Saint-Cyr-l'École",
+    "Bailly",
+    "Noisy-le-Roi",
+    "Yvelines"
+  ],
+  "openingHoursSpecification": {
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+    "opens": "00:00",
+    "closes": "23:59"
+  }
+}
+</script>
 @push('head')
 <style>
     :root {
@@ -371,10 +426,11 @@
                     @if(!empty($homeConfig['about']['image']))
                         <div class="aspect-square rounded-2xl overflow-hidden shadow-2xl">
                             <img src="{{ asset($homeConfig['about']['image']) }}" 
-                                 alt="{{ $homeConfig['about']['title'] ?? 'Qui Sommes-Nous' }}" 
+                                 alt="Plombier professionnel Versailles 78 - Équipe artisan plomberie Yvelines expert en installation sanitaire et dépannage urgence" 
                                  class="w-full h-full object-cover object-center mobile-responsive-img about-image-mobile"
                                  style="image-rendering: -webkit-optimize-contrast; image-rendering: crisp-edges; max-width: 100%; height: auto; display: block; width: 100%;"
                                  loading="lazy"
+                                 title="Votre artisan plombier à Versailles et dans les Yvelines"
                                  onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
                             <div class="w-full h-full bg-gradient-to-br from-primary to-secondary rounded-2xl flex items-center justify-center" style="display: none;">
                                 <div class="text-center text-white p-8">
@@ -418,9 +474,10 @@
                     @if(!empty($service['featured_image']))
                     <div class="h-48 bg-cover bg-center mobile-responsive-img service-image-mobile" style="background-image: url('{{ url($service['featured_image']) }}'); background-size: cover; background-position: center; background-repeat: no-repeat;">
                         <img src="{{ url($service['featured_image']) }}" 
-                             alt="{{ $service['name'] }}" 
+                             alt="Plombier Versailles 78 - {{ $service['name'] }} - Service professionnel plomberie Yvelines dépannage urgence" 
                              class="w-full h-full object-cover mobile-responsive-img"
                              style="display: none;"
+                             title="Service plomberie {{ $service['name'] }} à Versailles et Yvelines"
                              width="667"
                              height="350"
                              loading="lazy">
@@ -597,8 +654,9 @@
                                 <!-- Image du simulateur configurée -->
                                 <div class="relative rounded-2xl overflow-hidden shadow-2xl border-4 border-white/30 group-hover/image:border-white/50 transition-all duration-300">
                                     <img src="{{ asset(setting('simulator_image')) }}" 
-                                         alt="Simulateur de Prix" 
-                                         class="w-full h-auto object-cover group-hover/image:scale-105 transition-transform duration-300">
+                                         alt="Simulateur devis plombier Versailles 78 - Calculez gratuitement le prix de vos travaux de plomberie en ligne" 
+                                         class="w-full h-auto object-cover group-hover/image:scale-105 transition-transform duration-300"
+                                         title="Simulateur de devis plomberie gratuit Versailles Yvelines">
                                     <!-- Overlay au hover -->
                                     <div class="absolute inset-0 bg-gradient-to-t from-blue-900/80 via-transparent to-transparent opacity-0 group-hover/image:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-6">
                                         <div class="bg-white text-blue-700 px-6 py-3 rounded-xl font-bold shadow-xl transform translate-y-4 group-hover/image:translate-y-0 transition-transform duration-300">
@@ -868,16 +926,18 @@
                         <a href="{{ $partner['url'] }}" target="_blank" rel="noopener noreferrer" class="w-full h-full flex items-center justify-center">
                             <img 
                                 src="{{ asset($partner['logo']) }}" 
-                                alt="{{ $partner['name'] ?? 'Partenaire' }}"
+                                alt="Partenaire plombier Versailles 78 - {{ $partner['name'] ?? 'Partenaire certifié' }} - Plomberie professionnelle Yvelines"
                                 class="max-w-full max-h-full object-contain transition-all duration-300 opacity-100 hover:opacity-90"
+                                title="{{ $partner['name'] ?? 'Partenaire' }} - Plombier Versailles"
                                 loading="lazy"
                                 onerror="this.style.display='none';">
                         </a>
                         @else
                         <img 
                             src="{{ asset($partner['logo']) }}" 
-                            alt="{{ $partner['name'] ?? 'Partenaire' }}"
+                            alt="Partenaire plombier Versailles 78 - {{ $partner['name'] ?? 'Partenaire certifié' }} - Plomberie professionnelle Yvelines"
                             class="max-w-full max-h-full object-contain opacity-100"
+                            title="{{ $partner['name'] ?? 'Partenaire' }} - Plombier Versailles"
                             loading="lazy"
                             onerror="this.style.display='none';">
                         @endif
