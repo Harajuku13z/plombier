@@ -1073,11 +1073,3 @@
         });
     </script>
 @endsection
-
-
-
-
-
-
-
-
