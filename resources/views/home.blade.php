@@ -58,7 +58,6 @@
   }
 }
 </script>
-@push('head')
 <style>
     :root {
         --primary-color: {{ setting('primary_color', '#3b82f6') }};
