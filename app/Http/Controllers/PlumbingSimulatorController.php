@@ -8,6 +8,7 @@ use App\Models\Setting;
 use App\Models\Client;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 
 class PlumbingSimulatorController extends Controller
 {
@@ -341,6 +342,60 @@ class PlumbingSimulatorController extends Controller
                 throw $saveError;
             }
             
+            // Déplacer les photos temporaires vers le dossier permanent
+            if (!empty($data['photo_paths']) && is_array($data['photo_paths'])) {
+                Log::info('Processing photos from simulator-temp', [
+                    'submission_id' => $submission->id,
+                    'temp_photos' => $data['photo_paths']
+                ]);
+                
+                $permanentPhotos = [];
+                foreach ($data['photo_paths'] as $tempPath) {
+                    try {
+                        // Le chemin est comme: simulator-temp/xxxxx.jpg
+                        if (Storage::disk('public')->exists($tempPath)) {
+                            $filename = basename($tempPath);
+                            $permanentPath = 'submissions/' . $submission->id . '/' . $filename;
+                            
+                            // Copier le fichier vers le dossier permanent
+                            Storage::disk('public')->copy($tempPath, $permanentPath);
+                            
+                            // Ajouter au tableau des photos permanentes
+                            $permanentPhotos[] = 'storage/' . $permanentPath;
+                            
+                            Log::info('Photo moved successfully', [
+                                'from' => $tempPath,
+                                'to' => $permanentPath
+                            ]);
+                            
+                            // Supprimer le fichier temporaire
+                            Storage::disk('public')->delete($tempPath);
+                        } else {
+                            Log::warning('Temp photo not found', ['path' => $tempPath]);
+                        }
+                    } catch (\Exception $photoError) {
+                        Log::error('Error moving photo', [
+                            'temp_path' => $tempPath,
+                            'error' => $photoError->getMessage()
+                        ]);
+                    }
+                }
+                
+                // Mettre à jour tracking_data avec les photos permanentes
+                if (!empty($permanentPhotos)) {
+                    $trackingData = $submission->tracking_data ?? [];
+                    $trackingData['photos'] = $permanentPhotos;
+                    $submission->tracking_data = $trackingData;
+                    $submission->save();
+                    
+                    Log::info('Photos saved to tracking_data', [
+                        'submission_id' => $submission->id,
+                        'photo_count' => count($permanentPhotos),
+                        'photos' => $permanentPhotos
+                    ]);
+                }
+            }
+            
             // Créer ou mettre à jour le client (lead)
             try {
                 $this->createOrUpdateClient($submission, $data);
@@ -351,45 +406,21 @@ class PlumbingSimulatorController extends Controller
                 // Ne pas bloquer si la création du client échoue
             }
 
-            // Envoyer l'email à l'admin/entreprise
+            // Envoyer l'email à l'admin/entreprise avec EmailService (pour les photos en PJ)
             try {
-                $companyEmail = Setting::get('company_email');
-                $adminNotificationEmail = Setting::get('admin_notification_email'); // Email de notification admin
+                Log::info('Preparing to send admin notification with photos', [
+                    'submission_id' => $submission->id,
+                    'has_photos' => !empty($submission->tracking_data['photos'] ?? [])
+                ]);
                 
-                // Déterminer les destinataires
-                $recipients = [];
+                // Utiliser EmailService pour l'email admin (avec photos en PJ automatiques)
+                $emailService = new \App\Services\EmailService();
+                $sent = $emailService->sendSubmissionNotification($submission);
                 
-                if (!empty($adminNotificationEmail)) {
-                    $recipients[] = $adminNotificationEmail;
-                    Log::info('Admin notification email configured', ['admin_email' => $adminNotificationEmail]);
-                } elseif (!empty($companyEmail)) {
-                    $recipients[] = $companyEmail;
-                    Log::info('Using company email for notification', ['company_email' => $companyEmail]);
+                if ($sent) {
+                    Log::info('✅ Admin notification sent successfully with EmailService');
                 } else {
-                    Log::warning('⚠️ No email configured for notifications');
-                }
-                
-                // Envoyer à tous les destinataires
-                foreach ($recipients as $email) {
-                    Log::info('Sending admin notification', ['to' => $email]);
-                    
-                    try {
-                        Mail::send('emails.simulator-admin-notification', [
-                            'submission' => $submission,
-                            'data' => $data,
-                            'workTypes' => $workTypes,
-                        ], function ($mail) use ($email, $submission) {
-                            $mail->to($email)
-                                 ->subject('🔔 Nouvelle demande de devis - Simulateur #' . str_pad($submission->id, 4, '0', STR_PAD_LEFT));
-                        });
-                        
-                        Log::info('✅ Admin notification sent successfully to: ' . $email);
-                    } catch (\Exception $mailError) {
-                        Log::error('Failed to send admin notification', [
-                            'error' => $mailError->getMessage(),
-                            'to' => $email,
-                        ]);
-                    }
+                    Log::warning('⚠️ EmailService returned false (may be disabled or error)');
                 }
                 
                 // Envoyer un email de confirmation au client

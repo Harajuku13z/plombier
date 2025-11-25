@@ -82,6 +82,10 @@ class EmailService
     {
         try {
             if (!Setting::get('email_enabled', false)) {
+                \Log::info('Email notifications are disabled in settings', [
+                    'email_enabled' => Setting::get('email_enabled', false),
+                    'submission_id' => $submission->id
+                ]);
                 return false;
             }
 
