@@ -102,6 +102,107 @@
                 </div>
             </div>
 
+            @php
+                // Fusionner toutes les photos disponibles
+                $allPhotos = [];
+                
+                // 1. Photos du champ 'photos' (urgence ou autres)
+                if ($submission->photos && is_array($submission->photos)) {
+                    foreach ($submission->photos as $photo) {
+                        $allPhotos[] = [
+                            'path' => $photo,
+                            'type' => 'direct'
+                        ];
+                    }
+                }
+                
+                // 2. Photos du tracking_data (simulateur)
+                if (isset($submission->tracking_data['photos']) && is_array($submission->tracking_data['photos'])) {
+                    foreach ($submission->tracking_data['photos'] as $photo) {
+                        $allPhotos[] = [
+                            'path' => $photo,
+                            'type' => 'tracking'
+                        ];
+                    }
+                }
+                
+                $totalPhotos = count($allPhotos);
+            @endphp
+
+            @if($totalPhotos > 0)
+            <!-- Photos du formulaire -->
+            <div class="bg-white rounded-lg shadow">
+                <div class="px-6 py-4 border-b border-gray-200 flex items-center justify-between">
+                    <h2 class="text-xl font-semibold text-gray-800">
+                        <i class="fas fa-images mr-2 text-indigo-500"></i>Photos associées
+                    </h2>
+                    <span class="px-3 py-1 bg-indigo-100 text-indigo-800 text-sm font-medium rounded-full">
+                        {{ $totalPhotos }} {{ $totalPhotos > 1 ? 'photos' : 'photo' }}
+                    </span>
+                </div>
+                <div class="p-6">
+                    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                        @foreach($allPhotos as $index => $photoData)
+                            @php
+                                $photoPath = $photoData['path'];
+                                
+                                // Nettoyer le chemin et extraire les informations
+                                $cleanPath = str_replace('storage/', '', $photoPath);
+                                $pathParts = explode('/', $cleanPath);
+                                
+                                // Chercher l'ID de soumission dans le chemin
+                                $fileId = $submission->id; // Par défaut
+                                $fileName = end($pathParts);
+                                
+                                // Si le chemin contient 'submissions/{id}/' ou 'uploads/submissions/{id}/'
+                                if (preg_match('/submissions\/(\d+)\//', $cleanPath, $matches)) {
+                                    $fileId = $matches[1];
+                                }
+                                
+                                // Utiliser la route media.submission.photo
+                                $photoUrl = route('media.submission.photo', ['id' => $fileId, 'file' => $fileName]);
+                            @endphp
+                            <div class="relative group">
+                                <a href="{{ $photoUrl }}" target="_blank" class="block">
+                                    <div class="relative overflow-hidden rounded-lg border-2 border-gray-200 hover:border-indigo-400 transition-all duration-300 shadow-md hover:shadow-xl">
+                                        <img src="{{ $photoUrl }}" 
+                                             alt="Photo {{ $index + 1 }}" 
+                                             class="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-110"
+                                             onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'200\' height=\'200\'%3E%3Crect fill=\'%23f3f4f6\' width=\'200\' height=\'200\'/%3E%3Ctext x=\'50%25\' y=\'45%25\' text-anchor=\'middle\' dy=\'.3em\' fill=\'%239ca3af\' font-size=\'14\'%3E%E2%9A%A0%EF%B8%8F%3C/text%3E%3Ctext x=\'50%25\' y=\'60%25\' text-anchor=\'middle\' dy=\'.3em\' fill=\'%239ca3af\' font-size=\'10\'%3EImage non disponible%3C/text%3E%3C/svg%3E';" />
+                                        
+                                        <!-- Overlay au hover -->
+                                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-end pb-3">
+                                            <i class="fas fa-search-plus text-white text-2xl mb-1"></i>
+                                            <span class="text-white text-xs font-medium">Agrandir</span>
+                                        </div>
+                                        
+                                        <!-- Badge numéro -->
+                                        <div class="absolute top-2 left-2 bg-indigo-600 text-white text-xs font-bold px-2 py-1 rounded-full shadow-lg">
+                                            #{{ $index + 1 }}
+                                        </div>
+                                    </div>
+                                </a>
+                                <!-- Nom du fichier -->
+                                <p class="mt-2 text-xs text-gray-500 truncate text-center" title="{{ $fileName }}">
+                                    {{ $fileName }}
+                                </p>
+                            </div>
+                        @endforeach
+                    </div>
+                    
+                    <!-- Note informative -->
+                    <div class="mt-4 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                        <div class="flex items-start">
+                            <i class="fas fa-info-circle text-blue-500 mt-0.5 mr-2"></i>
+                            <div class="text-sm text-blue-800">
+                                <strong>Note :</strong> Cliquez sur une photo pour l'ouvrir en taille réelle dans un nouvel onglet.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @endif
+
             @if($submission->is_emergency)
             <!-- Informations d'urgence -->
             <div class="bg-red-50 border-2 border-red-200 rounded-lg shadow">
@@ -141,31 +242,9 @@
                         @if($submission->photos && count($submission->photos) > 0)
                         <div class="md:col-span-2 mt-4">
                             <label class="text-sm font-medium text-red-700">Photos de l'urgence</label>
-                            <div class="mt-2 grid grid-cols-2 md:grid-cols-3 gap-4">
-                                @foreach($submission->photos as $photoPath)
-                                <div class="relative group">
-                                    @php
-                                        // Extraire l'ID et le nom du fichier depuis le chemin
-                                        // Format: submissions/{id}/{filename}
-                                        $pathParts = explode('/', $photoPath);
-                                        $fileId = $pathParts[1] ?? $submission->id;
-                                        $fileName = end($pathParts);
-                                        
-                                        // Utiliser la route media.submission.photo qui fonctionne déjà
-                                        $photoUrl = route('media.submission.photo', ['id' => $fileId, 'file' => $fileName]);
-                                    @endphp
-                                    <a href="{{ $photoUrl }}" target="_blank" class="block">
-                                        <img src="{{ $photoUrl }}" 
-                                             alt="Photo urgence" 
-                                             class="w-full h-32 object-cover rounded-lg border-2 border-red-200 hover:border-red-400 transition cursor-pointer shadow-md"
-                                             onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'100\' height=\'100\'%3E%3Crect fill=\'%23f3f4f6\' width=\'100\' height=\'100\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' text-anchor=\'middle\' dy=\'.3em\' fill=\'%239ca3af\' font-size=\'12\'%3EImage%3C/text%3E%3C/svg%3E';" />
-                                        <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition rounded-lg flex items-center justify-center">
-                                            <i class="fas fa-expand text-white opacity-0 group-hover:opacity-100 transition"></i>
-                                        </div>
-                                    </a>
-                                </div>
-                                @endforeach
-                            </div>
+                            <p class="mt-1 text-sm text-red-600">
+                                <i class="fas fa-arrow-up mr-1"></i>Voir la section "Photos associées" ci-dessus pour toutes les photos.
+                            </p>
                         </div>
                         @endif
                     </div>
@@ -257,48 +336,6 @@
 
         <!-- Sidebar -->
         <div class="space-y-6">
-            @php 
-                $simulatorPhotos = $submission->tracking_data['photos'] ?? [];
-            @endphp
-            @if(!empty($simulatorPhotos))
-            <div class="bg-white rounded-lg shadow p-6">
-                <h3 class="text-lg font-semibold text-gray-800 mb-4">
-                    <i class="fas fa-images mr-2 text-indigo-500"></i>Photos du projet ({{ count($simulatorPhotos) }})
-                </h3>
-                <div class="grid grid-cols-2 gap-3">
-                    @foreach($simulatorPhotos as $photo)
-                        @php
-                            // Les photos du simulateur sont stockées comme 'storage/uploads/submissions/{id}/{filename}'
-                            // ou 'storage/submissions/{id}/{filename}'
-                            // Extraire l'ID et le nom du fichier
-                            $photoPath = str_replace('storage/', '', $photo);
-                            $pathParts = explode('/', $photoPath);
-                            
-                            // Chercher l'ID de soumission dans le chemin
-                            $fileId = $submission->id; // Par défaut utiliser l'ID de la soumission
-                            $fileName = end($pathParts);
-                            
-                            // Si le chemin contient 'submissions/{id}/', extraire l'ID
-                            if (preg_match('/submissions\/(\d+)\//', $photoPath, $matches)) {
-                                $fileId = $matches[1];
-                            }
-                            
-                            // Utiliser la route media.submission.photo qui fonctionne
-                            $photoUrl = route('media.submission.photo', ['id' => $fileId, 'file' => $fileName]);
-                        @endphp
-                        <a href="{{ $photoUrl }}" target="_blank" class="block border rounded overflow-hidden group relative">
-                            <img src="{{ $photoUrl }}" 
-                                 alt="Photo projet" 
-                                 class="w-full h-28 object-cover transition-transform group-hover:scale-105"
-                                 onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'100\' height=\'100\'%3E%3Crect fill=\'%23f3f4f6\' width=\'100\' height=\'100\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' text-anchor=\'middle\' dy=\'.3em\' fill=\'%239ca3af\' font-size=\'12\'%3EImage%3C/text%3E%3C/svg%3E';" />
-                            <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-10 transition rounded flex items-center justify-center">
-                                <i class="fas fa-expand text-white opacity-0 group-hover:opacity-100 transition text-sm"></i>
-                            </div>
-                        </a>
-                    @endforeach
-                </div>
-            </div>
-            @endif
             <!-- Résumé -->
             <div class="bg-white rounded-lg shadow p-6">
                 <h3 class="text-lg font-semibold text-gray-800 mb-4">Résumé</h3>
