@@ -587,7 +587,6 @@
     </section>
 
     <!-- Sections Écologie, Simulateur et Aide Financière -->
-    @if(($homeConfig['ecology']['enabled'] ?? false) || ($homeConfig['financing']['enabled'] ?? false))
     <section class="py-20 bg-gray-50">
         <div class="container mx-auto px-4">
             <div class="grid lg:grid-cols-2 gap-8">
@@ -747,8 +746,6 @@
             </div>
         </div>
     </section>
-    @endif
-
 
     <!-- Portfolio Section -->
     @if(($homeConfig['sections']['portfolio']['enabled'] ?? true) && !empty($portfolioItems))
