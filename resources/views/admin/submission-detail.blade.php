@@ -454,15 +454,9 @@
                         <i class="fas fa-image text-gray-400 text-4xl"></i>
                     </div>
                     <h3 class="text-lg font-semibold text-gray-700 mb-2">Aucune photo envoyée</h3>
-                    <p class="text-gray-500 mb-4">
+                    <p class="text-gray-500">
                         Le client n'a pas joint de photos avec sa soumission.
                     </p>
-                    <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4 max-w-xl mx-auto">
-                        <p class="text-sm text-yellow-800">
-                            <i class="fas fa-lightbulb mr-2"></i>
-                            <strong>Astuce :</strong> Utilisez la section "Débogage Photos" ci-dessus pour vérifier les données brutes.
-                        </p>
-                    </div>
                 </div>
             </div>
             @endif
