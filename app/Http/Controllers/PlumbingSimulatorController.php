@@ -428,6 +428,8 @@ class PlumbingSimulatorController extends Controller
                     if (!empty($submission->email)) {
                         Log::info('Sending confirmation email to client', ['to' => $submission->email]);
                         
+                        $companyEmail = Setting::get('company_email', 'contact@plombier-versailles78.fr');
+                        
                         Mail::send('emails.simulator-confirmation', [
                             'submission' => $submission,
                             'data' => $data,
