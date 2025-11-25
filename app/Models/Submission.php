@@ -61,6 +61,7 @@ class Submission extends Model
         'is_emergency' => 'boolean',
         'completed_at' => 'datetime',
         'abandoned_at' => 'datetime',
+        'called_at' => 'datetime',
         'recaptcha_score' => 'decimal:2',
     ];
 

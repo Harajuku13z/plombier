@@ -99,7 +99,7 @@ use Illuminate\Support\Str;
         <div class="bg-white rounded-lg shadow p-4">
             <div class="flex justify-between items-start mb-3">
                 <div class="flex-1">
-                    <div class="flex items-center gap-2 mb-2">
+                    <div class="flex items-center gap-2 mb-2 flex-wrap">
                         <span class="text-sm font-medium text-gray-500">#{{ $submission->id }}</span>
                         <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
                             {{ match($submission->status) {
@@ -115,6 +115,11 @@ use Illuminate\Support\Str;
                                 default => 'Inconnu'
                             } }}
                         </span>
+                        @if($submission->called_at)
+                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800" title="Appelé le {{ $submission->called_at->format('d/m/Y à H:i') }}">
+                            <i class="fas fa-phone-alt mr-1"></i>Appelé
+                        </span>
+                        @endif
                     </div>
                     <h3 class="text-lg font-semibold text-gray-900">
                         @if($submission->name)
@@ -135,9 +140,16 @@ use Illuminate\Support\Str;
                        title="Voir les détails">
                         <i class="fas fa-eye"></i>
                     </a>
+                    <form method="POST" action="{{ route('admin.submission.mark-called', $submission->id) }}" class="inline">
+                        @csrf
+                        <button type="submit" class="{{ $submission->called_at ? 'text-gray-500 hover:text-gray-700' : 'text-green-600 hover:text-green-900' }} p-2" 
+                                title="{{ $submission->called_at ? 'Marquer NON appelé' : 'Marquer comme appelé' }}">
+                            <i class="fas {{ $submission->called_at ? 'fa-phone-slash' : 'fa-phone-alt' }}"></i>
+                        </button>
+                    </form>
                     @if($submission->status === 'COMPLETED')
                         <a href="{{ route('admin.submission.create-client', $submission->id) }}" 
-                           class="text-green-600 hover:text-green-900 p-2"
+                           class="text-purple-600 hover:text-purple-900 p-2"
                            title="Créer un devis">
                             <i class="fas fa-file-invoice"></i>
                         </a>
@@ -261,20 +273,27 @@ use Illuminate\Support\Str;
                         @endif
                     </td>
                     <td class="px-3 lg:px-6 py-4">
-                        <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium
-                            {{ match($submission->status) {
-                                'COMPLETED' => 'bg-green-100 text-green-800',
-                                'IN_PROGRESS' => 'bg-yellow-100 text-yellow-800',
-                                'ABANDONED' => 'bg-red-100 text-red-800',
-                                default => 'bg-gray-100 text-gray-800'
-                            } }}">
-                            {{ match($submission->status) {
-                                'COMPLETED' => 'Complété',
-                                'IN_PROGRESS' => 'En cours',
-                                'ABANDONED' => 'Abandonné',
-                                default => 'Inconnu'
-                            } }}
-                        </span>
+                        <div class="flex flex-col gap-1">
+                            <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium
+                                {{ match($submission->status) {
+                                    'COMPLETED' => 'bg-green-100 text-green-800',
+                                    'IN_PROGRESS' => 'bg-yellow-100 text-yellow-800',
+                                    'ABANDONED' => 'bg-red-100 text-red-800',
+                                    default => 'bg-gray-100 text-gray-800'
+                                } }}">
+                                {{ match($submission->status) {
+                                    'COMPLETED' => 'Complété',
+                                    'IN_PROGRESS' => 'En cours',
+                                    'ABANDONED' => 'Abandonné',
+                                    default => 'Inconnu'
+                                } }}
+                            </span>
+                            @if($submission->called_at)
+                            <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800" title="Appelé le {{ $submission->called_at->format('d/m/Y à H:i') }}">
+                                <i class="fas fa-phone-alt mr-1"></i>Appelé
+                            </span>
+                            @endif
+                        </div>
                     </td>
                     <td class="px-3 lg:px-6 py-4 hidden xl:table-cell">
                         @php
@@ -309,9 +328,16 @@ use Illuminate\Support\Str;
                                title="Voir les détails">
                                 <i class="fas fa-eye"></i>
                             </a>
+                            <form method="POST" action="{{ route('admin.submission.mark-called', $submission->id) }}" class="inline">
+                                @csrf
+                                <button type="submit" class="{{ $submission->called_at ? 'text-gray-500 hover:text-gray-700' : 'text-green-600 hover:text-green-900' }} p-1" 
+                                        title="{{ $submission->called_at ? 'Marquer NON appelé' : 'Marquer comme appelé' }}">
+                                    <i class="fas {{ $submission->called_at ? 'fa-phone-slash' : 'fa-phone-alt' }}"></i>
+                                </button>
+                            </form>
                             @if($submission->status === 'COMPLETED')
                                 <a href="{{ route('admin.submission.create-client', $submission->id) }}" 
-                                   class="text-green-600 hover:text-green-900 p-1"
+                                   class="text-purple-600 hover:text-purple-900 p-1"
                                    title="Créer un devis">
                                     <i class="fas fa-file-invoice"></i>
                                 </a>

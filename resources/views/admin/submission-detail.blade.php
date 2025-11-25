@@ -646,6 +646,18 @@
                             <i class="fas fa-paper-plane mr-2"></i>Renvoyer email à l'admin
                         </button>
                     </form>
+                    <form method="POST" action="{{ route('admin.submission.mark-called', $submission->id) }}" class="w-full">
+                        @csrf
+                        @if($submission->called_at)
+                            <button type="submit" class="block w-full text-center bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition">
+                                <i class="fas fa-phone-slash mr-2"></i>Marquer comme NON appelé
+                            </button>
+                        @else
+                            <button type="submit" class="block w-full text-center bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition">
+                                <i class="fas fa-phone-alt mr-2"></i>Confirmer client appelé
+                            </button>
+                        @endif
+                    </form>
                 </div>
             </div>
             

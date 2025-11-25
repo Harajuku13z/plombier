@@ -447,6 +447,51 @@ class AdminController extends Controller
     }
 
     /**
+     * Marquer une soumission comme "client appelé"
+     */
+    public function markSubmissionAsCalled($id)
+    {
+        try {
+            $submission = Submission::findOrFail($id);
+            
+            // Si déjà appelé, on peut le démarquer
+            if ($submission->called_at) {
+                $submission->called_at = null;
+                $submission->save();
+                
+                \Log::info('Soumission démarquée comme appelée', [
+                    'submission_id' => $id,
+                    'email' => $submission->email
+                ]);
+                
+                return back()->with('success', '✅ Marqué comme NON appelé');
+            } else {
+                // Marquer comme appelé
+                $submission->called_at = now();
+                $submission->save();
+                
+                \Log::info('Soumission marquée comme appelée', [
+                    'submission_id' => $id,
+                    'email' => $submission->email,
+                    'called_at' => $submission->called_at
+                ]);
+                
+                return back()->with('success', '✅ Client marqué comme appelé');
+            }
+            
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return back()->with('error', '❌ Soumission non trouvée.');
+        } catch (\Exception $e) {
+            \Log::error('Erreur marquage appel', [
+                'id' => $id,
+                'error' => $e->getMessage()
+            ]);
+            
+            return back()->with('error', '❌ Erreur : ' . $e->getMessage());
+        }
+    }
+    
+    /**
      * Supprimer une soumission individuelle
      */
     public function deleteSubmission($id)
