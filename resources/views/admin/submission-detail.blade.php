@@ -52,6 +52,14 @@
                     </h2>
                 </div>
                 <div class="p-6">
+                    @php
+                        // Extraire les données depuis form_data si disponibles
+                        $formData = $submission->form_data ?? [];
+                        $workTypesNames = $formData['work_types_names'] ?? [];
+                        $description = $formData['description'] ?? $submission->message;
+                        $urgency = $formData['urgency'] ?? null;
+                    @endphp
+                    
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <!-- ID et Type -->
                         @if($submission->id)
@@ -76,100 +84,88 @@
                         </div>
                         @endif
 
-                        <!-- Contact -->
-                        @if($submission->gender)
+                        <!-- Contact (toujours affichés) -->
                         <div>
-                            <label class="text-sm font-medium text-gray-500">Civilité</label>
-                            <p class="mt-1 text-lg font-medium text-gray-900">{{ $submission->gender }}</p>
-                        </div>
-                        @endif
-                        
-                        @if($submission->name || $submission->first_name || $submission->last_name)
-                        <div>
-                            <label class="text-sm font-medium text-gray-500">Nom complet</label>
+                            <label class="text-sm font-medium text-gray-500">Nom complet *</label>
                             <p class="mt-1 text-lg font-medium text-gray-900">
-                                {{ $submission->name ?? ($submission->first_name . ' ' . $submission->last_name) }}
-                            </p>
-                        </div>
-                        @endif
-                        
-                        @if($submission->email)
-                        <div>
-                            <label class="text-sm font-medium text-gray-500">Email</label>
-                            <p class="mt-1 text-lg text-gray-900">
-                                <a href="mailto:{{ $submission->email }}" class="text-blue-600 hover:text-blue-800">
-                                    <i class="fas fa-envelope mr-1"></i>{{ $submission->email }}
-                                </a>
-                            </p>
-                        </div>
-                        @endif
-                        
-                        @if($submission->phone)
-                        <div>
-                            <label class="text-sm font-medium text-gray-500">Téléphone</label>
-                            <p class="mt-1 text-lg text-gray-900">
-                                <a href="tel:{{ $submission->phone }}" class="text-blue-600 hover:text-blue-800">
-                                    <i class="fas fa-phone mr-1"></i>{{ $submission->phone }}
-                                </a>
-                            </p>
-                        </div>
-                        @endif
-
-                        <!-- Localisation -->
-                        @if($submission->postal_code)
-                        <div>
-                            <label class="text-sm font-medium text-gray-500">Code postal</label>
-                            <p class="mt-1 text-lg text-gray-900">{{ $submission->postal_code }}</p>
-                        </div>
-                        @endif
-                        
-                        @if($submission->city)
-                        <div>
-                            <label class="text-sm font-medium text-gray-500">Ville</label>
-                            <p class="mt-1 text-lg text-gray-900">{{ $submission->city }}</p>
-                        </div>
-                        @endif
-                        
-                        @if($submission->address)
-                        <div class="md:col-span-2">
-                            <label class="text-sm font-medium text-gray-500">Adresse complète</label>
-                            <p class="mt-1 text-lg text-gray-900">{{ $submission->address }}</p>
-                        </div>
-                        @endif
-                        
-                        @if($submission->country)
-                        <div>
-                            <label class="text-sm font-medium text-gray-500">Pays</label>
-                            <p class="mt-1 text-lg text-gray-900">
-                                {{ $submission->country }}
-                                @if($submission->country_code)
-                                    <span class="text-sm text-gray-500">({{ $submission->country_code }})</span>
+                                @if($submission->name || $submission->first_name || $submission->last_name)
+                                    {{ $submission->name ?? trim(($submission->first_name ?? '') . ' ' . ($submission->last_name ?? '')) }}
+                                @else
+                                    <span class="text-gray-400 italic">Non renseigné</span>
                                 @endif
                             </p>
                         </div>
-                        @endif
-
-                        <!-- Projet -->
-                        @if($submission->property_type)
+                        
                         <div>
-                            <label class="text-sm font-medium text-gray-500">Type de bien</label>
-                            <p class="mt-1 text-lg font-medium text-gray-900">
-                                @php
-                                    $propertyTypeLabels = [
-                                        'HOUSE' => 'Maison',
-                                        'APARTMENT' => 'Appartement',
-                                        'COMMERCIAL' => 'Local commercial',
-                                        'house' => 'Maison',
-                                        'apartment' => 'Appartement',
-                                        'commercial' => 'Local commercial',
-                                        'other' => 'Autre',
-                                    ];
-                                    $propertyTypeDisplay = $propertyTypeLabels[$submission->property_type] ?? ucfirst(strtolower($submission->property_type));
-                                @endphp
-                                {{ $propertyTypeDisplay }}
+                            <label class="text-sm font-medium text-gray-500">Email *</label>
+                            <p class="mt-1 text-lg text-gray-900">
+                                @if($submission->email)
+                                    <a href="mailto:{{ $submission->email }}" class="text-blue-600 hover:text-blue-800">
+                                        <i class="fas fa-envelope mr-1"></i>{{ $submission->email }}
+                                    </a>
+                                @else
+                                    <span class="text-gray-400 italic">Non renseigné</span>
+                                @endif
                             </p>
                         </div>
-                        @endif
+                        
+                        <div>
+                            <label class="text-sm font-medium text-gray-500">Téléphone *</label>
+                            <p class="mt-1 text-lg text-gray-900">
+                                @if($submission->phone)
+                                    <a href="tel:{{ $submission->phone }}" class="text-blue-600 hover:text-blue-800">
+                                        <i class="fas fa-phone mr-1"></i>{{ $submission->phone }}
+                                    </a>
+                                @else
+                                    <span class="text-gray-400 italic">Non renseigné</span>
+                                @endif
+                            </p>
+                        </div>
+                        
+                        <div>
+                            <label class="text-sm font-medium text-gray-500">Code Postal *</label>
+                            <p class="mt-1 text-lg text-gray-900">
+                                {{ $submission->postal_code ?? '-' }}
+                            </p>
+                        </div>
+                        
+                        <div>
+                            <label class="text-sm font-medium text-gray-500">Ville *</label>
+                            <p class="mt-1 text-lg text-gray-900">
+                                {{ $submission->city ?? '-' }}
+                            </p>
+                        </div>
+                        
+                        <div>
+                            <label class="text-sm font-medium text-gray-500">Adresse complète *</label>
+                            <p class="mt-1 text-lg text-gray-900">
+                                {{ $submission->address ?? '-' }}
+                            </p>
+                        </div>
+
+                        <!-- Projet -->
+                        <div>
+                            <label class="text-sm font-medium text-gray-500">Quel type de bien</label>
+                            <p class="mt-1 text-lg font-medium text-gray-900">
+                                @if($submission->property_type)
+                                    @php
+                                        $propertyTypeLabels = [
+                                            'HOUSE' => 'Maison',
+                                            'APARTMENT' => 'Appartement',
+                                            'COMMERCIAL' => 'Local commercial',
+                                            'house' => 'Maison',
+                                            'apartment' => 'Appartement',
+                                            'commercial' => 'Local commercial',
+                                            'other' => 'Autre',
+                                        ];
+                                        $propertyTypeDisplay = $propertyTypeLabels[$submission->property_type] ?? ucfirst(strtolower($submission->property_type));
+                                    @endphp
+                                    {{ $propertyTypeDisplay }}
+                                @else
+                                    <span class="text-gray-400 italic">Non renseigné</span>
+                                @endif
+                            </p>
+                        </div>
                         
                         @if($submission->surface)
                         <div>
@@ -187,12 +183,64 @@
                         </div>
                         @endif
 
-                        <!-- Message/Description -->
-                        @if($submission->message)
+                        <!-- Types de travaux depuis form_data -->
+                        @if(!empty($workTypesNames))
                         <div class="md:col-span-2">
-                            <label class="text-sm font-medium text-gray-500">Message / Description</label>
+                            <label class="text-sm font-medium text-gray-500">Types de travaux</label>
+                            <div class="mt-2 flex flex-wrap gap-2">
+                                @foreach($workTypesNames as $workTypeName)
+                                    <span class="px-3 py-1 bg-blue-100 text-blue-800 text-sm font-medium rounded-full">
+                                        {{ $workTypeName }}
+                                    </span>
+                                @endforeach
+                            </div>
+                        </div>
+                        @elseif($submission->work_types && is_array($submission->work_types))
+                        <div class="md:col-span-2">
+                            <label class="text-sm font-medium text-gray-500">Types de travaux</label>
+                            <div class="mt-2 flex flex-wrap gap-2">
+                                @foreach($submission->work_types as $workType)
+                                    <span class="px-3 py-1 bg-blue-100 text-blue-800 text-sm font-medium rounded-full">
+                                        {{ ucfirst($workType) }}
+                                    </span>
+                                @endforeach
+                            </div>
+                        </div>
+                        @endif
+                        
+                        <!-- Urgence depuis form_data -->
+                        @if($urgency)
+                        <div>
+                            <label class="text-sm font-medium text-gray-500">Niveau d'urgence</label>
+                            <p class="mt-1">
+                                @php
+                                    $urgencyLabels = [
+                                        'normal' => ['text' => 'Normal', 'class' => 'bg-green-100 text-green-800'],
+                                        'urgent' => ['text' => 'Urgent', 'class' => 'bg-orange-100 text-orange-800'],
+                                        'emergency' => ['text' => 'Urgence', 'class' => 'bg-red-100 text-red-800'],
+                                    ];
+                                    $urgencyDisplay = $urgencyLabels[$urgency] ?? ['text' => ucfirst($urgency), 'class' => 'bg-gray-100 text-gray-800'];
+                                @endphp
+                                <span class="px-3 py-1 rounded-full text-sm font-medium {{ $urgencyDisplay['class'] }}">
+                                    {{ $urgencyDisplay['text'] }}
+                                </span>
+                            </p>
+                        </div>
+                        @endif
+
+                        <!-- Description/Message -->
+                        @if($description)
+                        <div class="md:col-span-2">
+                            <label class="text-sm font-medium text-gray-500">Décrivez brièvement votre besoin</label>
                             <div class="mt-1 p-4 bg-gray-50 rounded-lg border border-gray-200">
-                                <p class="text-gray-900 whitespace-pre-wrap">{{ $submission->message }}</p>
+                                <p class="text-gray-900 whitespace-pre-wrap">{{ $description }}</p>
+                            </div>
+                        </div>
+                        @else
+                        <div class="md:col-span-2">
+                            <label class="text-sm font-medium text-gray-500">Décrivez brièvement votre besoin</label>
+                            <div class="mt-1 p-4 bg-gray-50 rounded-lg border border-gray-200">
+                                <p class="text-gray-400 italic">Aucune description fournie</p>
                             </div>
                         </div>
                         @endif
