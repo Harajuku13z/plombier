@@ -154,7 +154,19 @@
                         <div>
                             <label class="text-sm font-medium text-gray-500">Type de bien</label>
                             <p class="mt-1 text-lg font-medium text-gray-900">
-                                {{ ucfirst(strtolower($submission->property_type)) }}
+                                @php
+                                    $propertyTypeLabels = [
+                                        'HOUSE' => 'Maison',
+                                        'APARTMENT' => 'Appartement',
+                                        'COMMERCIAL' => 'Local commercial',
+                                        'house' => 'Maison',
+                                        'apartment' => 'Appartement',
+                                        'commercial' => 'Local commercial',
+                                        'other' => 'Autre',
+                                    ];
+                                    $propertyTypeDisplay = $propertyTypeLabels[$submission->property_type] ?? ucfirst(strtolower($submission->property_type));
+                                @endphp
+                                {{ $propertyTypeDisplay }}
                             </p>
                         </div>
                         @endif

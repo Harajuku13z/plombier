@@ -361,22 +361,78 @@ class AdminController extends Controller
                 return back()->with('error', '❌ Email administrateur non configuré. Veuillez configurer l\'email dans les paramètres ou le fichier .env');
             }
             
-            // Utiliser le même service d'email que lors de la soumission initiale
-            $emailService = new \App\Services\EmailService();
-            
             \Log::info('Renvoi de l\'email de notification admin', [
                 'submission_id' => $submission->id,
-                'admin_email' => $adminEmail
+                'admin_email' => $adminEmail,
+                'is_emergency' => $submission->is_emergency
             ]);
             
-            // Envoyer l'email admin avec photos attachées
-            $sent = $emailService->sendSubmissionNotification($submission);
+            // Déterminer les données form_data
+            $data = $submission->form_data ?? [];
             
-            if ($sent) {
-                return back()->with('success', '✅ Email renvoyé avec succès à <strong>' . $adminEmail . '</strong>');
-            } else {
-                return back()->with('error', '❌ Erreur lors de l\'envoi de l\'email. Vérifiez les logs pour plus de détails.');
+            // Reconstituer work_types pour le template
+            $workTypes = [];
+            if (!empty($data['work_types_names'])) {
+                $workTypes = $data['work_types_names'];
+            } elseif ($submission->work_types) {
+                $workTypes = is_array($submission->work_types) ? $submission->work_types : [$submission->work_types];
             }
+            
+            // Utiliser le même template que l'email initial
+            \Illuminate\Support\Facades\Mail::send('emails.simulator-admin-notification', [
+                'submission' => $submission,
+                'data' => $data,
+                'workTypes' => $workTypes,
+            ], function ($mail) use ($adminEmail, $submission) {
+                $mail->to($adminEmail)
+                     ->subject('🔔 [RENVOI] Nouvelle demande de devis - Simulateur #' . str_pad($submission->id, 4, '0', STR_PAD_LEFT));
+                
+                // Attacher les photos s'il y en a
+                $allPhotos = [];
+                
+                // Photos du champ 'photos' (urgence)
+                if ($submission->photos && is_array($submission->photos)) {
+                    $allPhotos = array_merge($allPhotos, $submission->photos);
+                }
+                
+                // Photos du tracking_data (simulateur)
+                if (isset($submission->tracking_data['photos']) && is_array($submission->tracking_data['photos'])) {
+                    $allPhotos = array_merge($allPhotos, $submission->tracking_data['photos']);
+                }
+                
+                // Dédupliquer et limiter à 5 photos
+                $allPhotos = array_values(array_unique($allPhotos));
+                $photosToAttach = array_slice($allPhotos, 0, 5);
+                
+                foreach ($photosToAttach as $index => $photo) {
+                    // Nettoyer le chemin
+                    $cleanPath = ltrim(str_replace('storage/', '', $photo), '/');
+                    
+                    // Essayer plusieurs chemins possibles
+                    $possiblePaths = [
+                        public_path($photo),
+                        public_path('storage/' . $cleanPath),
+                        storage_path('app/public/' . $cleanPath)
+                    ];
+                    
+                    foreach ($possiblePaths as $path) {
+                        if (file_exists($path)) {
+                            try {
+                                $mail->attach($path, [
+                                    'as' => 'photo_' . ($index + 1) . '_' . basename($path)
+                                ]);
+                                \Log::info('Photo attached to resend email', ['file' => basename($path)]);
+                                break;
+                            } catch (\Exception $e) {
+                                \Log::warning('Error attaching photo', ['path' => $path, 'error' => $e->getMessage()]);
+                            }
+                        }
+                    }
+                }
+            });
+            
+            \Log::info('✅ Email renvoyé avec succès à ' . $adminEmail);
+            return back()->with('success', '✅ Email renvoyé avec succès à <strong>' . $adminEmail . '</strong>');
             
         } catch (\Exception $e) {
             \Log::error('Erreur lors du renvoi de l\'email de soumission', [
