@@ -515,87 +515,6 @@
                 </div>
             </div>
             @endif
-
-            <!-- Détails du projet -->
-            <div class="bg-white rounded-lg shadow">
-                <div class="px-6 py-4 border-b border-gray-200">
-                    <h2 class="text-xl font-semibold text-gray-800">
-                        <i class="fas fa-home mr-2 text-green-500"></i>Détails du projet
-                    </h2>
-                </div>
-                <div class="p-6">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                            <label class="text-sm font-medium text-gray-500">Type de bien</label>
-                            <p class="mt-1 text-lg font-medium text-gray-900">
-                                {{ $submission->property_type ? ucfirst(strtolower($submission->property_type)) : '-' }}
-                            </p>
-                        </div>
-                        <div>
-                            <label class="text-sm font-medium text-gray-500">Surface</label>
-                            <p class="mt-1 text-lg font-medium text-gray-900">{{ $submission->surface ?? '-' }} m²</p>
-                        </div>
-                        <div>
-                            <label class="text-sm font-medium text-gray-500">Statut propriétaire</label>
-                            <p class="mt-1 text-lg font-medium text-gray-900">
-                                {{ $submission->ownership_status ? ucfirst(strtolower($submission->ownership_status)) : '-' }}
-                            </p>
-                        </div>
-                    </div>
-
-                    @if($submission->work_types)
-                    <div class="mt-6">
-                        <label class="text-sm font-medium text-gray-500">Types de travaux</label>
-                        <div class="mt-2 flex flex-wrap gap-2">
-                            @foreach($submission->work_types as $workType)
-                                <span class="px-3 py-1 bg-blue-100 text-blue-800 text-sm font-medium rounded-full">
-                                    {{ ucfirst($workType) }}
-                                </span>
-                            @endforeach
-                        </div>
-                    </div>
-                    @endif
-
-                    @if($submission->roof_work_types)
-                    <div class="mt-4">
-                        <label class="text-sm font-medium text-gray-500">Travaux de plomberie</label>
-                        <div class="mt-2 flex flex-wrap gap-2">
-                            @foreach($submission->roof_work_types as $type)
-                                <span class="px-3 py-1 bg-purple-100 text-purple-800 text-sm font-medium rounded-full">
-                                    {{ ucfirst($type) }}
-                                </span>
-                            @endforeach
-                        </div>
-                    </div>
-                    @endif
-
-                    @if($submission->facade_work_types)
-                    <div class="mt-4">
-                        <label class="text-sm font-medium text-gray-500">Travaux de façade</label>
-                        <div class="mt-2 flex flex-wrap gap-2">
-                            @foreach($submission->facade_work_types as $type)
-                                <span class="px-3 py-1 bg-orange-100 text-orange-800 text-sm font-medium rounded-full">
-                                    {{ ucfirst($type) }}
-                                </span>
-                            @endforeach
-                        </div>
-                    </div>
-                    @endif
-
-                    @if($submission->isolation_work_types)
-                    <div class="mt-4">
-                        <label class="text-sm font-medium text-gray-500">Travaux d'isolation</label>
-                        <div class="mt-2 flex flex-wrap gap-2">
-                            @foreach($submission->isolation_work_types as $type)
-                                <span class="px-3 py-1 bg-green-100 text-green-800 text-sm font-medium rounded-full">
-                                    {{ ucfirst($type) }}
-                                </span>
-                            @endforeach
-                        </div>
-                    </div>
-                    @endif
-                </div>
-            </div>
         </div>
 
         <!-- Sidebar -->
@@ -728,6 +647,24 @@
                         </button>
                     </form>
                 </div>
+            </div>
+            
+            <!-- Supprimer -->
+            <div class="bg-red-50 border border-red-200 rounded-lg p-6">
+                <h3 class="text-lg font-semibold text-red-900 mb-4">
+                    <i class="fas fa-exclamation-triangle mr-2"></i>Zone dangereuse
+                </h3>
+                <form method="POST" action="{{ route('admin.submission.delete', $submission->id) }}" class="w-full" 
+                      onsubmit="return confirm('⚠️ ATTENTION !\n\nÊtes-vous sûr de vouloir supprimer cette soumission ?\n\nCette action est IRRÉVERSIBLE et supprimera :\n- La soumission #{{ $submission->id }}\n- Toutes les photos associées\n- Toutes les données liées\n\nTapez OK pour confirmer.');">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="block w-full text-center bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition font-semibold">
+                        <i class="fas fa-trash-alt mr-2"></i>Supprimer cette soumission
+                    </button>
+                </form>
+                <p class="mt-3 text-xs text-red-700 text-center">
+                    <i class="fas fa-info-circle mr-1"></i>Action irréversible
+                </p>
             </div>
         </div>
     </div>

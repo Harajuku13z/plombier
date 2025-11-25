@@ -9,6 +9,7 @@ use App\Models\PhoneCall;
 use App\Models\Client;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Response;
 
 class AdminController extends Controller
@@ -445,6 +446,84 @@ class AdminController extends Controller
         }
     }
 
+    /**
+     * Supprimer une soumission individuelle
+     */
+    public function deleteSubmission($id)
+    {
+        try {
+            $submission = Submission::findOrFail($id);
+            
+            \Log::info('Suppression de la soumission', [
+                'submission_id' => $id,
+                'email' => $submission->email,
+                'name' => $submission->name ?? ($submission->first_name . ' ' . $submission->last_name)
+            ]);
+            
+            // Supprimer les photos associées
+            $allPhotos = [];
+            
+            // Photos du champ 'photos' (urgence)
+            if ($submission->photos && is_array($submission->photos)) {
+                $allPhotos = array_merge($allPhotos, $submission->photos);
+            }
+            
+            // Photos du tracking_data (simulateur)
+            if (isset($submission->tracking_data['photos']) && is_array($submission->tracking_data['photos'])) {
+                $allPhotos = array_merge($allPhotos, $submission->tracking_data['photos']);
+            }
+            
+            // Supprimer les fichiers photos
+            foreach ($allPhotos as $photoPath) {
+                $cleanPath = str_replace('storage/', '', $photoPath);
+                try {
+                    if (Storage::disk('public')->exists($cleanPath)) {
+                        Storage::disk('public')->delete($cleanPath);
+                        \Log::info('Photo supprimée', ['path' => $cleanPath]);
+                    }
+                } catch (\Exception $e) {
+                    \Log::warning('Erreur suppression photo', [
+                        'path' => $cleanPath,
+                        'error' => $e->getMessage()
+                    ]);
+                }
+            }
+            
+            // Supprimer le dossier de la soumission s'il existe
+            $submissionFolder = 'submissions/' . $id;
+            try {
+                if (Storage::disk('public')->exists($submissionFolder)) {
+                    Storage::disk('public')->deleteDirectory($submissionFolder);
+                    \Log::info('Dossier soumission supprimé', ['folder' => $submissionFolder]);
+                }
+            } catch (\Exception $e) {
+                \Log::warning('Erreur suppression dossier', [
+                    'folder' => $submissionFolder,
+                    'error' => $e->getMessage()
+                ]);
+            }
+            
+            // Supprimer la soumission
+            $submission->delete();
+            
+            \Log::info('✅ Soumission supprimée avec succès', ['id' => $id]);
+            
+            return redirect()->route('admin.submissions')->with('success', '✅ Soumission #' . $id . ' supprimée avec succès.');
+            
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            \Log::warning('Soumission non trouvée', ['id' => $id]);
+            return redirect()->route('admin.submissions')->with('error', '❌ Soumission non trouvée.');
+        } catch (\Exception $e) {
+            \Log::error('Erreur suppression soumission', [
+                'id' => $id,
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ]);
+            
+            return back()->with('error', '❌ Erreur lors de la suppression : ' . $e->getMessage());
+        }
+    }
+    
     /**
      * Supprimer toutes les soumissions (avec vérification du mot de passe)
      */
