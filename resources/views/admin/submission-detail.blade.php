@@ -654,24 +654,6 @@
                     </form>
                 </div>
             </div>
-            
-            <!-- Supprimer -->
-            <div class="bg-red-50 border border-red-200 rounded-lg p-6">
-                <h3 class="text-lg font-semibold text-red-900 mb-4">
-                    <i class="fas fa-exclamation-triangle mr-2"></i>Zone dangereuse
-                </h3>
-                <form method="POST" action="{{ route('admin.submission.delete', $submission->id) }}" class="w-full" 
-                      onsubmit="return confirm('⚠️ ATTENTION !\n\nÊtes-vous sûr de vouloir supprimer cette soumission ?\n\nCette action est IRRÉVERSIBLE et supprimera :\n- La soumission #{{ $submission->id }}\n- Toutes les photos associées\n- Toutes les données liées\n\nTapez OK pour confirmer.');">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="block w-full text-center bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition font-semibold">
-                        <i class="fas fa-trash-alt mr-2"></i>Supprimer cette soumission
-                    </button>
-                </form>
-                <p class="mt-3 text-xs text-red-700 text-center">
-                    <i class="fas fa-info-circle mr-1"></i>Action irréversible
-                </p>
-            </div>
         </div>
     </div>
 </div>
