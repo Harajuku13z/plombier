@@ -111,7 +111,8 @@
                     foreach ($submission->photos as $photo) {
                         $allPhotos[] = [
                             'path' => $photo,
-                            'type' => 'direct'
+                            'type' => 'direct',
+                            'source' => 'submission->photos'
                         ];
                     }
                 }
@@ -121,13 +122,58 @@
                     foreach ($submission->tracking_data['photos'] as $photo) {
                         $allPhotos[] = [
                             'path' => $photo,
-                            'type' => 'tracking'
+                            'type' => 'tracking',
+                            'source' => 'tracking_data'
                         ];
                     }
                 }
                 
                 $totalPhotos = count($allPhotos);
+                
+                // Debug logging
+                \Log::info('Submission photos debug', [
+                    'submission_id' => $submission->id,
+                    'photos_field' => $submission->photos,
+                    'tracking_data_photos' => $submission->tracking_data['photos'] ?? null,
+                    'total_photos' => $totalPhotos,
+                    'all_photos' => $allPhotos
+                ]);
             @endphp
+
+            <!-- Section débogage (toujours visible pour l'admin) -->
+            <div class="bg-gray-50 border-2 border-gray-300 rounded-lg shadow mb-6">
+                <div class="px-6 py-4 border-b border-gray-300 flex items-center justify-between">
+                    <h2 class="text-lg font-semibold text-gray-700">
+                        <i class="fas fa-bug mr-2 text-gray-500"></i>Débogage Photos
+                    </h2>
+                    <button onclick="document.getElementById('debug-section').classList.toggle('hidden')" 
+                            class="px-3 py-1 bg-gray-200 text-gray-700 text-sm rounded hover:bg-gray-300">
+                        <i class="fas fa-eye mr-1"></i>Afficher/Masquer
+                    </button>
+                </div>
+                <div id="debug-section" class="p-6 hidden">
+                    <div class="space-y-4">
+                        <div>
+                            <h3 class="font-semibold text-sm text-gray-600 mb-2">Photos directes (submission->photos)</h3>
+                            <pre class="bg-gray-800 text-green-400 p-4 rounded text-xs overflow-x-auto">{{ json_encode($submission->photos, JSON_PRETTY_PRINT) }}</pre>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-sm text-gray-600 mb-2">Photos tracking (tracking_data['photos'])</h3>
+                            <pre class="bg-gray-800 text-green-400 p-4 rounded text-xs overflow-x-auto">{{ json_encode($submission->tracking_data['photos'] ?? null, JSON_PRETTY_PRINT) }}</pre>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-sm text-gray-600 mb-2">Toutes les photos fusionnées</h3>
+                            <pre class="bg-gray-800 text-green-400 p-4 rounded text-xs overflow-x-auto">{{ json_encode($allPhotos, JSON_PRETTY_PRINT) }}</pre>
+                        </div>
+                        <div class="bg-blue-50 border border-blue-200 rounded p-4">
+                            <p class="text-sm text-blue-800">
+                                <i class="fas fa-info-circle mr-2"></i>
+                                <strong>Total de {{ $totalPhotos }} photo(s) détectée(s)</strong>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             @if($totalPhotos > 0)
             <!-- Photos du formulaire -->
@@ -168,7 +214,7 @@
                                         <img src="{{ $photoUrl }}" 
                                              alt="Photo {{ $index + 1 }}" 
                                              class="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-110"
-                                             onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'200\' height=\'200\'%3E%3Crect fill=\'%23f3f4f6\' width=\'200\' height=\'200\'/%3E%3Ctext x=\'50%25\' y=\'45%25\' text-anchor=\'middle\' dy=\'.3em\' fill=\'%239ca3af\' font-size=\'14\'%3E%E2%9A%A0%EF%B8%8F%3C/text%3E%3Ctext x=\'50%25\' y=\'60%25\' text-anchor=\'middle\' dy=\'.3em\' fill=\'%239ca3af\' font-size=\'10\'%3EImage non disponible%3C/text%3E%3C/svg%3E';" />
+                                             onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'w-full h-48 bg-red-50 border-2 border-red-200 rounded flex flex-col items-center justify-center p-4\'><i class=\'fas fa-exclamation-triangle text-red-500 text-3xl mb-2\'></i><p class=\'text-red-700 text-xs font-medium text-center\'>Image non trouvée</p><p class=\'text-red-500 text-xs text-center mt-1\'>{{ $cleanPath }}</p></div>';" />
                                         
                                         <!-- Overlay au hover -->
                                         <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-end pb-3">
@@ -180,12 +226,30 @@
                                         <div class="absolute top-2 left-2 bg-indigo-600 text-white text-xs font-bold px-2 py-1 rounded-full shadow-lg">
                                             #{{ $index + 1 }}
                                         </div>
+                                        
+                                        <!-- Badge source -->
+                                        <div class="absolute top-2 right-2 bg-{{ $photoData['type'] === 'direct' ? 'green' : 'blue' }}-600 text-white text-xs px-2 py-1 rounded shadow-lg">
+                                            {{ $photoData['source'] }}
+                                        </div>
                                     </div>
                                 </a>
-                                <!-- Nom du fichier -->
-                                <p class="mt-2 text-xs text-gray-500 truncate text-center" title="{{ $fileName }}">
-                                    {{ $fileName }}
-                                </p>
+                                <!-- Infos du fichier -->
+                                <div class="mt-2 text-xs">
+                                    <p class="text-gray-700 font-medium truncate text-center" title="{{ $fileName }}">
+                                        {{ $fileName }}
+                                    </p>
+                                    <p class="text-gray-500 text-center">
+                                        Path: {{ $cleanPath }}
+                                    </p>
+                                    <div class="flex justify-center gap-2 mt-1">
+                                        <a href="{{ $photoUrl }}" target="_blank" class="text-indigo-600 hover:text-indigo-800">
+                                            <i class="fas fa-external-link-alt"></i> Ouvrir
+                                        </a>
+                                        <button onclick="navigator.clipboard.writeText('{{ $photoUrl }}')" class="text-gray-600 hover:text-gray-800">
+                                            <i class="fas fa-copy"></i> URL
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
                         @endforeach
                     </div>
@@ -198,6 +262,30 @@
                                 <strong>Note :</strong> Cliquez sur une photo pour l'ouvrir en taille réelle dans un nouvel onglet.
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+            @else
+            <!-- Message si aucune photo -->
+            <div class="bg-gray-50 border-2 border-gray-200 rounded-lg shadow">
+                <div class="px-6 py-4 border-b border-gray-200">
+                    <h2 class="text-xl font-semibold text-gray-600">
+                        <i class="fas fa-images mr-2 text-gray-400"></i>Photos associées
+                    </h2>
+                </div>
+                <div class="p-6 text-center">
+                    <div class="inline-flex items-center justify-center w-24 h-24 bg-gray-100 rounded-full mb-4">
+                        <i class="fas fa-image text-gray-400 text-4xl"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-700 mb-2">Aucune photo envoyée</h3>
+                    <p class="text-gray-500 mb-4">
+                        Le client n'a pas joint de photos avec sa soumission.
+                    </p>
+                    <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4 max-w-xl mx-auto">
+                        <p class="text-sm text-yellow-800">
+                            <i class="fas fa-lightbulb mr-2"></i>
+                            <strong>Astuce :</strong> Utilisez la section "Débogage Photos" ci-dessus pour vérifier les données brutes.
+                        </p>
                     </div>
                 </div>
             </div>

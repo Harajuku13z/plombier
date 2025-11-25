@@ -261,6 +261,59 @@
                 @endif
             </div>
 
+            @php
+                // Récupérer toutes les photos
+                $allPhotos = [];
+                if ($submission->photos && is_array($submission->photos)) {
+                    $allPhotos = array_merge($allPhotos, $submission->photos);
+                }
+                if (isset($submission->tracking_data['photos']) && is_array($submission->tracking_data['photos'])) {
+                    $allPhotos = array_merge($allPhotos, $submission->tracking_data['photos']);
+                }
+                $allPhotos = array_values(array_unique($allPhotos));
+            @endphp
+
+            @if(!empty($allPhotos))
+            <!-- Photos Section -->
+            <div style="background-color: #f0f9ff; border: 2px solid #bae6fd; border-radius: 8px; padding: 20px; margin: 20px 0;">
+                <h3 style="margin: 0 0 15px; color: #0c4a6e; font-size: 18px;">
+                    📸 Photos jointes ({{ count($allPhotos) }})
+                </h3>
+                <p style="margin: 0 0 15px; color: #475569; font-size: 14px;">
+                    Les photos sont disponibles en pièces jointes et ci-dessous :
+                </p>
+                <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px;">
+                    @foreach($allPhotos as $index => $photoPath)
+                        @php
+                            // Nettoyer le chemin
+                            $cleanPath = str_replace('storage/', '', $photoPath);
+                            $pathParts = explode('/', $cleanPath);
+                            $fileId = $submission->id;
+                            $fileName = end($pathParts);
+                            
+                            // Chercher l'ID dans le chemin
+                            if (preg_match('/submissions\/(\d+)\//', $cleanPath, $matches)) {
+                                $fileId = $matches[1];
+                            }
+                            
+                            // URL publique
+                            $photoUrl = route('media.submission.photo', ['id' => $fileId, 'file' => $fileName]);
+                            // Forcer HTTPS
+                            $photoUrl = preg_replace('/^http:\/\//i', 'https://', $photoUrl);
+                        @endphp
+                        <div style="text-align: center;">
+                            <a href="{{ $photoUrl }}" target="_blank" style="text-decoration: none;">
+                                <img src="{{ $photoUrl }}" 
+                                     alt="Photo {{ $index + 1 }}" 
+                                     style="width: 100%; height: 150px; object-fit: cover; border-radius: 5px; border: 2px solid #bae6fd;" />
+                                <p style="margin: 5px 0 0; font-size: 12px; color: #64748b;">Photo {{ $index + 1 }}</p>
+                            </a>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+            @endif
+
             <!-- Action Buttons -->
             <div class="action-buttons">
                 <a href="{{ url('/admin/submissions/' . $submission->id) }}" class="btn btn-primary">
