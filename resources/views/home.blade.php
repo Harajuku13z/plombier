@@ -233,35 +233,68 @@
     </section>
 
     <!-- Section Urgence Plomberie (Compacte) -->
-    <section class="py-8 md:py-10 bg-gradient-to-r from-red-600 to-red-700 relative overflow-hidden">
+    <section class="py-4 md:py-5 bg-gradient-to-r from-red-800 to-red-900 relative overflow-hidden">
         <div class="absolute inset-0 opacity-10">
-            <div class="absolute top-0 right-0 w-32 h-32 bg-red-500 rounded-full blur-2xl animate-pulse"></div>
+            <div class="absolute top-0 right-0 w-24 h-24 bg-red-700 rounded-full blur-2xl animate-pulse"></div>
         </div>
         
         <div class="container mx-auto px-4 relative z-10">
             <div class="max-w-5xl mx-auto">
-                <div class="flex flex-col md:flex-row items-center justify-between gap-4 md:gap-6 text-white">
+                <div class="flex flex-col md:flex-row items-center justify-between gap-3 md:gap-4 text-white">
                     <!-- Left: Message -->
                     <div class="text-center md:text-left flex-1">
-                        <div class="flex items-center justify-center md:justify-start gap-3 mb-2">
-                            <i class="fas fa-exclamation-triangle text-2xl md:text-3xl animate-pulse"></i>
-                            <h3 class="text-xl md:text-2xl font-black">URGENCE 24/7</h3>
+                        <div class="flex items-center justify-center md:justify-start gap-2 mb-1">
+                            <i class="fas fa-exclamation-triangle text-xl md:text-2xl animate-pulse"></i>
+                            <h3 class="text-lg md:text-xl font-bold">URGENCE 24/7</h3>
                         </div>
-                        <p class="text-red-100 text-sm md:text-base">
-                            Intervention rapide à {{ setting('company_city', 'Versailles') }} ({{ substr(setting('company_postal_code', '78'), 0, 2) }}) • Fuite, dégât des eaux, débouchage
+                        @php
+                            $postalCode = setting('company_postal_code', '78000');
+                            $departmentCode = substr($postalCode, 0, 2);
+                            $departments = [
+                                '01' => 'Ain', '02' => 'Aisne', '03' => 'Allier', '04' => 'Alpes-de-Haute-Provence',
+                                '05' => 'Hautes-Alpes', '06' => 'Alpes-Maritimes', '07' => 'Ardèche', '08' => 'Ardennes',
+                                '09' => 'Ariège', '10' => 'Aube', '11' => 'Aude', '12' => 'Aveyron',
+                                '13' => 'Bouches-du-Rhône', '14' => 'Calvados', '15' => 'Cantal', '16' => 'Charente',
+                                '17' => 'Charente-Maritime', '18' => 'Cher', '19' => 'Corrèze', '21' => 'Côte-d\'Or',
+                                '22' => 'Côtes-d\'Armor', '23' => 'Creuse', '24' => 'Dordogne', '25' => 'Doubs',
+                                '26' => 'Drôme', '27' => 'Eure', '28' => 'Eure-et-Loir', '29' => 'Finistère',
+                                '2A' => 'Corse-du-Sud', '2B' => 'Haute-Corse', '30' => 'Gard', '31' => 'Haute-Garonne',
+                                '32' => 'Gers', '33' => 'Gironde', '34' => 'Hérault', '35' => 'Ille-et-Vilaine',
+                                '36' => 'Indre', '37' => 'Indre-et-Loire', '38' => 'Isère', '39' => 'Jura',
+                                '40' => 'Landes', '41' => 'Loir-et-Cher', '42' => 'Loire', '43' => 'Haute-Loire',
+                                '44' => 'Loire-Atlantique', '45' => 'Loiret', '46' => 'Lot', '47' => 'Lot-et-Garonne',
+                                '48' => 'Lozère', '49' => 'Maine-et-Loire', '50' => 'Manche', '51' => 'Marne',
+                                '52' => 'Haute-Marne', '53' => 'Mayenne', '54' => 'Meurthe-et-Moselle', '55' => 'Meuse',
+                                '56' => 'Morbihan', '57' => 'Moselle', '58' => 'Nièvre', '59' => 'Nord',
+                                '60' => 'Oise', '61' => 'Orne', '62' => 'Pas-de-Calais', '63' => 'Puy-de-Dôme',
+                                '64' => 'Pyrénées-Atlantiques', '65' => 'Hautes-Pyrénées', '66' => 'Pyrénées-Orientales',
+                                '67' => 'Bas-Rhin', '68' => 'Haut-Rhin', '69' => 'Rhône', '70' => 'Haute-Saône',
+                                '71' => 'Saône-et-Loire', '72' => 'Sarthe', '73' => 'Savoie', '74' => 'Haute-Savoie',
+                                '75' => 'Paris', '76' => 'Seine-Maritime', '77' => 'Seine-et-Marne', '78' => 'Yvelines',
+                                '79' => 'Deux-Sèvres', '80' => 'Somme', '81' => 'Tarn', '82' => 'Tarn-et-Garonne',
+                                '83' => 'Var', '84' => 'Vaucluse', '85' => 'Vendée', '86' => 'Vienne',
+                                '87' => 'Haute-Vienne', '88' => 'Vosges', '89' => 'Yonne', '90' => 'Territoire de Belfort',
+                                '91' => 'Essonne', '92' => 'Hauts-de-Seine', '93' => 'Seine-Saint-Denis', '94' => 'Val-de-Marne',
+                                '95' => 'Val-d\'Oise', '971' => 'Guadeloupe', '972' => 'Martinique', '973' => 'Guyane',
+                                '974' => 'La Réunion', '976' => 'Mayotte'
+                            ];
+                            $departmentName = $departments[$departmentCode] ?? $departmentCode;
+                        @endphp
+                        <p class="text-red-100 text-xs md:text-sm">
+                            Intervention rapide à <strong class="text-white">{{ setting('company_city', 'Versailles') }}</strong> et tout le département <strong class="text-white">{{ $departmentName }} ({{ $departmentCode }})</strong> • Fuite, dégât des eaux, débouchage
                         </p>
                     </div>
                     
                     <!-- Right: CTA -->
-                    <div class="flex flex-col sm:flex-row gap-3">
+                    <div class="flex flex-col sm:flex-row gap-2">
                         <a href="tel:{{ str_replace(' ', '', setting('company_phone', '')) }}" 
-                           class="bg-white text-red-600 hover:bg-red-50 px-6 py-3 rounded-full font-black text-lg shadow-xl transition transform hover:scale-105 inline-flex items-center justify-center gap-2">
+                           class="bg-white text-red-800 hover:bg-gray-50 px-5 py-2.5 rounded-lg font-semibold text-base shadow-lg transition-all duration-300 transform hover:scale-105 hover:shadow-xl inline-flex items-center justify-center gap-2 border-2 border-transparent hover:border-red-800">
                             <i class="fas fa-phone-alt"></i>
                             <span>{{ setting('company_phone', '07 86 48 65 39') }}</span>
                         </a>
                         
                         <a href="{{ route('urgence.index') }}" 
-                           class="bg-red-900 hover:bg-red-950 text-white px-5 py-3 rounded-full font-bold shadow-xl transition inline-flex items-center justify-center gap-2 text-sm">
+                           class="bg-red-950 hover:bg-red-900 text-white px-4 py-2.5 rounded-lg font-semibold shadow-lg transition-all duration-300 transform hover:scale-105 hover:shadow-xl inline-flex items-center justify-center gap-2 border-2 border-red-800 hover:border-red-700">
                             <i class="fas fa-ambulance"></i>
                             <span>SOS</span>
                         </a>
