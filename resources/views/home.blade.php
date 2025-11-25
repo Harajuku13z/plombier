@@ -1,63 +1,9 @@
 @extends('layouts.app')
 
-@section('title', 'Plombier Versailles 78 | Artisan Expert en Plomberie Yvelines | Dépannage Urgence 24h/7')
-@section('description', 'Plombier professionnel à Versailles (78) et Yvelines. Dépannage urgence 24h/24, installation sanitaire, réparation fuite, débouchage canalisation. Devis gratuit ☎️ ' . setting('company_phone', '07 86 48 65 39'))
+@section('title', setting('company_name', 'Votre Entreprise') . ' - ' . setting('company_specialization', 'Travaux de Rénovation'))
+@section('description', setting('company_description', 'Expert en travaux de rénovation'))
 
 @push('head')
-<!-- SEO Meta Tags Optimisés pour Plombier Versailles 78 -->
-<meta name="keywords" content="plombier versailles, plombier versailles 78, plombier yvelines, plomberie versailles, artisan plombier versailles, dépannage plomberie versailles, plombier urgence versailles, plombier 24h versailles, réparation fuite versailles, débouchage canalisation versailles, installation sanitaire versailles, plombier pas cher versailles, devis plombier versailles, plombier chauffagiste versailles, dépannage chauffe-eau versailles, installation chaudière versailles, plomberie salle de bain versailles, rénovation salle de bain versailles, plombier le chesnay, plombier viroflay, plombier vélizy, plombier jouy en josas, plombier buc, plombier saint cyr l'école, plombier bailly, plombier noisy le roi, installation plomberie neuve versailles, remplacement tuyauterie versailles, détection fuite versailles, réparation robinetterie versailles, plombier certifié versailles, entreprise plomberie versailles 78000, plombier agrée versailles, plomberie chauffage versailles, installation VMC versailles, plombier qualifié yvelines, urgence plombier week-end versailles, plombier dimanche versailles, dégorgement urgence versailles, curage canalisation versailles, inspection caméra canalisation versailles">
-<meta name="geo.region" content="FR-78" />
-<meta name="geo.placename" content="Versailles" />
-<meta name="geo.position" content="48.801408;2.130122" />
-<meta name="ICBM" content="48.801408, 2.130122" />
-<meta property="og:title" content="Plombier Versailles 78 | Expert Plomberie Yvelines | Urgence 24h/7" />
-<meta property="og:description" content="Votre plombier professionnel à Versailles et dans les Yvelines. Intervention rapide, devis gratuit. Dépannage urgence 24h/24, 7j/7." />
-<meta property="og:type" content="website" />
-<meta property="og:locale" content="fr_FR" />
-<link rel="canonical" href="{{ url('/') }}" />
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Plumber",
-  "name": "{{ setting('company_name', 'Plombier Versailles') }}",
-  "description": "Plombier professionnel à Versailles (78) - Dépannage urgence 24h/24, installation, réparation",
-  "image": "{{ asset(setting('company_logo', '/images/logo.png')) }}",
-  "telephone": "{{ setting('company_phone', '07 86 48 65 39') }}",
-  "address": {
-    "@type": "PostalAddress",
-    "streetAddress": "{{ setting('company_address', '') }}",
-    "addressLocality": "Versailles",
-    "postalCode": "78000",
-    "addressRegion": "Yvelines",
-    "addressCountry": "FR"
-  },
-  "geo": {
-    "@type": "GeoCoordinates",
-    "latitude": "48.801408",
-    "longitude": "2.130122"
-  },
-  "url": "{{ url('/') }}",
-  "priceRange": "€€",
-  "areaServed": [
-    "Versailles",
-    "Le Chesnay",
-    "Viroflay",
-    "Vélizy-Villacoublay",
-    "Jouy-en-Josas",
-    "Buc",
-    "Saint-Cyr-l'École",
-    "Bailly",
-    "Noisy-le-Roi",
-    "Yvelines"
-  ],
-  "openingHoursSpecification": {
-    "@type": "OpeningHoursSpecification",
-    "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
-    "opens": "00:00",
-    "closes": "23:59"
-  }
-}
-</script>
 <style>
     :root {
         --primary-color: {{ setting('primary_color', '#3b82f6') }};
@@ -287,68 +233,35 @@
     </section>
 
     <!-- Section Urgence Plomberie (Compacte) -->
-    <section class="py-4 md:py-5 bg-gradient-to-r from-red-800 to-red-900 relative overflow-hidden">
+    <section class="py-8 md:py-10 bg-gradient-to-r from-red-600 to-red-700 relative overflow-hidden">
         <div class="absolute inset-0 opacity-10">
-            <div class="absolute top-0 right-0 w-24 h-24 bg-red-700 rounded-full blur-2xl animate-pulse"></div>
+            <div class="absolute top-0 right-0 w-32 h-32 bg-red-500 rounded-full blur-2xl animate-pulse"></div>
         </div>
         
         <div class="container mx-auto px-4 relative z-10">
             <div class="max-w-5xl mx-auto">
-                <div class="flex flex-col md:flex-row items-center justify-between gap-3 md:gap-4 text-white">
+                <div class="flex flex-col md:flex-row items-center justify-between gap-4 md:gap-6 text-white">
                     <!-- Left: Message -->
                     <div class="text-center md:text-left flex-1">
-                        <div class="flex items-center justify-center md:justify-start gap-2 mb-1">
-                            <i class="fas fa-exclamation-triangle text-xl md:text-2xl animate-pulse"></i>
-                            <h3 class="text-lg md:text-xl font-bold">URGENCE 24/7</h3>
+                        <div class="flex items-center justify-center md:justify-start gap-3 mb-2">
+                            <i class="fas fa-exclamation-triangle text-2xl md:text-3xl animate-pulse"></i>
+                            <h3 class="text-xl md:text-2xl font-black">URGENCE 24/7</h3>
                         </div>
-                        @php
-                            $postalCode = setting('company_postal_code', '78000');
-                            $departmentCode = substr($postalCode, 0, 2);
-                            $departments = [
-                                '01' => 'Ain', '02' => 'Aisne', '03' => 'Allier', '04' => 'Alpes-de-Haute-Provence',
-                                '05' => 'Hautes-Alpes', '06' => 'Alpes-Maritimes', '07' => 'Ardèche', '08' => 'Ardennes',
-                                '09' => 'Ariège', '10' => 'Aube', '11' => 'Aude', '12' => 'Aveyron',
-                                '13' => 'Bouches-du-Rhône', '14' => 'Calvados', '15' => 'Cantal', '16' => 'Charente',
-                                '17' => 'Charente-Maritime', '18' => 'Cher', '19' => 'Corrèze', '21' => 'Côte-d\'Or',
-                                '22' => 'Côtes-d\'Armor', '23' => 'Creuse', '24' => 'Dordogne', '25' => 'Doubs',
-                                '26' => 'Drôme', '27' => 'Eure', '28' => 'Eure-et-Loir', '29' => 'Finistère',
-                                '2A' => 'Corse-du-Sud', '2B' => 'Haute-Corse', '30' => 'Gard', '31' => 'Haute-Garonne',
-                                '32' => 'Gers', '33' => 'Gironde', '34' => 'Hérault', '35' => 'Ille-et-Vilaine',
-                                '36' => 'Indre', '37' => 'Indre-et-Loire', '38' => 'Isère', '39' => 'Jura',
-                                '40' => 'Landes', '41' => 'Loir-et-Cher', '42' => 'Loire', '43' => 'Haute-Loire',
-                                '44' => 'Loire-Atlantique', '45' => 'Loiret', '46' => 'Lot', '47' => 'Lot-et-Garonne',
-                                '48' => 'Lozère', '49' => 'Maine-et-Loire', '50' => 'Manche', '51' => 'Marne',
-                                '52' => 'Haute-Marne', '53' => 'Mayenne', '54' => 'Meurthe-et-Moselle', '55' => 'Meuse',
-                                '56' => 'Morbihan', '57' => 'Moselle', '58' => 'Nièvre', '59' => 'Nord',
-                                '60' => 'Oise', '61' => 'Orne', '62' => 'Pas-de-Calais', '63' => 'Puy-de-Dôme',
-                                '64' => 'Pyrénées-Atlantiques', '65' => 'Hautes-Pyrénées', '66' => 'Pyrénées-Orientales',
-                                '67' => 'Bas-Rhin', '68' => 'Haut-Rhin', '69' => 'Rhône', '70' => 'Haute-Saône',
-                                '71' => 'Saône-et-Loire', '72' => 'Sarthe', '73' => 'Savoie', '74' => 'Haute-Savoie',
-                                '75' => 'Paris', '76' => 'Seine-Maritime', '77' => 'Seine-et-Marne', '78' => 'Yvelines',
-                                '79' => 'Deux-Sèvres', '80' => 'Somme', '81' => 'Tarn', '82' => 'Tarn-et-Garonne',
-                                '83' => 'Var', '84' => 'Vaucluse', '85' => 'Vendée', '86' => 'Vienne',
-                                '87' => 'Haute-Vienne', '88' => 'Vosges', '89' => 'Yonne', '90' => 'Territoire de Belfort',
-                                '91' => 'Essonne', '92' => 'Hauts-de-Seine', '93' => 'Seine-Saint-Denis', '94' => 'Val-de-Marne',
-                                '95' => 'Val-d\'Oise', '971' => 'Guadeloupe', '972' => 'Martinique', '973' => 'Guyane',
-                                '974' => 'La Réunion', '976' => 'Mayotte'
-                            ];
-                            $departmentName = $departments[$departmentCode] ?? $departmentCode;
-                        @endphp
-                        <p class="text-red-100 text-xs md:text-sm">
-                            Intervention rapide à <strong class="text-white">{{ setting('company_city', 'Versailles') }}</strong> et tout le département <strong class="text-white">{{ $departmentName }} ({{ $departmentCode }})</strong> • Fuite, dégât des eaux, débouchage
+                        <p class="text-red-100 text-sm md:text-base">
+                            Intervention rapide à {{ setting('company_city', 'Versailles') }} ({{ substr(setting('company_postal_code', '78'), 0, 2) }}) • Fuite, dégât des eaux, débouchage
                         </p>
                     </div>
                     
                     <!-- Right: CTA -->
-                    <div class="flex flex-col sm:flex-row gap-2">
+                    <div class="flex flex-col sm:flex-row gap-3">
                         <a href="tel:{{ str_replace(' ', '', setting('company_phone', '')) }}" 
-                           class="bg-white text-red-800 hover:bg-gray-50 px-5 py-2.5 rounded-lg font-semibold text-base shadow-lg transition-all duration-300 transform hover:scale-105 hover:shadow-xl inline-flex items-center justify-center gap-2 border-2 border-transparent hover:border-red-800">
+                           class="bg-white text-red-600 hover:bg-red-50 px-6 py-3 rounded-full font-black text-lg shadow-xl transition transform hover:scale-105 inline-flex items-center justify-center gap-2">
                             <i class="fas fa-phone-alt"></i>
                             <span>{{ setting('company_phone', '07 86 48 65 39') }}</span>
                         </a>
                         
                         <a href="{{ route('urgence.index') }}" 
-                           class="bg-red-950 hover:bg-red-900 text-white px-4 py-2.5 rounded-lg font-semibold shadow-lg transition-all duration-300 transform hover:scale-105 hover:shadow-xl inline-flex items-center justify-center gap-2 border-2 border-red-800 hover:border-red-700">
+                           class="bg-red-900 hover:bg-red-950 text-white px-5 py-3 rounded-full font-bold shadow-xl transition inline-flex items-center justify-center gap-2 text-sm">
                             <i class="fas fa-ambulance"></i>
                             <span>SOS</span>
                         </a>
@@ -425,11 +338,10 @@
                     @if(!empty($homeConfig['about']['image']))
                         <div class="aspect-square rounded-2xl overflow-hidden shadow-2xl">
                             <img src="{{ asset($homeConfig['about']['image']) }}" 
-                                 alt="Plombier professionnel Versailles 78 - Équipe artisan plomberie Yvelines expert en installation sanitaire et dépannage urgence" 
+                                 alt="{{ $homeConfig['about']['title'] ?? 'Qui Sommes-Nous' }}" 
                                  class="w-full h-full object-cover object-center mobile-responsive-img about-image-mobile"
                                  style="image-rendering: -webkit-optimize-contrast; image-rendering: crisp-edges; max-width: 100%; height: auto; display: block; width: 100%;"
                                  loading="lazy"
-                                 title="Votre artisan plombier à Versailles et dans les Yvelines"
                                  onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
                             <div class="w-full h-full bg-gradient-to-br from-primary to-secondary rounded-2xl flex items-center justify-center" style="display: none;">
                                 <div class="text-center text-white p-8">
@@ -473,10 +385,9 @@
                     @if(!empty($service['featured_image']))
                     <div class="h-48 bg-cover bg-center mobile-responsive-img service-image-mobile" style="background-image: url('{{ url($service['featured_image']) }}'); background-size: cover; background-position: center; background-repeat: no-repeat;">
                         <img src="{{ url($service['featured_image']) }}" 
-                             alt="Plombier Versailles 78 - {{ $service['name'] }} - Service professionnel plomberie Yvelines dépannage urgence" 
+                             alt="{{ $service['name'] }}" 
                              class="w-full h-full object-cover mobile-responsive-img"
                              style="display: none;"
-                             title="Service plomberie {{ $service['name'] }} à Versailles et Yvelines"
                              width="667"
                              height="350"
                              loading="lazy">
@@ -586,7 +497,8 @@
         </div>
     </section>
 
-    <!-- Sections Écologie, Simulateur et Aide Financière -->
+    <!-- Sections Écologie et Aide Financière -->
+    @if(($homeConfig['ecology']['enabled'] ?? false) || ($homeConfig['financing']['enabled'] ?? false))
     <section class="py-20 bg-gray-50">
         <div class="container mx-auto px-4">
             <div class="grid lg:grid-cols-2 gap-8">
@@ -597,30 +509,30 @@
                     <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-green-400 to-emerald-300"></div>
                     
                     <div class="relative z-10">
-                        <div class="flex items-center mb-4">
-                            <div class="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center mr-4 shadow-lg">
-                                <i class="fas fa-leaf text-white text-2xl"></i>
+                        <div class="flex items-center mb-6">
+                            <div class="w-20 h-20 bg-white/20 rounded-2xl flex items-center justify-center mr-6 shadow-lg">
+                                <i class="fas fa-leaf text-white text-3xl"></i>
                             </div>
                             <div>
-                                <h3 class="text-2xl font-bold mb-1" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.8);">
+                                <h3 class="text-3xl font-bold mb-2" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.8);">
                                     {{ $homeConfig['ecology']['title'] ?? 'Notre Engagement Écologique' }}
                                 </h3>
-                                <div class="w-12 h-1 bg-green-300 rounded-full"></div>
+                                <div class="w-16 h-1 bg-green-300 rounded-full"></div>
                             </div>
                         </div>
                         
-                        <div class="text-white/95 mb-4 text-base leading-relaxed font-medium" style="text-shadow: 1px 1px 3px rgba(0,0,0,0.7);">
+                        <div class="text-white/95 mb-8 text-lg leading-relaxed font-medium" style="text-shadow: 1px 1px 3px rgba(0,0,0,0.7);">
                             {!! nl2br(e($homeConfig['ecology']['content'])) !!}
                         </div>
                         
-                        <div class="grid grid-cols-2 gap-3">
-                            <div class="bg-white/25 backdrop-blur-sm rounded-xl p-4 text-center shadow-lg hover:bg-white/35 transition-all duration-300">
-                                <div class="text-3xl font-bold mb-2">♻️</div>
-                                <div class="text-xs font-bold" style="text-shadow: 1px 1px 2px rgba(0,0,0,0.8);">Matériaux recyclés</div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="bg-white/25 backdrop-blur-sm rounded-xl p-6 text-center shadow-lg hover:bg-white/35 transition-all duration-300">
+                                <div class="text-4xl font-bold mb-3">♻️</div>
+                                <div class="text-sm font-bold" style="text-shadow: 1px 1px 2px rgba(0,0,0,0.8);">Matériaux recyclés</div>
                             </div>
-                            <div class="bg-white/25 backdrop-blur-sm rounded-xl p-4 text-center shadow-lg hover:bg-white/35 transition-all duration-300">
-                                <div class="text-3xl font-bold mb-2">🌱</div>
-                                <div class="text-xs font-bold" style="text-shadow: 1px 1px 2px rgba(0,0,0,0.8);">Énergies vertes</div>
+                            <div class="bg-white/25 backdrop-blur-sm rounded-xl p-6 text-center shadow-lg hover:bg-white/35 transition-all duration-300">
+                                <div class="text-4xl font-bold mb-3">🌱</div>
+                                <div class="text-sm font-bold" style="text-shadow: 1px 1px 2px rgba(0,0,0,0.8);">Énergies vertes</div>
                             </div>
                         </div>
                     </div>
@@ -630,78 +542,6 @@
                     <div class="absolute -bottom-2 -left-2 w-16 h-16 bg-white/5 rounded-full"></div>
                 </div>
                 @endif
-                
-                <!-- Section Simulateur de Prix (Centre/Droite) -->
-                <div class="group relative overflow-hidden bg-gradient-to-br from-blue-600 to-indigo-700 rounded-3xl p-8 text-white shadow-2xl hover:shadow-3xl transition-all duration-300">
-                    <!-- Effet de brillance -->
-                    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-400 to-indigo-300"></div>
-                    
-                    <div class="relative z-10">
-                        <div class="text-center mb-4">
-                            <h3 class="text-2xl font-bold mb-2" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.8);">
-                                Simulateur de Prix
-                            </h3>
-                            <div class="w-16 h-1 bg-blue-300 rounded-full mx-auto"></div>
-                        </div>
-                        
-                        <!-- Image cliquable du simulateur (grande) -->
-                        <a href="{{ route('form.step', 'propertyType') }}" 
-                           class="block mb-4 group/image"
-                           onclick="trackFormClick('{{ request()->url() }}')">
-                            @if(setting('simulator_image') && file_exists(public_path(setting('simulator_image'))))
-                                <!-- Image du simulateur configurée -->
-                                <div class="relative rounded-2xl overflow-hidden shadow-2xl border-4 border-white/30 group-hover/image:border-white/50 transition-all duration-300">
-                                    <img src="{{ asset(setting('simulator_image')) }}" 
-                                         alt="Simulateur devis plombier Versailles 78 - Calculez gratuitement le prix de vos travaux de plomberie en ligne" 
-                                         class="w-full h-auto object-cover group-hover/image:scale-105 transition-transform duration-300"
-                                         title="Simulateur de devis plomberie gratuit Versailles Yvelines">
-                                    <!-- Overlay au hover -->
-                                    <div class="absolute inset-0 bg-gradient-to-t from-blue-900/80 via-transparent to-transparent opacity-0 group-hover/image:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-6">
-                                        <div class="bg-white text-blue-700 px-6 py-3 rounded-xl font-bold shadow-xl transform translate-y-4 group-hover/image:translate-y-0 transition-transform duration-300">
-                                            <i class="fas fa-calculator mr-2"></i>
-                                            Cliquez pour démarrer
-                                            <i class="fas fa-arrow-right ml-2"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            @else
-                                <!-- Placeholder si pas d'image configurée -->
-                                <div class="bg-white/20 backdrop-blur-sm rounded-2xl p-12 text-center border-4 border-white/30 group-hover/image:border-white/50 transition-all duration-300">
-                                    <i class="fas fa-calculator text-white text-6xl mb-4 opacity-80 group-hover/image:scale-110 transition-transform duration-300"></i>
-                                    <p class="text-white text-xl font-bold mb-2" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.8);">
-                                        Devis en ligne
-                                    </p>
-                                    <p class="text-blue-200 text-base">En moins de 2 minutes</p>
-                                </div>
-                            @endif
-                        </a>
-                        
-                        <!-- Avantages -->
-                        <div class="grid grid-cols-3 gap-3">
-                            <div class="bg-white/25 backdrop-blur-sm rounded-xl p-4 text-center shadow-lg hover:bg-white/35 transition-all duration-300">
-                                <div class="text-3xl font-bold mb-2">⚡</div>
-                                <div class="text-xs font-bold" style="text-shadow: 1px 1px 2px rgba(0,0,0,0.8);">Instantané</div>
-                            </div>
-                            <div class="bg-white/25 backdrop-blur-sm rounded-xl p-4 text-center shadow-lg hover:bg-white/35 transition-all duration-300">
-                                <div class="text-3xl font-bold mb-2">🎯</div>
-                                <div class="text-xs font-bold" style="text-shadow: 1px 1px 2px rgba(0,0,0,0.8);">Précis</div>
-                            </div>
-                            <div class="bg-white/25 backdrop-blur-sm rounded-xl p-4 text-center shadow-lg hover:bg-white/35 transition-all duration-300">
-                                <div class="text-3xl font-bold mb-2">💯</div>
-                                <div class="text-xs font-bold" style="text-shadow: 1px 1px 2px rgba(0,0,0,0.8);">Gratuit</div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Motif décoratif -->
-                    <div class="absolute -top-4 -right-4 w-24 h-24 bg-white/10 rounded-full"></div>
-                    <div class="absolute -bottom-2 -left-2 w-16 h-16 bg-white/5 rounded-full"></div>
-                    
-                    <!-- Badge "Nouveau" -->
-                    <div class="absolute top-4 right-4 bg-yellow-400 text-blue-900 text-xs font-bold px-3 py-1 rounded-full shadow-lg animate-pulse">
-                        ✨ NOUVEAU
-                    </div>
-                </div>
                 
                 <!-- Section Aide Financière (Droite) -->
                 @if(($homeConfig['financing']['enabled'] ?? false) && !empty($homeConfig['financing']['content']))
@@ -746,6 +586,8 @@
             </div>
         </div>
     </section>
+    @endif
+
 
     <!-- Portfolio Section -->
     @if(($homeConfig['sections']['portfolio']['enabled'] ?? true) && !empty($portfolioItems))
@@ -922,18 +764,16 @@
                         <a href="{{ $partner['url'] }}" target="_blank" rel="noopener noreferrer" class="w-full h-full flex items-center justify-center">
                             <img 
                                 src="{{ asset($partner['logo']) }}" 
-                                alt="Partenaire plombier Versailles 78 - {{ $partner['name'] ?? 'Partenaire certifié' }} - Plomberie professionnelle Yvelines"
+                                alt="{{ $partner['name'] ?? 'Partenaire' }}"
                                 class="max-w-full max-h-full object-contain transition-all duration-300 opacity-100 hover:opacity-90"
-                                title="{{ $partner['name'] ?? 'Partenaire' }} - Plombier Versailles"
                                 loading="lazy"
                                 onerror="this.style.display='none';">
                         </a>
                         @else
                         <img 
                             src="{{ asset($partner['logo']) }}" 
-                            alt="Partenaire plombier Versailles 78 - {{ $partner['name'] ?? 'Partenaire certifié' }} - Plomberie professionnelle Yvelines"
+                            alt="{{ $partner['name'] ?? 'Partenaire' }}"
                             class="max-w-full max-h-full object-contain opacity-100"
-                            title="{{ $partner['name'] ?? 'Partenaire' }} - Plombier Versailles"
                             loading="lazy"
                             onerror="this.style.display='none';">
                         @endif
@@ -1073,3 +913,10 @@
         });
     </script>
 @endsection
+
+
+
+
+
+
+
