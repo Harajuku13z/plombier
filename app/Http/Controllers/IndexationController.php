@@ -256,16 +256,42 @@ class IndexationController extends Controller
                 ], 400);
             }
             
-            // Extraire URLs
             $urls = [];
-            foreach ($xml->url as $url) {
-                $urls[] = (string)$url->loc;
+            
+            // Si c'est un sitemap index, extraire toutes les URLs de tous les sitemaps référencés
+            if ($filename === 'sitemap_index.xml' && isset($xml->sitemap)) {
+                $siteUrl = Setting::get('site_url', request()->getSchemeAndHttpHost());
+                $siteUrl = rtrim($siteUrl, '/');
+                
+                foreach ($xml->sitemap as $sitemap) {
+                    $sitemapUrl = (string)$sitemap->loc;
+                    
+                    // Extraire le nom du fichier du sitemap
+                    $sitemapFilename = basename(parse_url($sitemapUrl, PHP_URL_PATH));
+                    $sitemapFilePath = public_path($sitemapFilename);
+                    
+                    if (file_exists($sitemapFilePath)) {
+                        $sitemapXml = simplexml_load_file($sitemapFilePath);
+                        if ($sitemapXml && isset($sitemapXml->url)) {
+                            foreach ($sitemapXml->url as $url) {
+                                $urls[] = (string)$url->loc;
+                            }
+                        }
+                    }
+                }
+                
+                Log::info("📋 Index de sitemap : " . count($urls) . " URLs extraites de " . count($xml->sitemap) . " sitemaps");
+            } else {
+                // Sitemap normal : extraire les URLs directement
+                foreach ($xml->url as $url) {
+                    $urls[] = (string)$url->loc;
+                }
             }
             
             if (empty($urls)) {
                 return response()->json([
                     'success' => false,
-                    'message' => 'Aucune URL dans le sitemap'
+                    'message' => 'Aucune URL trouvée dans le sitemap'
                 ], 400);
             }
             
@@ -275,7 +301,9 @@ class IndexationController extends Controller
             
             return response()->json([
                 'success' => true,
-                'message' => "Sitemap soumis : {$results['success']} URLs envoyées",
+                'message' => $filename === 'sitemap_index.xml' 
+                    ? "Index de sitemap soumis : {$results['success']} URLs envoyées depuis tous les sitemaps référencés"
+                    : "Sitemap soumis : {$results['success']} URLs envoyées",
                 'success_count' => $results['success'],
                 'failed_count' => $results['failed'],
                 'total' => $results['total']

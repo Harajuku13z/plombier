@@ -140,6 +140,104 @@
         </div>
     </div>
 
+    <!-- Index de Sitemap -->
+    <?php
+    $sitemapIndexPath = public_path('sitemap_index.xml');
+    $hasSitemapIndex = file_exists($sitemapIndexPath);
+    $sitemapIndexUrl = $hasSitemapIndex ? url('sitemap_index.xml') : null;
+    $sitemapIndexSize = $hasSitemapIndex ? filesize($sitemapIndexPath) : 0;
+    $sitemapIndexModified = $hasSitemapIndex ? filemtime($sitemapIndexPath) : null;
+    ?>
+    
+    <div class="bg-gradient-to-r from-purple-50 to-blue-50 rounded-xl shadow-lg p-6 mb-8 border-l-4 border-purple-500">
+        <div class="flex justify-between items-center mb-4">
+            <h2 class="text-xl font-bold text-gray-800">
+                <i class="fas fa-list-ul mr-3 text-purple-600"></i>Index de Sitemap
+            </h2>
+            @if($hasSitemapIndex)
+                <span class="px-4 py-2 bg-green-100 text-green-800 text-sm font-semibold rounded-full">
+                    <i class="fas fa-check-circle mr-2"></i>Généré ✅
+                </span>
+            @else
+                <span class="px-4 py-2 bg-yellow-100 text-yellow-800 text-sm font-semibold rounded-full">
+                    <i class="fas fa-exclamation-triangle mr-2"></i>Non généré
+                </span>
+            @endif
+        </div>
+        
+        <p class="text-gray-600 mb-4 text-sm">
+            L'index de sitemap référence tous les sitemaps individuels. Il est automatiquement généré lorsque vous avez plusieurs sitemaps (> 2000 URLs).
+        </p>
+        
+        @if($hasSitemapIndex)
+            <div class="bg-white rounded-lg p-4 border border-purple-200">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                    <div>
+                        <div class="text-xs font-medium text-gray-500 uppercase mb-1">Fichier</div>
+                        <div class="text-sm font-semibold text-gray-900">
+                            <i class="fas fa-file-code text-purple-500 mr-2"></i>sitemap_index.xml
+                        </div>
+                    </div>
+                    <div>
+                        <div class="text-xs font-medium text-gray-500 uppercase mb-1">Taille</div>
+                        <div class="text-sm font-semibold text-gray-900">
+                            {{ number_format($sitemapIndexSize / 1024, 2) }} KB
+                        </div>
+                    </div>
+                    <div>
+                        <div class="text-xs font-medium text-gray-500 uppercase mb-1">Dernière modification</div>
+                        <div class="text-sm font-semibold text-gray-900">
+                            {{ $sitemapIndexModified ? date('d/m/Y H:i', $sitemapIndexModified) : 'N/A' }}
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flex flex-wrap gap-3">
+                    <a href="{{ $sitemapIndexUrl }}" target="_blank" 
+                       class="inline-flex items-center px-4 py-2 bg-purple-500 hover:bg-purple-600 text-white text-sm font-medium rounded-lg transition shadow hover:shadow-lg">
+                        <i class="fas fa-eye mr-2"></i>Voir l'index
+                    </a>
+                    <a href="{{ $sitemapIndexUrl }}" download
+                       class="inline-flex items-center px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white text-sm font-medium rounded-lg transition shadow hover:shadow-lg">
+                        <i class="fas fa-download mr-2"></i>Télécharger
+                    </a>
+                    <button onclick="copierUrl('{{ $sitemapIndexUrl }}')" 
+                            class="inline-flex items-center px-4 py-2 bg-gray-500 hover:bg-gray-600 text-white text-sm font-medium rounded-lg transition shadow hover:shadow-lg">
+                        <i class="fas fa-copy mr-2"></i>Copier l'URL
+                    </button>
+                    @if($isGoogleConfigured)
+                    <button onclick="soumettreSitemapIndex()" 
+                            class="inline-flex items-center px-4 py-2 bg-green-500 hover:bg-green-600 text-white text-sm font-medium rounded-lg transition shadow hover:shadow-lg">
+                        <i class="fas fa-upload mr-2"></i>Soumettre à Google
+                    </button>
+                    @endif
+                </div>
+            </div>
+            
+            <div class="mt-4 bg-blue-50 border-l-4 border-blue-500 p-4 rounded-lg">
+                <div class="flex items-start">
+                    <i class="fas fa-info-circle text-blue-500 text-xl mr-3 mt-1"></i>
+                    <div class="text-sm text-blue-800">
+                        <p class="font-semibold mb-1">URL de l'index de sitemap</p>
+                        <p class="font-mono text-xs break-all bg-blue-100 px-2 py-1 rounded mt-1">{{ $sitemapIndexUrl }}</p>
+                        <p class="mt-2 text-xs">Ajoutez cette URL dans Google Search Console pour soumettre tous vos sitemaps en une fois.</p>
+                    </div>
+                </div>
+            </div>
+        @else
+            <div class="bg-yellow-50 border-l-4 border-yellow-500 p-4 rounded-lg">
+                <div class="flex items-center">
+                    <i class="fas fa-info-circle text-yellow-500 text-xl mr-3"></i>
+                    <div class="text-sm text-yellow-800">
+                        <p class="font-semibold mb-1">Index non généré</p>
+                        <p>L'index de sitemap sera automatiquement créé lorsque vous aurez plusieurs sitemaps (> 2000 URLs).</p>
+                        <p class="mt-2">Cliquez sur "Régénérer Tous" ci-dessous pour générer les sitemaps et l'index.</p>
+                    </div>
+                </div>
+            </div>
+        @endif
+    </div>
+
     <!-- Liste des Sitemaps -->
     <div class="bg-white rounded-xl shadow-lg p-6 mb-8">
         <div class="flex justify-between items-center mb-6">
@@ -455,6 +553,57 @@ function regenererSitemap() {
     .then(data => {
         if (data.success) {
             alert('✅ Sitemap régénéré avec succès !');
+            window.location.reload();
+        } else {
+            alert('❌ Erreur : ' + (data.message || 'Erreur inconnue'));
+        }
+    })
+    .catch(error => {
+        alert('❌ Erreur : ' + error.message);
+    })
+    .finally(() => {
+        btn.disabled = false;
+        btn.innerHTML = originalHtml;
+    });
+}
+
+// Fonction copier URL
+function copierUrl(url) {
+    navigator.clipboard.writeText(url).then(function() {
+        alert('✅ URL copiée dans le presse-papiers !\n\n' + url);
+    }, function() {
+        // Fallback pour navigateurs anciens
+        const textarea = document.createElement('textarea');
+        textarea.value = url;
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textarea);
+        alert('✅ URL copiée dans le presse-papiers !\n\n' + url);
+    });
+}
+
+// Fonction soumettre sitemap index
+function soumettreSitemapIndex() {
+    if (!confirm('Soumettre l\'index de sitemap à Google ?\n\nCela soumettra tous les sitemaps référencés dans l\'index.\nDurée : 1-2 minutes.')) return;
+    
+    const btn = event.target;
+    const originalHtml = btn.innerHTML;
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Envoi...';
+    
+    fetch('{{ route("admin.indexation.submit-sitemap") }}', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+        },
+        body: JSON.stringify({ filename: 'sitemap_index.xml' })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert(`✅ Index de sitemap soumis !\n\n${data.success_count || 0} sitemaps référencés envoyés à Google`);
             window.location.reload();
         } else {
             alert('❌ Erreur : ' + (data.message || 'Erreur inconnue'));

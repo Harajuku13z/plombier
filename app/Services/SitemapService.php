@@ -107,9 +107,8 @@ class SitemapService
                 Log::info("✅ Sitemap généré: {$filename} (" . count($urlChunk) . " URLs)");
             }
             
-            // NE PAS créer de sitemap_index.xml - Google préfère sitemap.xml avec toutes les URLs
-            // Si plusieurs sitemaps, on garde sitemap.xml avec 2000 URLs et les autres sitemap2.xml, sitemap3.xml, etc.
-            // Google peut découvrir automatiquement les autres sitemaps via robots.txt ou soumission manuelle
+            // Créer le sitemap index (toujours, même avec un seul sitemap)
+            $this->generateSitemapIndex($sitemapFiles);
             
             // Supprimer les anciens sitemaps qui ne sont plus nécessaires
             $this->cleanupOldSitemaps(count($sitemapFiles));
@@ -119,7 +118,8 @@ class SitemapService
             return [
                 'success' => true,
                 'sitemaps' => $sitemapFiles,
-                'total_urls' => count($allUrls)
+                'total_urls' => count($allUrls),
+                'has_index' => true
             ];
             
         } catch (\Exception $e) {
@@ -220,20 +220,30 @@ class SitemapService
     }
 
     /**
-     * Générer un sitemap index (DÉSACTIVÉ - on n'utilise plus sitemap_index.xml)
+     * Générer un sitemap index qui référence tous les sitemaps individuels
      */
     protected function generateSitemapIndex($sitemapFiles)
     {
-        // DÉSACTIVÉ : On ne génère plus de sitemap_index.xml
-        // Google préfère sitemap.xml avec 2000 URLs et les autres sitemap2.xml, sitemap3.xml, etc.
-        // Les autres sitemaps peuvent être découverts via robots.txt ou soumission manuelle
-        Log::info("ℹ️ Sitemap index désactivé - utilisation de sitemap.xml avec 2000 URLs");
-        
-        // Supprimer sitemap_index.xml s'il existe
-        $indexPath = public_path('sitemap_index.xml');
-        if (file_exists($indexPath)) {
-            unlink($indexPath);
-            Log::info("🗑️ Sitemap index supprimé: sitemap_index.xml");
+        try {
+            $xml = '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
+            $xml .= '<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . "\n";
+            
+            foreach ($sitemapFiles as $sitemapFile) {
+                $lastmod = Carbon::now()->format('Y-m-d\TH:i:s+00:00');
+                $xml .= '  <sitemap>' . "\n";
+                $xml .= '    <loc>' . htmlspecialchars($sitemapFile['url']) . '</loc>' . "\n";
+                $xml .= '    <lastmod>' . $lastmod . '</lastmod>' . "\n";
+                $xml .= '  </sitemap>' . "\n";
+            }
+            
+            $xml .= '</sitemapindex>';
+            
+            $indexPath = public_path('sitemap_index.xml');
+            file_put_contents($indexPath, $xml);
+            
+            Log::info("✅ Sitemap index généré: sitemap_index.xml (" . count($sitemapFiles) . " sitemaps référencés)");
+        } catch (\Exception $e) {
+            Log::error("❌ Erreur lors de la génération du sitemap index : " . $e->getMessage());
         }
     }
 
@@ -247,10 +257,8 @@ class SitemapService
         foreach ($sitemapFiles as $file) {
             $filename = basename($file);
             
-            // SUPPRIMER sitemap_index.xml (on n'en veut plus)
+            // Ne pas supprimer sitemap_index.xml (on l'utilise maintenant)
             if ($filename === 'sitemap_index.xml') {
-                unlink($file);
-                Log::info("🗑️ Sitemap index supprimé: {$filename}");
                 continue;
             }
             
@@ -419,7 +427,7 @@ class SitemapService
         foreach ($sitemapFiles as $file) {
             $filename = basename($file);
             
-            // Ignorer le sitemap index
+            // Ignorer le sitemap index (c'est un index, pas un sitemap d'URLs)
             if ($filename === 'sitemap_index.xml') {
                 continue;
             }
