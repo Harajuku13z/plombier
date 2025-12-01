@@ -262,6 +262,11 @@ Route::post('/simulateur/calculate', [App\Http\Controllers\CostSimulatorControll
 Route::get('/ads', [AdPublicController::class, 'index'])->name('ads.index');
 Route::get('/ads/{slug}', [AdPublicController::class, 'show'])->name('ads.show');
 
+// Redirection de /annonces/ vers /ads/ pour compatibilité
+Route::get('/annonces/{slug}', function ($slug) {
+    return redirect()->route('ads.show', ['slug' => $slug], 301);
+})->name('annonces.show');
+
 // Routes publiques pour les avis
 Route::get('/reviews', [FormControllerSimple::class, 'allReviews'])->name('reviews.all');
 

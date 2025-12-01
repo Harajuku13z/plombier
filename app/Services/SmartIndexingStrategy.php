@@ -214,7 +214,7 @@ class SmartIndexingStrategy
                 
                 // Indexer
                 try {
-                    $url = url('/annonces/' . $ad->slug);
+                    $url = url('/ads/' . $ad->slug);
                     $result = $this->googleIndexing->indexUrl($url);
                     
                     if ($result) {

@@ -57,7 +57,7 @@ class AdTemplateController extends Controller
             foreach ($templates as $template) {
                 foreach ($template->ads as $ad) {
                     if ($ad->slug) {
-                        $url = $baseUrl . '/annonces/' . $ad->slug;
+                        $url = $baseUrl . '/ads/' . $ad->slug;
                         $allLinks[] = [
                             'url' => $url,
                             'template_name' => $template->name,

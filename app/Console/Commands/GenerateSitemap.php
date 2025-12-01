@@ -110,7 +110,7 @@ class GenerateSitemap extends Command
         $this->info("📢 Ajout de {$ads->count()} annonces...");
         
         foreach ($ads as $ad) {
-            $sitemap->add(Url::create($baseUrl . '/annonces/' . $ad->slug)
+            $sitemap->add(Url::create($baseUrl . '/ads/' . $ad->slug)
                 ->setLastModificationDate($ad->updated_at)
                 ->setChangeFrequency(Url::CHANGE_FREQUENCY_MONTHLY)
                 ->setPriority(0.6));
