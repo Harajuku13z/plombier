@@ -165,6 +165,7 @@ class SitemapController extends Controller
         $staticPages = [
             ['route' => 'services.index', 'priority' => 0.8, 'freq' => Url::CHANGE_FREQUENCY_WEEKLY],
             ['route' => 'blog.index', 'priority' => 0.7, 'freq' => Url::CHANGE_FREQUENCY_WEEKLY],
+            ['route' => 'ads.index', 'priority' => 0.8, 'freq' => Url::CHANGE_FREQUENCY_WEEKLY], // Page index des annonces
             ['route' => 'devis.gratuit', 'priority' => 0.8, 'freq' => Url::CHANGE_FREQUENCY_MONTHLY],
             ['route' => 'contact', 'priority' => 0.7, 'freq' => Url::CHANGE_FREQUENCY_MONTHLY],
             ['route' => 'reviews.all', 'priority' => 0.6, 'freq' => Url::CHANGE_FREQUENCY_WEEKLY],

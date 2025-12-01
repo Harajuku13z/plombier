@@ -152,6 +152,7 @@ class SitemapService
                 '/nos-realisations' => ['priority' => 0.8, 'changefreq' => 'monthly'],
                 '/avis' => ['priority' => 0.8, 'changefreq' => 'weekly'],
                 '/blog' => ['priority' => 0.7, 'changefreq' => 'weekly'],
+                '/ads' => ['priority' => 0.8, 'changefreq' => 'weekly'], // Page index des annonces
                 '/contact' => ['priority' => 0.6, 'changefreq' => 'monthly'],
                 '/jobs' => ['priority' => 0.7, 'changefreq' => 'weekly'], // Page emploi (cachée des menus)
                 '/mentions-legales' => ['priority' => 0.3, 'changefreq' => 'yearly'],
