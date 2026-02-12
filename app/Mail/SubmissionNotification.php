@@ -32,7 +32,7 @@ class SubmissionNotification extends Mailable
             ?? ($this->submission->first_name . ' ' . $this->submission->last_name);
         
         $mail = $this->subject('🔔 Nouvelle soumission - ' . $name)
-                     ->view('emails.submission-notification');
+                    ->view('emails.submission-notification');
         
         // Attacher les photos si disponibles
         $allPhotos = $this->getAllPhotos();

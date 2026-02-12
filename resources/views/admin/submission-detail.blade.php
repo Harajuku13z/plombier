@@ -73,16 +73,16 @@
                         <div>
                             <label class="text-sm font-medium text-gray-500">Type de formulaire</label>
                             <p class="mt-1 text-lg font-medium text-gray-900">
-                                @if($submission->is_emergency)
+                                    @if($submission->is_emergency)
                                     <span class="inline-flex items-center px-2 py-1 rounded text-sm font-medium bg-red-100 text-red-800">
-                                        🚨 URGENCE
-                                    </span>
+                                            🚨 URGENCE
+                                        </span>
                                 @else
                                     {{ $submission->work_type ?? 'Simulateur' }}
                                 @endif
                             </p>
                         </div>
-                        @endif
+                                    @endif
 
                         <!-- Contact (toujours affichés) -->
                         <div>
@@ -100,9 +100,9 @@
                             <label class="text-sm font-medium text-gray-500">Email *</label>
                             <p class="mt-1 text-lg text-gray-900">
                                 @if($submission->email)
-                                    <a href="mailto:{{ $submission->email }}" class="text-blue-600 hover:text-blue-800">
+                                <a href="mailto:{{ $submission->email }}" class="text-blue-600 hover:text-blue-800">
                                         <i class="fas fa-envelope mr-1"></i>{{ $submission->email }}
-                                    </a>
+                                </a>
                                 @else
                                     <span class="text-gray-400 italic">Non renseigné</span>
                                 @endif
@@ -113,7 +113,7 @@
                             <label class="text-sm font-medium text-gray-500">Téléphone *</label>
                             <p class="mt-1 text-lg text-gray-900">
                                 @if($submission->phone)
-                                    <a href="tel:{{ $submission->phone }}" class="text-blue-600 hover:text-blue-800">
+                                <a href="tel:{{ $submission->phone }}" class="text-blue-600 hover:text-blue-800">
                                         <i class="fas fa-phone mr-1"></i>{{ $submission->phone }}
                                     </a>
                                 @else

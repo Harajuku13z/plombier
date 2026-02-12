@@ -568,7 +568,7 @@ class AdminController extends Controller
             return back()->with('error', '❌ Erreur lors de la suppression : ' . $e->getMessage());
         }
     }
-    
+
     /**
      * Supprimer toutes les soumissions (avec vérification du mot de passe)
      */

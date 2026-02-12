@@ -274,20 +274,20 @@ use Illuminate\Support\Str;
                     </td>
                     <td class="px-3 lg:px-6 py-4">
                         <div class="flex flex-col gap-1">
-                            <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium
-                                {{ match($submission->status) {
-                                    'COMPLETED' => 'bg-green-100 text-green-800',
-                                    'IN_PROGRESS' => 'bg-yellow-100 text-yellow-800',
-                                    'ABANDONED' => 'bg-red-100 text-red-800',
-                                    default => 'bg-gray-100 text-gray-800'
-                                } }}">
-                                {{ match($submission->status) {
-                                    'COMPLETED' => 'Complété',
-                                    'IN_PROGRESS' => 'En cours',
-                                    'ABANDONED' => 'Abandonné',
-                                    default => 'Inconnu'
-                                } }}
-                            </span>
+                        <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium
+                            {{ match($submission->status) {
+                                'COMPLETED' => 'bg-green-100 text-green-800',
+                                'IN_PROGRESS' => 'bg-yellow-100 text-yellow-800',
+                                'ABANDONED' => 'bg-red-100 text-red-800',
+                                default => 'bg-gray-100 text-gray-800'
+                            } }}">
+                            {{ match($submission->status) {
+                                'COMPLETED' => 'Complété',
+                                'IN_PROGRESS' => 'En cours',
+                                'ABANDONED' => 'Abandonné',
+                                default => 'Inconnu'
+                            } }}
+                        </span>
                             @if($submission->called_at)
                             <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800" title="Appelé le {{ $submission->called_at->format('d/m/Y à H:i') }}">
                                 <i class="fas fa-phone-alt mr-1"></i>Appelé
