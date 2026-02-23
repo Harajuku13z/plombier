@@ -850,7 +850,7 @@ IMPORTANT:
             $siteUrl = 'https://' . $siteUrl;
         }
         $formUrl = $siteUrl . '/form/propertyType';
-        $adUrl = $siteUrl . '/annonces/' . Str::slug($keyword . '-' . $city->name);
+        $adUrl = $siteUrl . '/ads/' . Str::slug($keyword . '-' . $city->name);
         $adTitle = ucfirst($keyword) . ' à ' . $city->name;
         
         return '<div class="grid md:grid-cols-2 gap-8">

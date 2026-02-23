@@ -333,7 +333,7 @@ class SmartIndexingStrategy
             if ($validation['score'] >= 65) {
                 $content[] = [
                     'type' => 'ad',
-                    'url' => url('/annonces/' . $ad->slug),
+                    'url' => url('/ads/' . $ad->slug),
                     'score' => $validation['score'],
                     'created_at' => $ad->created_at
                 ];

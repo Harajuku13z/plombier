@@ -52,7 +52,7 @@ $adsForSitemap = Ad::where('status', 'published')
 
 echo "Annonces pour le sitemap (premières 10):\n";
 foreach ($adsForSitemap as $ad) {
-    echo "- /annonces/{$ad->slug}\n";
+    echo "- /ads/{$ad->slug}\n";
 }
 
 echo "\n=== Instructions ===\n";

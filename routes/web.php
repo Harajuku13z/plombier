@@ -498,17 +498,46 @@ Route::prefix('admin/services')->name('services.admin.')->middleware(['admin.aut
         Route::delete('/delete/{id}', [ConfigController::class, 'deletePortfolioItem'])->name('delete');
 });
 
-// Route pour le sitemap index (retourne le sitemap_index.xml)
-Route::get('/sitemap.xml', [App\Http\Controllers\SitemapController::class, 'index'])->name('sitemap.xml');
+// Route pour les sitemaps (retournent les fichiers XML déjà générés)
+Route::get('/sitemap.xml', function () {
+    $path = public_path('sitemap.xml');
+    if (file_exists($path)) {
+        return response(file_get_contents($path), 200)
+            ->header('Content-Type', 'application/xml');
+    }
+    // Fallback: si le fichier n'existe pas, essayer de le générer via le service
+    try {
+        $service = app(\App\Services\SitemapService::class);
+        $result = $service->generateSitemap();
+        if (!empty($result['success']) && file_exists($path)) {
+            return response(file_get_contents($path), 200)
+                ->header('Content-Type', 'application/xml');
+        }
+    } catch (\Exception $e) {
+        // En cas d'erreur, retourner une 500 standard
+        \Log::error('Erreur génération sitemap.xml via HTTP', ['error' => $e->getMessage()]);
+    }
+    abort(500, 'Sitemap non disponible pour le moment.');
+})->name('sitemap.xml');
+
 Route::get('/sitemap_index.xml', function () {
     $indexPath = public_path('sitemap_index.xml');
     if (file_exists($indexPath)) {
         return response(file_get_contents($indexPath), 200)
             ->header('Content-Type', 'application/xml');
     }
-    // Si le fichier n'existe pas, générer via le contrôleur
-    $controller = app(\App\Http\Controllers\SitemapController::class);
-    return $controller->index();
+    // Fallback: regénérer les sitemaps via le service puis servir l'index
+    try {
+        $service = app(\App\Services\SitemapService::class);
+        $service->generateSitemap();
+        if (file_exists($indexPath)) {
+            return response(file_get_contents($indexPath), 200)
+                ->header('Content-Type', 'application/xml');
+        }
+    } catch (\Exception $e) {
+        \Log::error('Erreur génération sitemap_index.xml via HTTP', ['error' => $e->getMessage()]);
+    }
+    abort(500, 'Sitemap index non disponible pour le moment.');
 })->name('sitemap_index.xml');
 
 // Route HTTP pour exécuter l'automatisation SEO (pour Hostinger et services externes)
